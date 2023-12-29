@@ -1,3 +1,11 @@
+<?php
+include("koneksi.php");
+
+$query = "SELECT * FROM tb_coba;";
+$sql = mysqli_query($conn, $query);
+$no = 1;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +50,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
+            <a href="index.php" class="logo d-flex align-items-center">
                 <img src="assets/img/logo.png" alt="LSR">
                 <span class="d-none d-lg-block">E-LSR</span>
             </a>
@@ -202,26 +210,26 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="index.html">
+                <a class="nav-link collapsed" href="index.php">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link " href="create-lsr.html">
+                <a class="nav-link " href="create-lsr.php">
                     <i class="bi bi-menu-button-wide"></i><span>Create LSR</span>
                 </a>
             </li><!-- End Create LSR Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-error-404.html">
+                <a class="nav-link collapsed" href="pages-error-404.php">
                     <i class="bi bi-journal-text"></i><span>Data Center</span>
                 </a>
             </li><!-- End Data Center Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-error-404.html">
+                <a class="nav-link collapsed" href="pages-error-404.php">
                     <i class="bi bi-layout-text-window-reverse"></i><span>Master Data</span>
                 </a>
             </li><!-- End Master Data Nav -->
@@ -230,14 +238,14 @@
             <li class="nav-heading">Pages</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-error-404.html">
+                <a class="nav-link collapsed" href="pages-error-404.php">
                     <i class="bi bi-person"></i>
                     <span>Profile</span>
                 </a>
             </li><!-- End Profile Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-error-404.html">
+                <a class="nav-link collapsed" href="pages-error-404.php">
                     <i class="bi bi-box-arrow-in-right"></i>
                     <span>Logout</span>
                 </a>
@@ -253,7 +261,7 @@
             <h1>Create LSR</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                     <li class="breadcrumb-item active">Create LSR</li>
                 </ol>
             </nav>
@@ -449,17 +457,34 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>11461-0Y040-00</td>
-                                                    <td>CAP ASSY, OIL FILLER</td>
-                                                    <td>D001</td>
-                                                    <td>12</td>
-                                                    <td>F</td>
-                                                    <td>-</td>
-                                                    <td>0</td>
-                                                    <td>Part Scrap</td>
-                                                <tr>
+                                                <?php
+                                                while ($result = mysqli_fetch_assoc($sql)) {
+                                                    ?>
+                                                    <tr>
+                                                        <td>
+                                                            <?php echo $no++; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $result["part_number"]; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $result["part_name"]; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $result["uniqe_no"]; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $result["part_qty"]; ?>
+                                                        </td>
+                                                        <td>F</td>
+                                                        <td>-</td>
+                                                        <td>0</td>
+                                                        <td>Part Scrap</td>
+                                                    </tr>
+                                                    <?php
+                                                }
+                                                ?>
+                                                <!-- <tr>
                                                     <td>2</td>
                                                     <td>11461-0Y040-00</td>
                                                     <td>DAMPER, CHAIN VIBRATION, NO.2</td>
@@ -469,7 +494,7 @@
                                                     <td>1</td>
                                                     <td>1</td>
                                                     <td>Part Scrap</td>
-                                                </tr>
+                                                </tr> -->
                                             </tbody>
                                             <!-- <tfoot>
                                                 <th scope="col" colspan="9">Total</th>

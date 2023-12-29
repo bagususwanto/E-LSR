@@ -1,3 +1,10 @@
+<?php
+include("koneksi.php");
+
+$query = "SELECT * FROM tb_coba;";
+$sql = mysqli_query($conn, $query);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +49,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
+            <a href="index.php" class="logo d-flex align-items-center">
                 <img src="assets/img/logo.png" alt="LSR">
                 <span class="d-none d-lg-block">E-LSR</span>
             </a>
@@ -209,19 +216,19 @@
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="create-lsr.html">
+                <a class="nav-link collapsed" href="create-lsr.php">
                     <i class="bi bi-menu-button-wide"></i><span>Create LSR</span>
                 </a>
             </li><!-- End Create LSR Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-error-404.html">
+                <a class="nav-link collapsed" href="pages-error-404.php">
                     <i class="bi bi-journal-text"></i><span>Data Center</span>
                 </a>
             </li><!-- End Data Center Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-error-404.html">
+                <a class="nav-link collapsed" href="pages-error-404.php">
                     <i class="bi bi-layout-text-window-reverse"></i><span>Master Data</span>
                 </a>
             </li><!-- End Master Data Nav -->
@@ -230,14 +237,14 @@
             <li class="nav-heading">Pages</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-error-404.html">
+                <a class="nav-link collapsed" href="pages-error-404.php">
                     <i class="bi bi-person"></i>
                     <span>Profile</span>
                 </a>
             </li><!-- End Profile Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-error-404.html">
+                <a class="nav-link collapsed" href="pages-error-404.php">
                     <i class="bi bi-box-arrow-in-right"></i>
                     <span>Logout</span>
                 </a>
@@ -253,7 +260,7 @@
             <h1>Dashboard</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
             </nav>
