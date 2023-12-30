@@ -293,13 +293,14 @@ if (!$hasil) {
                                     </div>
                                     <div class="row card-body">
                                         <div class="col-3">
-                                            <label for="tanggal">Date</label>
-                                            <input class="form-control" name="tanggal" type="text" value="1999-00-00"
-                                                aria-label="readonly input example" readonly>
+                                            <label for="tanggal" class="form-label col-form-label-sm">Date</label>
+                                            <input class="form-control form-control-sm" name="tanggal" type="text"
+                                                value="1999-00-00" aria-label="readonly input example" readonly>
                                         </div>
                                         <div class="col-3">
-                                            <label for="line">Line</label>
-                                            <select class="form-select" name="line" aria-label="Default select example">
+                                            <label for="line" class="form-label col-form-label-sm">Line</label>
+                                            <select class="form-select form-select-sm" name="line"
+                                                aria-label="Default select example">
                                                 <option selected></option>
                                                 <option value="1">Main Line</option>
                                                 <option value="1">Sub Line</option>
@@ -319,8 +320,8 @@ if (!$hasil) {
                                         </div>
 
                                         <div class="col-3">
-                                            <label for="shift">Shift</label>
-                                            <select class="form-select" name="shift"
+                                            <label for="shift" class="form-label col-form-label-sm">Shift</label>
+                                            <select class="form-select form-select-sm" name="shift"
                                                 aria-label="Default select example">
                                                 <option selected></option>
                                                 <option value="1">Red</option>
@@ -329,8 +330,8 @@ if (!$hasil) {
                                         </div>
 
                                         <div class="col-3">
-                                            <label for="material">Material</label>
-                                            <select class="form-select" id="material" name="material"
+                                            <label for="material" class="form-label col-form-label-sm">Material</label>
+                                            <select class="form-select form-select-sm" id="material" name="material"
                                                 aria-label="Default select example">
                                                 <option selected></option>
                                                 <option value="1">Assembly</option>
@@ -345,8 +346,8 @@ if (!$hasil) {
 
                                     <div class="row card-body">
                                         <div class="col-3 pt-3">
-                                            <label for="lineCode">Line Code</label>
-                                            <select class="form-select" name="lineCode"
+                                            <label for="lineCode" class="form-label col-form-label-sm">Line Code</label>
+                                            <select class="form-select form-select-sm" name="lineCode"
                                                 aria-label="Default select example">
                                                 <option selected></option>
                                                 <option value="1">KML</option>
@@ -367,8 +368,9 @@ if (!$hasil) {
                                         </div>
 
                                         <div class="col-3 pt-3">
-                                            <label for="costCenter">Cost Center</label>
-                                            <select class="form-select" name="costCenter"
+                                            <label for="costCenter" class="form-label col-form-label-sm">Cost
+                                                Center</label>
+                                            <select class="form-select form-select-sm" name="costCenter"
                                                 aria-label="Default select example">
                                                 <option selected></option>
                                                 <option value="1">AQK200</option>
@@ -404,8 +406,9 @@ if (!$hasil) {
 
 
                                         <div class="col-3">
-                                            <label for="partNumber">Part Number</label>
-                                            <select class="form-select" id="partNumber" name="partNumber"
+                                            <label for="partNumber" class="form-label col-form-label-sm">Part
+                                                Number</label>
+                                            <select class="form-select form-select-sm" id="partNumber" name="partNumber"
                                                 aria-label="Default select example">
                                                 <option selected></option>
                                                 <?php
@@ -418,8 +421,8 @@ if (!$hasil) {
                                         </div>
 
                                         <div class="col-4">
-                                            <label for="partName">Part Name</label>
-                                            <select class="form-select" id="partName" name="partName"
+                                            <label for="partName" class="form-label col-form-label-sm">Part Name</label>
+                                            <select class="form-select form-select-sm" id="partName" name="partName"
                                                 aria-label="Default select example">
                                                 <option selected></option>
                                                 <?php
@@ -435,8 +438,8 @@ if (!$hasil) {
                                         </div>
 
                                         <div class="col-2">
-                                            <label for="uniqeNo">Uniqe No</label>
-                                            <select class="form-select" id="uniqeNo" name="uniqeNo"
+                                            <label for="uniqeNo" class="form-label col-form-label-sm">Uniqe No</label>
+                                            <select class="form-select form-select-sm" id="uniqeNo" name="uniqeNo"
                                                 aria-label="Default select example">
                                                 <option selected></option>
                                                 <?php
@@ -458,14 +461,15 @@ if (!$hasil) {
                                         <input type="hidden" id="hiddenSourceType" name="hiddenSourceType">
 
                                         <div class="col-1">
-                                            <label for="qty">Qty</label>
-                                            <input class="form-control text-center" name="qty" type="text"
-                                                placeholder="" aria-label="default input example">
+                                            <label for="qty" class="form-label col-form-label-sm">Qty</label>
+                                            <input class="form-control form-control-sm text-center" name="qty"
+                                                type="text" placeholder="" aria-label="default input example">
                                         </div>
 
                                         <div class="col-2">
-                                            <label for="sourceType">Souurce Type</label>
-                                            <select class="form-select" id="sourceType" name="sourceType"
+                                            <label for="sourceType" class="form-label col-form-label-sm">Souurce
+                                                Type</label>
+                                            <select class="form-select form-select-sm" id="sourceType" name="sourceType"
                                                 aria-label="Default select example">
                                                 <option selected></option>
                                                 <?php
@@ -496,8 +500,8 @@ if (!$hasil) {
                                     <div class="row card-body">
 
                                         <div class="col-4">
-                                            <label for="reason">Reason</label>
-                                            <select class="form-select" name="reason"
+                                            <label for="reason" class="form-label col-form-label-sm">Reason</label>
+                                            <select class="form-select form-select-sm" name="reason"
                                                 aria-label="Default select example">
                                                 <option selected></option>
                                                 <option value="A">A. Shortage / Missing</option>
@@ -514,8 +518,9 @@ if (!$hasil) {
                                         </div>
 
                                         <div class="col-4">
-                                            <label for="condition">Condition</label>
-                                            <select class="form-select" name="condition"
+                                            <label for="condition"
+                                                class="form-label col-form-label-sm">Condition</label>
+                                            <select class="form-select form-select-sm" name="condition"
                                                 aria-label="Default select example">
                                                 <option selected></option>
                                                 <option value="-">- Unknow</option>
@@ -526,8 +531,8 @@ if (!$hasil) {
                                         </div>
 
                                         <div class="col-4">
-                                            <label for="repair">Repair</label>
-                                            <select class="form-select" name="repair"
+                                            <label for="repair" class="form-label col-form-label-sm">Repair</label>
+                                            <select class="form-select form-select-sm" name="repair"
                                                 aria-label="Default select example">
                                                 <option selected></option>
                                                 <option value="0">0. Unrepairable</option>
@@ -543,9 +548,10 @@ if (!$hasil) {
                         </div> <!--columns center Midle 2 end-->
 
                         <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">Remarks</label>
-                            <textarea class="form-control" name="remarks" id="exampleFormControlTextarea1"
-                                rows="3"></textarea>
+                            <label for="exampleFormControlTextarea1"
+                                class="form-label col-form-label-sm">Remarks</label>
+                            <textarea class="form-control form-control-sm" name="remarks"
+                                id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div> <!--remaks end-->
 
                         <div class="row">
@@ -571,7 +577,7 @@ if (!$hasil) {
                                     </div>
                                     <div class="row card-body">
 
-                                        <table class="table table-bordered table-sm text-center">
+                                        <table class="table table-bordered table-sm text-center table-responsive">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">No</th>

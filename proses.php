@@ -10,8 +10,8 @@ if (isset($_POST['add'])) {
     $sourceType = mysqli_real_escape_string($conn, $_POST['hiddenSourceType']);
 
     // Insert data 
-    $sql = "INSERT INTO tb_data_dc (id_part, part_number, part_name, uniqe_no, part_qty, source_type) 
-            VALUES (null, '$partNumber', '$partName', '$uniqeNo', '$qty', '$sourceType')";
+    $sql = "INSERT INTO tb_data_dc (id_part, part_number, part_name, uniqe_no, part_qty, reason_lsr, condition_lsr, repair_lsr, source_type) 
+            VALUES (null, '$partNumber', '$partName', '$uniqeNo', '$qty', '', '', '', '$sourceType')";
 
     // Cek apakah query berhasil dijalankan
     if ($conn->query($sql) === TRUE) {
