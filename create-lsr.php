@@ -1,9 +1,17 @@
 <?php
 include("koneksi.php");
 
-$query = "SELECT * FROM tb_coba;";
+$query = "SELECT * FROM tb_data_dc;";
 $sql = mysqli_query($conn, $query);
 $no = 1;
+
+
+$qry = "SELECT * FROM tb_master_part_dc";
+$hasil = mysqli_query($conn, $qry);
+
+if (!$hasil) {
+    die("Query gagal " . mysqli_error($conn));
+}
 ?>
 
 <!DOCTYPE html>
@@ -271,7 +279,7 @@ $no = 1;
             <div class="row">
                 <div class="col-lg-12">
 
-                    <div class="card bg-transparent p-3 card-blur"> <!--bg card-->
+                    <Form method="POST" action="proses.php" class="card bg-transparent p-3 card-blur"> <!--Form-->
                         <div class="card-header mb-3 bg-transparent card-blur">
                             Form Input
                         </div>
@@ -284,15 +292,47 @@ $no = 1;
                                         #1
                                     </div>
                                     <div class="row card-body">
-                                        <div class="col-4 pb-3">
-                                            <span>Date</span>
-                                            <input class="form-control" type="text" value="1999-00-00"
+                                        <div class="col-3">
+                                            <label for="tanggal">Date</label>
+                                            <input class="form-control" name="tanggal" type="text" value="1999-00-00"
                                                 aria-label="readonly input example" readonly>
                                         </div>
-                                        <div class="col-4 pb-3">
-                                            <span>Line</span>
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Open this select menu</option>
+                                        <div class="col-3">
+                                            <label for="line">Line</label>
+                                            <select class="form-select" name="line" aria-label="Default select example">
+                                                <option selected></option>
+                                                <option value="1">Main Line</option>
+                                                <option value="1">Sub Line</option>
+                                                <option value="2">Crankshaft</option>
+                                                <option value="3">Cylinder Block</option>
+                                                <option value="3">Cylinder Head</option>
+                                                <option value="3">Camshaft</option>
+                                                <option value="3">Die Casting</option>
+                                                <option value="3">Quality</option>
+                                                <option value="3">Logistic Operational</option>
+                                                <option value="3">Maintenance</option>
+                                                <option value="3">Maintenance DC</option>
+                                                <option value="3">Engser</option>
+                                                <option value="3">Engser casting</option>
+                                                <option value="3">Tachnical Support</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <label for="shift">Shift</label>
+                                            <select class="form-select" name="shift"
+                                                aria-label="Default select example">
+                                                <option selected></option>
+                                                <option value="1">Red</option>
+                                                <option value="2">White</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <label for="material">Material</label>
+                                            <select class="form-select" id="material" name="material"
+                                                aria-label="Default select example">
+                                                <option selected></option>
                                                 <option value="1">Assembly</option>
                                                 <option value="2">Crankshaft</option>
                                                 <option value="3">Cylinder Block</option>
@@ -301,15 +341,54 @@ $no = 1;
                                                 <option value="3">Die Casting</option>
                                             </select>
                                         </div>
-                                        <div class="col-4 pb-3">
-                                            <span>Shift</span>
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Open this select menu</option>
-                                                <option value="1">Red</option>
-                                                <option value="2">White</option>
+                                    </div>
+
+                                    <div class="row card-body">
+                                        <div class="col-3 pt-3">
+                                            <label for="lineCode">Line Code</label>
+                                            <select class="form-select" name="lineCode"
+                                                aria-label="Default select example">
+                                                <option selected></option>
+                                                <option value="1">KML</option>
+                                                <option value="1">KSL</option>
+                                                <option value="2">MCR</option>
+                                                <option value="3">MCB</option>
+                                                <option value="3">MCH</option>
+                                                <option value="3">MCA</option>
+                                                <option value="3">CDC</option>
+                                                <option value="3">QC</option>
+                                                <option value="3">LOG</option>
+                                                <option value="3">MT</option>
+                                                <option value="3">MDC</option>
+                                                <option value="3">ES</option>
+                                                <option value="3">ESC</option>
+                                                <option value="3">TS</option>
                                             </select>
                                         </div>
+
+                                        <div class="col-3 pt-3">
+                                            <label for="costCenter">Cost Center</label>
+                                            <select class="form-select" name="costCenter"
+                                                aria-label="Default select example">
+                                                <option selected></option>
+                                                <option value="1">AQK200</option>
+                                                <option value="1">AQK100</option>
+                                                <option value="2">AQM300</option>
+                                                <option value="3">AQM100</option>
+                                                <option value="3">AQM200</option>
+                                                <option value="3">AQM400</option>
+                                                <option value="3">AQC100</option>
+                                                <option value="3">AWM300</option>
+                                                <option value="3">AQN200</option>
+                                                <option value="3">AWM300</option>
+                                                <option value="3">AWM200</option>
+                                                <option value="3">AWC200</option>
+                                                <option value="3">ADA403</option>
+                                            </select>
+                                        </div>
+
                                     </div>
+                                    <div class="card-footer"></div>
                                 </div> <!--Card Create LSR End-->
                             </div>
                         </div>
@@ -323,37 +402,44 @@ $no = 1;
                                     </div>
                                     <div class="row card-body">
 
+
                                         <div class="col-3">
-                                            <span>Part Number</span>
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Open this select menu</option>
-                                                <option value="1">11461-0Y040-00</option>
-                                                <option value="2">12180-0H020-00</option>
+                                            <label for="partNumber">Part Number</label>
+                                            <select class="form-select" id="partNumber" name="partNumber"
+                                                aria-label="Default select example">
+                                                <option selected></option>
                                             </select>
                                         </div>
 
                                         <div class="col-5">
-                                            <span>Part Name</span>
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Open this select menu</option>
-                                                <option value="1">CAP ASSY, OIL FILLER</option>
-                                                <option value="2">DAMPER, CHAIN VIBRATION, NO.2</option>
+                                            <label for="partName">Part Name</label>
+                                            <select class="form-select" id="partName" name="partName"
+                                                aria-label="Default select example">
+                                                <option selected></option>
                                             </select>
                                         </div>
 
                                         <div class="col-2">
-                                            <span>Uniqe No</span>
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Open this select menu</option>
-                                                <option value="1">D001</option>
-                                                <option value="2">S100</option>
+                                            <label for="uniqeNo">Uniqe No</label>
+                                            <select class="form-select" id="partNumber" name="uniqeNo"
+                                                aria-label="Default select example">
+                                                <option selected></option>
+                                                <?php
+                                                // Mengatur ulang pointer hasil query untuk memulai dari awal
+                                                mysqli_data_seek($hasil, 0);
+
+                                                // Menampilkan data dalam elemen <select>
+                                                while ($row = mysqli_fetch_assoc($hasil)) {
+                                                    echo "<option value='" . $row['uniqe_no'] . "'>" . $row['uniqe_no'] . "</option>";
+                                                }
+                                                ?>
                                             </select>
                                         </div>
 
                                         <div class="col-2">
-                                            <span>Qty</span>
-                                            <input class="form-control text-center" type="text" placeholder=""
-                                                aria-label="default input example">
+                                            <label for="qty">Qty</label>
+                                            <input class="form-control text-center" name="qty" type="text"
+                                                placeholder="" aria-label="default input example">
                                         </div>
 
                                     </div>
@@ -372,9 +458,10 @@ $no = 1;
                                     <div class="row card-body">
 
                                         <div class="col-4">
-                                            <span>Reason</span>
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Open this select menu</option>
+                                            <label for="reason">Reason</label>
+                                            <select class="form-select" name="reason"
+                                                aria-label="Default select example">
+                                                <option selected></option>
                                                 <option value="A">A. Shortage / Missing</option>
                                                 <option value="B">B. Wrong ( Shortage )</option>
                                                 <option value="C">C. Surplus</option>
@@ -389,10 +476,11 @@ $no = 1;
                                         </div>
 
                                         <div class="col-4">
-                                            <span>Condition</span>
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Open this select menu</option>
-                                                <option value="-">Unknow</option>
+                                            <label for="condition">Condition</label>
+                                            <select class="form-select" name="condition"
+                                                aria-label="Default select example">
+                                                <option selected></option>
+                                                <option value="-">- Unknow</option>
                                                 <option value="1">1. Good</option>
                                                 <option value="2">2. Damage</option>
                                                 <option value="3">3. From TMMIN Unpacking</option>
@@ -400,9 +488,10 @@ $no = 1;
                                         </div>
 
                                         <div class="col-4">
-                                            <span>Repair</span>
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Open this select menu</option>
+                                            <label for="repair">Repair</label>
+                                            <select class="form-select" name="repair"
+                                                aria-label="Default select example">
+                                                <option selected></option>
                                                 <option value="0">0. Unrepairable</option>
                                                 <option value="1">1. Plant Repair</option>
                                                 <option value="6">6. Unrepairable caused by other parts</option>
@@ -417,16 +506,17 @@ $no = 1;
 
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Remarks</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <textarea class="form-control" name="remarks" id="exampleFormControlTextarea1"
+                                rows="3"></textarea>
                         </div> <!--remaks end-->
 
                         <div class="row">
                             <div class="col text-center">
-                                <button type="button" class="btn btn-primary">Add</button>
-                                <button type="button" class="btn btn-danger">Clear</button>
+                                <button type="submit" class="btn btn-primary" name="add">Add</button>
+                                <button type="button" class="btn btn-danger" name="clear">Clear</button>
                             </div>
                         </div>
-                    </div> <!--bg card end-->
+                    </Form> <!--form end-->
 
 
                     <!-- columns center Footer-->
@@ -555,6 +645,45 @@ $no = 1;
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
 
+    <!-- jQuery -->
+    <script src="assets/jquery/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Fungsi untuk mengisi elemen "Part Name"
+            function populatePartName() {
+                $.ajax({
+                    url: 'get_part_name.php', // Ganti dengan URL yang sesuai
+                    method: 'GET',
+                    success: function (data) {
+                        $('#partName').html(data);
+                    }
+                });
+            }
+
+            // Panggil fungsi untuk mengisi elemen "Part Name"
+            populatePartName();
+
+            // Tanggapi perubahan pada elemen "Part Name"
+            $('#partName').on('change', function () {
+                var selectedPartNameId = $(this).val();
+
+                // Fungsi untuk mengisi elemen "Other Part" berdasarkan "Part Name" yang dipilih
+                function populatePartNumber() {
+                    $.ajax({
+                        url: 'get_part_number.php', // Ganti dengan URL yang sesuai
+                        method: 'GET',
+                        data: { partNameId: selectedPartNameId },
+                        success: function (data) {
+                            $('#partNumber').html(data);
+                        }
+                    });
+                }
+
+                // Panggil fungsi untuk mengisi elemen "Other Part"
+                populatePartNumber();
+            });
+        });
+    </script>
 </body>
 
 </html>
