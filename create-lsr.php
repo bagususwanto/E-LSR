@@ -408,20 +408,35 @@ if (!$hasil) {
                                             <select class="form-select" id="partNumber" name="partNumber"
                                                 aria-label="Default select example">
                                                 <option selected></option>
+                                                <?php
+                                                // Menampilkan data dalam elemen <select>
+                                                while ($row = mysqli_fetch_assoc($hasil)) {
+                                                    echo "<option value='" . $row['part_number'] . "'>" . $row['part_number'] . "</option>";
+                                                }
+                                                ?>
                                             </select>
                                         </div>
 
-                                        <div class="col-5">
+                                        <div class="col-4">
                                             <label for="partName">Part Name</label>
                                             <select class="form-select" id="partName" name="partName"
                                                 aria-label="Default select example">
                                                 <option selected></option>
+                                                <?php
+                                                // Mengatur ulang pointer hasil query untuk memulai dari awal
+                                                mysqli_data_seek($hasil, 0);
+
+                                                // Menampilkan data dalam elemen <select>
+                                                while ($row = mysqli_fetch_assoc($hasil)) {
+                                                    echo "<option value='" . $row['part_name'] . "'>" . $row['part_name'] . "</option>";
+                                                }
+                                                ?>
                                             </select>
                                         </div>
 
                                         <div class="col-2">
                                             <label for="uniqeNo">Uniqe No</label>
-                                            <select class="form-select" id="partNumber" name="uniqeNo"
+                                            <select class="form-select" id="uniqeNo" name="uniqeNo"
                                                 aria-label="Default select example">
                                                 <option selected></option>
                                                 <?php
@@ -436,10 +451,33 @@ if (!$hasil) {
                                             </select>
                                         </div>
 
-                                        <div class="col-2">
+                                        <!-- Hidden inputs to store selected texts -->
+                                        <input type="hidden" id="hiddenPartNumber" name="hiddenPartNumber">
+                                        <input type="hidden" id="hiddenPartName" name="hiddenPartName">
+                                        <input type="hidden" id="hiddenUniqeNo" name="hiddenUniqeNo">
+                                        <input type="hidden" id="hiddenSourceType" name="hiddenSourceType">
+
+                                        <div class="col-1">
                                             <label for="qty">Qty</label>
                                             <input class="form-control text-center" name="qty" type="text"
                                                 placeholder="" aria-label="default input example">
+                                        </div>
+
+                                        <div class="col-2">
+                                            <label for="sourceType">Souurce Type</label>
+                                            <select class="form-select" id="sourceType" name="sourceType"
+                                                aria-label="Default select example">
+                                                <option selected></option>
+                                                <?php
+                                                // Mengatur ulang pointer hasil query untuk memulai dari awal
+                                                mysqli_data_seek($hasil, 0);
+
+                                                // Menampilkan data dalam elemen <select>
+                                                while ($row = mysqli_fetch_assoc($hasil)) {
+                                                    echo "<option value='" . $row['source_type'] . "'>" . $row['source_type'] . "</option>";
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
 
                                     </div>
@@ -512,7 +550,8 @@ if (!$hasil) {
 
                         <div class="row">
                             <div class="col text-center">
-                                <button type="submit" class="btn btn-primary" name="add">Add</button>
+                                <button type="submit" id="getSelectedTextBtn" class="btn btn-primary"
+                                    name="add">Add</button>
                                 <button type="button" class="btn btn-danger" name="clear">Clear</button>
                             </div>
                         </div>
@@ -543,6 +582,7 @@ if (!$hasil) {
                                                     <th scope="col">Reason</th>
                                                     <th scope="col">Condition</th>
                                                     <th scope="col">Repair</th>
+                                                    <th scope="col">Source</th>
                                                     <th scope="col">Remarks</th>
                                                 </tr>
                                             </thead>
@@ -565,6 +605,9 @@ if (!$hasil) {
                                                         </td>
                                                         <td>
                                                             <?php echo $result["part_qty"]; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $result["source_type"]; ?>
                                                         </td>
                                                         <td>F</td>
                                                         <td>-</td>
@@ -645,42 +688,95 @@ if (!$hasil) {
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
 
-    <!-- jQuery -->
+
+
+    <!--================ jQuery======================= -->
     <script src="assets/jquery/jquery-3.7.1.min.js"></script>
     <script>
         $(document).ready(function () {
             // Fungsi untuk mengisi elemen "Part Name"
-            function populatePartName() {
+            function populatePartNumber() {
                 $.ajax({
-                    url: 'get_part_name.php', // Ganti dengan URL yang sesuai
+                    url: 'get_part_number.php', // Ganti dengan URL yang sesuai
                     method: 'GET',
                     success: function (data) {
-                        $('#partName').html(data);
+                        $('#partNumber').html(data);
                     }
                 });
             }
 
             // Panggil fungsi untuk mengisi elemen "Part Name"
-            populatePartName();
+            populatePartNumber();
 
             // Tanggapi perubahan pada elemen "Part Name"
-            $('#partName').on('change', function () {
+            $('#partNumber').on('change', function () {
                 var selectedPartNameId = $(this).val();
 
                 // Fungsi untuk mengisi elemen "Other Part" berdasarkan "Part Name" yang dipilih
-                function populatePartNumber() {
+                function populatePartName() {
                     $.ajax({
-                        url: 'get_part_number.php', // Ganti dengan URL yang sesuai
+                        url: 'get_part_name.php', // Ganti dengan URL yang sesuai
                         method: 'GET',
-                        data: { partNameId: selectedPartNameId },
+                        data: { partNumber: selectedPartNameId },
                         success: function (data) {
-                            $('#partNumber').html(data);
+                            $('#partName').html(data);
+                        }
+                    });
+                }
+
+                // Fungsi untuk mengisi elemen "Unique No" berdasarkan "Part Name" yang dipilih
+                function populateUniqeNo() {
+                    $.ajax({
+                        url: 'get_uniqe_number.php', // Ganti dengan URL yang sesuai
+                        method: 'GET',
+                        data: { partNumber: selectedPartNameId },
+                        success: function (data) {
+                            $('#uniqeNo').html(data);
+                        }
+                    });
+                }
+
+                // Fungsi untuk mengisi elemen "Other Part" berdasarkan "Part Name" yang dipilih
+                function populateSourceType() {
+                    $.ajax({
+                        url: 'get_source_type.php', // Ganti dengan URL yang sesuai
+                        method: 'GET',
+                        data: { partNumber: selectedPartNameId },
+                        success: function (data) {
+                            $('#sourceType').html(data);
                         }
                     });
                 }
 
                 // Panggil fungsi untuk mengisi elemen "Other Part"
-                populatePartNumber();
+                populatePartName();
+
+                // Panggil fungsi untuk mengisi elemen "Unique No"
+                populateUniqeNo();
+
+                // Panggil fungsi untuk mengisi elemen "Other Part"
+                populateSourceType();
+            });
+        });
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#getSelectedTextBtn').on('click', function () {
+                // Dapatkan teks yang terpilih dari setiap elemen select
+                var partNumberText = $('#partNumber option:selected').text();
+                var partNameText = $('#partName option:selected').text();
+                var uniqeNoText = $('#uniqeNo option:selected').text();
+                var sourceTypeText = $('#sourceType option:selected').text();
+
+                // Masukkan nilai ke dalam input tersembunyi sebelum mengirimkan formulir
+                $('#hiddenPartNumber').val(partNumberText);
+                $('#hiddenPartName').val(partNameText);
+                $('#hiddenUniqeNo').val(uniqeNoText);
+                $('#hiddenSourceType').val(sourceTypeText);
+
+                $('form').submit();
             });
         });
     </script>

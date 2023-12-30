@@ -1,12 +1,11 @@
 <?php
-// Koneksi ke database
 include("koneksi.php");
 
 // Mengambil nilai partNameId dari parameter GET
-$partNumber= $_GET['partNumber'];
+$partNumber = $_GET['partNumber'];
 
 // Query untuk mendapatkan data Unique Number berdasarkan Part Name
-$query = "SELECT id_part, part_name FROM tb_master_part_dc WHERE id_part = '$partNumber'";
+$query = "SELECT id_part, uniqe_no FROM tb_master_part_dc WHERE id_part = '$partNumber'";
 $result = mysqli_query($conn, $query);
 
 // Memeriksa apakah query berhasil dijalankan
@@ -16,7 +15,7 @@ if (!$result) {
 
 // Mengirim data sebagai opsi HTML
 while ($row = mysqli_fetch_assoc($result)) {
-    echo "<option value='" . $row['id_part'] . "'>" . $row['part_name'] . "</option>";
+    echo "<option value='" . $row['id_part'] . "'>" . $row['uniqe_no'] . "</option>";
 }
 
 // Menutup koneksi
