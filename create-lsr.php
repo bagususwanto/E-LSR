@@ -157,7 +157,7 @@ if (!$hasil) {
                 </li><!-- End Notification Nav -->
 
 
-                <li class="nav-item dropdown pe-3">
+                <li class="nav-item dropdown nav-item-sm pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
@@ -167,7 +167,7 @@ if (!$hasil) {
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>Bagus Uswanto</h6>
-                            <span>Web Developer</span>
+                            <span id="validLine">CCR & Ordering</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -292,14 +292,19 @@ if (!$hasil) {
                                         #1
                                     </div>
                                     <div class="row card-body">
-                                        <div class="col-3">
+                                        <div class="col-3 datepicker-container">
                                             <label for="tanggal" class="form-label col-form-label-sm">Date</label>
-                                            <input class="form-control form-control-sm" name="tanggal" type="text"
-                                                value="1999-00-00" aria-label="readonly input example" readonly>
+                                            <input type="date" id="tanggal" name="tanggal" value=""
+                                                class="form-control form-control-sm" />
+                                        </div>
+                                        <div class="cs-form col-3">
+                                            <label for="waktu" class="form-label col-form-label-sm">Time</label>
+                                            <input type="time" id="waktu" name="waktu"
+                                                class="form-control form-control-sm" value="" />
                                         </div>
                                         <div class="col-3">
                                             <label for="line" class="form-label col-form-label-sm">Line</label>
-                                            <select class="form-select form-select-sm" name="line"
+                                            <select class="form-select form-select-sm" id="line" name="line"
                                                 aria-label="Default select example">
                                                 <option selected></option>
                                                 <option value="1">Main Line</option>
@@ -321,15 +326,17 @@ if (!$hasil) {
 
                                         <div class="col-3">
                                             <label for="shift" class="form-label col-form-label-sm">Shift</label>
-                                            <select class="form-select form-select-sm" name="shift"
+                                            <select class="form-select form-select-sm" id="shift" name="shift"
                                                 aria-label="Default select example">
                                                 <option selected></option>
                                                 <option value="1">Red</option>
                                                 <option value="2">White</option>
                                             </select>
                                         </div>
+                                    </div>
 
-                                        <div class="col-3">
+                                    <div class="row card-body">
+                                        <div class="col-3 pt-3">
                                             <label for="material" class="form-label col-form-label-sm">Material</label>
                                             <select class="form-select form-select-sm" id="material" name="material"
                                                 aria-label="Default select example">
@@ -342,12 +349,9 @@ if (!$hasil) {
                                                 <option value="3">Die Casting</option>
                                             </select>
                                         </div>
-                                    </div>
-
-                                    <div class="row card-body">
                                         <div class="col-3 pt-3">
                                             <label for="lineCode" class="form-label col-form-label-sm">Line Code</label>
-                                            <select class="form-select form-select-sm" name="lineCode"
+                                            <select class="form-select form-select-sm" id="lineCode" name="lineCode"
                                                 aria-label="Default select example">
                                                 <option selected></option>
                                                 <option value="1">KML</option>
@@ -370,7 +374,7 @@ if (!$hasil) {
                                         <div class="col-3 pt-3">
                                             <label for="costCenter" class="form-label col-form-label-sm">Cost
                                                 Center</label>
-                                            <select class="form-select form-select-sm" name="costCenter"
+                                            <select class="form-select form-select-sm" id="costCenter" name="costCenter"
                                                 aria-label="Default select example">
                                                 <option selected></option>
                                                 <option value="1">AQK200</option>
@@ -410,13 +414,8 @@ if (!$hasil) {
                                                 Number</label>
                                             <select class="form-select form-select-sm" id="partNumber" name="partNumber"
                                                 aria-label="Default select example">
-                                                <option selected></option>
-                                                <?php
-                                                // Menampilkan data dalam elemen <select>
-                                                while ($row = mysqli_fetch_assoc($hasil)) {
-                                                    echo "<option value='" . $row['part_number'] . "'>" . $row['part_number'] . "</option>";
-                                                }
-                                                ?>
+                                                <option selected>Pilih</option>
+
                                             </select>
                                         </div>
 
@@ -424,7 +423,8 @@ if (!$hasil) {
                                             <label for="partName" class="form-label col-form-label-sm">Part Name</label>
                                             <select class="form-select form-select-sm" id="partName" name="partName"
                                                 aria-label="Default select example">
-                                                <option selected></option>
+                                                <option selected>Pilih</option>
+
                                             </select>
                                         </div>
 
@@ -432,16 +432,8 @@ if (!$hasil) {
                                             <label for="uniqeNo" class="form-label col-form-label-sm">Uniqe No</label>
                                             <select class="form-select form-select-sm" id="uniqeNo" name="uniqeNo"
                                                 aria-label="Default select example">
-                                                <option selected></option>
-                                                <?php
-                                                // Mengatur ulang pointer hasil query untuk memulai dari awal
-                                                mysqli_data_seek($hasil, 0);
+                                                <option selected>Pilih</option>
 
-                                                // Menampilkan data dalam elemen <select>
-                                                while ($row = mysqli_fetch_assoc($hasil)) {
-                                                    echo "<option value='" . $row['uniqe_no'] . "'>" . $row['uniqe_no'] . "</option>";
-                                                }
-                                                ?>
                                             </select>
                                         </div>
 
@@ -462,7 +454,7 @@ if (!$hasil) {
                                                 Type</label>
                                             <select class="form-select form-select-sm" id="sourceType" name="sourceType"
                                                 aria-label="Default select example">
-                                                <option selected></option>
+                                                <option selected>Pilih</option>
 
                                             </select>
                                         </div>
@@ -486,7 +478,7 @@ if (!$hasil) {
                                             <label for="reason" class="form-label col-form-label-sm">Reason</label>
                                             <select class="form-select form-select-sm" name="reason"
                                                 aria-label="Default select example">
-                                                <option selected></option>
+                                                <option selected>Pilih Reason</option>
                                                 <option value="A">A. Shortage / Missing</option>
                                                 <option value="B">B. Wrong ( Shortage )</option>
                                                 <option value="C">C. Surplus</option>
@@ -505,7 +497,7 @@ if (!$hasil) {
                                                 class="form-label col-form-label-sm">Condition</label>
                                             <select class="form-select form-select-sm" name="condition"
                                                 aria-label="Default select example">
-                                                <option selected></option>
+                                                <option selected>Pilih Condition</option>
                                                 <option value="-">- Unknow</option>
                                                 <option value="1">1. Good</option>
                                                 <option value="2">2. Damage</option>
@@ -517,7 +509,7 @@ if (!$hasil) {
                                             <label for="repair" class="form-label col-form-label-sm">Repair</label>
                                             <select class="form-select form-select-sm" name="repair"
                                                 aria-label="Default select example">
-                                                <option selected></option>
+                                                <option selected>Pilih Repair</option>
                                                 <option value="0">0. Unrepairable</option>
                                                 <option value="1">1. Plant Repair</option>
                                                 <option value="6">6. Unrepairable caused by other parts</option>
@@ -560,7 +552,7 @@ if (!$hasil) {
                                     </div>
                                     <div class="row card-body">
 
-                                        <table class="table table-bordered table-sm text-center table-responsive">
+                                        <table class="table table-bordered table-sm text-center table-responsive-sm">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">No</th>
@@ -686,11 +678,11 @@ if (!$hasil) {
     <script src="assets/js/main.js"></script>
 
 
-
     <!--================ jQuery======================= -->
     <script src="assets/jquery/jquery-3.7.1.min.js"></script>
     <script>
         $(document).ready(function () {
+            //============EVENT PART NUMBER CHANGE================================//
             // Fungsi untuk mengisi elemen "Part Number"
             function populatePartNumber() {
                 $.ajax({
@@ -708,14 +700,14 @@ if (!$hasil) {
 
             // Tanggapi perubahan pada elemen "Part Number"
             $('#partNumber').on('change', function () {
-                var selectedPartNameId = $(this).val();
+                var selectedPartNumberId = $(this).val();
 
                 // Fungsi untuk mengisi elemen "part name" berdasarkan "Part Number" yang dipilih
                 function populatePartName() {
                     $.ajax({
                         url: 'ajax_handler.php',
                         method: 'GET',
-                        data: { action: 'get_part_name', partNumber: selectedPartNameId },
+                        data: { action: 'get_part_name', partNumber: selectedPartNumberId },
                         success: function (data) {
                             $('#partName').html(data);
                         }
@@ -727,7 +719,7 @@ if (!$hasil) {
                     $.ajax({
                         url: 'ajax_handler.php',
                         method: 'GET',
-                        data: { action: 'get_uniqe_number', partNumber: selectedPartNameId },
+                        data: { action: 'get_uniqe_number', partNumber: selectedPartNumberId },
                         success: function (data) {
                             $('#uniqeNo').html(data);
                         }
@@ -739,7 +731,7 @@ if (!$hasil) {
                     $.ajax({
                         url: 'ajax_handler.php',
                         method: 'GET',
-                        data: { action: 'get_source_type', partNumber: selectedPartNameId },
+                        data: { action: 'get_source_type', partNumber: selectedPartNumberId },
                         success: function (data) {
                             $('#sourceType').html(data);
                         }
@@ -755,10 +747,113 @@ if (!$hasil) {
                 // Panggil fungsi untuk mengisi elemen "source type"
                 populateSourceType();
             });
+
+
+            //============EVENT PART NAME CHANGE================================//
+            // Fungsi untuk mengisi elemen "Part Number"
+            function populatePartName2() {
+                $.ajax({
+                    url: 'ajax_handler.php',
+                    method: 'GET',
+                    data: { action: 'get_part_name2' },
+                    success: function (data) {
+                        $('#partName').html(data);
+                    }
+                });
+            }
+
+            // Panggil fungsi untuk mengisi elemen "Part Number"
+            populatePartName2();
+
+            // Tanggapi perubahan pada elemen "Part Number"
+            $('#partName').on('change', function () {
+                var selectedPartNameId = $(this).val();
+
+                // Fungsi untuk mengisi elemen "part name" berdasarkan "Part Number" yang dipilih
+                function populatePartNumber2() {
+                    $.ajax({
+                        url: 'ajax_handler.php',
+                        method: 'GET',
+                        data: { action: 'get_part_number2', partName: selectedPartNameId },
+                        success: function (data) {
+                            $('#partNumber').html(data);
+                        }
+                    });
+                }
+
+                // Fungsi untuk mengisi elemen "Unique No" berdasarkan "Part Number" yang dipilih
+                function populateUniqeNo2() {
+                    $.ajax({
+                        url: 'ajax_handler.php',
+                        method: 'GET',
+                        data: { action: 'get_uniqe_number2', partName: selectedPartNameId },
+                        success: function (data) {
+                            $('#uniqeNo').html(data);
+                        }
+                    });
+                }
+
+                // Fungsi untuk mengisi elemen "source type" berdasarkan "Part Number" yang dipilih
+                function populateSourceType2() {
+                    $.ajax({
+                        url: 'ajax_handler.php',
+                        method: 'GET',
+                        data: { action: 'get_source_type2', partName: selectedPartNameId },
+                        success: function (data) {
+                            $('#sourceType').html(data);
+                        }
+                    });
+                }
+
+                // Panggil fungsi untuk mengisi elemen "Part name"
+                populatePartNumber2();
+
+                // Panggil fungsi untuk mengisi elemen "Unique No"
+                populateUniqeNo2();
+
+                // Panggil fungsi untuk mengisi elemen "source type"
+                populateSourceType2();
+            });
+
+
+            //============EVENT UNIQE NO CHANGE================================//
+            // Fungsi untuk mengisi elemen "Part Number"
+            function populateUniqeNo3() {
+                $.ajax({
+                    url: 'ajax_handler.php',
+                    method: 'GET',
+                    data: { action: 'get_uniqe_number3' },
+                    success: function (data) {
+                        $('#uniqeNo').html(data);
+                    }
+                });
+            }
+
+            // Panggil fungsi untuk mengisi elemen "Part Number"
+            populateUniqeNo3();
+
+
+
+            //============EVENT SOURCE TYPE CHANGE================================//
+            // Fungsi untuk mengisi elemen "Part Number"
+            function populatesourceType4() {
+                $.ajax({
+                    url: 'ajax_handler.php',
+                    method: 'GET',
+                    data: { action: 'get_source_type4' },
+                    success: function (data) {
+                        $('#sourceType').html(data);
+                    }
+                });
+            }
+
+            // Panggil fungsi untuk mengisi elemen "Part Number"
+            populatesourceType4();
         });
 
     </script>
 
+    <!-- //============EVENT TOMBOL SUBMIT KLIK================================// -->
     <script>
         $(document).ready(function () {
             $('#getSelectedTextBtn').on('click', function () {
@@ -776,47 +871,71 @@ if (!$hasil) {
 
                 $('form').submit();
             });
+
         });
     </script>
 
-
+    <!--================ ISI DATA DI FORM #1======================= -->
     <script>
-        // Memantau perubahan pada #partNumber
-        $('#partNumber').on('change', function () {
-            // Mendapatkan nilai dari #partNumber
-            var partNumberValue = $(this).val();
+        $(document).ready(function () {
+            var lineUser = $('#validLine').text();;
 
-            // Memeriksa apakah nilai #partNumber kosong
-            if (partNumberValue === "") {
-                // Jika kosong, lakukan AJAX request
+            // Fungsi untuk mengisi elemen "Part Number"
+            function populateLine() {
                 $.ajax({
                     url: 'ajax_handler.php',
-                    type: 'GET',
-                    data: { action: 'partNameVal' },
+                    method: 'GET',
+                    data: { action: 'get_line', lineVal: lineUser },
                     success: function (data) {
-                        // Menghapus opsi pada #partName dan menambahkan opsi baru
-                        $('#partName').empty();
-                        $('#partName').append(data);
-                    },
-                    error: function () {
-                        console.error('Error fetching data');
-                    }
-                });
-
-                $.ajax({
-                    url: 'ajax_handler.php',
-                    type: 'GET',
-                    data: { action: 'uniqeNoVal' },
-                    success: function (data) {
-                        // Menghapus opsi pada #partName dan menambahkan opsi baru
-                        $('#uniqeNo').empty();
-                        $('#uniqeNo').append(data);
-                    },
-                    error: function () {
-                        console.error('Error fetching data');
+                        $('#line').html(data);
                     }
                 });
             }
+            function populateShift() {
+                $.ajax({
+                    url: 'ajax_handler.php',
+                    method: 'GET',
+                    data: { action: 'get_shift' },
+                    success: function (data) {
+                        $('#shift').html(data);
+                    }
+                });
+            }
+            function populateMaterial() {
+                $.ajax({
+                    url: 'ajax_handler.php',
+                    method: 'GET',
+                    data: { action: 'get_material' },
+                    success: function (data) {
+                        $('#shift').html(data);
+                    }
+                });
+            }
+            function populateLineCode() {
+                $.ajax({
+                    url: 'ajax_handler.php',
+                    method: 'GET',
+                    data: { action: 'get_line_code' },
+                    success: function (data) {
+                        $('#lineCode').html(data);
+                    }
+                });
+            }
+            function populateCostCenter() {
+                $.ajax({
+                    url: 'ajax_handler.php',
+                    method: 'GET',
+                    data: { action: 'get_cost_center' },
+                    success: function (data) {
+                        $('#costCenter').html(data);
+                    }
+                });
+            }
+            populateCostCenter();
+            populateLineCode();
+            populateMaterial();
+            populateShift();
+            populateLine();
         });
     </script>
 </body>
