@@ -694,8 +694,9 @@ if (!$hasil) {
             // Fungsi untuk mengisi elemen "Part Number"
             function populatePartNumber() {
                 $.ajax({
-                    url: 'get_part_number.php',
+                    url: 'ajax_handler.php',
                     method: 'GET',
+                    data: { action: 'get_part_number' },
                     success: function (data) {
                         $('#partNumber').html(data);
                     }
@@ -712,9 +713,9 @@ if (!$hasil) {
                 // Fungsi untuk mengisi elemen "part name" berdasarkan "Part Number" yang dipilih
                 function populatePartName() {
                     $.ajax({
-                        url: 'get_part_name.php',
+                        url: 'ajax_handler.php',
                         method: 'GET',
-                        data: { partNumber: selectedPartNameId },
+                        data: { action: 'get_part_name', partNumber: selectedPartNameId },
                         success: function (data) {
                             $('#partName').html(data);
                         }
@@ -724,8 +725,9 @@ if (!$hasil) {
                 // Fungsi untuk mengisi elemen "Unique No" berdasarkan "Part Number" yang dipilih
                 function populateUniqeNo() {
                     $.ajax({
-                        url: 'get_uniqe_number.php',
-                        data: { partNumber: selectedPartNameId },
+                        url: 'ajax_handler.php',
+                        method: 'GET',
+                        data: { action: 'get_uniqe_number', partNumber: selectedPartNameId },
                         success: function (data) {
                             $('#uniqeNo').html(data);
                         }
@@ -735,9 +737,9 @@ if (!$hasil) {
                 // Fungsi untuk mengisi elemen "source type" berdasarkan "Part Number" yang dipilih
                 function populateSourceType() {
                     $.ajax({
-                        url: 'get_source_type.php',
+                        url: 'ajax_handler.php',
                         method: 'GET',
-                        data: { partNumber: selectedPartNameId },
+                        data: { action: 'get_source_type', partNumber: selectedPartNameId },
                         success: function (data) {
                             $('#sourceType').html(data);
                         }
@@ -788,12 +790,27 @@ if (!$hasil) {
             if (partNumberValue === "") {
                 // Jika kosong, lakukan AJAX request
                 $.ajax({
-                    url: 'coba.php',
+                    url: 'ajax_handler.php',
                     type: 'GET',
+                    data: { action: 'partNameVal' },
                     success: function (data) {
                         // Menghapus opsi pada #partName dan menambahkan opsi baru
                         $('#partName').empty();
                         $('#partName').append(data);
+                    },
+                    error: function () {
+                        console.error('Error fetching data');
+                    }
+                });
+
+                $.ajax({
+                    url: 'ajax_handler.php',
+                    type: 'GET',
+                    data: { action: 'uniqeNoVal' },
+                    success: function (data) {
+                        // Menghapus opsi pada #partName dan menambahkan opsi baru
+                        $('#uniqeNo').empty();
+                        $('#uniqeNo').append(data);
                     },
                     error: function () {
                         console.error('Error fetching data');
