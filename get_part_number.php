@@ -13,7 +13,7 @@ if (!$result) {
 }
 
 // Mengirim data sebagai opsi HTML
-echo '<option value=""></option>'; //nilai default
+echo '<option value="">Pilih</option>'; //nilai default
 while ($row = mysqli_fetch_assoc($result)) {
     echo "<option value='" . $row['id_part'] . "'>" . $row['part_number'] . "</option>";
 }

@@ -425,15 +425,6 @@ if (!$hasil) {
                                             <select class="form-select form-select-sm" id="partName" name="partName"
                                                 aria-label="Default select example">
                                                 <option selected></option>
-                                                <?php
-                                                // Mengatur ulang pointer hasil query untuk memulai dari awal
-                                                mysqli_data_seek($hasil, 0);
-
-                                                // Menampilkan data dalam elemen <select>
-                                                while ($row = mysqli_fetch_assoc($hasil)) {
-                                                    echo "<option value='" . $row['part_name'] . "'>" . $row['part_name'] . "</option>";
-                                                }
-                                                ?>
                                             </select>
                                         </div>
 
@@ -472,15 +463,7 @@ if (!$hasil) {
                                             <select class="form-select form-select-sm" id="sourceType" name="sourceType"
                                                 aria-label="Default select example">
                                                 <option selected></option>
-                                                <?php
-                                                // Mengatur ulang pointer hasil query untuk memulai dari awal
-                                                mysqli_data_seek($hasil, 0);
 
-                                                // Menampilkan data dalam elemen <select>
-                                                while ($row = mysqli_fetch_assoc($hasil)) {
-                                                    echo "<option value='" . $row['source_type'] . "'>" . $row['source_type'] . "</option>";
-                                                }
-                                                ?>
                                             </select>
                                         </div>
 
@@ -613,12 +596,20 @@ if (!$hasil) {
                                                             <?php echo $result["part_qty"]; ?>
                                                         </td>
                                                         <td>
+                                                            <?php echo $result["reason_lsr"]; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $result["condition_lsr"]; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $result["repair_lsr"]; ?>
+                                                        </td>
+                                                        <td>
                                                             <?php echo $result["source_type"]; ?>
                                                         </td>
-                                                        <td>F</td>
-                                                        <td>-</td>
-                                                        <td>0</td>
-                                                        <td>Part Scrap</td>
+                                                        <td>
+                                                            <?php echo $result["remarks_lsr"]; ?>
+                                                        </td>
                                                     </tr>
                                                     <?php
                                                 }
@@ -700,10 +691,10 @@ if (!$hasil) {
     <script src="assets/jquery/jquery-3.7.1.min.js"></script>
     <script>
         $(document).ready(function () {
-            // Fungsi untuk mengisi elemen "Part Name"
+            // Fungsi untuk mengisi elemen "Part Number"
             function populatePartNumber() {
                 $.ajax({
-                    url: 'get_part_number.php', // Ganti dengan URL yang sesuai
+                    url: 'get_part_number.php',
                     method: 'GET',
                     success: function (data) {
                         $('#partNumber').html(data);
@@ -711,17 +702,17 @@ if (!$hasil) {
                 });
             }
 
-            // Panggil fungsi untuk mengisi elemen "Part Name"
+            // Panggil fungsi untuk mengisi elemen "Part Number"
             populatePartNumber();
 
-            // Tanggapi perubahan pada elemen "Part Name"
+            // Tanggapi perubahan pada elemen "Part Number"
             $('#partNumber').on('change', function () {
                 var selectedPartNameId = $(this).val();
 
-                // Fungsi untuk mengisi elemen "Other Part" berdasarkan "Part Name" yang dipilih
+                // Fungsi untuk mengisi elemen "part name" berdasarkan "Part Number" yang dipilih
                 function populatePartName() {
                     $.ajax({
-                        url: 'get_part_name.php', // Ganti dengan URL yang sesuai
+                        url: 'get_part_name.php',
                         method: 'GET',
                         data: { partNumber: selectedPartNameId },
                         success: function (data) {
@@ -730,11 +721,10 @@ if (!$hasil) {
                     });
                 }
 
-                // Fungsi untuk mengisi elemen "Unique No" berdasarkan "Part Name" yang dipilih
+                // Fungsi untuk mengisi elemen "Unique No" berdasarkan "Part Number" yang dipilih
                 function populateUniqeNo() {
                     $.ajax({
-                        url: 'get_uniqe_number.php', // Ganti dengan URL yang sesuai
-                        method: 'GET',
+                        url: 'get_uniqe_number.php',
                         data: { partNumber: selectedPartNameId },
                         success: function (data) {
                             $('#uniqeNo').html(data);
@@ -742,10 +732,10 @@ if (!$hasil) {
                     });
                 }
 
-                // Fungsi untuk mengisi elemen "Other Part" berdasarkan "Part Name" yang dipilih
+                // Fungsi untuk mengisi elemen "source type" berdasarkan "Part Number" yang dipilih
                 function populateSourceType() {
                     $.ajax({
-                        url: 'get_source_type.php', // Ganti dengan URL yang sesuai
+                        url: 'get_source_type.php',
                         method: 'GET',
                         data: { partNumber: selectedPartNameId },
                         success: function (data) {
@@ -754,13 +744,13 @@ if (!$hasil) {
                     });
                 }
 
-                // Panggil fungsi untuk mengisi elemen "Other Part"
+                // Panggil fungsi untuk mengisi elemen "Part name"
                 populatePartName();
 
                 // Panggil fungsi untuk mengisi elemen "Unique No"
                 populateUniqeNo();
 
-                // Panggil fungsi untuk mengisi elemen "Other Part"
+                // Panggil fungsi untuk mengisi elemen "source type"
                 populateSourceType();
             });
         });
@@ -784,6 +774,32 @@ if (!$hasil) {
 
                 $('form').submit();
             });
+        });
+    </script>
+
+
+    <script>
+        // Memantau perubahan pada #partNumber
+        $('#partNumber').on('change', function () {
+            // Mendapatkan nilai dari #partNumber
+            var partNumberValue = $(this).val();
+
+            // Memeriksa apakah nilai #partNumber kosong
+            if (partNumberValue === "") {
+                // Jika kosong, lakukan AJAX request
+                $.ajax({
+                    url: 'coba.php',
+                    type: 'GET',
+                    success: function (data) {
+                        // Menghapus opsi pada #partName dan menambahkan opsi baru
+                        $('#partName').empty();
+                        $('#partName').append(data);
+                    },
+                    error: function () {
+                        console.error('Error fetching data');
+                    }
+                });
+            }
         });
     </script>
 </body>
