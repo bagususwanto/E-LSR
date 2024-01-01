@@ -196,7 +196,6 @@ if (isset($_GET['action'])) {
 
             // ================CASE CHANGE DATA FORM#1=================//
         case 'get_line':
-            $lineVal = $_GET['lineVal'];
 
             // Query untuk mendapatkan data Unique Number berdasarkan Part Name
             $query = "SELECT id_line, nama_line FROM master_line";
@@ -208,7 +207,7 @@ if (isset($_GET['action'])) {
             }
 
             // Mengirim data sebagai opsi HTML
-            // echo "<option value=''>$lineVal</option>"; //nilai default
+            // echo '<option value="">Pilih Source Type</option>'; //nilai default
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<option value='" . $row['id_line'] . "'>" . $row['nama_line'] . "</option>";
             }

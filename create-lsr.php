@@ -308,19 +308,19 @@ if (!$hasil) {
                                                 aria-label="Default select example">
                                                 <option selected></option>
                                                 <option value="1">Main Line</option>
-                                                <option value="1">Sub Line</option>
-                                                <option value="2">Crankshaft</option>
-                                                <option value="3">Cylinder Block</option>
-                                                <option value="3">Cylinder Head</option>
-                                                <option value="3">Camshaft</option>
-                                                <option value="3">Die Casting</option>
-                                                <option value="3">Quality</option>
-                                                <option value="3">Logistic Operational</option>
-                                                <option value="3">Maintenance</option>
-                                                <option value="3">Maintenance DC</option>
-                                                <option value="3">Engser</option>
-                                                <option value="3">Engser casting</option>
-                                                <option value="3">Tachnical Support</option>
+                                                <option value="2">Sub Line</option>
+                                                <option value="3">Crankshaft</option>
+                                                <option value="4">Cylinder Block</option>
+                                                <option value="5">Cylinder Head</option>
+                                                <option value="6">Camshaft</option>
+                                                <option value="7">Die Casting</option>
+                                                <option value="8">Quality</option>
+                                                <option value="9">Logistic Operational</option>
+                                                <option value="10">Maintenance</option>
+                                                <option value="11">Maintenance DC</option>
+                                                <option value="12">Engser</option>
+                                                <option value="13">Engser casting</option>
+                                                <option value="14">Tachnical Support</option>
                                             </select>
                                         </div>
 
@@ -878,7 +878,7 @@ if (!$hasil) {
     <!--================ ISI DATA DI FORM #1======================= -->
     <script>
         $(document).ready(function () {
-            var lineUser = $('#validLine').text();;
+            var lineUser = "$('#validLine').text()";
 
             // Fungsi untuk mengisi elemen "Part Number"
             function populateLine() {
@@ -888,6 +888,16 @@ if (!$hasil) {
                     data: { action: 'get_line', lineVal: lineUser },
                     success: function (data) {
                         $('#line').html(data);
+
+                        // // Tetapkan indeks terpilih setelah opsi dimuat
+                        // var subLineIndex = $("#line option[value='2']").index();
+                        // $("#line").prop('selectedIndex', subLineIndex);
+
+                        // Cari indeks elemen dengan teks "Sub Line"
+                        var LineIndex = $("#line option:contains('" + lineUser + "')").index();
+
+                        // Setel elemen terpilih sesuai indeks yang ditemukan
+                        $("#line").prop('selectedIndex', LineIndex);
                     }
                 });
             }
