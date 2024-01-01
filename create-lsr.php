@@ -26,8 +26,8 @@ if (!$hasil) {
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon">
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="public/img/favicon.png" rel="icon">
+    <link href="public/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -36,16 +36,16 @@ if (!$hasil) {
         rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+    <link href="public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="public/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="public/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="public/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="public/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="public/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="public/vendor/simple-datatables/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="public/css/style.css" rel="stylesheet">
 
     <!-- =======================================================
   * Updated: Nov 17 2023 with Bootstrap v5.3.2
@@ -58,8 +58,8 @@ if (!$hasil) {
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="index.php" class="logo d-flex align-items-center">
-                <img src="assets/img/logo.png" alt="LSR">
+            <a href="home.php" class="logo d-flex align-items-center">
+                <img src="public/img/logo.png" alt="LSR">
                 <span class="d-none d-lg-block">E-LSR</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -160,13 +160,13 @@ if (!$hasil) {
                 <li class="nav-item dropdown nav-item-sm pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                        <img src="public/img/profile-img.jpg" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2">Bagus U.</span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>Bagus Uswanto</h6>
+                            <h6 id="namUser">Bagus Uswanto</h6>
                             <span id="validLine">CCR & Ordering</span>
                         </li>
                         <li>
@@ -218,7 +218,7 @@ if (!$hasil) {
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="index.php">
+                <a class="nav-link collapsed" href="home.php">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -269,7 +269,7 @@ if (!$hasil) {
             <h1>Create LSR</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                    <li class="breadcrumb-item"><a href="home.php">Home</a></li>
                     <li class="breadcrumb-item active">Create LSR</li>
                 </ol>
             </nav>
@@ -665,21 +665,21 @@ if (!$hasil) {
             class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
-    <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/chart.js/chart.umd.js"></script>
-    <script src="assets/vendor/echarts/echarts.min.js"></script>
-    <script src="assets/vendor/quill/quill.min.js"></script>
-    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="public/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="public/vendor/chart.js/chart.umd.js"></script>
+    <script src="public/vendor/echarts/echarts.min.js"></script>
+    <script src="public/vendor/quill/quill.min.js"></script>
+    <script src="public/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="public/vendor/tinymce/tinymce.min.js"></script>
 
 
     <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
+    <script src="public/js/main.js"></script>
 
 
     <!--================ jQuery======================= -->
-    <script src="assets/jquery/jquery-3.7.1.min.js"></script>
+    <script src="public/jquery/jquery-3.7.1.min.js"></script>
     <script>
         $(document).ready(function () {
             //============EVENT PART NUMBER CHANGE================================//
@@ -879,18 +879,19 @@ if (!$hasil) {
     <script>
         $(document).ready(function () {
             var lineUser = "$('#validLine').text()";
+            var namaUser = "$('#namaUser').text()";
 
             // Fungsi untuk mengisi elemen "Part Number"
             function populateLine() {
                 $.ajax({
                     url: 'ajax_handler.php',
                     method: 'GET',
-                    data: { action: 'get_line', lineVal: lineUser },
+                    data: { action: 'get_line' },
                     success: function (data) {
                         $('#line').html(data);
 
                         // // Tetapkan indeks terpilih setelah opsi dimuat
-                        // var subLineIndex = $("#line option[value='2']").index();
+                        // var subLinIndex = $("#line option[value='2']").index();
                         // $("#line").prop('selectedIndex', subLineIndex);
 
                         // Cari indeks elemen dengan teks "Sub Line"
@@ -901,53 +902,58 @@ if (!$hasil) {
                     }
                 });
             }
-            function populateShift() {
-                $.ajax({
-                    url: 'ajax_handler.php',
-                    method: 'GET',
-                    data: { action: 'get_shift' },
-                    success: function (data) {
-                        $('#shift').html(data);
-                    }
-                });
-            }
-            function populateMaterial() {
-                $.ajax({
-                    url: 'ajax_handler.php',
-                    method: 'GET',
-                    data: { action: 'get_material' },
-                    success: function (data) {
-                        $('#shift').html(data);
-                    }
-                });
-            }
-            function populateLineCode() {
-                $.ajax({
-                    url: 'ajax_handler.php',
-                    method: 'GET',
-                    data: { action: 'get_line_code' },
-                    success: function (data) {
-                        $('#lineCode').html(data);
-                    }
-                });
-            }
-            function populateCostCenter() {
-                $.ajax({
-                    url: 'ajax_handler.php',
-                    method: 'GET',
-                    data: { action: 'get_cost_center' },
-                    success: function (data) {
-                        $('#costCenter').html(data);
-                    }
-                });
-            }
-            populateCostCenter();
-            populateLineCode();
-            populateMaterial();
-            populateShift();
+            // function populateShift() {
+            //     $.ajax({
+            //         url: 'ajax_handler.php',
+            //         method: 'GET',
+            //         data: { action: 'get_shift', userShift: namaUser },
+            //         success: function (data) {
+            //             // Cari indeks elemen dengan teks "Sub Line"
+            //             var ShiftIndex = $("#shift option:contains('" + userShift + "')").index();
+
+            //             // Setel elemen terpilih sesuai indeks yang ditemukan
+            //             $("#shift").prop('selectedIndex', ShiftIndex);
+            //         }
+            //     });
+            // }
+            // function populateMaterial() {
+            //     $.ajax({
+            //         url: 'ajax_handler.php',
+            //         method: 'GET',
+            //         data: { action: 'get_material' },
+            //         success: function (data) {
+            //             $('#shift').html(data);
+            //         }
+            //     });
+            // }
+            // function populateLineCode() {
+            //     $.ajax({
+            //         url: 'ajax_handler.php',
+            //         method: 'GET',
+            //         data: { action: 'get_line_code' },
+            //         success: function (data) {
+            //             $('#lineCode').html(data);
+            //         }
+            //     });
+            // }
+            // function populateCostCenter() {
+            //     $.ajax({
+            //         url: 'ajax_handler.php',
+            //         method: 'GET',
+            //         data: { action: 'get_cost_center' },
+            //         success: function (data) {
+            //             $('#costCenter').html(data);
+            //         }
+            //     });
+            // }
+            // populateCostCenter();
+            // populateLineCode();
+            // populateMaterial();
+            // populateShift();
             populateLine();
         });
     </script>
+
 </body>
 
 </html>

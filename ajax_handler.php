@@ -194,7 +194,7 @@ if (isset($_GET['action'])) {
 
 
 
-            // ================CASE CHANGE DATA FORM#1=================//
+        // ================CASE CHANGE DATA FORM#1=================//
         case 'get_line':
 
             // Query untuk mendapatkan data Unique Number berdasarkan Part Name
@@ -212,6 +212,8 @@ if (isset($_GET['action'])) {
                 echo "<option value='" . $row['id_line'] . "'>" . $row['nama_line'] . "</option>";
             }
             break;
+
+       
 
 
         default:
