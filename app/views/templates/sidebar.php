@@ -4,14 +4,14 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="<?php echo BASEURL ?>">
+            <a class="nav-link collapsed" id="dashboard" href="<?php echo BASEURL ?>">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
-            <a class="nav-link " href="<?php echo BASEURL ?>/create">
+            <a class="nav-link collapsed" id="create" href="<?php echo BASEURL ?>/create">
                 <i class="bi bi-menu-button-wide"></i><span>Create LSR</span>
             </a>
         </li><!-- End Create LSR Nav -->
@@ -48,3 +48,4 @@
     </ul>
 
 </aside><!-- End Sidebar-->
+

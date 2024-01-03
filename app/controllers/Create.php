@@ -9,6 +9,8 @@ class Create extends Controller
         $this->view('templates/sidebar');
         $this->view('create/index', $data);
         $this->view('templates/footer');
+
+        echo "<script>document.getElementById('create').classList.remove('collapsed');</script>";
     }
 
     public function tambah()
