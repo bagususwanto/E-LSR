@@ -14,7 +14,8 @@
         <div class="row">
             <div class="col-lg-12">
 
-                <Form method="POST" action="proses.php" class="card bg-transparent p-3 card-blur"> <!--Form-->
+                <Form method="POST" action="<?php echo BASEURL; ?>/create/tambah"
+                    class="card bg-transparent p-3 card-blur"> <!--Form-->
                     <div class="card-header mb-3 bg-transparent card-blur">
                         Form Input
                     </div>
@@ -27,7 +28,7 @@
                                     #1
                                 </div>
                                 <div class="row card-body">
-                                    <div class="col-3 datepicker-container">
+                                    <div class="col-3">
                                         <label for="tanggal" class="form-label col-form-label-sm">Date</label>
                                         <input type="date" id="tanggal" name="tanggal" value=""
                                             class="form-control form-control-sm" />
@@ -39,7 +40,7 @@
                                     </div>
                                     <div class="col-3">
                                         <label for="line" class="form-label col-form-label-sm">Line</label>
-                                        <select class="form-select form-select-sm" id="line" name="line"
+                                        <select class="form-select form-select-sm" id="line" name="line_lsr"
                                             aria-label="Default select example">
                                             <option selected></option>
                                             <option value="1">Main Line</option>
@@ -86,7 +87,7 @@
                                     </div>
                                     <div class="col-3 pt-3">
                                         <label for="lineCode" class="form-label col-form-label-sm">Line Code</label>
-                                        <select class="form-select form-select-sm" id="lineCode" name="lineCode"
+                                        <select class="form-select form-select-sm" id="lineCode" name="line_code"
                                             aria-label="Default select example">
                                             <option selected></option>
                                             <option value="1">KML</option>
@@ -109,7 +110,7 @@
                                     <div class="col-3 pt-3">
                                         <label for="costCenter" class="form-label col-form-label-sm">Cost
                                             Center</label>
-                                        <select class="form-select form-select-sm" id="costCenter" name="costCenter"
+                                        <select class="form-select form-select-sm" id="costCenter" name="cost_center"
                                             aria-label="Default select example">
                                             <option selected></option>
                                             <option value="1">AQK200</option>
@@ -147,28 +148,28 @@
                                     <div class="col-3">
                                         <label for="partNumber" class="form-label col-form-label-sm">Part
                                             Number</label>
-                                        <select class="form-select form-select-sm" id="partNumber" name="partNumber"
+                                        <select class="form-select form-select-sm" id="partNumber" name="part_number"
                                             aria-label="Default select example">
                                             <option selected>Pilih</option>
-
+                                            <option value="1">coba1 part number</option>
                                         </select>
                                     </div>
 
                                     <div class="col-4">
                                         <label for="partName" class="form-label col-form-label-sm">Part Name</label>
-                                        <select class="form-select form-select-sm" id="partName" name="partName"
+                                        <select class="form-select form-select-sm" id="partName" name="part_name"
                                             aria-label="Default select example">
                                             <option selected>Pilih</option>
-
+                                            <option value="1">coba part name</option>
                                         </select>
                                     </div>
 
                                     <div class="col-2">
                                         <label for="uniqeNo" class="form-label col-form-label-sm">Uniqe No</label>
-                                        <select class="form-select form-select-sm" id="uniqeNo" name="uniqeNo"
+                                        <select class="form-select form-select-sm" id="uniqeNo" name="uniqe_no"
                                             aria-label="Default select example">
                                             <option selected>Pilih</option>
-
+                                            <option value="1">coba uniqe no</option>
                                         </select>
                                     </div>
 
@@ -180,14 +181,14 @@
 
                                     <div class="col-1">
                                         <label for="qty" class="form-label col-form-label-sm">Qty</label>
-                                        <input class="form-control form-control-sm text-center" name="qty" type="text"
+                                        <input class="form-control form-control-sm text-center" name="qty" type="number"
                                             placeholder="" aria-label="default input example">
                                     </div>
 
                                     <div class="col-2">
                                         <label for="sourceType" class="form-label col-form-label-sm">Souurce
                                             Type</label>
-                                        <select class="form-select form-select-sm" id="sourceType" name="sourceType"
+                                        <select class="form-select form-select-sm" id="sourceType" name="source_type"
                                             aria-label="Default select example">
                                             <option selected>Pilih</option>
 
@@ -285,7 +286,8 @@
                                 </div>
                                 <div class="row card-body">
 
-                                    <table class="table table-bordered table-sm text-center table-responsive-sm">
+                                    <table class="table table-bordered table-sm text-center table-responsive-sm"
+                                        style="font-size: .85rem;">
                                         <thead>
                                             <tr>
                                                 <th scope="col">No</th>
@@ -298,6 +300,7 @@
                                                 <th scope="col">Repair</th>
                                                 <th scope="col">Source</th>
                                                 <th scope="col">Remarks</th>
+                                                <th scope="col">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -318,22 +321,28 @@
                                                         <?php echo $mat["uniqe_no"]; ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $mat["part_qty"]; ?>
+                                                        <?php echo $mat["qty"]; ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $mat["reason_lsr"]; ?>
+                                                        <?php echo $mat["reason"]; ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $mat["condition_lsr"]; ?>
+                                                        <?php echo $mat["condition"]; ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $mat["repair_lsr"]; ?>
+                                                        <?php echo $mat["repair"]; ?>
                                                     </td>
                                                     <td>
                                                         <?php echo $mat["source_type"]; ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $mat["remarks_lsr"]; ?>
+                                                        <?php echo $mat["remarks"]; ?>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success btn-sm"
+                                                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .8rem; --bs-btn-font-size: .75rem;">Edit</button>
+                                                        <button type="button" class="btn btn-danger btn-sm"
+                                                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Delete</button>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>
@@ -361,12 +370,12 @@
                         </div>
                     </div> <!--columns center footer end-->
 
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col text-center">
                             <button type="button" class="btn btn-success">Submit</button>
                             <button type="button" class="btn btn-warning">Cancel</button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 

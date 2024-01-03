@@ -21,7 +21,6 @@ class App
         $this->controller = new $this->controller;
 
         // methode
-
         if (isset($url[1])) {
             if (method_exists($this->controller, $url[1])) {
                 $this->method = $url[1];
