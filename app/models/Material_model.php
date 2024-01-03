@@ -54,6 +54,15 @@ class Material_model
         return $this->db->rowCount();
 
     }
+
+
+    public function getAllMaterialMaster()
+    {
+        $this->db->query('SELECT * FROM ' . $this->table2);
+        return $this->db->resultSet();
+    }
+
+
 }
 
 ?>

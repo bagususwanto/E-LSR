@@ -4,6 +4,7 @@ class Create extends Controller
     public function index()
     {
         $data['mat'] = $this->model('Material_model')->getAllMaterial();
+        $data['matMaster'] = $this->model('Material_model')->getAllMaterialMaster();
         // $data['matId'] = $this->model('Material_model')->getAllMaterialById($id);
         $this->view('templates/header');
         $this->view('templates/sidebar');

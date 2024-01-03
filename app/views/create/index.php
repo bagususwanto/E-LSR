@@ -151,7 +151,11 @@
                                         <select class="form-select form-select-sm" id="partNumber" name="part_number"
                                             aria-label="Default select example">
                                             <option selected>Pilih</option>
-                                            <option value="1">coba1 part number</option>
+                                            <?php foreach ($data['matMaster'] as $matMaster): ?>
+                                                <option value="<?php echo $matMaster['part_number']; ?>">
+                                                    <?php echo $matMaster['part_number']; ?>
+                                                </option>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
 
@@ -160,7 +164,11 @@
                                         <select class="form-select form-select-sm" id="partName" name="part_name"
                                             aria-label="Default select example">
                                             <option selected>Pilih</option>
-                                            <option value="1">coba part name</option>
+                                            <?php foreach ($data['matMaster'] as $matMaster): ?>
+                                                <option value="<?php echo $matMaster['part_name']; ?>">
+                                                    <?php echo $matMaster['part_name']; ?>
+                                                </option>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
 
@@ -169,15 +177,19 @@
                                         <select class="form-select form-select-sm" id="uniqeNo" name="uniqe_no"
                                             aria-label="Default select example">
                                             <option selected>Pilih</option>
-                                            <option value="1">coba uniqe no</option>
+                                            <?php foreach ($data['matMaster'] as $matMaster): ?>
+                                                <option value="<?php echo $matMaster['uniqe_no']; ?>">
+                                                    <?php echo $matMaster['uniqe_no']; ?>
+                                                </option>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
 
                                     <!-- Hidden inputs to store selected texts -->
-                                    <input type="hidden" id="hiddenPartNumber" name="hiddenPartNumber">
+                                    <!-- <input type="hidden" id="hiddenPartNumber" name="hiddenPartNumber">
                                     <input type="hidden" id="hiddenPartName" name="hiddenPartName">
                                     <input type="hidden" id="hiddenUniqeNo" name="hiddenUniqeNo">
-                                    <input type="hidden" id="hiddenSourceType" name="hiddenSourceType">
+                                    <input type="hidden" id="hiddenSourceType" name="hiddenSourceType"> -->
 
                                     <div class="col-1">
                                         <label for="qty" class="form-label col-form-label-sm">Qty</label>
@@ -191,7 +203,11 @@
                                         <select class="form-select form-select-sm" id="sourceType" name="source_type"
                                             aria-label="Default select example">
                                             <option selected>Pilih</option>
-
+                                            <?php foreach ($data['matMaster'] as $matMaster): ?>
+                                                <option value="<?php echo $matMaster['source_type']; ?>">
+                                                    <?php echo $matMaster['source_type']; ?>
+                                                </option>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
 
