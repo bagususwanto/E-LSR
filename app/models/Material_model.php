@@ -19,11 +19,12 @@ class Material_model
 
 
     public function getAllMaterialById($id)
-    {
-        $this->db->query('SELECT * FROM ' . $this->table2 . 'WHERE id=:id');
-        $this->db->bind('id', $id);
-        return $this->db->single();
-    }
+{
+    $this->db->query('SELECT * FROM ' . $this->table2 . ' WHERE id=:id');
+    $this->db->bind('id', $id);
+    return $this->db->single();
+}
+
 
     public function tambahDataMaterial($data)
     {
@@ -52,7 +53,6 @@ class Material_model
 
         $this->db->execute();
         return $this->db->rowCount();
-
     }
 
 

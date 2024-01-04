@@ -43,20 +43,20 @@
                                         <select class="form-select form-select-sm" id="line" name="line_lsr"
                                             aria-label="Default select example">
                                             <option selected></option>
-                                            <option value="1">Main Line</option>
-                                            <option value="2">Sub Line</option>
-                                            <option value="3">Crankshaft</option>
-                                            <option value="4">Cylinder Block</option>
-                                            <option value="5">Cylinder Head</option>
-                                            <option value="6">Camshaft</option>
-                                            <option value="7">Die Casting</option>
-                                            <option value="8">Quality</option>
-                                            <option value="9">Logistic Operational</option>
-                                            <option value="10">Maintenance</option>
-                                            <option value="11">Maintenance DC</option>
-                                            <option value="12">Engser</option>
-                                            <option value="13">Engser casting</option>
-                                            <option value="14">Tachnical Support</option>
+                                            <option value="Main Line">Main Line</option>
+                                            <option value="Sub Line">Sub Line</option>
+                                            <option value="Crankshaft">Crankshaft</option>
+                                            <option value="Cylinder Block">Cylinder Block</option>
+                                            <option value="Cylinder Head">Cylinder Head</option>
+                                            <option value="Camshaft">Camshaft</option>
+                                            <option value="Die Casting">Die Casting</option>
+                                            <option value="Quality">Quality</option>
+                                            <option value="Logistic Operational">Logistic Operational</option>
+                                            <option value="Maintenance">Maintenance</option>
+                                            <option value="Maintenance DC">Maintenance DC</option>
+                                            <option value="Engser">Engser</option>
+                                            <option value="Engser casting">Engser casting</option>
+                                            <option value="Technical Support">Technical Support</option>
                                         </select>
                                     </div>
 
@@ -65,8 +65,8 @@
                                         <select class="form-select form-select-sm" id="shift" name="shift"
                                             aria-label="Default select example">
                                             <option selected></option>
-                                            <option value="1">Red</option>
-                                            <option value="2">White</option>
+                                            <option value="Red">Red</option>
+                                            <option value="White">White</option>
                                         </select>
                                     </div>
                                 </div>
@@ -77,12 +77,12 @@
                                         <select class="form-select form-select-sm" id="material" name="material"
                                             aria-label="Default select example">
                                             <option selected></option>
-                                            <option value="1">Assembly</option>
-                                            <option value="2">Crankshaft</option>
-                                            <option value="3">Cylinder Block</option>
-                                            <option value="3">Cylinder Head</option>
-                                            <option value="3">Camshaft</option>
-                                            <option value="3">Die Casting</option>
+                                            <option value="Assembly">Assembly</option>
+                                            <option value="Crankshaft">Crankshaft</option>
+                                            <option value="Cylinder Block">Cylinder Block</option>
+                                            <option value="Cylinder Head">Cylinder Head</option>
+                                            <option value="Camshaft">Camshaft</option>
+                                            <option value="Die Casting">Die Casting</option>
                                         </select>
                                     </div>
                                     <div class="col-3 pt-3">
@@ -90,20 +90,20 @@
                                         <select class="form-select form-select-sm" id="lineCode" name="line_code"
                                             aria-label="Default select example">
                                             <option selected></option>
-                                            <option value="1">KML</option>
-                                            <option value="1">KSL</option>
-                                            <option value="2">MCR</option>
-                                            <option value="3">MCB</option>
-                                            <option value="3">MCH</option>
-                                            <option value="3">MCA</option>
-                                            <option value="3">CDC</option>
-                                            <option value="3">QC</option>
-                                            <option value="3">LOG</option>
-                                            <option value="3">MT</option>
-                                            <option value="3">MDC</option>
-                                            <option value="3">ES</option>
-                                            <option value="3">ESC</option>
-                                            <option value="3">TS</option>
+                                            <option value="KML">KML</option>
+                                            <option value="KSL">KSL</option>
+                                            <option value="MCR">MCR</option>
+                                            <option value="MCB">MCB</option>
+                                            <option value="MCH">MCH</option>
+                                            <option value="MCA">MCA</option>
+                                            <option value="CDC">CDC</option>
+                                            <option value="QC">QC</option>
+                                            <option value="LOG">LOG</option>
+                                            <option value="MT">MT</option>
+                                            <option value="MDC">MDC</option>
+                                            <option value="ES">ES</option>
+                                            <option value="ESC">ESC</option>
+                                            <option value="TS">TS</option>
                                         </select>
                                     </div>
 
@@ -113,19 +113,19 @@
                                         <select class="form-select form-select-sm" id="costCenter" name="cost_center"
                                             aria-label="Default select example">
                                             <option selected></option>
-                                            <option value="1">AQK200</option>
-                                            <option value="1">AQK100</option>
-                                            <option value="2">AQM300</option>
-                                            <option value="3">AQM100</option>
-                                            <option value="3">AQM200</option>
-                                            <option value="3">AQM400</option>
-                                            <option value="3">AQC100</option>
-                                            <option value="3">AWM300</option>
-                                            <option value="3">AQN200</option>
-                                            <option value="3">AWM300</option>
-                                            <option value="3">AWM200</option>
-                                            <option value="3">AWC200</option>
-                                            <option value="3">ADA403</option>
+                                            <option value="AQK200">AQK200</option>
+                                            <option value="AQK100">AQK100</option>
+                                            <option value="AQK100">AQM300</option>
+                                            <option value="AQM100">AQM100</option>
+                                            <option value="AQM200">AQM200</option>
+                                            <option value="AQM400">AQM400</option>
+                                            <option value="AQC100">AQC100</option>
+                                            <option value="AWM300">AWM300</option>
+                                            <option value="AQN200">AQN200</option>
+                                            <option value="AWM300">AWM300</option>
+                                            <option value="AWM200">AWM200</option>
+                                            <option value="AWC200">AWC200</option>
+                                            <option value="ADA403">ADA403</option>
                                         </select>
                                     </div>
 
@@ -150,9 +150,10 @@
                                             Number</label>
                                         <select class="form-select form-select-sm" id="partNumber" name="part_number"
                                             aria-label="Default select example">
-                                            <option selected>Pilih</option>
+                                            <!-- <option selected>Pilih Part Number</option> -->
                                             <?php foreach ($data['matMaster'] as $matMaster): ?>
-                                                <option value="<?php echo $matMaster['part_number']; ?>">
+                                                <option value="<?php echo $matMaster['part_number']; ?>"
+                                                    data-id="<?php echo $matMaster['id']; ?>">
                                                     <?php echo $matMaster['part_number']; ?>
                                                 </option>
                                             <?php endforeach; ?>
@@ -163,9 +164,10 @@
                                         <label for="partName" class="form-label col-form-label-sm">Part Name</label>
                                         <select class="form-select form-select-sm" id="partName" name="part_name"
                                             aria-label="Default select example">
-                                            <option selected>Pilih</option>
+                                            <!-- <option selected>Pilih Part Name</option> -->
                                             <?php foreach ($data['matMaster'] as $matMaster): ?>
-                                                <option value="<?php echo $matMaster['part_name']; ?>">
+                                                <option value="<?php echo $matMaster['part_name']; ?>"
+                                                    data-id="<?php echo $matMaster['id']; ?>">
                                                     <?php echo $matMaster['part_name']; ?>
                                                 </option>
                                             <?php endforeach; ?>
@@ -176,9 +178,10 @@
                                         <label for="uniqeNo" class="form-label col-form-label-sm">Uniqe No</label>
                                         <select class="form-select form-select-sm" id="uniqeNo" name="uniqe_no"
                                             aria-label="Default select example">
-                                            <option selected>Pilih</option>
+                                            <!-- <option selected>Pilih Uniqe No</option> -->
                                             <?php foreach ($data['matMaster'] as $matMaster): ?>
-                                                <option value="<?php echo $matMaster['uniqe_no']; ?>">
+                                                <option value="<?php echo $matMaster['uniqe_no']; ?>"
+                                                    data-id="<?php echo $matMaster['id']; ?>">
                                                     <?php echo $matMaster['uniqe_no']; ?>
                                                 </option>
                                             <?php endforeach; ?>
@@ -202,9 +205,10 @@
                                             Type</label>
                                         <select class="form-select form-select-sm" id="sourceType" name="source_type"
                                             aria-label="Default select example">
-                                            <option selected>Pilih</option>
+                                            <!-- <option selected>Pilih Source Type</option> -->
                                             <?php foreach ($data['matMaster'] as $matMaster): ?>
-                                                <option value="<?php echo $matMaster['source_type']; ?>">
+                                                <option value="<?php echo $matMaster['source_type']; ?>"
+                                                    data-id="<?php echo $matMaster['id']; ?>">
                                                     <?php echo $matMaster['source_type']; ?>
                                                 </option>
                                             <?php endforeach; ?>
