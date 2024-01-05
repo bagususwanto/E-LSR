@@ -25,9 +25,6 @@ class Create extends Controller
 
     public function getUbahSelectedMat()
     {
-        // kirim kembali ID dalam format JSON
-        // $id = $_POST['id'];
-
         // Atur header untuk memberi tahu bahwa respons adalah JSON
         header('Content-Type: application/json');
 
