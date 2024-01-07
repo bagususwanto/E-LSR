@@ -26,26 +26,30 @@ class User_model
 
 
 
-     // Metode untuk memeriksa kredensial pengguna
-     public function checkCredentials($username, $password) {
+    // Metode untuk memeriksa kredensial pengguna
+    public function checkCredentials($username, $password)
+    {
         // Konsultasikan database untuk memeriksa kecocokan kredensial
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE username = :username');
         $this->db->bind('username', $username);
         $result = $this->db->single();  // Ambil satu baris hasil
-    
+
         // Periksa apakah ada baris yang ditemukan
         if ($this->db->rowCount() > 0) {
             // Bandingkan password yang diberikan dengan password di database
             $hashedPassword = $result['password'];
             if (password_verify($password, $hashedPassword)) {
-                return true;  // Kredensial cocok
+                // Kredensial cocok, kembalikan data pengguna
+                return $result;
             }
         }
-    
-        return false;  // Tidak ada baris atau password tidak cocok
+
+        // Tidak ada baris atau password tidak cocok
+        return false;
     }
-    
-    
+
+
+
 
 
 

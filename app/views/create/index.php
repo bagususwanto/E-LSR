@@ -42,21 +42,13 @@
                                         <label for="line" class="form-label col-form-label-sm">Line</label>
                                         <select class="form-select form-select-sm" id="line" name="line_lsr"
                                             aria-label="Default select example">
-                                            <option selected></option>
-                                            <option value="Main Line">Main Line</option>
-                                            <option value="Sub Line">Sub Line</option>
-                                            <option value="Crankshaft">Crankshaft</option>
-                                            <option value="Cylinder Block">Cylinder Block</option>
-                                            <option value="Cylinder Head">Cylinder Head</option>
-                                            <option value="Camshaft">Camshaft</option>
-                                            <option value="Die Casting">Die Casting</option>
-                                            <option value="Quality">Quality</option>
-                                            <option value="Logistic Operational">Logistic Operational</option>
-                                            <option value="Maintenance">Maintenance</option>
-                                            <option value="Maintenance DC">Maintenance DC</option>
-                                            <option value="Engser">Engser</option>
-                                            <option value="Engser casting">Engser casting</option>
-                                            <option value="Technical Support">Technical Support</option>
+                                            <!-- <option selected></option> -->
+                                            <?php foreach ($data['lineMaster'] as $lineMaster): ?>
+                                                <option value="<?php echo $lineMaster['nama_line']; ?>"
+                                                    data-id="<?php echo $lineMaster['id']; ?>">
+                                                    <?php echo $lineMaster['nama_line']; ?>
+                                                </option>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
 
@@ -64,7 +56,6 @@
                                         <label for="shift" class="form-label col-form-label-sm">Shift</label>
                                         <select class="form-select form-select-sm" id="shift" name="shift"
                                             aria-label="Default select example">
-                                            <option selected></option>
                                             <option value="Red">Red</option>
                                             <option value="White">White</option>
                                         </select>
@@ -76,34 +67,27 @@
                                         <label for="material" class="form-label col-form-label-sm">Material</label>
                                         <select class="form-select form-select-sm" id="material" name="material"
                                             aria-label="Default select example">
-                                            <option selected></option>
-                                            <option value="Assembly">Assembly</option>
-                                            <option value="Crankshaft">Crankshaft</option>
-                                            <option value="Cylinder Block">Cylinder Block</option>
-                                            <option value="Cylinder Head">Cylinder Head</option>
-                                            <option value="Camshaft">Camshaft</option>
-                                            <option value="Die Casting">Die Casting</option>
+                                            <?php
+                                            $uniqueMaterials = array_unique(array_column($data['lineMaster'], 'material'));
+
+                                            foreach ($uniqueMaterials as $material): ?>
+                                                <?php if (!empty($material)): ?>
+                                                    <option value="<?php echo $material; ?>">
+                                                        <?php echo $material; ?>
+                                                    </option>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
                                     <div class="col-3 pt-3">
                                         <label for="lineCode" class="form-label col-form-label-sm">Line Code</label>
                                         <select class="form-select form-select-sm" id="lineCode" name="line_code"
                                             aria-label="Default select example">
-                                            <option selected></option>
-                                            <option value="KML">KML</option>
-                                            <option value="KSL">KSL</option>
-                                            <option value="MCR">MCR</option>
-                                            <option value="MCB">MCB</option>
-                                            <option value="MCH">MCH</option>
-                                            <option value="MCA">MCA</option>
-                                            <option value="CDC">CDC</option>
-                                            <option value="QC">QC</option>
-                                            <option value="LOG">LOG</option>
-                                            <option value="MT">MT</option>
-                                            <option value="MDC">MDC</option>
-                                            <option value="ES">ES</option>
-                                            <option value="ESC">ESC</option>
-                                            <option value="TS">TS</option>
+                                            <?php foreach ($data['lineMaster'] as $lineMaster): ?>
+                                                <option value="<?php echo $lineMaster['line_code']; ?>">
+                                                    <?php echo $lineMaster['line_code']; ?>
+                                                </option>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
 
@@ -112,20 +96,11 @@
                                             Center</label>
                                         <select class="form-select form-select-sm" id="costCenter" name="cost_center"
                                             aria-label="Default select example">
-                                            <option selected></option>
-                                            <option value="AQK200">AQK200</option>
-                                            <option value="AQK100">AQK100</option>
-                                            <option value="AQK100">AQM300</option>
-                                            <option value="AQM100">AQM100</option>
-                                            <option value="AQM200">AQM200</option>
-                                            <option value="AQM400">AQM400</option>
-                                            <option value="AQC100">AQC100</option>
-                                            <option value="AWM300">AWM300</option>
-                                            <option value="AQN200">AQN200</option>
-                                            <option value="AWM300">AWM300</option>
-                                            <option value="AWM200">AWM200</option>
-                                            <option value="AWC200">AWC200</option>
-                                            <option value="ADA403">ADA403</option>
+                                            <?php foreach ($data['lineMaster'] as $lineMaster): ?>
+                                                <option value="<?php echo $lineMaster['cost_center']; ?>">
+                                                    <?php echo $lineMaster['cost_center']; ?>
+                                                </option>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
 
@@ -151,12 +126,7 @@
                                         <select class="form-select form-select-sm" id="partNumber" name="part_number"
                                             aria-label="Default select example">
                                             <!-- <option selected>Pilih Part Number</option> -->
-                                            <?php foreach ($data['matMaster'] as $matMaster): ?>
-                                                <option value="<?php echo $matMaster['part_number']; ?>"
-                                                    data-id="<?php echo $matMaster['id']; ?>">
-                                                    <?php echo $matMaster['part_number']; ?>
-                                                </option>
-                                            <?php endforeach; ?>
+                                            <option data-id="" value=""></option>
                                         </select>
                                     </div>
 
@@ -165,12 +135,7 @@
                                         <select class="form-select form-select-sm" id="partName" name="part_name"
                                             aria-label="Default select example">
                                             <!-- <option selected>Pilih Part Name</option> -->
-                                            <?php foreach ($data['matMaster'] as $matMaster): ?>
-                                                <option value="<?php echo $matMaster['part_name']; ?>"
-                                                    data-id="<?php echo $matMaster['id']; ?>">
-                                                    <?php echo $matMaster['part_name']; ?>
-                                                </option>
-                                            <?php endforeach; ?>
+                                            <option data-id="" value=""></option>
                                         </select>
                                     </div>
 
@@ -179,12 +144,7 @@
                                         <select class="form-select form-select-sm" id="uniqeNo" name="uniqe_no"
                                             aria-label="Default select example">
                                             <!-- <option selected>Pilih Uniqe No</option> -->
-                                            <?php foreach ($data['matMaster'] as $matMaster): ?>
-                                                <option value="<?php echo $matMaster['uniqe_no']; ?>"
-                                                    data-id="<?php echo $matMaster['id']; ?>">
-                                                    <?php echo $matMaster['uniqe_no']; ?>
-                                                </option>
-                                            <?php endforeach; ?>
+                                            <option data-id="" value=""></option>
                                         </select>
                                     </div>
 
@@ -206,12 +166,7 @@
                                         <select class="form-select form-select-sm" id="sourceType" name="source_type"
                                             aria-label="Default select example">
                                             <!-- <option selected>Pilih Source Type</option> -->
-                                            <?php foreach ($data['matMaster'] as $matMaster): ?>
-                                                <option value="<?php echo $matMaster['source_type']; ?>"
-                                                    data-id="<?php echo $matMaster['id']; ?>">
-                                                    <?php echo $matMaster['source_type']; ?>
-                                                </option>
-                                            <?php endforeach; ?>
+                                            <option data-id="" value=""></option>
                                         </select>
                                     </div>
 

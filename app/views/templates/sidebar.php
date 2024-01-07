@@ -39,7 +39,7 @@
         </li><!-- End Profile Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="">
+            <a class="nav-link collapsed" href="<?php echo BASEURL ?>/login">
                 <i class="bi bi-box-arrow-in-right"></i>
                 <span>Logout</span>
             </a>

@@ -31,6 +31,11 @@
     <!-- Template Main CSS File -->
     <link href="<?php echo BASEURL ?>/css/style.css" rel="stylesheet">
 
+    <script>
+    // Menyimpan BASEURL dalam variabel JavaScript
+    const BASEURL = "<?= BASEURL ?>";
+  </script>
+
     <!-- =======================================================
   * Updated: Nov 17 2023 with Bootstrap v5.3.2
   ======================================================== -->
@@ -145,13 +150,20 @@
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="<?php echo BASEURL ?>/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">Bagus U.</span>
+                        <span id="userLog" class="d-none d-md-block dropdown-toggle ps-2"
+                            data-id="<?php echo isset($data['user']['id']) ? $data['user']['id'] : 'Guest'; ?>">
+                            <?php echo isset($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>
+                        </span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6 id="namUser">Bagus Uswanto</h6>
-                            <span id="validLine">CCR & Ordering</span>
+                            <h6>
+                                <?php echo isset($data['user']['nama']) ? $data['user']['nama'] : 'Guest'; ?>
+                            </h6>
+                            <span id="validLine">
+                                <?php echo isset($data['user']['line_user']) ? $data['user']['line_user'] : 'Guest'; ?>
+                            </span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">

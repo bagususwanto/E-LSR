@@ -1,9 +1,13 @@
 <?php
 class Material_model
 {
-    private $table = 'data_dc';
-    private $table2 = 'master_mat_dc';
     private $db;
+    private $table = 'data_dc';
+
+
+
+    private $table2 = 'master_mat_dc';
+
 
     public function __construct()
     {
@@ -19,11 +23,11 @@ class Material_model
 
 
     public function getAllMaterialById($id)
-{
-    $this->db->query('SELECT * FROM ' . $this->table2 . ' WHERE id=:id');
-    $this->db->bind('id', $id);
-    return $this->db->single();
-}
+    {
+        $this->db->query('SELECT * FROM ' . $this->table2 . ' WHERE id=:id');
+        $this->db->bind('id', $id);
+        return $this->db->single();
+    }
 
 
     public function tambahDataMaterial($data)
@@ -62,6 +66,13 @@ class Material_model
         return $this->db->resultSet();
     }
 
+
+    public function getMasterByMaterial($material)
+    {
+        $this->db->query('SELECT * FROM ' . $this->table2 . ' WHERE material=:material');
+        $this->db->bind('material', $material);
+        return $this->db->resultSet();
+    }
 
 }
 
