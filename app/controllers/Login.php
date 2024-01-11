@@ -24,7 +24,7 @@ class Login extends Controller
             session_start();
 
             // Simpan ID pengguna dalam session
-            $_SESSION['user_id'] = $user['id']; // Gantilah dengan kolom ID yang sesuai di tabel pengguna
+            $_SESSION['user_id'] = $user['id'];
 
             // Redirect ke halaman utama atau melakukan tindakan selanjutnya
             header('Location:' . BASEURL);

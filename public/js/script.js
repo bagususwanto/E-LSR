@@ -254,6 +254,90 @@ $(function () {
         console.log("Error:", error);
       },
     });
+
+    //==== ISI TABEL DATA SUBMIT======//
+    // Ambil nilai
+    const hiddenUser = $("#hiddenUser").val();
+    // const hidddenUser = $("#hiddenUser").val();
+    $.ajax({
+      url: BASEURL + "/create/getDataTable",
+      data: { hiddenUser: hiddenUser },
+      method: "post",
+      dataType: "json",
+      success: function (data) {
+        for (var i = 0; i < data.length; i++) {
+          $("#dataTable").append(
+            "<tr>" +
+              "<td>" +
+              [i + 1] +
+              "</td>" +
+              '<td data-id="' +
+              data[i].id +
+              '">' +
+              data[i].part_number +
+              "</td>" +
+              '<td data-id="' +
+              data[i].id +
+              '">' +
+              data[i].part_name +
+              "</td>" +
+              '<td data-id="' +
+              data[i].id +
+              '">' +
+              data[i].uniqe_no +
+              "</td>" +
+              '<td data-id="' +
+              data[i].id +
+              '">' +
+              data[i].qty +
+              "</td>" +
+              '<td data-id="' +
+              data[i].id +
+              '">' +
+              data[i].reason +
+              "</td>" +
+              '<td data-id="' +
+              data[i].id +
+              '">' +
+              data[i].condition +
+              "</td>" +
+              '<td data-id="' +
+              data[i].id +
+              '">' +
+              data[i].repair +
+              "</td>" +
+              '<td data-id="' +
+              data[i].id +
+              '">' +
+              data[i].source_type +
+              "</td>" +
+              '<td data-id="' +
+              data[i].id +
+              '">' +
+              data[i].remarks +
+              "</td>" +
+              '<td data-id="' +
+              data[i].id +
+              '">' +
+              data[i].material +
+              "</td>" +
+              '<td data-id="' +
+              data[i].id +
+              '">' +
+              data[i].tanggal +
+              "</td>" +
+              "</tr>"
+          );
+        }
+      },
+      error: function (error) {
+        console.log("Error:", error);
+      },
+    });
+
+    $("#submitBtn").on("click", function () {
+      $("#myForm").submit();
+    });
   });
 });
 

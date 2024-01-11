@@ -26,12 +26,59 @@ class Create extends Controller
     public function tambah()
     {
         // print_r($_POST);
-        if ($this->model('Material_model')->tambahDataMaterial($_POST) > 0) {
+        if ($this->model('Material_model')->AddDataMaterial($_POST) > 0) {
             header('location:' . BASEURL . '/create');
             exit;
         }
     }
-    
+
+    public function submit()
+    {
+        // Validasi dan pembersihan data
+        $cleanedData = array_map('htmlspecialchars', $_POST);
+
+        // Mendapatkan nilai dari elemen input hiddenUser
+        $username = isset($cleanedData['hiddenUser2']) ? $cleanedData['hiddenUser2'] : 'Guest';
+
+        // Mengambil data dari $table2 dan $additionalData
+        $additionalData = $this->model('Material_model')->getDataFromTable3ByUsername($username);
+
+        // Menggabungkan data dari $cleanedData dan $additionalData
+        $mergedData = array_merge(['hiddenUser2' => $username], ...$additionalData);
+
+        // Insert data ke $table
+        if ($this->model('Material_model')->insertMaterial($mergedData) > 0) {
+            // Delete data from $table3 based on the username
+            $this->model('Material_model')->deleteDataFromTable3ByUsername($username);
+
+            // Redirect to the desired location
+            header('location:' . BASEURL . '/create');
+            exit;
+        }
+
+        // Insert data ke $table
+        $insertResult = $this->model('Material_model')->insertMaterial($mergedData);
+
+        // Check the result of the insert operation
+        if ($insertResult > 0) {
+            // Delete data from $table3 based on the username
+            $deleteResult = $this->model('Material_model')->deleteDataFromTable3ByUsername($username);
+
+            // Check the result of the delete operation
+            if ($deleteResult > 0) {
+                // Redirect to the desired location
+                header('location:' . BASEURL . '/create');
+                exit;
+            } else {
+                echo "Failed to delete data from table3";
+            }
+        } else {
+            echo "Failed to insert data into table";
+        }
+    }
+
+
+
 
     public function getUbahSelectedMat()
     {
@@ -48,7 +95,7 @@ class Create extends Controller
     {
         // Atur header untuk memberi tahu bahwa respons adalah JSON
         header('Content-Type: application/json');
-       
+
         echo json_encode($this->model('User_model')->getAllUserById($_POST['id']));
     }
 
@@ -56,18 +103,25 @@ class Create extends Controller
     {
         // Atur header untuk memberi tahu bahwa respons adalah JSON
         header('Content-Type: application/json');
-       
+
         echo json_encode($this->model('Line_model')->getLineByNamaLine($_POST['validLineValue']));
     }
-    
+
     public function getMasterPart()
     {
         // Atur header untuk memberi tahu bahwa respons adalah JSON
         header('Content-Type: application/json');
-       
+
         echo json_encode($this->model('Material_model')->getMasterByMaterial($_POST['validLineValue2']));
     }
 
+    public function getDataTable()
+    {
+        // Atur header untuk memberi tahu bahwa respons adalah JSON
+        header('Content-Type: application/json');
+
+        echo json_encode($this->model('Material_model')->getAllMaterialCrieteria($_POST['hiddenUser']));
+    }
 
 
 }

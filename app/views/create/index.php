@@ -153,11 +153,14 @@
                                     <input type="hidden" id="hiddenPartName" name="hiddenPartName">
                                     <input type="hidden" id="hiddenUniqeNo" name="hiddenUniqeNo">
                                     <input type="hidden" id="hiddenSourceType" name="hiddenSourceType"> -->
+                                    <input type="hidden" id="hiddenUser"
+                                        value="<?php echo isset($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>"
+                                        name="hiddenUser">
 
                                     <div class="col-1">
                                         <label for="qty" class="form-label col-form-label-sm">Qty</label>
-                                        <input class="form-control form-control-sm text-center" name="qty" type="number"
-                                            placeholder="" aria-label="default input example">
+                                        <input required class="form-control form-control-sm text-center" name="qty"
+                                            type="number" placeholder="" aria-label="default input example">
                                     </div>
 
                                     <div class="col-2">
@@ -234,8 +237,8 @@
 
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label col-form-label-sm">Remarks</label>
-                        <textarea class="form-control form-control-sm" name="remarks" id="exampleFormControlTextarea1"
-                            rows="3"></textarea>
+                        <textarea required class="form-control form-control-sm" name="remarks"
+                            id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div> <!--remaks end-->
 
                     <div class="row">
@@ -275,68 +278,22 @@
                                                 <th scope="col">Repair</th>
                                                 <th scope="col">Source</th>
                                                 <th scope="col">Remarks</th>
-                                                <th scope="col">Actions</th>
+                                                <th scope="col">Material</th>
+                                                <th scope="col">Tanggal</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <?php
-                                            $no = 1;
-                                            foreach ($data['mat'] as $mat): ?>
-                                                <tr>
-                                                    <td>
-                                                        <?php echo $no++; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $mat["part_number"]; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $mat["part_name"]; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $mat["uniqe_no"]; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $mat["qty"]; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $mat["reason"]; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $mat["condition"]; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $mat["repair"]; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $mat["source_type"]; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $mat["remarks"]; ?>
-                                                    </td>
-                                                    <td>
+                                        <tbody id="dataTable">
+                                            <!-- <tr>
+                                                <td>
+                                                </td>
+                                                <td>
                                                         <button type="button" class="btn btn-success btn-sm"
                                                             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .8rem; --bs-btn-font-size: .75rem;">Edit</button>
                                                         <button type="button" class="btn btn-danger btn-sm"
                                                             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Delete</button>
                                                     </td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                            <!-- <tr>
-                                                    <td>2</td>
-                                                    <td>11461-0Y040-00</td>
-                                                    <td>DAMPER, CHAIN VIBRATION, NO.2</td>
-                                                    <td>S100</td>
-                                                    <td>150</td>
-                                                    <td>A</td>
-                                                    <td>1</td>
-                                                    <td>1</td>
-                                                    <td>Part Scrap</td>
-                                                </tr> -->
+                                            </tr> -->
                                         </tbody>
-                                        <!-- <tfoot>
-                                                <th scope="col" colspan="9">Total</th>
-                                                <td>999</td>
-                                            </tfoot> -->
                                     </table>
 
                                 </div>
@@ -345,12 +302,17 @@
                         </div>
                     </div> <!--columns center footer end-->
 
-                    <!-- <div class="row">
+                    <div class="row">
                         <div class="col text-center">
-                            <button type="button" class="btn btn-success">Submit</button>
-                            <button type="button" class="btn btn-warning">Cancel</button>
+                            <form action="<?php echo BASEURL; ?>/create/submit" method="post" id="myForm">
+                                <input type="hidden" id="hiddenUser2"
+                                    value="<?php echo isset($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>"
+                                    name="hiddenUser2">
+                                <button id="submitBtn" type="submit" class="btn btn-success">Submit</button>
+                                <button type="button" class="btn btn-warning">Cancel</button>
+                            </form>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
 
