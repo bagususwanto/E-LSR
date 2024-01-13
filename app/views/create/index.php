@@ -69,22 +69,26 @@
                                             aria-label="Default select example">
                                             <?php
                                             $uniqueMaterials = array_unique(array_column($data['lineMaster'], 'material'));
-
-                                            foreach ($uniqueMaterials as $material): ?>
-                                                <?php if (!empty($material)): ?>
-                                                    <option value="<?php echo $material; ?>">
+                                            foreach ($uniqueMaterials as $material):
+                                                if (!empty($material)):
+                                                    ?>
+                                                    <option data-id="<?php echo $lineMaster['id']; ?>"
+                                                        value="<?php echo $material; ?>">
                                                         <?php echo $material; ?>
                                                     </option>
-                                                <?php endif; ?>
-                                            <?php endforeach; ?>
+                                                    <?php
+                                                endif;
+                                            endforeach;
+                                            ?>
                                         </select>
                                     </div>
                                     <div class="col-3 pt-3">
                                         <label for="lineCode" class="form-label col-form-label-sm">Line Code</label>
                                         <select class="form-select form-select-sm" id="lineCode" name="line_code"
-                                            aria-label="Default select example">
+                                            aria-label="Disabled select example" Disabled>
                                             <?php foreach ($data['lineMaster'] as $lineMaster): ?>
-                                                <option value="<?php echo $lineMaster['line_code']; ?>">
+                                                <option data-id="<?php echo $lineMaster['id']; ?>"
+                                                    value="<?php echo $lineMaster['line_code']; ?>">
                                                     <?php echo $lineMaster['line_code']; ?>
                                                 </option>
                                             <?php endforeach; ?>
@@ -95,9 +99,10 @@
                                         <label for="costCenter" class="form-label col-form-label-sm">Cost
                                             Center</label>
                                         <select class="form-select form-select-sm" id="costCenter" name="cost_center"
-                                            aria-label="Default select example">
+                                            aria-label="Disabled select example" Disabled>
                                             <?php foreach ($data['lineMaster'] as $lineMaster): ?>
-                                                <option value="<?php echo $lineMaster['cost_center']; ?>">
+                                                <option data-id="<?php echo $lineMaster['id']; ?>"
+                                                    value="<?php echo $lineMaster['cost_center']; ?>">
                                                     <?php echo $lineMaster['cost_center']; ?>
                                                 </option>
                                             <?php endforeach; ?>
@@ -153,9 +158,12 @@
                                     <input type="hidden" id="hiddenPartName" name="hiddenPartName">
                                     <input type="hidden" id="hiddenUniqeNo" name="hiddenUniqeNo">
                                     <input type="hidden" id="hiddenSourceType" name="hiddenSourceType"> -->
-                                    <input type="hidden" id="hiddenUser"
-                                        value="<?php echo isset($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>"
-                                        name="hiddenUser">
+                                    <input type="hidden" id="lineUser"
+                                        value="<?php echo isset($data['user']['line_user']) ? $data['user']['line_user'] : 'Guest'; ?>"
+                                        name="lineUser">
+                                    <input type="hidden" id="shiftUser"
+                                        value="<?php echo isset($data['user']['shift_user']) ? $data['user']['shift_user'] : 'Guest'; ?>"
+                                        name="shiftUser">
 
                                     <div class="col-1">
                                         <label for="qty" class="form-label col-form-label-sm">Qty</label>
@@ -243,18 +251,17 @@
 
                     <div class="row">
                         <div class="col text-center">
-                            <button type="submit" id="getSelectedTextBtn" class="btn btn-primary"
-                                name="add">Add</button>
+                            <button type="submit" id="getSelectedTextBtn" class="btn btn-success"
+                                name="submit">Submit</button>
                             <button type="button" class="btn btn-danger" name="clear">Clear</button>
                         </div>
                     </div>
                 </Form> <!--form end-->
 
-
                 <!-- columns center Footer-->
                 <div class="card bg-transparent p-3 card-blur">
                     <div class="card-header mb-3 bg-transparent card-blur">
-                        Submit
+                        Submited
                     </div>
                     <div class="row">
                         <div class="col-12">
@@ -279,7 +286,8 @@
                                                 <th scope="col">Source</th>
                                                 <th scope="col">Remarks</th>
                                                 <th scope="col">Material</th>
-                                                <th scope="col">Tanggal</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Cost Center</th>
                                             </tr>
                                         </thead>
                                         <tbody id="dataTable">
@@ -301,18 +309,6 @@
                             </div> <!--Card #4 End-->
                         </div>
                     </div> <!--columns center footer end-->
-
-                    <div class="row">
-                        <div class="col text-center">
-                            <form action="<?php echo BASEURL; ?>/create/submit" method="post" id="myForm">
-                                <input type="hidden" id="hiddenUser2"
-                                    value="<?php echo isset($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>"
-                                    name="hiddenUser2">
-                                <button id="submitBtn" type="submit" class="btn btn-success">Submit</button>
-                                <button type="button" class="btn btn-warning">Cancel</button>
-                            </form>
-                        </div>
-                    </div>
                 </div>
             </div>
 

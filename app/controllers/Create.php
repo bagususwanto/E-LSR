@@ -27,58 +27,10 @@ class Create extends Controller
     {
         // print_r($_POST);
         if ($this->model('Material_model')->AddDataMaterial($_POST) > 0) {
-            header('location:' . BASEURL . '/create');
+            header('location:' . BASEURL . '/create#dataTable');
             exit;
         }
     }
-
-    public function submit()
-    {
-        // Validasi dan pembersihan data
-        $cleanedData = array_map('htmlspecialchars', $_POST);
-
-        // Mendapatkan nilai dari elemen input hiddenUser
-        $username = isset($cleanedData['hiddenUser2']) ? $cleanedData['hiddenUser2'] : 'Guest';
-
-        // Mengambil data dari $table2 dan $additionalData
-        $additionalData = $this->model('Material_model')->getDataFromTable3ByUsername($username);
-
-        // Menggabungkan data dari $cleanedData dan $additionalData
-        $mergedData = array_merge(['hiddenUser2' => $username], ...$additionalData);
-
-        // Insert data ke $table
-        if ($this->model('Material_model')->insertMaterial($mergedData) > 0) {
-            // Delete data from $table3 based on the username
-            $this->model('Material_model')->deleteDataFromTable3ByUsername($username);
-
-            // Redirect to the desired location
-            header('location:' . BASEURL . '/create');
-            exit;
-        }
-
-        // Insert data ke $table
-        $insertResult = $this->model('Material_model')->insertMaterial($mergedData);
-
-        // Check the result of the insert operation
-        if ($insertResult > 0) {
-            // Delete data from $table3 based on the username
-            $deleteResult = $this->model('Material_model')->deleteDataFromTable3ByUsername($username);
-
-            // Check the result of the delete operation
-            if ($deleteResult > 0) {
-                // Redirect to the desired location
-                header('location:' . BASEURL . '/create');
-                exit;
-            } else {
-                echo "Failed to delete data from table3";
-            }
-        } else {
-            echo "Failed to insert data into table";
-        }
-    }
-
-
-
 
     public function getUbahSelectedMat()
     {
@@ -107,6 +59,13 @@ class Create extends Controller
         echo json_encode($this->model('Line_model')->getLineByNamaLine($_POST['validLineValue']));
     }
 
+    public function changeUbahSelectedLine()
+    {
+        // Atur header untuk memberi tahu bahwa respons adalah JSON
+        header('Content-Type: application/json');
+
+        echo json_encode($this->model('Line_model')->getAllLineById($_POST['id']));
+    }
     public function getMasterPart()
     {
         // Atur header untuk memberi tahu bahwa respons adalah JSON
@@ -115,14 +74,42 @@ class Create extends Controller
         echo json_encode($this->model('Material_model')->getMasterByMaterial($_POST['validLineValue2']));
     }
 
+    public function getMasterLine()
+    {
+        // Atur header untuk memberi tahu bahwa respons adalah JSON
+        header('Content-Type: application/json');
+
+        echo json_encode($this->model('Line_model')->getAllLine());
+    }
+
     public function getDataTable()
     {
         // Atur header untuk memberi tahu bahwa respons adalah JSON
         header('Content-Type: application/json');
 
-        echo json_encode($this->model('Material_model')->getAllMaterialCrieteria($_POST['hiddenUser']));
-    }
+        // Validasi dan bersihkan input
+        $material = isset($_POST['material']) ? $_POST['material'] : null;
+        $tanggalValue = isset($_POST['tanggalValue']) ? $_POST['tanggalValue'] : null;
+        $shiftUser = isset($_POST['shiftUser']) ? $_POST['shiftUser'] : null;
+        $lineUser = isset($_POST['lineUser']) ? $_POST['lineUser'] : null;
 
+        if ($material === null || $tanggalValue === null || $shiftUser === null || $lineUser === null) {
+            echo json_encode(['error' => 'Invalid input']);
+            return;
+        }
+
+        // Panggil fungsi dari model dengan parameter yang sesuai
+        $materialModel = $this->model('Material_model');
+        $materialData = $materialModel->getAllMaterialCrieteria($material, $tanggalValue, $shiftUser, $lineUser);
+
+        if ($materialData !== false) {
+            // Jika pengambilan data berhasil, encode dan echo respons JSON
+            echo json_encode($materialData);
+        } else {
+            // Handle the case where there is an error in getting the data
+            echo json_encode(['error' => 'Error getting data']);
+        }
+    }
 
 }
 ?>
