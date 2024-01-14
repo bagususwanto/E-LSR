@@ -79,6 +79,10 @@
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
 
+                        <div class="col-12 mt-3 text-center">
+                            <?php Flasher::flash(); ?>
+                        </div>
+                   
                     <!-- <div class="col-12">
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">

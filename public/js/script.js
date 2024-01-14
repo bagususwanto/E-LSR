@@ -215,6 +215,132 @@ $(function () {
     });
   });
 
+  $("#lineCode").on("change", function () {
+    const id = $(this).find(":selected").data("id");
+    const lineCode = $(this).val();
+    $.ajax({
+      url: BASEURL + "/create/changeUbahSelectedLine",
+      data: { id: id },
+      method: "post",
+      dataType: "json",
+      success: function (data) {
+        $("#material").val(data.material);
+        $("#costCenter").val(data.cost_center);
+        $("#line").val(data.nama_line);
+
+        const shiftUser = $("#shift").val();
+        const material = $("#material").val();
+        const tanggalValue = $("#tanggal").val();
+        const lineUser = $("#line").val();
+        const costCenter = $("#costCenter").val();
+        $.ajax({
+          url: BASEURL + "/create/getDataTableChange",
+          data: {
+            material: material,
+            tanggalValue: tanggalValue,
+            shiftUser: shiftUser,
+            lineUser: lineUser,
+            lineCode: lineCode,
+            costCenter: costCenter,
+          },
+          method: "post",
+          dataType: "json",
+          success: function (data) {
+            // Hapus semua baris sebelum menambahkan data baru
+            $("#dataTable").empty();
+
+            // Iterasi melalui data dan tambahkan baris ke dalam tabel
+            for (var i = 0; i < data.length; i++) {
+              $("#dataTable").append(
+                `<tr>
+              <td>${i + 1}</td>
+              <td data-id="${data[i].id}">${data[i].part_number}</td>
+              <td data-id="${data[i].id}">${data[i].part_name}</td>
+              <td data-id="${data[i].id}">${data[i].uniqe_no}</td>
+              <td data-id="${data[i].id}">${data[i].qty}</td>
+              <td data-id="${data[i].id}">${data[i].reason}</td>
+              <td data-id="${data[i].id}">${data[i].condition}</td>
+              <td data-id="${data[i].id}">${data[i].repair}</td>
+              <td data-id="${data[i].id}">${data[i].source_type}</td>
+              <td data-id="${data[i].id}">${data[i].remarks}</td>
+              <td data-id="${data[i].id}">${data[i].material}</td>
+              <td data-id="${data[i].id}">${data[i].tanggal}</td>
+              <td data-id="${data[i].id}">${data[i].cost_center}</td>
+            </tr>`
+              );
+            }
+          },
+          error: function (error) {
+            console.log("Error:", error);
+          },
+        });
+      },
+    });
+  });
+
+  $("#costCenter").on("change", function () {
+    const id = $(this).find(":selected").data("id");
+    const costCenter = $(this).val();
+    $.ajax({
+      url: BASEURL + "/create/changeUbahSelectedLine",
+      data: { id: id },
+      method: "post",
+      dataType: "json",
+      success: function (data) {
+        $("#material").val(data.material);
+        $("#lineCode").val(data.line_code);
+        $("#line").val(data.nama_line);
+
+        const shiftUser = $("#shift").val();
+        const material = $("#material").val();
+        const tanggalValue = $("#tanggal").val();
+        const lineUser = $("#line").val();
+        const lineCode = $("#lineCode").val();
+        $.ajax({
+          url: BASEURL + "/create/getDataTableChange",
+          data: {
+            material: material,
+            tanggalValue: tanggalValue,
+            shiftUser: shiftUser,
+            lineUser: lineUser,
+            lineCode: lineCode,
+            costCenter: costCenter,
+          },
+          method: "post",
+          dataType: "json",
+          success: function (data) {
+            // Hapus semua baris sebelum menambahkan data baru
+            $("#dataTable").empty();
+
+            // Iterasi melalui data dan tambahkan baris ke dalam tabel
+            for (var i = 0; i < data.length; i++) {
+              $("#dataTable").append(
+                `<tr>
+              <td>${i + 1}</td>
+              <td data-id="${data[i].id}">${data[i].part_number}</td>
+              <td data-id="${data[i].id}">${data[i].part_name}</td>
+              <td data-id="${data[i].id}">${data[i].uniqe_no}</td>
+              <td data-id="${data[i].id}">${data[i].qty}</td>
+              <td data-id="${data[i].id}">${data[i].reason}</td>
+              <td data-id="${data[i].id}">${data[i].condition}</td>
+              <td data-id="${data[i].id}">${data[i].repair}</td>
+              <td data-id="${data[i].id}">${data[i].source_type}</td>
+              <td data-id="${data[i].id}">${data[i].remarks}</td>
+              <td data-id="${data[i].id}">${data[i].material}</td>
+              <td data-id="${data[i].id}">${data[i].tanggal}</td>
+              <td data-id="${data[i].id}">${data[i].cost_center}</td>
+            </tr>`
+              );
+            }
+          },
+          error: function (error) {
+            console.log("Error:", error);
+          },
+        });
+      },
+    });
+  });
+
   $("#line").on("change", function () {
     const id = $(this).find(":selected").data("id");
     const lineUser = $(this).val();
@@ -231,13 +357,17 @@ $(function () {
         const shiftUser = $("#shift").val();
         const material = $("#material").val();
         const tanggalValue = $("#tanggal").val();
+        const lineCode = $("#lineCode").val();
+        const costCenter = $("#costCenter").val();
         $.ajax({
-          url: BASEURL + "/create/getDataTable",
+          url: BASEURL + "/create/getDataTableChange",
           data: {
             material: material,
             tanggalValue: tanggalValue,
             shiftUser: shiftUser,
             lineUser: lineUser,
+            lineCode: lineCode,
+            costCenter: costCenter,
           },
           method: "post",
           dataType: "json",
@@ -447,6 +577,16 @@ $(function () {
       },
     });
   });
+
+  //============CLICK==================//
+  $("#clear").on("click", function () {
+    $("#remarks").val("");
+    $("#qty").val("");
+    $("#reason").val("");
+    $("#condition").val("");
+    $("#repair").val("");
+  });
+
   // // Mendapatkan nilai awal dari elemen
   // var initialPartName = $("#partName").val();
   // var initialpartNumber = $("#partNumber").val();

@@ -4,7 +4,6 @@ class Home extends Controller
     public function index()
     {
         // Mendapatkan ID pengguna dari session
-        session_start();
         $id =  $_SESSION['user_id'];
 
         $data['user'] = $this->model('User_model')->getAllUserById($id);

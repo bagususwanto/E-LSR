@@ -32,9 +32,9 @@
     <link href="<?php echo BASEURL ?>/css/style.css" rel="stylesheet">
 
     <script>
-    // Menyimpan BASEURL dalam variabel JavaScript
-    const BASEURL = "<?= BASEURL ?>";
-  </script>
+        // Menyimpan BASEURL dalam variabel JavaScript
+        const BASEURL = "<?= BASEURL ?>";
+    </script>
 
     <!-- =======================================================
   * Updated: Nov 17 2023 with Bootstrap v5.3.2
@@ -194,7 +194,8 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
+                            <a class="dropdown-item d-flex align-items-center"
+                                href="<?php echo BASEURL ?>/logout/logoutUser">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </a>

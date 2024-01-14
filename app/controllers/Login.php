@@ -20,26 +20,21 @@ class Login extends Controller
 
         // Handle hasil pemeriksaan kredensial
         if ($user) {
-            // Memulai sesi
-            session_start();
 
             // Simpan ID pengguna dalam session
             $_SESSION['user_id'] = $user['id'];
+            $_SESSION['login'] = true;
 
             // Redirect ke halaman utama atau melakukan tindakan selanjutnya
             header('Location:' . BASEURL);
             exit;
         } else {
+            header('Location:' . BASEURL . '/login');
             // Tampilkan pesan error jika kredensial tidak cocok
-            echo 'Invalid credentials. Please try again.';
+            Flasher::setFlash('username atau password tidak sesuai,', 'gagal', 'login', 'danger');
+            // echo 'Invalid credentials. Please try again.';
         }
     }
-
-
-
-
-
-
 
 
 }

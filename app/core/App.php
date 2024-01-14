@@ -9,6 +9,8 @@ class App
     {
         $url = $this->parseURL();
 
+        $this->checkLoginSession();
+
         // controler
         if (isset($url[0])) {
             if (file_exists('../app/controllers/' . $url[0] . '.php')) {
@@ -47,5 +49,19 @@ class App
             return $url;
         }
     }
+
+
+    public function checkLoginSession()
+    {
+        $publicPages = ['login']; // Tambahkan halaman publik yang tidak memerlukan login
+        $url = $this->parseURL();
+
+        if (!isset($_SESSION['login']) && !in_array($url[0], $publicPages)) {
+            header('location:' . BASEURL . '/login');
+            exit;
+        }
+        // ...
+    }
+
 }
 ?>

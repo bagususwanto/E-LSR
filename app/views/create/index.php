@@ -85,7 +85,7 @@
                                     <div class="col-3 pt-3">
                                         <label for="lineCode" class="form-label col-form-label-sm">Line Code</label>
                                         <select class="form-select form-select-sm" id="lineCode" name="line_code"
-                                            aria-label="Disabled select example" Disabled>
+                                            aria-label="Disabled select example">
                                             <?php foreach ($data['lineMaster'] as $lineMaster): ?>
                                                 <option data-id="<?php echo $lineMaster['id']; ?>"
                                                     value="<?php echo $lineMaster['line_code']; ?>">
@@ -99,7 +99,7 @@
                                         <label for="costCenter" class="form-label col-form-label-sm">Cost
                                             Center</label>
                                         <select class="form-select form-select-sm" id="costCenter" name="cost_center"
-                                            aria-label="Disabled select example" Disabled>
+                                            aria-label="Disabled select example">
                                             <?php foreach ($data['lineMaster'] as $lineMaster): ?>
                                                 <option data-id="<?php echo $lineMaster['id']; ?>"
                                                     value="<?php echo $lineMaster['cost_center']; ?>">
@@ -167,7 +167,7 @@
 
                                     <div class="col-1">
                                         <label for="qty" class="form-label col-form-label-sm">Qty</label>
-                                        <input required class="form-control form-control-sm text-center" name="qty"
+                                        <input required class="form-control form-control-sm text-center" id="qty" name="qty"
                                             type="number" placeholder="" aria-label="default input example">
                                     </div>
 
@@ -198,9 +198,9 @@
 
                                     <div class="col-4">
                                         <label for="reason" class="form-label col-form-label-sm">Reason</label>
-                                        <select class="form-select form-select-sm" name="reason"
+                                        <select required class="form-select form-select-sm" id="reason" name="reason"
                                             aria-label="Default select example">
-                                            <option selected>Pilih Reason</option>
+                                            <option selected></option>
                                             <option value="A">A. Shortage / Missing</option>
                                             <option value="B">B. Wrong ( Shortage )</option>
                                             <option value="C">C. Surplus</option>
@@ -216,9 +216,9 @@
 
                                     <div class="col-4">
                                         <label for="condition" class="form-label col-form-label-sm">Condition</label>
-                                        <select class="form-select form-select-sm" name="condition"
-                                            aria-label="Default select example">
-                                            <option selected>Pilih Condition</option>
+                                        <select required class="form-select form-select-sm" id="condition"
+                                            name="condition" aria-label="Default select example">
+                                            <option selected></option>
                                             <option value="-">- Unknow</option>
                                             <option value="1">1. Good</option>
                                             <option value="2">2. Damage</option>
@@ -228,9 +228,9 @@
 
                                     <div class="col-4">
                                         <label for="repair" class="form-label col-form-label-sm">Repair</label>
-                                        <select class="form-select form-select-sm" name="repair"
+                                        <select required class="form-select form-select-sm" id="repair" name="repair"
                                             aria-label="Default select example">
-                                            <option selected>Pilih Repair</option>
+                                            <option selected></option>
                                             <option value="0">0. Unrepairable</option>
                                             <option value="1">1. Plant Repair</option>
                                             <option value="6">6. Unrepairable caused by other parts</option>
@@ -246,14 +246,20 @@
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label col-form-label-sm">Remarks</label>
                         <textarea required class="form-control form-control-sm" name="remarks"
-                            id="exampleFormControlTextarea1" rows="3"></textarea>
+                            id="remarks" rows="3"></textarea>
                     </div> <!--remaks end-->
+
+                    <div class="row">
+                        <div class="col text-center">
+                            <?php Flasher::flash(); ?>
+                        </div>
+                    </div> <!--alert end-->
 
                     <div class="row">
                         <div class="col text-center">
                             <button type="submit" id="getSelectedTextBtn" class="btn btn-success"
                                 name="submit">Submit</button>
-                            <button type="button" class="btn btn-danger" name="clear">Clear</button>
+                            <button id="clear" type="button" class="btn btn-danger" name="clear">Clear</button>
                         </div>
                     </div>
                 </Form> <!--form end-->

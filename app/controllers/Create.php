@@ -4,8 +4,8 @@ class Create extends Controller
     public function index()
     {
         // Mendapatkan ID pengguna dari session
-        session_start();
         $id = $_SESSION['user_id'];
+
 
         // Mendapatkan data material dan user berdasarkan ID
         // $data['matMaster'] = $this->model('Material_model')->getAllMaterialMaster();
@@ -27,6 +27,11 @@ class Create extends Controller
     {
         // print_r($_POST);
         if ($this->model('Material_model')->AddDataMaterial($_POST) > 0) {
+            Flasher::setFlash('Data LSR', 'berhasil', 'ditambahkan', 'success');
+            header('location:' . BASEURL . '/create#dataTable');
+            exit;
+        } else {
+            Flasher::setFlash('Data LSR', 'gagal', 'ditambahkan', 'danger');
             header('location:' . BASEURL . '/create#dataTable');
             exit;
         }
@@ -101,6 +106,37 @@ class Create extends Controller
         // Panggil fungsi dari model dengan parameter yang sesuai
         $materialModel = $this->model('Material_model');
         $materialData = $materialModel->getAllMaterialCrieteria($material, $tanggalValue, $shiftUser, $lineUser);
+
+        if ($materialData !== false) {
+            // Jika pengambilan data berhasil, encode dan echo respons JSON
+            echo json_encode($materialData);
+        } else {
+            // Handle the case where there is an error in getting the data
+            echo json_encode(['error' => 'Error getting data']);
+        }
+    }
+
+    public function getDataTableChange()
+    {
+        // Atur header untuk memberi tahu bahwa respons adalah JSON
+        header('Content-Type: application/json');
+
+        // Validasi dan bersihkan input
+        $material = isset($_POST['material']) ? $_POST['material'] : null;
+        $tanggalValue = isset($_POST['tanggalValue']) ? $_POST['tanggalValue'] : null;
+        $shiftUser = isset($_POST['shiftUser']) ? $_POST['shiftUser'] : null;
+        $lineUser = isset($_POST['lineUser']) ? $_POST['lineUser'] : null;
+        $lineCode = isset($_POST['lineCode']) ? $_POST['lineCode'] : null;
+        $costCenter = isset($_POST['costCenter']) ? $_POST['costCenter'] : null;
+
+        if ($material === null || $tanggalValue === null || $shiftUser === null || $lineUser === null || $lineCode === null || $costCenter === null) {
+            echo json_encode(['error' => 'Invalid input']);
+            return;
+        }
+
+        // Panggil fungsi dari model dengan parameter yang sesuai
+        $materialModel = $this->model('Material_model');
+        $materialData = $materialModel->getAllMaterialCrieteriaChange($material, $tanggalValue, $shiftUser, $lineUser, $lineCode, $costCenter);
 
         if ($materialData !== false) {
             // Jika pengambilan data berhasil, encode dan echo respons JSON

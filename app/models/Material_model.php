@@ -36,6 +36,19 @@ class Material_model
         return $this->db->resultSet();
     }
 
+    public function getAllMaterialCrieteriaChange($material, $tanggal, $shiftUser, $lineUser, $lineCode, $costCenter)
+    {
+        $this->db->query('SELECT * FROM ' . $this->table .
+            ' WHERE material=:material AND tanggal=:tanggal AND shift=:shift AND line_lsr=:line_lsr AND line_code=:line_code AND cost_center=:cost_center');
+        $this->db->bind('material', $material);
+        $this->db->bind('tanggal', $tanggal);
+        $this->db->bind('shift', $shiftUser);
+        $this->db->bind('line_lsr', $lineUser);
+        $this->db->bind('line_code', $lineCode);
+        $this->db->bind('cost_center', $costCenter);
+        return $this->db->resultSet();
+    }
+
     public function getAllMaterialCrieteria2($tanggal)
     {
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE tanggal=:tanggal');
