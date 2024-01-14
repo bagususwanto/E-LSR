@@ -274,6 +274,40 @@ $(function () {
             console.log("Error:", error);
           },
         });
+
+        const validLineValue2 = $("#material").val();
+        // Mengkonfigurasi objek AJAX
+        const ajaxOptions = {
+          url: BASEURL + "/create/getMasterPart",
+          data: { validLineValue2: validLineValue2 },
+          method: "post",
+          dataType: "json",
+          success: function (data) {
+            // Membersihkan dan menambahkan opsi baru ke dalam elemen select
+            $("#partNumber, #partName, #uniqeNo, #sourceType").empty();
+
+            // Iterasi melalui data dan menambahkan opsi ke dalam elemen select
+            for (var i = 0; i < data.length; i++) {
+              addOption("#partNumber", data[i].part_number, data[i].id);
+              addOption("#partName", data[i].part_name, data[i].id);
+              addOption("#uniqeNo", data[i].uniqe_no, data[i].id);
+              addOption("#sourceType", data[i].source_type, data[i].id);
+            }
+          },
+          error: function (error) {
+            console.log("Error:", error);
+          },
+        };
+
+        // Memanggil fungsi AJAX dengan menggunakan konfigurasi objek yang telah dibuat
+        $.ajax(ajaxOptions);
+
+        // Fungsi untuk menambahkan opsi ke dalam elemen select
+        function addOption(selectId, optionValue, dataId) {
+          $(selectId).append(
+            `<option value="${optionValue}" data-id="${dataId}">${optionValue}</option>`
+          );
+        }
       },
     });
   });
@@ -337,6 +371,40 @@ $(function () {
             console.log("Error:", error);
           },
         });
+
+        const validLineValue2 = $("#material").val();
+        // Mengkonfigurasi objek AJAX
+        const ajaxOptions = {
+          url: BASEURL + "/create/getMasterPart",
+          data: { validLineValue2: validLineValue2 },
+          method: "post",
+          dataType: "json",
+          success: function (data) {
+            // Membersihkan dan menambahkan opsi baru ke dalam elemen select
+            $("#partNumber, #partName, #uniqeNo, #sourceType").empty();
+
+            // Iterasi melalui data dan menambahkan opsi ke dalam elemen select
+            for (var i = 0; i < data.length; i++) {
+              addOption("#partNumber", data[i].part_number, data[i].id);
+              addOption("#partName", data[i].part_name, data[i].id);
+              addOption("#uniqeNo", data[i].uniqe_no, data[i].id);
+              addOption("#sourceType", data[i].source_type, data[i].id);
+            }
+          },
+          error: function (error) {
+            console.log("Error:", error);
+          },
+        };
+
+        // Memanggil fungsi AJAX dengan menggunakan konfigurasi objek yang telah dibuat
+        $.ajax(ajaxOptions);
+
+        // Fungsi untuk menambahkan opsi ke dalam elemen select
+        function addOption(selectId, optionValue, dataId) {
+          $(selectId).append(
+            `<option value="${optionValue}" data-id="${dataId}">${optionValue}</option>`
+          );
+        }
       },
     });
   });
@@ -400,6 +468,40 @@ $(function () {
             console.log("Error:", error);
           },
         });
+
+        const validLineValue2 = $("#material").val();
+        // Mengkonfigurasi objek AJAX
+        const ajaxOptions = {
+          url: BASEURL + "/create/getMasterPart",
+          data: { validLineValue2: validLineValue2 },
+          method: "post",
+          dataType: "json",
+          success: function (data) {
+            // Membersihkan dan menambahkan opsi baru ke dalam elemen select
+            $("#partNumber, #partName, #uniqeNo, #sourceType").empty();
+
+            // Iterasi melalui data dan menambahkan opsi ke dalam elemen select
+            for (var i = 0; i < data.length; i++) {
+              addOption("#partNumber", data[i].part_number, data[i].id);
+              addOption("#partName", data[i].part_name, data[i].id);
+              addOption("#uniqeNo", data[i].uniqe_no, data[i].id);
+              addOption("#sourceType", data[i].source_type, data[i].id);
+            }
+          },
+          error: function (error) {
+            console.log("Error:", error);
+          },
+        };
+
+        // Memanggil fungsi AJAX dengan menggunakan konfigurasi objek yang telah dibuat
+        $.ajax(ajaxOptions);
+
+        // Fungsi untuk menambahkan opsi ke dalam elemen select
+        function addOption(selectId, optionValue, dataId) {
+          $(selectId).append(
+            `<option value="${optionValue}" data-id="${dataId}">${optionValue}</option>`
+          );
+        }
       },
     });
   });
@@ -445,13 +547,17 @@ $(function () {
     const shiftUser = $("#shift").val();
     const material = $("#material").val();
     const lineUser = $("#lineUser").val();
+    const lineCode = $("#lineCode").val();
+    const costCenter = $("#costCenter").val();
     $.ajax({
-      url: BASEURL + "/create/getDataTable",
+      url: BASEURL + "/create/getDataTableChange",
       data: {
         material: material,
         tanggalValue: tanggalValue,
         shiftUser: shiftUser,
         lineUser: lineUser,
+        lineCode: lineCode,
+        costCenter: costCenter,
       },
       method: "post",
       dataType: "json",

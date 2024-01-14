@@ -47,7 +47,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="home.php" class="logo d-flex align-items-center">
+            <a href="<?php echo BASEURL ?>" class="logo d-flex align-items-center">
                 <img src="<?php echo BASEURL ?>/img/logo.png" alt="LSR">
                 <span class="d-none d-lg-block">E-LSR</span>
             </a>
@@ -195,7 +195,7 @@
 
                         <li>
                             <a class="dropdown-item d-flex align-items-center"
-                                href="<?php echo BASEURL ?>/logout/logoutUser">
+                                href="<?php echo BASEURL ?>/logout">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </a>

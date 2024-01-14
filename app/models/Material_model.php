@@ -79,7 +79,7 @@ class Material_model
         $this->db->bind('user_lsr', $data['lineUser']);
         $this->db->bind('line_code', $data['line_code']);
         $this->db->bind('cost_center', $data['cost_center']);
-        $this->db->bind('status_lsr', '1');
+        $this->db->bind('status_lsr', 'pending');
 
         $this->db->execute();
         return $this->db->rowCount();
