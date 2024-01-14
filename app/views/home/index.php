@@ -4,7 +4,7 @@
         <h1>Dashboard</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                <li class="breadcrumb-item"><a href="<?php echo BASEURL; ?>">Home</a></li>
                 <li class="breadcrumb-item active">Dashboard</li>
             </ol>
         </nav>
@@ -323,7 +323,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Recent Transaction <span>| Today</span></h5>
 
-                        <table class="table table-borderless datatable">
+                        <table id="example" class="table table-borderless">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -362,6 +362,83 @@
                                     <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
                                     <td>$67</td>
                                     <td><span class="badge bg-danger">Rejected</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><a href="#">#2644</a></th>
+                                    <td>Casting</td>
+                                    <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                                    <td>$165</td>
+                                    <td><span class="badge bg-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><a href="#">#2644</a></th>
+                                    <td>Casting</td>
+                                    <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                                    <td>$165</td>
+                                    <td><span class="badge bg-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><a href="#">#2644</a></th>
+                                    <td>Casting</td>
+                                    <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                                    <td>$165</td>
+                                    <td><span class="badge bg-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><a href="#">#2644</a></th>
+                                    <td>Casting</td>
+                                    <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                                    <td>$165</td>
+                                    <td><span class="badge bg-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><a href="#">#2644</a></th>
+                                    <td>Casting</td>
+                                    <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                                    <td>$165</td>
+                                    <td><span class="badge bg-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><a href="#">#2644</a></th>
+                                    <td>Casting</td>
+                                    <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                                    <td>$165</td>
+                                    <td><span class="badge bg-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><a href="#">#2644</a></th>
+                                    <td>Casting</td>
+                                    <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                                    <td>$165</td>
+                                    <td><span class="badge bg-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><a href="#">#2644</a></th>
+                                    <td>Casting</td>
+                                    <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                                    <td>$165</td>
+                                    <td><span class="badge bg-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><a href="#">#2644</a></th>
+                                    <td>Casting</td>
+                                    <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                                    <td>$165</td>
+                                    <td><span class="badge bg-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><a href="#">#2644</a></th>
+                                    <td>Casting</td>
+                                    <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                                    <td>$165</td>
+                                    <td><span class="badge bg-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><a href="#">#2644</a></th>
+                                    <td>Casting</td>
+                                    <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                                    <td>$165</td>
+                                    <td><span class="badge bg-success">Approved</span></td>
                                 </tr>
                                 <tr>
                                     <th scope="row"><a href="#">#2644</a></th>

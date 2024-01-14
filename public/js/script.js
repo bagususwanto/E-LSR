@@ -1,5 +1,21 @@
 $(function () {
   $(document).ready(function () {
+    //====VALIDASI UNTUK USER ROLE======//
+    const userRoleElement = $("#roleUser");
+    if (userRoleElement.length > 0) {
+      const userRole = userRoleElement.val();
+
+      const restrictedPage = BASEURL + "/master";
+
+      if (
+        userRole.toLowerCase() === "public" &&
+        window.location.href.includes(restrictedPage)
+      ) {
+        alert("Anda tidak diizinkan mengakses halaman master data.");
+        window.location.href = BASEURL; // Redirect jika diakses dari halaman terlarang
+      }
+    }
+
     //==== ISI NILAI DARI DATE DAN TIME======//
     // Mendapatkan tanggal dan waktu sekarang
     var currentDate = new Date();
@@ -69,7 +85,6 @@ $(function () {
     });
 
     //==== ISI NILAI DARI PART NUMBER , PART NAME, UNIQE NO, DAN SOURCE TYPE======//
-    // Mendapatkan nilai teks dari elemen dengan ID 'validLine' dan membersihkannya
     const validLineValue2 = $("#validLine").text().trim();
     // Konfigurasi objek AJAX
     const ajaxOptions = {
@@ -121,6 +136,52 @@ $(function () {
         shiftUser: shiftUser,
         lineUser: lineUser,
       },
+      method: "post",
+      dataType: "json",
+      success: function (data) {
+        // Hapus semua baris sebelum menambahkan data baru
+        $("#dataTable").empty();
+
+        // Iterasi melalui data dan tambahkan baris ke dalam tabel
+        for (var i = 0; i < data.length; i++) {
+          $("#dataTable").append(
+            `<tr>
+          <td>${i + 1}</td>
+          <td data-id="${data[i].id}">${data[i].part_number}</td>
+          <td data-id="${data[i].id}">${data[i].part_name}</td>
+          <td data-id="${data[i].id}">${data[i].uniqe_no}</td>
+          <td data-id="${data[i].id}">${data[i].qty}</td>
+          <td data-id="${data[i].id}">${data[i].reason}</td>
+          <td data-id="${data[i].id}">${data[i].condition}</td>
+          <td data-id="${data[i].id}">${data[i].repair}</td>
+          <td data-id="${data[i].id}">${data[i].source_type}</td>
+          <td data-id="${data[i].id}">${data[i].remarks}</td>
+          <td data-id="${data[i].id}">${data[i].material}</td>
+          <td data-id="${data[i].id}">${data[i].tanggal}</td>
+          <td data-id="${data[i].id}">${data[i].cost_center}</td>
+        </tr>`
+          );
+        }
+      },
+      error: function (error) {
+        console.log("Error:", error);
+      },
+    });
+
+     //==== ISI TABEL DATA HOME RECENT TRANSACTION======//
+    // Ambil nilai
+    // const material = $("#lineUser").val();
+    // const shiftUser = $("#shiftUser").val();
+    // const lineUser = $("#lineUser").val();
+    // const tanggalValue = formattedDate;
+    $.ajax({
+      url: BASEURL + "/home/getDataTable",
+      // data: {
+      //   material: material,
+      //   tanggalValue: tanggalValue,
+      //   shiftUser: shiftUser,
+      //   lineUser: lineUser,
+      // },
       method: "post",
       dataType: "json",
       success: function (data) {
@@ -228,6 +289,7 @@ $(function () {
         $("#costCenter").val(data.cost_center);
         $("#line").val(data.nama_line);
 
+        //ISI DATATABLE//
         const shiftUser = $("#shift").val();
         const material = $("#material").val();
         const tanggalValue = $("#tanggal").val();
@@ -275,6 +337,7 @@ $(function () {
           },
         });
 
+        //ADD DATA MASTER MATERIAL//
         const validLineValue2 = $("#material").val();
         // Mengkonfigurasi objek AJAX
         const ajaxOptions = {
@@ -324,7 +387,7 @@ $(function () {
         $("#material").val(data.material);
         $("#lineCode").val(data.line_code);
         $("#line").val(data.nama_line);
-
+        //ISI DATATABLE//
         const shiftUser = $("#shift").val();
         const material = $("#material").val();
         const tanggalValue = $("#tanggal").val();
@@ -372,6 +435,7 @@ $(function () {
           },
         });
 
+        //ADD MAASTER MATERIAL//
         const validLineValue2 = $("#material").val();
         // Mengkonfigurasi objek AJAX
         const ajaxOptions = {
@@ -422,6 +486,7 @@ $(function () {
         $("#costCenter").val(data.cost_center);
         $("#lineCode").val(data.line_code);
 
+        //ISI DATATABLE//
         const shiftUser = $("#shift").val();
         const material = $("#material").val();
         const tanggalValue = $("#tanggal").val();
@@ -469,6 +534,7 @@ $(function () {
           },
         });
 
+        // ADD MASTER MATERIAL//
         const validLineValue2 = $("#material").val();
         // Mengkonfigurasi objek AJAX
         const ajaxOptions = {
@@ -507,6 +573,7 @@ $(function () {
   });
 
   $("#material").on("change", function () {
+    //ADD MASTER MATERIAL//
     const validLineValue2 = $(this).val();
     // Mengkonfigurasi objek AJAX
     const ajaxOptions = {
@@ -543,6 +610,7 @@ $(function () {
   });
 
   $("#tanggal").on("change", function () {
+    // ISI DATATABLE//
     const tanggalValue = $(this).val();
     const shiftUser = $("#shift").val();
     const material = $("#material").val();
@@ -593,24 +661,28 @@ $(function () {
   });
 
   $("#shift").on("change", function () {
+    //ISI DATATABLE//
     const shiftUser = $(this).val();
     const tanggalValue = $("#tanggal").val();
     const material = $("#material").val();
     const lineUser = $("#lineUser").val();
+    const lineCode = $("#lineCode").val();
+    const costCenter = $("#costCenter").val();
     $.ajax({
-      url: BASEURL + "/create/getDataTable",
+      url: BASEURL + "/create/getDataTableChange",
       data: {
         material: material,
         tanggalValue: tanggalValue,
         shiftUser: shiftUser,
         lineUser: lineUser,
+        lineCode: lineCode,
+        costCenter: costCenter,
       },
       method: "post",
       dataType: "json",
       success: function (data) {
         // Hapus semua baris sebelum menambahkan data baru
         $("#dataTable").empty();
-
         // Iterasi melalui data dan tambahkan baris ke dalam tabel
         for (var i = 0; i < data.length; i++) {
           $("#dataTable").append(
@@ -643,13 +715,17 @@ $(function () {
     const tanggalValue = $("#tanggal").val();
     const shiftUser = $("#shift").val();
     const lineUser = $("#line").val();
+    const lineCode = $("#lineCode").val();
+    const costCenter = $("#costCenter").val();
     $.ajax({
-      url: BASEURL + "/create/getDataTable",
+      url: BASEURL + "/create/getDataTableChange",
       data: {
         material: material,
         tanggalValue: tanggalValue,
         shiftUser: shiftUser,
         lineUser: lineUser,
+        lineCode: lineCode,
+        costCenter: costCenter,
       },
       method: "post",
       dataType: "json",
@@ -684,7 +760,7 @@ $(function () {
     });
   });
 
-  //============CLICK==================//
+  //============EVENT CLICK==================//
   $("#clear").on("click", function () {
     $("#remarks").val("");
     $("#qty").val("");

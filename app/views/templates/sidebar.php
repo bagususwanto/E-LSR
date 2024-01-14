@@ -12,24 +12,24 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" id="create" href="<?php echo BASEURL ?>/create">
-                <i class="bi bi-menu-button-wide"></i><span>Create LSR</span>
+                <i class="bi bi-menu-button-wide"></i><span>Create</span>
             </a>
         </li><!-- End Create LSR Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="">
-                <i class="bi bi-journal-text"></i><span>Data Center</span>
+            <a class="nav-link collapsed" id="data" href="<?php echo BASEURL ?>/data">
+                <i class="bi bi-journal-text"></i><span>Data</span>
             </a>
         </li><!-- End Data Center Nav -->
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="">
-                <i class="bi bi-layout-text-window-reverse"></i><span>Master Data</span>
+                <i class="bi bi-layout-text-window-reverse"></i><span>Master</span>
             </a>
         </li><!-- End Master Data Nav -->
 
 
-        <li class="nav-heading">Pages</li>
+        <li class="nav-heading">User</li>
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="">

@@ -26,8 +26,9 @@
     <link href="<?php echo BASEURL ?>/vendor/quill/quill.snow.css" rel="stylesheet">
     <link href="<?php echo BASEURL ?>/vendor/quill/quill.bubble.css" rel="stylesheet">
     <link href="<?php echo BASEURL ?>/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="<?php echo BASEURL ?>/vendor/simple-datatables/style.css" rel="stylesheet">
-
+    <link href="<?php echo BASEURL ?>/vendor/datatables/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="<?php echo BASEURL ?>/vendor/datatables/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- Template Main CSS File -->
     <link href="<?php echo BASEURL ?>/css/style.css" rel="stylesheet">
 
@@ -52,6 +53,8 @@
                 <span class="d-none d-lg-block">E-LSR</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
+            <input type="hidden" id="roleUser"
+                value="<?php echo isset($data['user']['role']) ? $data['user']['role'] : 'public'; ?>" name="roleUser">
         </div><!-- End Logo -->
 
         <div class="search-bar">
@@ -194,8 +197,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center"
-                                href="<?php echo BASEURL ?>/logout">
+                            <a class="dropdown-item d-flex align-items-center" href="<?php echo BASEURL ?>/logout">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </a>

@@ -14,10 +14,12 @@
 <script src="<?php echo BASEURL ?>/vendor/chart.js/chart.umd.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/echarts/echarts.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/quill/quill.min.js"></script>
-<script src="<?php echo BASEURL ?>/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="<?php echo BASEURL ?>/vendor/datatables/js/jquery-3.7.0.js"></script>
+<script src="<?php echo BASEURL ?>/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo BASEURL ?>/vendor/datatables/js/dataTables.bootstrap5.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/tinymce/tinymce.min.js"></script>
-<script src="<?php echo BASEURL ?>/vendor/jquery/jquery-3.7.1.min.js"></script>
 <script src="<?php echo BASEURL ?>/js/script.js"></script>
+
 
 <!-- Template Main JS File -->
 <script src="<?php echo BASEURL ?>/js/main.js"></script>
