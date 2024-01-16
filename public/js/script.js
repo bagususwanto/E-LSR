@@ -26,10 +26,20 @@ $(function () {
     var day = currentDate.getDate();
     var month = currentDate.getMonth() + 1; // Ingat: bulan dimulai dari 0
     var year = currentDate.getFullYear();
+    var year2 = 9999;
 
     // Mengonversi ke format "yyyy-MM-dd"
     var formattedDate =
       year +
+      "-" +
+      (month < 10 ? "0" : "") +
+      month +
+      "-" +
+      (day < 10 ? "0" : "") +
+      day;
+
+    var formattedDate2 =
+      year2 +
       "-" +
       (month < 10 ? "0" : "") +
       month +
@@ -47,6 +57,7 @@ $(function () {
 
     // Mengatur nilai input tanggal dan waktu
     $("#tanggal").val(formattedDate);
+    $("#tanggalTo").val(formattedDate2);
     $("#waktu").val(formattedTime);
 
     //==== ISI NILAI DARI LINE DAN SHIFT======//
@@ -136,52 +147,6 @@ $(function () {
         shiftUser: shiftUser,
         lineUser: lineUser,
       },
-      method: "post",
-      dataType: "json",
-      success: function (data) {
-        // Hapus semua baris sebelum menambahkan data baru
-        $("#dataTable").empty();
-
-        // Iterasi melalui data dan tambahkan baris ke dalam tabel
-        for (var i = 0; i < data.length; i++) {
-          $("#dataTable").append(
-            `<tr>
-          <td>${i + 1}</td>
-          <td data-id="${data[i].id}">${data[i].part_number}</td>
-          <td data-id="${data[i].id}">${data[i].part_name}</td>
-          <td data-id="${data[i].id}">${data[i].uniqe_no}</td>
-          <td data-id="${data[i].id}">${data[i].qty}</td>
-          <td data-id="${data[i].id}">${data[i].reason}</td>
-          <td data-id="${data[i].id}">${data[i].condition}</td>
-          <td data-id="${data[i].id}">${data[i].repair}</td>
-          <td data-id="${data[i].id}">${data[i].source_type}</td>
-          <td data-id="${data[i].id}">${data[i].remarks}</td>
-          <td data-id="${data[i].id}">${data[i].material}</td>
-          <td data-id="${data[i].id}">${data[i].tanggal}</td>
-          <td data-id="${data[i].id}">${data[i].cost_center}</td>
-        </tr>`
-          );
-        }
-      },
-      error: function (error) {
-        console.log("Error:", error);
-      },
-    });
-
-     //==== ISI TABEL DATA HOME RECENT TRANSACTION======//
-    // Ambil nilai
-    // const material = $("#lineUser").val();
-    // const shiftUser = $("#shiftUser").val();
-    // const lineUser = $("#lineUser").val();
-    // const tanggalValue = formattedDate;
-    $.ajax({
-      url: BASEURL + "/home/getDataTable",
-      // data: {
-      //   material: material,
-      //   tanggalValue: tanggalValue,
-      //   shiftUser: shiftUser,
-      //   lineUser: lineUser,
-      // },
       method: "post",
       dataType: "json",
       success: function (data) {
@@ -769,15 +734,111 @@ $(function () {
     $("#repair").val("");
   });
 
-  // // Mendapatkan nilai awal dari elemen
-  // var initialPartName = $("#partName").val();
-  // var initialpartNumber = $("#partNumber").val();
-  // var initialuniqeNo = $("#uniqeNo").val();
-  // var initialsourceType = $("#sourceType").val();
-
-  // // Menyimpan nilai awal sebagai data di elemen
-  // $("#partName").data("initial-value", initialPartName);
-  // $("#partNumber").data("initial-value", initialpartNumber);
-  // $("#uniqeNo").data("initial-value", initialuniqeNo);
-  // $("#sourceType").data("initial-value", initialsourceType);
+  //========SEARCH DATA========//
+  $(document).ready(function () {
+    // Event handler untuk form submission
+    $("#searchForm").submit(function (event) {
+      // Menghentikan perilaku default formulir
+      event.preventDefault();
+  
+      // Mendapatkan nilai dari input
+      const tanggalFrom = $("#tanggal").val();
+      const tanggalTo = $("#tanggalTo").val();
+      const line = $("#line").val();
+      const costCenter = $("#costCenter").val();
+      const shift = $("#shift").val();
+      const material = $("#material").val();
+  
+      // Mengirim permintaan AJAX
+      $.ajax({
+        url: BASEURL + "/data/getDataTable", 
+        method: "POST",
+        data: {
+          tanggalFrom: tanggalFrom,
+          tanggalTo: tanggalTo,
+          line: line,
+          costCenter: costCenter,
+          shift: shift,
+          material: material,
+        },
+        dataType: "json",
+        success: function (data) {
+          // Hapus semua baris sebelum menambahkan data baru
+          $("#tabelData").DataTable().clear().draw();
+  
+          // Iterasi melalui data dan tambahkan baris ke dalam tabel
+          for (var i = 0; i < data.length; i++) {
+            $("#tabelData").DataTable().row.add([
+              i + 1,
+              data[i].part_number,
+              data[i].part_name,
+              data[i].uniqe_no,
+              data[i].qty,
+              data[i].reason,
+              data[i].condition,
+              data[i].repair,
+              data[i].source_type,
+              data[i].remarks,
+              data[i].material,
+              data[i].tanggal,
+              data[i].cost_center
+            ]).draw();
+          }
+        },
+        error: function (error) {
+          console.log("Error:", error);
+        },
+      });
+    });
+  
+    // Konfigurasi DataTables
+    var table = $("#tabelData").DataTable({
+      fixedHeader: true,
+      scrollX: true,
+      autoWidth: true,
+      responsive: true,
+      buttons: {
+        dom: {
+          button: {
+            className: "btn btn-success", // Primary class for all buttons
+          },
+        },
+        buttons: [
+          {
+            // EXCEL
+            extend: "excelHtml5",
+          },
+        ],
+      },
+      dom:
+        "<'row'<'col-3'B><'col-9'f>>" +
+        "<'row'<'col-12'tr>>" +
+        "<'row'<'col-9'l><'col-3 text-end'i>>" +
+        "<'row'<'col-12 pt-3'p>>",
+      lengthMenu: [
+        [5, 10, 25, 50, 100, -1],
+        [5, 10, 25, 50, 100, "All"],
+      ],
+      columns: [
+        { title: "#" },
+        { title: "Part Number" },
+        { title: "Part Name" },
+        { title: "Unique No" },
+        { title: "Qty" },
+        { title: "Reason" },
+        { title: "Condition" },
+        { title: "Repair" },
+        { title: "Source Type" },
+        { title: "Remarks" },
+        { title: "Material" },
+        { title: "Tanggal" },
+        { title: "Cost Center" },
+      ],
+    });
+  
+    // Mengatur tombol container ke posisi yang sesuai
+    table.buttons().container().appendTo("#tabelData_wrapper .col-md-6:eq(0)");
+  });
+  
+  
 });

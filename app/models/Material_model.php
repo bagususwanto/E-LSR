@@ -101,6 +101,27 @@ class Material_model
     }
 
 
+    public function getFilteredData($tanggalFrom, $tanggalTo, $line, $costCenter, $shift, $material)
+    {
+
+        $this->db->query('SELECT * FROM ' . $this->table . ' 
+        WHERE tanggal BETWEEN :tanggalFrom AND :tanggalTo 
+        AND line_lsr = :line_lsr 
+        AND cost_center = :costCenter 
+        AND shift = :shift 
+        AND material = :material');
+
+        $this->db->bind(':tanggalFrom', $tanggalFrom);
+        $this->db->bind(':tanggalTo', $tanggalTo);
+        $this->db->bind(':line_lsr', $line);
+        $this->db->bind(':costCenter', $costCenter);
+        $this->db->bind(':shift', $shift);
+        $this->db->bind(':material', $material);
+
+        $result = $this->db->resultSet();
+
+        return $result;
+    }
 }
 
 ?>

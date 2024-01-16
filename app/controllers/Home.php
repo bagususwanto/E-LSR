@@ -21,7 +21,7 @@ class Home extends Controller
     </script>";
     }
 
-    public function getDataTable()
+    public function getDataTableHome()
     {
         // Atur header untuk memberi tahu bahwa respons adalah JSON
         header('Content-Type: application/json');

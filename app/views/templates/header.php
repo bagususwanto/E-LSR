@@ -26,9 +26,13 @@
     <link href="<?php echo BASEURL ?>/vendor/quill/quill.snow.css" rel="stylesheet">
     <link href="<?php echo BASEURL ?>/vendor/quill/quill.bubble.css" rel="stylesheet">
     <link href="<?php echo BASEURL ?>/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="<?php echo BASEURL ?>/vendor/datatables/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <link href="<?php echo BASEURL ?>/vendor/datatables/css/bootstrap.min.css" rel="stylesheet">
-    
+
+    <!-- DataTables -->
+    <link href="<?php echo BASEURL ?>/vendor/datatables/DataTables-1.13.8/css/dataTables.bootstrap5.min.css"
+        rel="stylesheet">
+    <link href="<?php echo BASEURL ?>/vendor/datatables/Buttons-2.4.2/css/buttons.bootstrap5.min.css" rel="stylesheet">
+
+
     <!-- Template Main CSS File -->
     <link href="<?php echo BASEURL ?>/css/style.css" rel="stylesheet">
 

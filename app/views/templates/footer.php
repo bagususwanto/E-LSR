@@ -14,15 +14,26 @@
 <script src="<?php echo BASEURL ?>/vendor/chart.js/chart.umd.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/echarts/echarts.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/quill/quill.min.js"></script>
-<script src="<?php echo BASEURL ?>/vendor/datatables/js/jquery-3.7.0.js"></script>
-<script src="<?php echo BASEURL ?>/vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script src="<?php echo BASEURL ?>/vendor/datatables/js/dataTables.bootstrap5.min.js"></script>
+<script src="<?php echo BASEURL ?>/vendor/jquery/jquery-3.7.1.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/tinymce/tinymce.min.js"></script>
+
+
+<!-- DataTables -->
+<script src="<?php echo BASEURL ?>/vendor/datatables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo BASEURL ?>/vendor/datatables/DataTables-1.13.8/js/dataTables.bootstrap5.min.js"></script>
+<script src="<?php echo BASEURL ?>/vendor/datatables/Buttons-2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="<?php echo BASEURL ?>/vendor/datatables/Buttons-2.4.2/js/buttons.bootstrap5.min.js"></script>
+<script src="<?php echo BASEURL ?>/vendor/datatables/JSZip-3.10.1/jszip.min.js"></script>
+<script src="<?php echo BASEURL ?>/vendor/datatables/pdfmake-0.2.7/pdfmake.min.js"></script>
+<script src="<?php echo BASEURL ?>/vendor/datatables/pdfmake-0.2.7/vfs_fonts.js"></script>
+<script src="<?php echo BASEURL ?>/vendor/datatables/Buttons-2.4.2/js/buttons.html5.min.js"></script>
+<script src="<?php echo BASEURL ?>/vendor/datatables/Buttons-2.4.2/js/buttons.print.min.js"></script>
+<script src="<?php echo BASEURL ?>/vendor/datatables/Buttons-2.4.2/js/buttons.colVis.min.js"></script>
+
+<!-- Main JS File -->
+<script src="<?php echo BASEURL ?>/js/main.js"></script>
 <script src="<?php echo BASEURL ?>/js/script.js"></script>
 
-
-<!-- Template Main JS File -->
-<script src="<?php echo BASEURL ?>/js/main.js"></script>
 </body>
 
 </html>
