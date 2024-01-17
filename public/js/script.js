@@ -57,7 +57,7 @@ $(function () {
 
     // Mengatur nilai input tanggal dan waktu
     $("#tanggal").val(formattedDate);
-    $("#tanggalTo").val(formattedDate2);
+    // $("#tanggalTo").val(formattedDate2);
     $("#waktu").val(formattedTime);
 
     //==== ISI NILAI DARI LINE DAN SHIFT======//
@@ -250,10 +250,17 @@ $(function () {
       method: "post",
       dataType: "json",
       success: function (data) {
-        $("#material").val(data.material);
-        $("#costCenter").val(data.cost_center);
-        $("#line").val(data.nama_line);
-
+        if (!data) {
+          // Set nilai "All" pada elemen-elemen form
+          $("#material").val("All");
+          $("#line").val("All");
+          $("#costCenter").val("All");
+        } else {
+          // Jika data ada, set nilai sesuai data yang diterima
+          $("#material").val(data.material);
+          $("#line").val(data.nama_line);
+          $("#costCenter").val(data.cost_center);
+        }
         //ISI DATATABLE//
         const shiftUser = $("#shift").val();
         const material = $("#material").val();
@@ -349,9 +356,19 @@ $(function () {
       method: "post",
       dataType: "json",
       success: function (data) {
-        $("#material").val(data.material);
-        $("#lineCode").val(data.line_code);
-        $("#line").val(data.nama_line);
+        // Cek apakah data ada atau tidak
+        if (!data) {
+          // Set nilai "All" pada elemen-elemen form
+          $("#material").val("All");
+          $("#line").val("All");
+          $("#lineCode").val("All");
+        } else {
+          // Jika data ada, set nilai sesuai data yang diterima
+          $("#material").val(data.material);
+          $("#line").val(data.nama_line);
+          $("#lineCode").val(data.line_code);
+        }
+
         //ISI DATATABLE//
         const shiftUser = $("#shift").val();
         const material = $("#material").val();
@@ -447,9 +464,18 @@ $(function () {
       method: "post",
       dataType: "json",
       success: function (data) {
-        $("#material").val(data.material);
-        $("#costCenter").val(data.cost_center);
-        $("#lineCode").val(data.line_code);
+        // Cek apakah data ada atau tidak
+        if (!data) {
+          // Set nilai "All" pada elemen-elemen form
+          $("#material").val("All");
+          $("#costCenter").val("All");
+          $("#lineCode").val("All");
+        } else {
+          // Jika data ada, set nilai sesuai data yang diterima
+          $("#material").val(data.material);
+          $("#costCenter").val(data.cost_center);
+          $("#lineCode").val(data.line_code);
+        }
 
         //ISI DATATABLE//
         const shiftUser = $("#shift").val();
@@ -740,7 +766,7 @@ $(function () {
     $("#searchForm").submit(function (event) {
       // Menghentikan perilaku default formulir
       event.preventDefault();
-  
+
       // Mendapatkan nilai dari input
       const tanggalFrom = $("#tanggal").val();
       const tanggalTo = $("#tanggalTo").val();
@@ -748,10 +774,10 @@ $(function () {
       const costCenter = $("#costCenter").val();
       const shift = $("#shift").val();
       const material = $("#material").val();
-  
+
       // Mengirim permintaan AJAX
       $.ajax({
-        url: BASEURL + "/data/getDataTable", 
+        url: BASEURL + "/data/getDataTable",
         method: "POST",
         data: {
           tanggalFrom: tanggalFrom,
@@ -765,24 +791,27 @@ $(function () {
         success: function (data) {
           // Hapus semua baris sebelum menambahkan data baru
           $("#tabelData").DataTable().clear().draw();
-  
+
           // Iterasi melalui data dan tambahkan baris ke dalam tabel
           for (var i = 0; i < data.length; i++) {
-            $("#tabelData").DataTable().row.add([
-              i + 1,
-              data[i].part_number,
-              data[i].part_name,
-              data[i].uniqe_no,
-              data[i].qty,
-              data[i].reason,
-              data[i].condition,
-              data[i].repair,
-              data[i].source_type,
-              data[i].remarks,
-              data[i].material,
-              data[i].tanggal,
-              data[i].cost_center
-            ]).draw();
+            $("#tabelData")
+              .DataTable()
+              .row.add([
+                i + 1,
+                data[i].part_number,
+                data[i].part_name,
+                data[i].uniqe_no,
+                data[i].qty,
+                data[i].reason,
+                data[i].condition,
+                data[i].repair,
+                data[i].source_type,
+                data[i].remarks,
+                data[i].material,
+                data[i].tanggal,
+                data[i].cost_center,
+              ])
+              .draw();
           }
         },
         error: function (error) {
@@ -790,7 +819,7 @@ $(function () {
         },
       });
     });
-  
+
     // Konfigurasi DataTables
     var table = $("#tabelData").DataTable({
       fixedHeader: true,
@@ -835,10 +864,8 @@ $(function () {
         { title: "Cost Center" },
       ],
     });
-  
+
     // Mengatur tombol container ke posisi yang sesuai
     table.buttons().container().appendTo("#tabelData_wrapper .col-md-6:eq(0)");
   });
-  
-  
 });

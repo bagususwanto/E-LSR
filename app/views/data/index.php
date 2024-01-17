@@ -40,6 +40,7 @@
                                         <select class="form-select form-select-sm" id="line" name="line_lsr"
                                             aria-label="Default select example">
                                             <!-- <option selected></option> -->
+                                            <option data-id="0" value="All">All</option>
                                             <?php foreach ($data['lineMaster'] as $lineMaster): ?>
                                                 <option value="<?php echo $lineMaster['nama_line']; ?>"
                                                     data-id="<?php echo $lineMaster['id']; ?>">
@@ -54,6 +55,7 @@
                                             Center</label>
                                         <select class="form-select form-select-sm" id="costCenter" name="cost_center"
                                             aria-label="Disabled select example">
+                                            <option data-id="0" value="All">All</option>
                                             <?php foreach ($data['lineMaster'] as $lineMaster): ?>
                                                 <option data-id="<?php echo $lineMaster['id']; ?>"
                                                     value="<?php echo $lineMaster['cost_center']; ?>">
@@ -67,6 +69,7 @@
                                         <label for="shift" class="form-label col-form-label-sm">Shift</label>
                                         <select class="form-select form-select-sm" id="shift" name="shift"
                                             aria-label="Default select example">
+                                            <option value="All">All</option>
                                             <option value="Red">Red</option>
                                             <option value="White">White</option>
                                         </select>
@@ -76,6 +79,7 @@
                                         <label for="material" class="form-label col-form-label-sm">Material</label>
                                         <select class="form-select form-select-sm" id="material" name="material"
                                             aria-label="Default select example">
+                                            <option data-id="0" value="All">All</option>
                                             <?php
                                             $uniqueMaterials = array_unique(array_column($data['lineMaster'], 'material'));
                                             foreach ($uniqueMaterials as $material):
@@ -130,7 +134,7 @@
                                             <th scope="col">Cost Center</th>
                                         </thead>
                                         <tbody id="DataTables">
-                                            
+
                                         </tbody>
                                     </table>
                                 </div>
