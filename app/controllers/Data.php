@@ -26,12 +26,11 @@ class Data extends Controller
         $tanggalFrom = $_POST['tanggalFrom'];
         $tanggalTo = $_POST['tanggalTo'];
         $line = $_POST['line'];
-        $costCenter = $_POST['costCenter'];
         $shift = $_POST['shift'];
         $material = $_POST['material'];
 
         // Mendapatkan data dari model
-        $data = $this->model('Material_model')->getFilteredData($tanggalFrom, $tanggalTo, $line, $costCenter, $shift, $material);
+        $data = $this->model('Material_model')->getFilteredData($tanggalFrom, $tanggalTo, $line, $shift, $material);
 
         // Mengembalikan data dalam format JSON
         echo json_encode($data);

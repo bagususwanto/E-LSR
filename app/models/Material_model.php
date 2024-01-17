@@ -101,52 +101,47 @@ class Material_model
     }
 
 
-    public function getFilteredData($tanggalFrom, $tanggalTo, $line, $costCenter, $shift, $material)
-{
-    // Jika tanggalTo kosong, atur nilai tanggalTo ke tanggalFrom
-    if (empty($tanggalTo)) {
-        $tanggalTo = $tanggalFrom;
+    public function getFilteredData($tanggalFrom, $tanggalTo, $line, $shift, $material)
+    {
+        // Jika tanggalTo kosong, atur nilai tanggalTo ke tanggalFrom
+        if (empty($tanggalTo)) {
+            $tanggalTo = $tanggalFrom;
+        }
+
+        $query = 'SELECT * FROM ' . $this->table;
+
+        $params = [];
+
+        // Tambahkan kondisi jika nilai bukan "All"
+        if ($line !== 'All') {
+            $query .= ' WHERE line_lsr = :line_lsr';
+            $params[':line_lsr'] = $line;
+        }
+
+        if ($shift !== 'All') {
+            $query .= (empty($params) ? ' WHERE' : ' AND') . ' shift = :shift';
+            $params[':shift'] = $shift;
+        }
+
+        if ($material !== 'All') {
+            $query .= (empty($params) ? ' WHERE' : ' AND') . ' material = :material';
+            $params[':material'] = $material;
+        }
+
+        // Tambahkan kondisi tanggal
+        $query .= (empty($params) ? ' WHERE' : ' AND') . ' tanggal BETWEEN :tanggalFrom AND :tanggalTo';
+        $params[':tanggalFrom'] = $tanggalFrom;
+        $params[':tanggalTo'] = $tanggalTo;
+
+        $this->db->query($query);
+        foreach ($params as $paramName => $paramValue) {
+            $this->db->bind($paramName, $paramValue);
+        }
+
+        $result = $this->db->resultSet();
+
+        return $result;
     }
-
-    $query = 'SELECT * FROM ' . $this->table;
-
-    $params = [];
-
-    // Tambahkan kondisi jika nilai bukan "All"
-    if ($line !== 'All') {
-        $query .= ' WHERE line_lsr = :line_lsr';
-        $params[':line_lsr'] = $line;
-    }
-
-    if ($costCenter !== 'All') {
-        $query .= (empty($params) ? ' WHERE' : ' AND') . ' cost_center = :costCenter';
-        $params[':costCenter'] = $costCenter;
-    }
-
-    if ($shift !== 'All') {
-        $query .= (empty($params) ? ' WHERE' : ' AND') . ' shift = :shift';
-        $params[':shift'] = $shift;
-    }
-
-    if ($material !== 'All') {
-        $query .= (empty($params) ? ' WHERE' : ' AND') . ' material = :material';
-        $params[':material'] = $material;
-    }
-
-    // Tambahkan kondisi tanggal
-    $query .= (empty($params) ? ' WHERE' : ' AND') . ' tanggal BETWEEN :tanggalFrom AND :tanggalTo';
-    $params[':tanggalFrom'] = $tanggalFrom;
-    $params[':tanggalTo'] = $tanggalTo;
-
-    $this->db->query($query);
-    foreach ($params as $paramName => $paramValue) {
-        $this->db->bind($paramName, $paramValue);
-    }
-
-    $result = $this->db->resultSet();
-
-    return $result;
-}
 
 
 }

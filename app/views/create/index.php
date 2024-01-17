@@ -257,7 +257,7 @@
 
                     <div class="row">
                         <div class="col text-center">
-                            <button type="submit" id="getSelectedTextBtn" class="btn btn-success"
+                            <button type="submit" id="getSelectedTextBtn" class="btn btn-primary"
                                 name="submit">Submit</button>
                             <button id="clear" type="button" class="btn btn-danger" name="clear">Clear</button>
                         </div>
@@ -277,8 +277,8 @@
                                 </div>
                                 <div class="row card-body">
 
-                                    <table class="table table-bordered table-sm text-center table-responsive-sm"
-                                        style="font-size: .85rem;">
+                                    <table id="tabelData2" class="display nowrap table-sm table-bordered text-center table-striped"
+                                        style="width: 100%;">
                                         <thead>
                                             <tr>
                                                 <th scope="col">No</th>

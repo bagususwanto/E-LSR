@@ -23,13 +23,13 @@
 
                             <FORM id="searchForm">
                                 <div class="row card-body pb-0">
-                                    <div class="col-3">
+                                    <div class="col-2">
                                         <label for="tanggal" class="form-label col-form-label-sm">Date From</label>
                                         <input type="date" id="tanggal" name="tanggal" value=""
                                             class="form-control form-control-sm" />
                                     </div>
 
-                                    <div class="col-3">
+                                    <div class="col-2">
                                         <label for="tanggalTo" class="form-label col-form-label-sm">Date To</label>
                                         <input type="date" id="tanggalTo" name="tanggalTo" value=""
                                             class="form-control form-control-sm" />
@@ -50,22 +50,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-3">
-                                        <label for="costCenter" class="form-label col-form-label-sm">Cost
-                                            Center</label>
-                                        <select class="form-select form-select-sm" id="costCenter" name="cost_center"
-                                            aria-label="Disabled select example">
-                                            <option data-id="0" value="All">All</option>
-                                            <?php foreach ($data['lineMaster'] as $lineMaster): ?>
-                                                <option data-id="<?php echo $lineMaster['id']; ?>"
-                                                    value="<?php echo $lineMaster['cost_center']; ?>">
-                                                    <?php echo $lineMaster['cost_center']; ?>
-                                                </option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-3 mt-3">
+                                    <div class="col-2">
                                         <label for="shift" class="form-label col-form-label-sm">Shift</label>
                                         <select class="form-select form-select-sm" id="shift" name="shift"
                                             aria-label="Default select example">
@@ -75,7 +60,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-3 mt-3">
+                                    <div class="col-3">
                                         <label for="material" class="form-label col-form-label-sm">Material</label>
                                         <select class="form-select form-select-sm" id="material" name="material"
                                             aria-label="Default select example">
@@ -98,7 +83,7 @@
                                     <div class="card-footer bg-transparent mt-4">
                                         <div class="row  mb-0">
                                             <div class="col text-end mb-0">
-                                                <button type="submit" id="search" class="btn btn-warning"
+                                                <button type="submit" id="search" class="btn btn-primary"
                                                     name="search">Search</button>
                                             </div>
                                         </div>
@@ -119,19 +104,7 @@
                                         class="display nowrap table-sm table-bordered text-center table-striped"
                                         style="width: 100%;">
                                         <thead>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Part Number</th>
-                                            <th scope="col">Part Name</th>
-                                            <th scope="col">Uniqe No</th>
-                                            <th scope="col">Qty</th>
-                                            <th scope="col">Reason</th>
-                                            <th scope="col">Condition</th>
-                                            <th scope="col">Repair</th>
-                                            <th scope="col">Source</th>
-                                            <th scope="col">Remarks</th>
-                                            <th scope="col">Material</th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Cost Center</th>
+                                            
                                         </thead>
                                         <tbody id="DataTables">
 

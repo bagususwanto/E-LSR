@@ -151,27 +151,28 @@ $(function () {
       dataType: "json",
       success: function (data) {
         // Hapus semua baris sebelum menambahkan data baru
-        $("#dataTable").empty();
+        $("#tabelData2").DataTable().clear().draw();
 
         // Iterasi melalui data dan tambahkan baris ke dalam tabel
         for (var i = 0; i < data.length; i++) {
-          $("#dataTable").append(
-            `<tr>
-          <td>${i + 1}</td>
-          <td data-id="${data[i].id}">${data[i].part_number}</td>
-          <td data-id="${data[i].id}">${data[i].part_name}</td>
-          <td data-id="${data[i].id}">${data[i].uniqe_no}</td>
-          <td data-id="${data[i].id}">${data[i].qty}</td>
-          <td data-id="${data[i].id}">${data[i].reason}</td>
-          <td data-id="${data[i].id}">${data[i].condition}</td>
-          <td data-id="${data[i].id}">${data[i].repair}</td>
-          <td data-id="${data[i].id}">${data[i].source_type}</td>
-          <td data-id="${data[i].id}">${data[i].remarks}</td>
-          <td data-id="${data[i].id}">${data[i].material}</td>
-          <td data-id="${data[i].id}">${data[i].tanggal}</td>
-          <td data-id="${data[i].id}">${data[i].cost_center}</td>
-        </tr>`
-          );
+          $("#tabelData2")
+            .DataTable()
+            .row.add([
+              i + 1,
+              data[i].part_number,
+              data[i].part_name,
+              data[i].uniqe_no,
+              data[i].qty,
+              data[i].reason,
+              data[i].condition,
+              data[i].repair,
+              data[i].source_type,
+              data[i].remarks,
+              data[i].material,
+              data[i].tanggal,
+              data[i].cost_center,
+            ])
+            .draw();
         }
       },
       error: function (error) {
@@ -281,27 +282,28 @@ $(function () {
           dataType: "json",
           success: function (data) {
             // Hapus semua baris sebelum menambahkan data baru
-            $("#dataTable").empty();
+            $("#tabelData2").DataTable().clear().draw();
 
             // Iterasi melalui data dan tambahkan baris ke dalam tabel
             for (var i = 0; i < data.length; i++) {
-              $("#dataTable").append(
-                `<tr>
-              <td>${i + 1}</td>
-              <td data-id="${data[i].id}">${data[i].part_number}</td>
-              <td data-id="${data[i].id}">${data[i].part_name}</td>
-              <td data-id="${data[i].id}">${data[i].uniqe_no}</td>
-              <td data-id="${data[i].id}">${data[i].qty}</td>
-              <td data-id="${data[i].id}">${data[i].reason}</td>
-              <td data-id="${data[i].id}">${data[i].condition}</td>
-              <td data-id="${data[i].id}">${data[i].repair}</td>
-              <td data-id="${data[i].id}">${data[i].source_type}</td>
-              <td data-id="${data[i].id}">${data[i].remarks}</td>
-              <td data-id="${data[i].id}">${data[i].material}</td>
-              <td data-id="${data[i].id}">${data[i].tanggal}</td>
-              <td data-id="${data[i].id}">${data[i].cost_center}</td>
-            </tr>`
-              );
+              $("#tabelData2")
+                .DataTable()
+                .row.add([
+                  i + 1,
+                  data[i].part_number,
+                  data[i].part_name,
+                  data[i].uniqe_no,
+                  data[i].qty,
+                  data[i].reason,
+                  data[i].condition,
+                  data[i].repair,
+                  data[i].source_type,
+                  data[i].remarks,
+                  data[i].material,
+                  data[i].tanggal,
+                  data[i].cost_center,
+                ])
+                .draw();
             }
           },
           error: function (error) {
@@ -389,27 +391,28 @@ $(function () {
           dataType: "json",
           success: function (data) {
             // Hapus semua baris sebelum menambahkan data baru
-            $("#dataTable").empty();
+            $("#tabelData2").DataTable().clear().draw();
 
             // Iterasi melalui data dan tambahkan baris ke dalam tabel
             for (var i = 0; i < data.length; i++) {
-              $("#dataTable").append(
-                `<tr>
-              <td>${i + 1}</td>
-              <td data-id="${data[i].id}">${data[i].part_number}</td>
-              <td data-id="${data[i].id}">${data[i].part_name}</td>
-              <td data-id="${data[i].id}">${data[i].uniqe_no}</td>
-              <td data-id="${data[i].id}">${data[i].qty}</td>
-              <td data-id="${data[i].id}">${data[i].reason}</td>
-              <td data-id="${data[i].id}">${data[i].condition}</td>
-              <td data-id="${data[i].id}">${data[i].repair}</td>
-              <td data-id="${data[i].id}">${data[i].source_type}</td>
-              <td data-id="${data[i].id}">${data[i].remarks}</td>
-              <td data-id="${data[i].id}">${data[i].material}</td>
-              <td data-id="${data[i].id}">${data[i].tanggal}</td>
-              <td data-id="${data[i].id}">${data[i].cost_center}</td>
-            </tr>`
-              );
+              $("#tabelData2")
+                .DataTable()
+                .row.add([
+                  i + 1,
+                  data[i].part_number,
+                  data[i].part_name,
+                  data[i].uniqe_no,
+                  data[i].qty,
+                  data[i].reason,
+                  data[i].condition,
+                  data[i].repair,
+                  data[i].source_type,
+                  data[i].remarks,
+                  data[i].material,
+                  data[i].tanggal,
+                  data[i].cost_center,
+                ])
+                .draw();
             }
           },
           error: function (error) {
@@ -497,27 +500,28 @@ $(function () {
           dataType: "json",
           success: function (data) {
             // Hapus semua baris sebelum menambahkan data baru
-            $("#dataTable").empty();
+            $("#tabelData2").DataTable().clear().draw();
 
             // Iterasi melalui data dan tambahkan baris ke dalam tabel
             for (var i = 0; i < data.length; i++) {
-              $("#dataTable").append(
-                `<tr>
-              <td>${i + 1}</td>
-              <td data-id="${data[i].id}">${data[i].part_number}</td>
-              <td data-id="${data[i].id}">${data[i].part_name}</td>
-              <td data-id="${data[i].id}">${data[i].uniqe_no}</td>
-              <td data-id="${data[i].id}">${data[i].qty}</td>
-              <td data-id="${data[i].id}">${data[i].reason}</td>
-              <td data-id="${data[i].id}">${data[i].condition}</td>
-              <td data-id="${data[i].id}">${data[i].repair}</td>
-              <td data-id="${data[i].id}">${data[i].source_type}</td>
-              <td data-id="${data[i].id}">${data[i].remarks}</td>
-              <td data-id="${data[i].id}">${data[i].material}</td>
-              <td data-id="${data[i].id}">${data[i].tanggal}</td>
-              <td data-id="${data[i].id}">${data[i].cost_center}</td>
-            </tr>`
-              );
+              $("#tabelData2")
+                .DataTable()
+                .row.add([
+                  i + 1,
+                  data[i].part_number,
+                  data[i].part_name,
+                  data[i].uniqe_no,
+                  data[i].qty,
+                  data[i].reason,
+                  data[i].condition,
+                  data[i].repair,
+                  data[i].source_type,
+                  data[i].remarks,
+                  data[i].material,
+                  data[i].tanggal,
+                  data[i].cost_center,
+                ])
+                .draw();
             }
           },
           error: function (error) {
@@ -622,27 +626,28 @@ $(function () {
       dataType: "json",
       success: function (data) {
         // Hapus semua baris sebelum menambahkan data baru
-        $("#dataTable").empty();
+        $("#tabelData2").DataTable().clear().draw();
 
         // Iterasi melalui data dan tambahkan baris ke dalam tabel
         for (var i = 0; i < data.length; i++) {
-          $("#dataTable").append(
-            `<tr>
-          <td>${i + 1}</td>
-          <td data-id="${data[i].id}">${data[i].part_number}</td>
-          <td data-id="${data[i].id}">${data[i].part_name}</td>
-          <td data-id="${data[i].id}">${data[i].uniqe_no}</td>
-          <td data-id="${data[i].id}">${data[i].qty}</td>
-          <td data-id="${data[i].id}">${data[i].reason}</td>
-          <td data-id="${data[i].id}">${data[i].condition}</td>
-          <td data-id="${data[i].id}">${data[i].repair}</td>
-          <td data-id="${data[i].id}">${data[i].source_type}</td>
-          <td data-id="${data[i].id}">${data[i].remarks}</td>
-          <td data-id="${data[i].id}">${data[i].material}</td>
-          <td data-id="${data[i].id}">${data[i].tanggal}</td>
-          <td data-id="${data[i].id}">${data[i].cost_center}</td>
-        </tr>`
-          );
+          $("#tabelData2")
+            .DataTable()
+            .row.add([
+              i + 1,
+              data[i].part_number,
+              data[i].part_name,
+              data[i].uniqe_no,
+              data[i].qty,
+              data[i].reason,
+              data[i].condition,
+              data[i].repair,
+              data[i].source_type,
+              data[i].remarks,
+              data[i].material,
+              data[i].tanggal,
+              data[i].cost_center,
+            ])
+            .draw();
         }
       },
       error: function (error) {
@@ -673,26 +678,28 @@ $(function () {
       dataType: "json",
       success: function (data) {
         // Hapus semua baris sebelum menambahkan data baru
-        $("#dataTable").empty();
+        $("#tabelData2").DataTable().clear().draw();
+
         // Iterasi melalui data dan tambahkan baris ke dalam tabel
         for (var i = 0; i < data.length; i++) {
-          $("#dataTable").append(
-            `<tr>
-          <td>${i + 1}</td>
-          <td data-id="${data[i].id}">${data[i].part_number}</td>
-          <td data-id="${data[i].id}">${data[i].part_name}</td>
-          <td data-id="${data[i].id}">${data[i].uniqe_no}</td>
-          <td data-id="${data[i].id}">${data[i].qty}</td>
-          <td data-id="${data[i].id}">${data[i].reason}</td>
-          <td data-id="${data[i].id}">${data[i].condition}</td>
-          <td data-id="${data[i].id}">${data[i].repair}</td>
-          <td data-id="${data[i].id}">${data[i].source_type}</td>
-          <td data-id="${data[i].id}">${data[i].remarks}</td>
-          <td data-id="${data[i].id}">${data[i].material}</td>
-          <td data-id="${data[i].id}">${data[i].tanggal}</td>
-          <td data-id="${data[i].id}">${data[i].cost_center}</td>
-        </tr>`
-          );
+          $("#tabelData2")
+            .DataTable()
+            .row.add([
+              i + 1,
+              data[i].part_number,
+              data[i].part_name,
+              data[i].uniqe_no,
+              data[i].qty,
+              data[i].reason,
+              data[i].condition,
+              data[i].repair,
+              data[i].source_type,
+              data[i].remarks,
+              data[i].material,
+              data[i].tanggal,
+              data[i].cost_center,
+            ])
+            .draw();
         }
       },
       error: function (error) {
@@ -722,27 +729,28 @@ $(function () {
       dataType: "json",
       success: function (data) {
         // Hapus semua baris sebelum menambahkan data baru
-        $("#dataTable").empty();
+        $("#tabelData2").DataTable().clear().draw();
 
         // Iterasi melalui data dan tambahkan baris ke dalam tabel
         for (var i = 0; i < data.length; i++) {
-          $("#dataTable").append(
-            `<tr>
-          <td>${i + 1}</td>
-          <td data-id="${data[i].id}">${data[i].part_number}</td>
-          <td data-id="${data[i].id}">${data[i].part_name}</td>
-          <td data-id="${data[i].id}">${data[i].uniqe_no}</td>
-          <td data-id="${data[i].id}">${data[i].qty}</td>
-          <td data-id="${data[i].id}">${data[i].reason}</td>
-          <td data-id="${data[i].id}">${data[i].condition}</td>
-          <td data-id="${data[i].id}">${data[i].repair}</td>
-          <td data-id="${data[i].id}">${data[i].source_type}</td>
-          <td data-id="${data[i].id}">${data[i].remarks}</td>
-          <td data-id="${data[i].id}">${data[i].material}</td>
-          <td data-id="${data[i].id}">${data[i].tanggal}</td>
-          <td data-id="${data[i].id}">${data[i].cost_center}</td>
-        </tr>`
-          );
+          $("#tabelData2")
+            .DataTable()
+            .row.add([
+              i + 1,
+              data[i].part_number,
+              data[i].part_name,
+              data[i].uniqe_no,
+              data[i].qty,
+              data[i].reason,
+              data[i].condition,
+              data[i].repair,
+              data[i].source_type,
+              data[i].remarks,
+              data[i].material,
+              data[i].tanggal,
+              data[i].cost_center,
+            ])
+            .draw();
         }
       },
       error: function (error) {
@@ -760,7 +768,7 @@ $(function () {
     $("#repair").val("");
   });
 
-  //========SEARCH DATA========//
+  //========DATATABLES========//
   $(document).ready(function () {
     // Event handler untuk form submission
     $("#searchForm").submit(function (event) {
@@ -771,7 +779,6 @@ $(function () {
       const tanggalFrom = $("#tanggal").val();
       const tanggalTo = $("#tanggalTo").val();
       const line = $("#line").val();
-      const costCenter = $("#costCenter").val();
       const shift = $("#shift").val();
       const material = $("#material").val();
 
@@ -783,7 +790,6 @@ $(function () {
           tanggalFrom: tanggalFrom,
           tanggalTo: tanggalTo,
           line: line,
-          costCenter: costCenter,
           shift: shift,
           material: material,
         },
@@ -794,10 +800,22 @@ $(function () {
 
           // Iterasi melalui data dan tambahkan baris ke dalam tabel
           for (var i = 0; i < data.length; i++) {
+            let statusClass = "";
+
+            // Tentukan kelas berdasarkan nilai status_lsr
+            if (data[i].status_lsr === "pending") {
+              statusClass = "bg-warning";
+            } else if (data[i].status_lsr === "approved") {
+              statusClass = "bg-success";
+            } else if (data[i].status_lsr === "rejected") {
+              statusClass = "bg-danger";
+            }
+
             $("#tabelData")
               .DataTable()
               .row.add([
-                i + 1,
+                `<input class="form-check-input checkbox-single" type="checkbox" 
+                    value="" aria-label="" data-id="${data[i].id}">`,
                 data[i].part_number,
                 data[i].part_name,
                 data[i].uniqe_no,
@@ -809,10 +827,19 @@ $(function () {
                 data[i].remarks,
                 data[i].material,
                 data[i].tanggal,
+                data[i].waktu,
+                data[i].line_lsr,
+                data[i].shift,
+                data[i].user_lsr,
+                data[i].line_code,
                 data[i].cost_center,
+                data[i].status_lsr,
               ])
-              .draw();
+              .nodes()
+              .to$() // Dapatkan elemen HTML tr (baris)
+              .addClass(statusClass); // Tambahkan kelas status
           }
+          $("#tabelData").DataTable().draw();
         },
         error: function (error) {
           console.log("Error:", error);
@@ -820,27 +847,88 @@ $(function () {
       });
     });
 
-    // Konfigurasi DataTables
+    //====== KONFIGURASI DATATABLES ============//
+
+    // DataTbales untuk halaman Data
     var table = $("#tabelData").DataTable({
+      ordering: false,
       fixedHeader: true,
       scrollX: true,
       autoWidth: true,
       responsive: true,
-      buttons: {
-        dom: {
-          button: {
-            className: "btn btn-success", // Primary class for all buttons
-          },
+      buttons: [
+        {
+          // EXCEL
+          extend: "excelHtml5",
+          text: '<i class="bi bi-download"></i> Excel',
+          className: "btn btn-success",
         },
-        buttons: [
-          {
-            // EXCEL
-            extend: "excelHtml5",
-          },
-        ],
+        {
+          extend: "spacer",
+        },
+        {
+          // EDIT
+          extend: "",
+          text: '<i class="bi bi-pencil-square"></i> Edit',
+          className: "btn btn-warning",
+        },
+      ],
+      initComplete: function () {
+        var btns = $(".dt-buttons");
+        btns.removeClass("btn-group");
       },
       dom:
         "<'row'<'col-3'B><'col-9'f>>" +
+        "<'row'<'col-12'tr>>" +
+        "<'row'<'col-9'l><'col-3 text-end'i>>" +
+        "<'row'<'col-12 pt-3'p>>",
+      lengthMenu: [
+        [10, 25, 50, 100, 500, -1],
+        [10, 25, 50, 100, 500, "All"],
+      ],
+      columns: [
+        {
+          title: `<label>
+            <input class="form-check-input" type="checkbox" id="checkboxAll" value="" aria-label="">
+            </label>`,
+        },
+        { title: "Part Number" },
+        { title: "Part Name" },
+        { title: "Unique No" },
+        { title: "Qty" },
+        { title: "Reason" },
+        { title: "Condition" },
+        { title: "Repair" },
+        { title: "Source Type" },
+        { title: "Remarks" },
+        { title: "Material" },
+        { title: "Tanggal" },
+        { title: "Waktu" },
+        { title: "Line" },
+        { title: "Shift" },
+        { title: "User" },
+        { title: "Line Code" },
+        { title: "Cost Center" },
+        { title: "Status" },
+      ],
+    });
+
+    // Memilih/deselect semua checkbox saat checkboxAll diubah
+    $("#checkboxAll").change(function () {
+      $(".checkbox-single").prop("checked", $(this).prop("checked"));
+    });
+
+    // Mengatur tombol container ke posisi yang sesuai
+    table.buttons().container().appendTo("#tabelData_wrapper .col-md-6:eq(0)");
+
+    // DataTbales untuk halaman Create
+    var table = $("#tabelData2").DataTable({
+      ordering: false,
+      fixedHeader: true,
+      scrollX: true,
+      autoWidth: true,
+      responsive: true,
+      dom:
         "<'row'<'col-12'tr>>" +
         "<'row'<'col-9'l><'col-3 text-end'i>>" +
         "<'row'<'col-12 pt-3'p>>",
