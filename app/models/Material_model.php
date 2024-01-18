@@ -143,6 +143,23 @@ class Material_model
         return $result;
     }
 
+    public function deleteData($selectedData)
+    {
+        $placeholders = implode(',', array_fill(0, count($selectedData), '?'));
+    
+        $query = 'DELETE FROM ' . $this->table . ' WHERE id IN (' . $placeholders . ')';
+        $this->db->query($query);
+    
+        foreach ($selectedData as $index => $value) {
+            $this->db->bind($index + 1, $value);
+        }
+    
+        return $this->db->execute();
+    }
+    
+    
+
+
 
 }
 

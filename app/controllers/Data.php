@@ -36,5 +36,39 @@ class Data extends Controller
         echo json_encode($data);
     }
 
+    public function getDataDelete()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $requestData = json_decode(file_get_contents("php://input"), true);
+
+            if (isset($requestData['selectedData'])) {
+                $selectedData = $requestData['selectedData'];
+
+                // Lakukan validasi atau pemrosesan tambahan
+                // ...
+
+                // Panggil model untuk menghapus data
+                $result = $this->model('Material_model')->deleteData($selectedData);
+
+                // Atur header untuk memberi tahu bahwa respons adalah JSON
+                header('Content-Type: application/json');
+
+                // Keluarkan respons dalam format JSON
+                echo json_encode(['success' => $result]);
+                exit(); // Pastikan keluar dari skrip setelah mengirim respons JSON
+            } else {
+                // Data 'selectedData' tidak ditemukan dalam request JSON
+                http_response_code(400); // Bad Request
+                echo json_encode(['error' => 'Invalid request. Missing selectedData.']);
+                exit(); // Pastikan keluar dari skrip setelah mengirim respons JSON
+            }
+        } else {
+            // Metode HTTP tidak diizinkan
+            http_response_code(405); // Method Not Allowed
+            echo json_encode(['error' => 'Method Not Allowed']);
+            exit(); // Pastikan keluar dari skrip setelah mengirim respons JSON
+        }
+    }
+
 }
 ?>

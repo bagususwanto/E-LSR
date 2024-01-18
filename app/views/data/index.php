@@ -92,6 +92,73 @@
                         </div>
                     </div>
 
+                    <!-- Modal Bootstrap succes -->
+                    <div class="modal fade" id="deleteSuccessModal" tabindex="-1" role="dialog"
+                        aria-labelledby="deleteSuccessModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteSuccessModalLabel">Sukses!</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Data berhasil dihapus.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Tutup</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Bootstrap Alert -->
+                    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog"
+                        aria-labelledby="deleteSuccessModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteSuccessModalLabel">Alert</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Pilih setidaknya satu baris untuk dihapus.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Tutup</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Bootstrap untuk konfirmasi -->
+                    <div class="modal fade" id="confirmationModal" tabindex="-1"
+                        aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmationModalLabel">Konfirmasi Hapus</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Apakah Anda yakin ingin menghapus baris yang dipilih?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Batal</button>
+                                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Hapus</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="row">
                         <div class="col">
 
@@ -104,7 +171,7 @@
                                         class="display nowrap table-sm table-bordered text-center table-striped"
                                         style="width: 100%;">
                                         <thead>
-                                            
+
                                         </thead>
                                         <tbody id="DataTables">
 

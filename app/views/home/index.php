@@ -304,7 +304,7 @@
 
             <!-- Middle -->
             <!-- Recent Transaction -->
-            <div class="col-12">
+            <!-- <div class="col-12">
                 <div class="card recent-sales overflow-auto">
 
                     <div class="filter">
@@ -453,12 +453,12 @@
                     </div>
 
                 </div>
-            </div><!-- End transaction Sales -->
+            </div>End transaction Sales -->
 
 
             <!-- Bottom  -->
             <!-- Top Transaction -->
-            <div class="col-12">
+            <!-- <div class="col-12">
                 <div class="card top-selling overflow-auto">
 
                     <div class="filter">
@@ -539,7 +539,7 @@
                     </div>
 
                 </div>
-            </div><!-- End Top Transaction -->
+            </div>End Top Transaction -->
             <!-- end bottom -->
 
         </div>
