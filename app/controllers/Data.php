@@ -44,7 +44,7 @@ class Data extends Controller
             if (isset($requestData['selectedData'])) {
                 $selectedData = $requestData['selectedData'];
 
-                // Lakukan validasi atau pemrosesan tambahan
+                // validasi atau pemrosesan tambahan
                 // ...
 
                 // Panggil model untuk menghapus data
@@ -55,20 +55,77 @@ class Data extends Controller
 
                 // Keluarkan respons dalam format JSON
                 echo json_encode(['success' => $result]);
-                exit(); // Pastikan keluar dari skrip setelah mengirim respons JSON
+                exit();
             } else {
                 // Data 'selectedData' tidak ditemukan dalam request JSON
                 http_response_code(400); // Bad Request
                 echo json_encode(['error' => 'Invalid request. Missing selectedData.']);
-                exit(); // Pastikan keluar dari skrip setelah mengirim respons JSON
+                exit();
             }
         } else {
             // Metode HTTP tidak diizinkan
             http_response_code(405); // Method Not Allowed
             echo json_encode(['error' => 'Method Not Allowed']);
-            exit(); // Pastikan keluar dari skrip setelah mengirim respons JSON
+            exit();
         }
     }
+
+    public function getDataEdit()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $requestData = json_decode(file_get_contents("php://input"), true);
+
+            if (isset($requestData['selectedData'])) {
+                $selectedData = $requestData['selectedData'];
+
+                // Validasi atau pemrosesan tambahan
+                // ...
+
+                // Panggil model 
+                $result = $this->model('Material_model')->getMaterialBySelected($selectedData);
+
+                if ($result) {
+                    // Atur header untuk memberi tahu bahwa respons adalah JSON
+                    header('Content-Type: application/json');
+
+                    // Keluarkan respons dalam format JSON
+                    echo json_encode(['success' => $result]);
+                    exit();
+                } else {
+                    // Data tidak ditemukan atau kesalahan lain dalam pemanggilan model
+                    http_response_code(404); // Not Found
+                    echo json_encode(['error' => 'Data not found or error in model']);
+                    exit();
+                }
+            } else {
+                // Data 'selectedData' tidak ditemukan dalam request JSON
+                http_response_code(400); // Bad Request
+                echo json_encode(['error' => 'Invalid request. Missing selectedData.']);
+                exit();
+            }
+        } else {
+            // Metode HTTP tidak diizinkan
+            http_response_code(405); // Method Not Allowed
+            echo json_encode(['error' => 'Method Not Allowed']);
+            exit();
+        }
+    }
+
+    public function ubah()
+    {
+        $result = $this->model('Material_model')->UbahDataMaterial($_POST);
+
+        if ($result > 0) {
+            // header('location:' . BASEURL . '/data');
+            exit;
+        }
+        else {
+            // header('location:' . BASEURL . '/data');
+            exit; 
+        }
+    }
+
+
 
 }
 ?>

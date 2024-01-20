@@ -10,7 +10,6 @@ class Flasher
             'aksi' => $aksi,
             'tipe' => $tipe
         ];
-
     }
 
     public static function flash()

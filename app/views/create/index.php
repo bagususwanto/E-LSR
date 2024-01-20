@@ -20,6 +20,12 @@
                         Form Input
                     </div>
 
+                    <div class="row">
+                        <div class="col text-center">
+                            <?php Flasher::flash(); ?>
+                        </div>
+                    </div> <!--alert end-->
+
                     <!-- columns center top -->
                     <div class="row">
                         <div class="col-12">
@@ -39,7 +45,7 @@
                                             value="" />
                                     </div>
                                     <div class="col-3">
-                                        <label for="line" class="form-label col-form-label-sm">Line</label>
+                                        <label for="line_lsr" class="form-label col-form-label-sm">Line</label>
                                         <select class="form-select form-select-sm" id="line" name="line_lsr"
                                             aria-label="Default select example">
                                             <!-- <option selected></option> -->
@@ -83,7 +89,7 @@
                                         </select>
                                     </div>
                                     <div class="col-3 pt-3">
-                                        <label for="lineCode" class="form-label col-form-label-sm">Line Code</label>
+                                        <label for="line_code" class="form-label col-form-label-sm">Line Code</label>
                                         <select class="form-select form-select-sm" id="lineCode" name="line_code"
                                             aria-label="Disabled select example">
                                             <?php foreach ($data['lineMaster'] as $lineMaster): ?>
@@ -96,7 +102,7 @@
                                     </div>
 
                                     <div class="col-3 pt-3">
-                                        <label for="costCenter" class="form-label col-form-label-sm">Cost
+                                        <label for="cost_center" class="form-label col-form-label-sm">Cost
                                             Center</label>
                                         <select class="form-select form-select-sm" id="costCenter" name="cost_center"
                                             aria-label="Disabled select example">
@@ -126,7 +132,7 @@
 
 
                                     <div class="col-3">
-                                        <label for="partNumber" class="form-label col-form-label-sm">Part
+                                        <label for="part_number" class="form-label col-form-label-sm">Part
                                             Number</label>
                                         <select class="form-select form-select-sm" id="partNumber" name="part_number"
                                             aria-label="Default select example">
@@ -136,7 +142,7 @@
                                     </div>
 
                                     <div class="col-4">
-                                        <label for="partName" class="form-label col-form-label-sm">Part Name</label>
+                                        <label for="part_name" class="form-label col-form-label-sm">Part Name</label>
                                         <select class="form-select form-select-sm" id="partName" name="part_name"
                                             aria-label="Default select example">
                                             <!-- <option selected>Pilih Part Name</option> -->
@@ -145,7 +151,7 @@
                                     </div>
 
                                     <div class="col-2">
-                                        <label for="uniqeNo" class="form-label col-form-label-sm">Uniqe No</label>
+                                        <label for="uniqe_no" class="form-label col-form-label-sm">Uniqe No</label>
                                         <select class="form-select form-select-sm" id="uniqeNo" name="uniqe_no"
                                             aria-label="Default select example">
                                             <!-- <option selected>Pilih Uniqe No</option> -->
@@ -167,12 +173,12 @@
 
                                     <div class="col-1">
                                         <label for="qty" class="form-label col-form-label-sm">Qty</label>
-                                        <input required class="form-control form-control-sm text-center" id="qty" name="qty"
-                                            type="number" placeholder="" aria-label="default input example">
+                                        <input required class="form-control form-control-sm text-center" id="qty"
+                                            name="qty" type="number" placeholder="" aria-label="default input example">
                                     </div>
 
                                     <div class="col-2">
-                                        <label for="sourceType" class="form-label col-form-label-sm">Souurce
+                                        <label for="source_type" class="form-label col-form-label-sm">Souurce
                                             Type</label>
                                         <select class="form-select form-select-sm" id="sourceType" name="source_type"
                                             aria-label="Default select example">
@@ -201,16 +207,16 @@
                                         <select required class="form-select form-select-sm" id="reason" name="reason"
                                             aria-label="Default select example">
                                             <option selected></option>
-                                            <option value="A">A. Shortage / Missing</option>
-                                            <option value="B">B. Wrong ( Shortage )</option>
-                                            <option value="C">C. Surplus</option>
-                                            <option value="D">D. Damage Origin</option>
-                                            <option value="E">E. Wrong ( Surplus )</option>
-                                            <option value="F">F. Damage Handling</option>
-                                            <option value="G">G. Rusted</option>
-                                            <option value="H">H. Dented</option>
-                                            <option value="I">I. Wet</option>
-                                            <option value="Z">Z. Other</option>
+                                            <option value="A. Shortage / Missing">A. Shortage / Missing</option>
+                                            <option value="B. Wrong ( Shortage )">B. Wrong ( Shortage )</option>
+                                            <option value="C. Surplus">C. Surplus</option>
+                                            <option value="D. Damage Origin">D. Damage Origin</option>
+                                            <option value="E. Wrong ( Surplus )">E. Wrong ( Surplus )</option>
+                                            <option value="F. Damage Handling">F. Damage Handling</option>
+                                            <option value="G. Rusted">G. Rusted</option>
+                                            <option value="H. Dented">H. Dented</option>
+                                            <option value="I. Wet">I. Wet</option>
+                                            <option value="Z. Other">Z. Other</option>
                                         </select>
                                     </div>
 
@@ -219,10 +225,10 @@
                                         <select required class="form-select form-select-sm" id="condition"
                                             name="condition" aria-label="Default select example">
                                             <option selected></option>
-                                            <option value="-">- Unknow</option>
-                                            <option value="1">1. Good</option>
-                                            <option value="2">2. Damage</option>
-                                            <option value="3">3. From TMMIN Unpacking</option>
+                                            <option value="- Unknow">- Unknow</option>
+                                            <option value="1. Good">1. Good</option>
+                                            <option value="2. Damage">2. Damage</option>
+                                            <option value="3. From TMMIN Unpacking">3. From TMMIN Unpacking</option>
                                         </select>
                                     </div>
 
@@ -231,9 +237,10 @@
                                         <select required class="form-select form-select-sm" id="repair" name="repair"
                                             aria-label="Default select example">
                                             <option selected></option>
-                                            <option value="0">0. Unrepairable</option>
-                                            <option value="1">1. Plant Repair</option>
-                                            <option value="6">6. Unrepairable caused by other parts</option>
+                                            <option value="0. Unrepairable">0. Unrepairable</option>
+                                            <option value="1. Plant Repair">1. Plant Repair</option>
+                                            <option value="6. Unrepairable caused by other parts">6. Unrepairable caused
+                                                by other parts</option>
                                         </select>
                                     </div>
 
@@ -244,16 +251,10 @@
                     </div> <!--columns center Midle 2 end-->
 
                     <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label col-form-label-sm">Remarks</label>
-                        <textarea required class="form-control form-control-sm" name="remarks"
-                            id="remarks" rows="3"></textarea>
+                        <label for="remarks" class="form-label col-form-label-sm">Remarks</label>
+                        <textarea required class="form-control form-control-sm" name="remarks" id="remarks"
+                            rows="3"></textarea>
                     </div> <!--remaks end-->
-
-                    <div class="row">
-                        <div class="col text-center">
-                            <?php Flasher::flash(); ?>
-                        </div>
-                    </div> <!--alert end-->
 
                     <div class="row">
                         <div class="col text-center">
@@ -277,7 +278,8 @@
                                 </div>
                                 <div class="row card-body">
 
-                                    <table id="tabelData2" class="display nowrap table-sm table-bordered text-center table-striped"
+                                    <table id="tabelData2"
+                                        class="display nowrap table-sm table-bordered text-center table-striped"
                                         style="width: 100%;">
                                         <thead>
                                             <tr>

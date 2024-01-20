@@ -26,6 +26,20 @@ class Material_model
         return $this->db->single();
     }
 
+    public function getMaterialBySelected($selectedData)
+    {
+        // Ubah array ID menjadi string dengan tanda koma sebagai pemisah
+        $idString = implode(',', $selectedData);
+
+        // Gunakan prepared statement untuk menghindari SQL injection
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id IN (' . $idString . ')');
+
+        // Tidak perlu bind parameter karena ID sudah di-handle dalam query
+
+        return $this->db->single();
+    }
+
+
     public function getAllMaterialCrieteria($material, $tanggal, $shiftUser, $lineUser)
     {
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE material=:material AND tanggal=:tanggal AND shift=:shift AND line_lsr=:line_lsr');
@@ -84,6 +98,37 @@ class Material_model
         $this->db->execute();
         return $this->db->rowCount();
     }
+
+    public function UbahDataMaterial($data)
+    {
+        $query = "UPDATE data_lsr SET 
+                    qty = :qty,
+                    reason = :reason,
+                    `condition` = :condition,
+                    repair = :repair,
+                    remarks = :remarks
+                    WHERE id = :id";
+
+        $this->db->query($query);
+        $this->db->bind('qty', $data['qty']);
+        $this->db->bind('reason', $data['reason']); 
+        $this->db->bind('condition', $data['condition']);
+        $this->db->bind('repair', $data['repair']);
+        $this->db->bind('remarks', $data['remarks']);
+        $this->db->bind('id', $data['id']);
+
+        // Eksekusi query dan tangani kesalahan jika ada
+        try {
+            $this->db->execute();
+            return $this->db->rowCount();
+        } catch (PDOException $e) {
+            // Tampilkan pesan kesalahan atau log untuk debugging
+            echo "Error: " . $e->getMessage();
+            return -1; // Atau nilai lain yang menunjukkan kesalahan
+        }
+    }
+
+
 
 
     public function getAllMaterialMaster()
@@ -146,18 +191,17 @@ class Material_model
     public function deleteData($selectedData)
     {
         $placeholders = implode(',', array_fill(0, count($selectedData), '?'));
-    
+
         $query = 'DELETE FROM ' . $this->table . ' WHERE id IN (' . $placeholders . ')';
         $this->db->query($query);
-    
+
         foreach ($selectedData as $index => $value) {
             $this->db->bind($index + 1, $value);
         }
-    
+
         return $this->db->execute();
     }
-    
-    
+
 
 
 

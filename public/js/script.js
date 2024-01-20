@@ -770,11 +770,8 @@ $(function () {
 
   //========DATATABLES========//
   $(document).ready(function () {
-    // Event handler untuk form submission
-    $("#searchForm").submit(function (event) {
-      // Menghentikan perilaku default formulir
-      event.preventDefault();
-
+    function RefreshDataTables() {
+      // Memastikan respons dari server menyatakan keberhasilan
       // Mendapatkan nilai dari input
       const tanggalFrom = $("#tanggal").val();
       const tanggalTo = $("#tanggalTo").val();
@@ -815,7 +812,7 @@ $(function () {
               .DataTable()
               .row.add([
                 `<input class="form-check-input checkbox-single" type="checkbox" id="checkboxNoLabel${i}" 
-                aria-label="" value="${data[i].id}">`,
+       aria-label="" value="${data[i].id}">`,
                 data[i].part_number,
                 data[i].part_name,
                 data[i].uniqe_no,
@@ -845,11 +842,20 @@ $(function () {
           console.log("Error:", error);
         },
       });
+    }
+
+    // Event handler untuk form submission
+    $("#searchForm").submit(function (event) {
+      // Menghentikan perilaku default formulir
+      event.preventDefault();
+
+      // panggil untuk hasiil dari datatables
+      RefreshDataTables();
     });
 
     // konfigurasi DataTbales untuk halaman Data
     var table = $("#tabelData").DataTable({
-      ordering: false,
+      // ordering: false,
       fixedHeader: true,
       scrollX: true,
       autoWidth: true,
@@ -889,6 +895,7 @@ $(function () {
           title: `<label>
             <input class="form-check-input" type="checkbox" id="checkboxAll" value="" aria-label="">
             </label>`,
+          orderable: false,
         },
         { title: "Part Number" },
         { title: "Part Name" },
@@ -929,14 +936,15 @@ $(function () {
         selectedData.push($(this).val());
       });
 
-      // Menjalankan fungsi deleteSelectedRows
-      deleteSelectedRows(selectedData);
+      // Menjalankan fungsi editSelectRows
+      deleteSelectRows(selectedData);
     });
 
-    function deleteSelectedRows(selectedData) {
+    function deleteSelectRows(selectedData) {
       try {
         if (selectedData.length === 0) {
           // alert("Pilih setidaknya satu baris untuk dihapus.");
+          setModal("Alert", "Pilih setidaknya satu baris untuk dihapus.");
           $("#alertModal").modal("show");
           return;
         }
@@ -955,7 +963,7 @@ $(function () {
             sendSelectedDataToServer(selectedData);
           });
       } catch (error) {
-        console.error("Error in deleteSelectedRows:", error);
+        console.error("Error in editSelectRows:", error);
       }
     }
 
@@ -967,89 +975,21 @@ $(function () {
         contentType: "application/json",
         data: JSON.stringify({ selectedData: selectedData }),
         success: function (data) {
-          // Memastikan respons dari server menyatakan keberhasilan
-          // Mendapatkan nilai dari input
-          const tanggalFrom = $("#tanggal").val();
-          const tanggalTo = $("#tanggalTo").val();
-          const line = $("#line").val();
-          const shift = $("#shift").val();
-          const material = $("#material").val();
+          // panggil untuk hasiil dari datatables
+          RefreshDataTables();
 
-          // Mengirim permintaan AJAX
-          $.ajax({
-            url: BASEURL + "/data/getDataTable",
-            method: "POST",
-            data: {
-              tanggalFrom: tanggalFrom,
-              tanggalTo: tanggalTo,
-              line: line,
-              shift: shift,
-              material: material,
-            },
-            dataType: "json",
-            success: function (data) {
-              // Hapus semua baris sebelum menambahkan data baru
-              $("#tabelData").DataTable().clear().draw();
-
-              // Iterasi melalui data dan tambahkan baris ke dalam tabel
-              for (var i = 0; i < data.length; i++) {
-                let statusClass = "";
-
-                // Tentukan kelas berdasarkan nilai status_lsr
-                if (data[i].status_lsr === "pending") {
-                  statusClass = "bg-warning";
-                } else if (data[i].status_lsr === "approved") {
-                  statusClass = "bg-success";
-                } else if (data[i].status_lsr === "rejected") {
-                  statusClass = "bg-danger";
-                }
-
-                $("#tabelData")
-                  .DataTable()
-                  .row.add([
-                    `<input class="form-check-input checkbox-single" type="checkbox" id="checkboxNoLabel${i}" 
-       aria-label="" value="${data[i].id}">`,
-                    data[i].part_number,
-                    data[i].part_name,
-                    data[i].uniqe_no,
-                    data[i].qty,
-                    data[i].reason,
-                    data[i].condition,
-                    data[i].repair,
-                    data[i].source_type,
-                    data[i].remarks,
-                    data[i].material,
-                    data[i].tanggal,
-                    data[i].waktu,
-                    data[i].line_lsr,
-                    data[i].shift,
-                    data[i].user_lsr,
-                    data[i].line_code,
-                    data[i].cost_center,
-                    data[i].status_lsr,
-                  ])
-                  .nodes()
-                  .to$() // Dapatkan elemen HTML tr (baris)
-                  .addClass(statusClass); // Tambahkan kelas status
-              }
-              $("#tabelData").DataTable().draw();
-            },
-            error: function (error) {
-              console.log("Error:", error);
-            },
-          });
+          // Menampilkan notifikasi modal Bootstrap setelah berhasil menghapus
+          $("#alertModal").modal("show");
         },
         error: function (error) {
-          console.log("Error:", error);
+          setModal("Gagal!", "Data gagal dihapus.");
+          $("#alertModal").modal("show");
         },
       });
-
-      // Menampilkan notifikasi modal Bootstrap setelah berhasil menghapus
-      $("#deleteSuccessModal").modal("show");
     }
 
-     //========FITUR EDIT DATA=======//
-     $("#editSelected").on("click", function () {
+    //========FITUR EDIT DATA=======//
+    $("#editSelected").on("click", function () {
       // Mendapatkan nilai checkbox yang terpilih
       var selectedRows = $(".checkbox-single:checked");
 
@@ -1058,129 +998,100 @@ $(function () {
       selectedRows.each(function () {
         selectedData.push($(this).val());
       });
-
-      // Menjalankan fungsi deleteSelectedRows
-      deleteSelectedRows(selectedData);
+      // Menjalankan fungsi editSelectRows
+      editSelectRows(selectedData);
     });
 
-    function deleteSelectedRows(selectedData) {
+    function editSelectRows(selectedData) {
       try {
         if (selectedData.length === 0) {
           // alert("Pilih setidaknya satu baris untuk dihapus.");
+          setModal("Alert", "Pilih setidaknya satu baris untuk diubah.");
           $("#alertModal").modal("show");
           return;
         }
 
-        // Tampilkan modal konfirmasi
-        $("#confirmationModal").modal("show");
+        if (selectedData.length > 1) {
+          setModal("Alert", "Pilih hanya satu baris untuk edit.");
+          $("#alertModal").modal("show");
+          return;
+        }
+        // Mengirim data terpilih ke server menggunakan AJAX
+        sendEditDataToServer(selectedData);
 
-        // Tangkap kejadian ketika tombol "Hapus" pada modal diklik
-        $("#confirmDeleteBtn")
+        // Tangkap kejadian ketika tombol "Save" pada modal diklik
+        $("#saveBtn")
           .off("click")
           .on("click", function () {
-            // Sembunyikan modal konfirmasi
-            $("#confirmationModal").modal("hide");
+            // Mengambil data formulir
+            var formData = $("#editForm").serialize();
+            // Mengirim data ke server menggunakan AJAX
+            $.ajax({
+              url: BASEURL + "/data/ubah",
+              method: "POST",
+              data: formData,
+              success: function (response) {
+                // panggil untuk hasiil dari datatables
+                RefreshDataTables();
 
-            // Mengirim data terpilih ke server menggunakan AJAX
-            sendSelectedDataToServer(selectedData);
+                // Sembunyikan modal konfirmasi
+                $("#editModal").modal("hide");
+
+                // Menampilkan notifikasi modal Bootstrap setelah berhasil
+                setModal("Sukses!", "Data berhasil diubah.");
+                $("#alertModal").modal("show");
+              },
+              error: function (error) {
+                $("#editModal").modal("hide");
+                setModal("Gagal!", "Data gagal diubah.");
+                $("#alertModal").modal("show");
+                // Handle kesalahan jika diperlukan
+                console.log("Error:", error);
+              },
+            });
           });
       } catch (error) {
-        console.error("Error in deleteSelectedRows:", error);
+        console.error("Error in editSelectRows:", error);
       }
     }
 
-    function sendSelectedDataToServer(selectedData) {
+    function setModal(sukses, caption) {
+      // Set modal content sesuai dengan parameter content
+      $("#alertModalLabel").text(sukses);
+      $("#modalAlertContent").text(caption);
+    }
+
+    function sendEditDataToServer(selectedData) {
       // Mengirim data terpilih ke server menggunakan AJAX
       $.ajax({
-        url: BASEURL + "/data/getDataDelete",
+        url: BASEURL + "/data/getDataEdit",
         method: "POST",
         contentType: "application/json",
         data: JSON.stringify({ selectedData: selectedData }),
         success: function (data) {
-          // Memastikan respons dari server menyatakan keberhasilan
-          // Mendapatkan nilai dari input
-          const tanggalFrom = $("#tanggal").val();
-          const tanggalTo = $("#tanggalTo").val();
-          const line = $("#line").val();
-          const shift = $("#shift").val();
-          const material = $("#material").val();
+          $("#partNumber").val(data.success.part_number);
+          $("#partName").val(data.success.part_name);
+          $("#uniqeNo").val(data.success.uniqe_no);
+          $("#qty").val(data.success.qty);
+          $("#sourceType").val(data.success.source_type);
+          $("#reason").val(data.success.reason);
+          $("#condition").val(data.success.condition);
+          $("#repair").val(data.success.repair);
+          $("#remarks").val(data.success.remarks);
+          $("#id").val(data.success.id);
 
-          // Mengirim permintaan AJAX
-          $.ajax({
-            url: BASEURL + "/data/getDataTable",
-            method: "POST",
-            data: {
-              tanggalFrom: tanggalFrom,
-              tanggalTo: tanggalTo,
-              line: line,
-              shift: shift,
-              material: material,
-            },
-            dataType: "json",
-            success: function (data) {
-              // Hapus semua baris sebelum menambahkan data baru
-              $("#tabelData").DataTable().clear().draw();
-
-              // Iterasi melalui data dan tambahkan baris ke dalam tabel
-              for (var i = 0; i < data.length; i++) {
-                let statusClass = "";
-
-                // Tentukan kelas berdasarkan nilai status_lsr
-                if (data[i].status_lsr === "pending") {
-                  statusClass = "bg-warning";
-                } else if (data[i].status_lsr === "approved") {
-                  statusClass = "bg-success";
-                } else if (data[i].status_lsr === "rejected") {
-                  statusClass = "bg-danger";
-                }
-
-                $("#tabelData")
-                  .DataTable()
-                  .row.add([
-                    `<input class="form-check-input checkbox-single" type="checkbox" id="checkboxNoLabel${i}" 
-       aria-label="" value="${data[i].id}">`,
-                    data[i].part_number,
-                    data[i].part_name,
-                    data[i].uniqe_no,
-                    data[i].qty,
-                    data[i].reason,
-                    data[i].condition,
-                    data[i].repair,
-                    data[i].source_type,
-                    data[i].remarks,
-                    data[i].material,
-                    data[i].tanggal,
-                    data[i].waktu,
-                    data[i].line_lsr,
-                    data[i].shift,
-                    data[i].user_lsr,
-                    data[i].line_code,
-                    data[i].cost_center,
-                    data[i].status_lsr,
-                  ])
-                  .nodes()
-                  .to$() // Dapatkan elemen HTML tr (baris)
-                  .addClass(statusClass); // Tambahkan kelas status
-              }
-              $("#tabelData").DataTable().draw();
-            },
-            error: function (error) {
-              console.log("Error:", error);
-            },
-          });
+          // Tampilkan modal edit
+          $("#editModal").modal("show");
         },
         error: function (error) {
           console.log("Error:", error);
         },
       });
-
-      // Menampilkan notifikasi modal Bootstrap setelah berhasil menghapus
-      $("#deleteSuccessModal").modal("show");
     }
 
     // DataTbales untuk halaman Create
     var table = $("#tabelData2").DataTable({
-      ordering: false,
+      // ordering: false,
       fixedHeader: true,
       scrollX: true,
       autoWidth: true,

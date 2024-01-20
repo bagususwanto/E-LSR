@@ -27,12 +27,12 @@ class Create extends Controller
     {
         // print_r($_POST);
         if ($this->model('Material_model')->AddDataMaterial($_POST) > 0) {
-            Flasher::setFlash('Data LSR', 'berhasil', 'ditambahkan', 'success');
-            header('location:' . BASEURL . '/create#dataTable');
+            Flasher::setFlash('data', 'berhasil', 'ditambahkan', 'success');
+            header('location:' . BASEURL . '/create#tabelData2');
             exit;
         } else {
-            Flasher::setFlash('Data LSR', 'gagal', 'ditambahkan', 'danger');
-            header('location:' . BASEURL . '/create#dataTable');
+            Flasher::setFlash('data', 'gagal', 'ditambahkan', 'danger');
+            header('location:' . BASEURL . '/create#tabelData2');
             exit;
         }
     }

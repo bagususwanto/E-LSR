@@ -92,41 +92,18 @@
                         </div>
                     </div>
 
-                    <!-- Modal Bootstrap succes -->
-                    <div class="modal fade" id="deleteSuccessModal" tabindex="-1" role="dialog"
-                        aria-labelledby="deleteSuccessModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteSuccessModalLabel">Sukses!</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    Data berhasil dihapus.
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Tutup</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Modal Bootstrap Alert -->
                     <div class="modal fade" id="alertModal" tabindex="-1" role="dialog"
-                        aria-labelledby="deleteSuccessModalLabel" aria-hidden="true">
+                        aria-labelledby="alertModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteSuccessModalLabel">Alert</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                                    <h5 class="modal-title" id="alertModalLabel">Sukses!</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
-                                    Pilih setidaknya satu baris untuk dihapus.
+                                <div class="modal-body" id="modalAlertContent">
+                                    Data berhasil dihapus.
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
@@ -146,7 +123,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body" id="modalContent">
                                     Apakah Anda yakin ingin menghapus baris yang dipilih?
                                 </div>
                                 <div class="modal-footer">
@@ -154,6 +131,133 @@
                                         data-bs-dismiss="modal">Batal</button>
                                     <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Hapus</button>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Bootstrap untuk edit -->
+                    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel">Form Edit</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form id="editForm" method="POST" action="">
+                                    <div class="modal-body" id="modalContent">
+                                        <input type="hidden" name="id" id="id">
+                                        <div class="mb-3">
+                                            <label for="part_number" class="form-label col-form-label-sm">Part
+                                                Number</label>
+                                            <input class="form-control form-control-sm" id="partNumber"
+                                                name="part_number" aria-label="Disabled input example" disabled
+                                                readonly>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="part_name" class="form-label col-form-label-sm">Part
+                                                Name</label>
+                                            <input class="form-control form-control-sm" id="partName" name="part_name"
+                                                aria-label="Disabled input example" disabled readonly>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="mb-3">
+                                                    <label for="uniqe_no" class="form-label col-form-label-sm">Uniqe
+                                                        No</label>
+                                                    <input class="form-control form-control-sm" id="uniqeNo"
+                                                        name="uniqe_no" aria-label="Disabled input example" disabled
+                                                        readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-4">
+                                                <div class="mb-3">
+                                                    <label for="qty" class="form-label col-form-label-sm">Qty</label>
+                                                    <input required type="number"
+                                                        class="form-control form-control-sm text-center" id="qty"
+                                                        name="qty" aria-label="Default input example">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-4">
+                                                <div class="mb-3">
+                                                    <label for="source_type" class="form-label col-form-label-sm">Source
+                                                        Type</label>
+                                                    <input class="form-control form-control-sm" id="sourceType"
+                                                        name="source_type" aria-label="Disabled input example" disabled
+                                                        readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <label for="reason" class="form-label col-form-label-sm">Reason</label>
+                                                <select required class="form-select form-select-sm" id="reason"
+                                                    name="reason" aria-label="Default select example">
+                                                    <option selected></option>
+                                                    <option value="A. Shortage / Missing">A. Shortage / Missing</option>
+                                                    <option value="B. Wrong ( Shortage )">B. Wrong ( Shortage )</option>
+                                                    <option value="C. Surplus">C. Surplus</option>
+                                                    <option value="D. Damage Origin">D. Damage Origin</option>
+                                                    <option value="E. Wrong ( Surplus )">E. Wrong ( Surplus )</option>
+                                                    <option value="F. Damage Handling">F. Damage Handling</option>
+                                                    <option value="G. Rusted">G. Rusted</option>
+                                                    <option value="H. Dented">H. Dented</option>
+                                                    <option value="I. Wet">I. Wet</option>
+                                                    <option value="Z. Other">Z. Other</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-4">
+                                                <label for="condition"
+                                                    class="form-label col-form-label-sm">Condition</label>
+                                                <select required class="form-select form-select-sm" id="condition"
+                                                    name="condition" aria-label="Default select example">
+                                                    <option selected></option>
+                                                    <option value="- Unknow">- Unknow</option>
+                                                    <option value="1. Good">1. Good</option>
+                                                    <option value="2. Damage">2. Damage</option>
+                                                    <option value="3. From TMMIN Unpacking">3. From TMMIN Unpacking
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-4">
+                                                <label for="repair" class="form-label col-form-label-sm">Repair</label>
+                                                <select required class="form-select form-select-sm" id="repair"
+                                                    name="repair" aria-label="Default select example">
+                                                    <option selected></option>
+                                                    <option value="0. Unrepairable">0. Unrepairable</option>
+                                                    <option value="1. Plant Repair">1. Plant Repair</option>
+                                                    <option value="6. Unrepairable caused by other parts">6.
+                                                        Unrepairable caused
+                                                        by other parts</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="mb-3">
+                                                <label for="remarks"
+                                                    class="form-label col-form-label-sm">Remarks</label>
+                                                <textarea required class="form-control form-control-sm" name="remarks"
+                                                    id="remarks" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Batal</button>
+                                        <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
+                                    </div>
+                                </form>
+
                             </div>
                         </div>
                     </div>
