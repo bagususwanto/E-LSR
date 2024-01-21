@@ -812,7 +812,7 @@ $(function () {
               .DataTable()
               .row.add([
                 `<input class="form-check-input checkbox-single" type="checkbox" id="checkboxNoLabel${i}" 
-       aria-label="" value="${data[i].id}">`,
+        aria-label="" value="${data[i].id}">`,
                 data[i].part_number,
                 data[i].part_name,
                 data[i].uniqe_no,
@@ -875,6 +875,11 @@ $(function () {
           text: '<i class="bi bi-trash"></i> Delete',
           className: "btn-sm btn-danger",
           attr: { id: "deleteSelected" },
+        },
+        {
+          text: '<i class="bi bi-check-circle-fill"></i> Approve',
+          className: "btn-sm btn-info",
+          attr: { id: "approveSelected" },
         },
       ],
       initComplete: function () {
@@ -1088,6 +1093,63 @@ $(function () {
         },
       });
     }
+
+    //========FITUR APPROVE DATA=======//
+    $("#approveSelected").on("click", function () {
+      // Mendapatkan nilai checkbox yang terpilih
+      var selectedRows = $(".checkbox-single:checked");
+
+      // Mendapatkan nilai dari setiap checkbox yang terpilih
+      var selectedData = [];
+      selectedRows.each(function () {
+        selectedData.push($(this).val());
+      });
+
+      // Memastikan ada setidaknya satu item yang dipilih
+      if (selectedData.length === 0) {
+        setModal("Alert", "Pilih setidaknya satu baris untuk approve.");
+        $("#alertModal").modal("show");
+        return;
+      }
+
+      // Tampilkan modal konfirmasi
+      $("#confirmationModalApprove").modal("show");
+
+      // Menanggapi klik tombol konfirmasi
+      $("#confirmationModalApprove")
+        .off("click", "#confirmApproveBtn")
+        .on("click", "#confirmApproveBtn", function () {
+          // Sembunyikan modal konfirmasi
+          $("#confirmationModalApprove").modal("hide");
+
+          // Kirim data terpilih ke server menggunakan AJAX
+          $.ajax({
+            url: BASEURL + "/data/getDataApprove",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ selectedData: selectedData }),
+            success: function (data) {
+              // Sembunyikan indikator loading atau pesan
+              // ...
+
+              // panggil untuk hasil dari datatables
+              RefreshDataTables();
+
+              // Menampilkan notifikasi modal Bootstrap setelah berhasil menghapus
+              setModal("Sukses!", "Data Approved.");
+              $("#alertModal").modal("show");
+            },
+            error: function (error) {
+              // Sembunyikan indikator loading atau pesan
+              // ...
+
+              console.error("Error in AJAX request:", error);
+              setModal("Gagal!", "Data gagal approved.");
+              $("#alertModal").modal("show");
+            },
+          });
+        });
+    });
 
     // DataTbales untuk halaman Create
     var table = $("#tabelData2").DataTable({

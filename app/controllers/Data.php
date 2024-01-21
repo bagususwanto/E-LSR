@@ -118,12 +118,59 @@ class Data extends Controller
         if ($result > 0) {
             // header('location:' . BASEURL . '/data');
             exit;
-        }
-        else {
+        } else {
             // header('location:' . BASEURL . '/data');
-            exit; 
+            exit;
         }
     }
+
+    public function getDataApprove()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $requestData = json_decode(file_get_contents("php://input"), true);
+
+            if (isset($requestData['selectedData'])) {
+                $selectedData = $requestData['selectedData'];
+
+                // Validasi atau pemrosesan tambahan
+                // ...
+
+                try {
+                    // Membuat instance dari Material_model (sebelumnya sudah ada di konstruktor)
+                    $materialModel = $this->model('Material_model');
+
+                    // Memanggil metode approveDataMaterial dari model
+                    $result = $materialModel->approveDataMaterial($selectedData);
+
+                    // Atur header untuk memberi tahu bahwa respons adalah JSON
+                    header('Content-Type: application/json');
+
+                    // Keluarkan respons dalam format JSON
+                    echo json_encode(['success' => $result]);
+                    exit();
+                } catch (Exception $e) {
+                    // Tangkap dan keluarkan pesan kesalahan sebagai respons JSON
+                    http_response_code(500); // Internal Server Error
+                    echo json_encode(['error' => $e->getMessage()]);
+                    exit();
+                }
+            } else {
+                // Data 'selectedData' tidak ditemukan dalam request JSON
+                http_response_code(400); // Bad Request
+                echo json_encode(['error' => 'Invalid request. Missing selectedData.']);
+                exit();
+            }
+        } else {
+            // Metode HTTP tidak diizinkan
+            http_response_code(405); // Method Not Allowed
+            echo json_encode(['error' => 'Method Not Allowed']);
+            exit();
+        }
+    }
+
+
+
+
 
 
 

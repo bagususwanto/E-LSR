@@ -72,8 +72,8 @@ class Material_model
 
     public function AddDataMaterial($data)
     {
-        $query = "INSERT INTO data_lsr
-        VALUES (null, :part_number, :part_name, :uniqe_no, :qty, :reason, :condition, :repair, :source_type, :remarks, :material, :tanggal, :waktu, :line_lsr, :shift, :user_lsr, :line_code, :cost_center, :status_lsr)";
+        $query = 'INSERT INTO ' . $this->table .
+            ' VALUES (null, :part_number, :part_name, :uniqe_no, :qty, :reason, :condition, :repair, :source_type, :remarks, :material, :tanggal, :waktu, :line_lsr, :shift, :user_lsr, :line_code, :cost_center, :status_lsr)';
 
         $this->db->query($query);
         $this->db->bind('part_number', $data['part_number']);
@@ -101,17 +101,17 @@ class Material_model
 
     public function UbahDataMaterial($data)
     {
-        $query = "UPDATE data_lsr SET 
+        $query = 'UPDATE ' . $this->table . ' SET 
                     qty = :qty,
                     reason = :reason,
                     `condition` = :condition,
                     repair = :repair,
                     remarks = :remarks
-                    WHERE id = :id";
+                    WHERE id = :id';
 
         $this->db->query($query);
         $this->db->bind('qty', $data['qty']);
-        $this->db->bind('reason', $data['reason']); 
+        $this->db->bind('reason', $data['reason']);
         $this->db->bind('condition', $data['condition']);
         $this->db->bind('repair', $data['repair']);
         $this->db->bind('remarks', $data['remarks']);
@@ -125,6 +125,32 @@ class Material_model
             // Tampilkan pesan kesalahan atau log untuk debugging
             echo "Error: " . $e->getMessage();
             return -1; // Atau nilai lain yang menunjukkan kesalahan
+        }
+    }
+
+    public function approveDataMaterial($selectedData)
+    {
+        try {
+            // Mengubah nilai kolom 'status_lsr' menjadi 'approved' berdasarkan ID
+            $placeholders = implode(',', array_fill(0, count($selectedData), '?'));
+
+            $query = "UPDATE $this->table SET status_lsr = 'approved' WHERE id IN ($placeholders)";
+
+            $this->db->query($query);
+
+            // Bind parameter sesuai dengan jumlah placeholder
+            foreach ($selectedData as $index => $itemId) {
+                $this->db->bind($index + 1, $itemId);
+            }
+
+            // Eksekusi query sekali saja setelah semua parameter di-bind
+            $this->db->execute();
+
+            // Mengembalikan pesan atau nilai sesuai kebutuhan
+            return "Items approved successfully.";
+        } catch (Exception $e) {
+            // Tangkap dan lemparkan kembali pesan kesalahan
+            throw new Exception("Error in approveDataMaterial: " . $e->getMessage());
         }
     }
 

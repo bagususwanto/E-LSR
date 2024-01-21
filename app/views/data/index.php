@@ -113,7 +113,7 @@
                         </div>
                     </div>
 
-                    <!-- Modal Bootstrap untuk konfirmasi -->
+                    <!-- Modal Bootstrap untuk konfirmasi hapus-->
                     <div class="modal fade" id="confirmationModal" tabindex="-1"
                         aria-labelledby="confirmationModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -130,6 +130,28 @@
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Batal</button>
                                     <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Hapus</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Modal Bootstrap untuk konfirmasi approve-->
+                    <div class="modal fade" id="confirmationModalApprove" tabindex="-1"
+                        aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmationModalLabel">Konfirmasi Approve</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" id="modalContent">
+                                Apakah Anda yakin ingin approve baris yang dipilih?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Batal</button>
+                                    <button type="button" class="btn btn-primary" id="confirmApproveBtn">Approve</button>
                                 </div>
                             </div>
                         </div>
