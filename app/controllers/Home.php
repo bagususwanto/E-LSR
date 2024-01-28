@@ -38,6 +38,87 @@ class Home extends Controller
             echo json_encode(['error' => 'Error getting data']);
         }
     }
+    public function getDataCardHome()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            header('Content-Type: application/json');
+
+            try {
+                $machiningLineValues = isset($_POST['machiningLineValues']) ? explode(',', $_POST['machiningLineValues']) : [];
+                $castingLineValues = isset($_POST['castingLineValues']) ? explode(',', $_POST['castingLineValues']) : [];
+                $assemblyLineValues = isset($_POST['assemblyLineValues']) ? explode(',', $_POST['assemblyLineValues']) : [];
+                $filter = isset($_POST['filter']) ? $_POST['filter'] : '';
+
+                $materialModel = $this->model('Material_model');
+
+                // Mendapatkan data dari model
+                $materialData = $materialModel->getMaterialByCriteria($machiningLineValues, $castingLineValues, $assemblyLineValues, $filter);
+
+                // Mengubah nilai null menjadi 0
+                $totalQtyMachining = $materialData['total_qty_machining'] ?? 0;
+                $totalQtyCasting = $materialData['total_qty_casting'] ?? 0;
+                $totalQtyAssembly = $materialData['total_qty_assembly'] ?? 0;
+
+                echo json_encode([
+                    'qtyM' => $totalQtyMachining,
+                    'qtyC' => $totalQtyCasting,
+                    'qtyK' => $totalQtyAssembly,
+                ]);
+            } catch (Exception $e) {
+                echo json_encode(['error' => $e->getMessage()]);
+            }
+        } else {
+            echo json_encode(['error' => 'Invalid request method']);
+        }
+    }
+
+    public function getMachiningChartData()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            header('Content-Type: application/json');
+    
+            try {
+                // Mendapatkan nilai dari elemen input tersembunyi machiningLine
+                $machiningLineValues = isset($_POST['machiningLineValues']) ? explode(',', $_POST['machiningLineValues']) : [];
+    
+                // Dapatkan data machining dan kategori sesuai dengan nilai dari input
+                $machiningModel = $this->model('Material_model');
+                $machiningData = $machiningModel->getMachiningData($machiningLineValues);
+                $machiningCategories = $machiningModel->getMachiningCategories(); // Sesuaikan dengan metode yang sesuai
+    
+                // Mengembalikan data machining dan kategori dalam format JSON
+                echo json_encode(['machiningData' => $machiningData, 'categories' => $machiningCategories]);
+            } catch (Exception $e) {
+                echo json_encode(['error' => $e->getMessage()]);
+            }
+        } else {
+            echo json_encode(['error' => 'Invalid request method']);
+        }
+    }
+    
+
+
+    public function getDataChart()
+    {
+        // Atur header untuk memberi tahu bahwa respons adalah JSON
+        header('Content-Type: application/json');
+
+        echo json_encode($this->model('Material_model')->getDataChartHome());
+    }
+
+
+    public function getPieChartData()
+    {
+        // Atur header untuk memberi tahu bahwa respons adalah JSON
+        header('Content-Type: application/json');
+
+        echo json_encode($this->model('Material_model')->getDataPie());
+    }
+
+
+
+
+
 
 }
 ?>

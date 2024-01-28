@@ -19,34 +19,33 @@
 
                     <!-- Assembly Card -->
                     <div class="col-xxl-4 col-md-6">
-                        <div class="card info-card sales-card">
+                        <div class="card info-card sales-card" id="assemblyCard">
 
-                            <div class="filter">
+                            <div class="filter" id="assemblyFilter" data-line-type="assembly">
                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                     <li class="dropdown-header text-start">
                                         <h6>Filter</h6>
                                     </li>
-
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    <li><a class="dropdown-item" href="#" data-filter="today">Today</a></li>
+                                    <li><a class="dropdown-item" href="#" data-filter="thisMonth">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#" data-filter="thisYear">This Year</a></li>
                                 </ul>
                             </div>
 
                             <div class="card-body">
-                                <h5 class="card-title">Assembly <span>| Today</span></h5>
-
+                                <h5 class="card-title">Assembly <span id="assemblyFilterText">| Today</span></h5>
+                                <div class="d-flex pb-3 justify-content-center">
+                                    <img src="<?php echo BASEURL; ?>/img/1NR-VE_Engine-removebg-preview.gif"
+                                        alt="1NR-VE_Engine-removebg-preview.gif" width="50px" height="auto">
+                                </div>
+                                <input type="hidden" id="assemblyLine" value="Assembly" name="assemblyLine">
                                 <div class="d-flex align-items-center">
                                     <div
                                         class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <!-- <i class="bi bi-cart"></i> -->
                                     </div>
                                     <div class="ps-3">
-                                        <h6>145</h6>
-                                        <span class="text-success small pt-1 fw-bold">12%</span> <span
-                                            class="text-muted small pt-2 ps-1">increase</span>
-
+                                        <h6 id="qtyK"></h6>
                                     </div>
                                 </div>
                             </div>
@@ -56,85 +55,94 @@
 
                     <!-- Machining Card -->
                     <div class="col-xxl-4 col-md-6">
-                        <div class="card info-card revenue-card">
+                        <div class="card info-card revenue-card" id="machiningCard">
 
-                            <div class="filter">
+                            <div class="filter" id="machiningFilter" data-line-type="machining">
                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                     <li class="dropdown-header text-start">
                                         <h6>Filter</h6>
                                     </li>
-
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    <li><a class="dropdown-item" href="#" data-filter="today">Today</a></li>
+                                    <li><a class="dropdown-item" href="#" data-filter="thisMonth">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#" data-filter="thisYear">This Year</a></li>
                                 </ul>
                             </div>
 
                             <div class="card-body">
-                                <h5 class="card-title">Machining <span>| This Month</span></h5>
-
+                                <h5 class="card-title">Machining <span id="machiningFilterText">| This Month</span></h5>
+                                <div class="d-flex pb-3 justify-content-center">
+                                    <img src="<?php echo BASEURL; ?>/img/CR-removebg-preview.gif"
+                                        alt="CR-removebg-preview.gif" width="50px" height="auto">
+                                    <img src="<?php echo BASEURL; ?>/img/CB-removebg-preview.gif"
+                                        alt="CB-removebg-preview.gif" width="50px" height="auto">
+                                    <img src="<?php echo BASEURL; ?>/img/CH-removebg-preview.gif"
+                                        alt="CH-removebg-preview.gif" width="50px" height="auto">
+                                    <img src="<?php echo BASEURL; ?>/img/CA-removebg-preview.gif"
+                                        alt="CA-removebg-preview.gif" width="50px" height="auto">
+                                </div>
+                                <input type="hidden" id="machiningLine"
+                                    value="Crankshaft,Cylinder Block,Cylinder Head,Camshaft" name="machiningLine">
                                 <div class="d-flex align-items-center">
                                     <div
                                         class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <!-- <i class="bi bi-currency-dollar"></i> -->
                                     </div>
                                     <div class="ps-3">
-                                        <h6>654</h6>
-                                        <span class="text-success small pt-1 fw-bold">8%</span> <span
-                                            class="text-muted small pt-2 ps-1">increase</span>
-
+                                        <h6 id="qtyM"></h6>
                                     </div>
+
                                 </div>
                             </div>
 
                         </div>
                     </div><!-- End Machining Card -->
 
-                    <!-- Customers Card -->
-                    <div class="col-xxl-4 col-xl-12">
+                    <!-- Casting Card -->
+                    <div class="col-xxl-4 col-xl-12" id="castingCard">
 
                         <div class="card info-card customers-card">
 
-                            <div class="filter">
+                            <div class="filter" id="castingFilter" data-line-type="casting">
                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                     <li class="dropdown-header text-start">
                                         <h6>Filter</h6>
                                     </li>
-
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    <li><a class="dropdown-item" href="#" data-filter="today">Today</a></li>
+                                    <li><a class="dropdown-item" href="#" data-filter="thisMonth">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#" data-filter="thisYear">This Year</a></li>
                                 </ul>
                             </div>
 
                             <div class="card-body">
-                                <h5 class="card-title">Casting <span>| This Year</span></h5>
-
+                                <h5 class="card-title">Casting <span id="castingFilterText">| This Year</span></h5>
+                                <div class="d-flex pb-3 justify-content-center">
+                                    <img src="<?php echo BASEURL; ?>/img/CB-removebg-preview.gif"
+                                        alt="CB-removebg-preview.gif" width="50px" height="auto">
+                                </div>
+                                <input type="hidden" id="castingLine" value="Die Casting" name="castingLine">
                                 <div class="d-flex align-items-center">
                                     <div
                                         class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <!-- <i class="bi bi-people"></i> -->
                                     </div>
                                     <div class="ps-3">
-                                        <h6>1244</h6>
-                                        <span class="text-danger small pt-1 fw-bold">12%</span> <span
-                                            class="text-muted small pt-2 ps-1">decrease</span>
-
+                                        <h6 id="qtyC"></h6>
                                     </div>
                                 </div>
-
                             </div>
+
                         </div>
 
                     </div><!-- End Customers Card -->
+
+
+
 
                     <!-- Reports -->
                     <div class="col-12">
                         <div class="card">
 
-                            <div class="filter">
+                            <!-- <div class="filter">
                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                     <li class="dropdown-header text-start">
@@ -145,65 +153,16 @@
                                     <li><a class="dropdown-item" href="#">This Month</a></li>
                                     <li><a class="dropdown-item" href="#">This Year</a></li>
                                 </ul>
-                            </div>
+                            </div> -->
 
                             <div class="card-body">
-                                <h5 class="card-title">Reports <span>/Today</span></h5>
+                                <h5 class="card-title">Reports <span>| This Year</span></h5>
 
                                 <!-- Line Chart -->
                                 <div id="reportsChart"></div>
 
                                 <script>
-                                    document.addEventListener("DOMContentLoaded", () => {
-                                        new ApexCharts(document.querySelector("#reportsChart"), {
-                                            series: [{
-                                                name: 'Assembly',
-                                                data: [31, 40, 28, 51, 42, 82, 56],
-                                            }, {
-                                                name: 'Machining',
-                                                data: [11, 32, 45, 32, 34, 52, 41]
-                                            }, {
-                                                name: 'Casting',
-                                                data: [15, 11, 32, 18, 9, 24, 11]
-                                            }],
-                                            chart: {
-                                                height: 350,
-                                                type: 'area',
-                                                toolbar: {
-                                                    show: false
-                                                },
-                                            },
-                                            markers: {
-                                                size: 4
-                                            },
-                                            colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                                            fill: {
-                                                type: "gradient",
-                                                gradient: {
-                                                    shadeIntensity: 1,
-                                                    opacityFrom: 0.3,
-                                                    opacityTo: 0.4,
-                                                    stops: [0, 90, 100]
-                                                }
-                                            },
-                                            dataLabels: {
-                                                enabled: false
-                                            },
-                                            stroke: {
-                                                curve: 'smooth',
-                                                width: 2
-                                            },
-                                            xaxis: {
-                                                type: 'datetime',
-                                                categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                                            },
-                                            tooltip: {
-                                                x: {
-                                                    format: 'dd/MM/yy HH:mm'
-                                                },
-                                            }
-                                        }).render();
-                                    });
+
                                 </script>
                                 <!-- End Line Chart -->
 
@@ -220,7 +179,7 @@
 
                 <!-- Material Traffic -->
                 <div class="card">
-                    <div class="filter">
+                    <!-- <div class="filter">
                         <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                             <li class="dropdown-header text-start">
@@ -231,70 +190,58 @@
                             <li><a class="dropdown-item" href="#">This Month</a></li>
                             <li><a class="dropdown-item" href="#">This Year</a></li>
                         </ul>
-                    </div>
+                    </div> -->
 
                     <div class="card-body pb-0">
-                        <h5 class="card-title">Material Traffic <span>| Today</span></h5>
+                        <h5 class="card-title">Material Traffic <span>| This Year</span></h5>
 
-                        <div id="trafficChart" style="min-height: 570px;" class="echart"></div>
+                        <div id="trafficChart" class="echart"></div> <!-- class="echart" -->
 
                         <script>
-                            document.addEventListener("DOMContentLoaded", () => {
-                                echarts.init(document.querySelector("#trafficChart")).setOption({
-                                    tooltip: {
-                                        trigger: 'item'
-                                    },
-                                    legend: {
-                                        top: '5%',
-                                        left: 'center'
-                                    },
-                                    series: [{
-                                        name: 'Access From',
-                                        type: 'pie',
-                                        radius: ['40%', '80%'],
-                                        avoidLabelOverlap: false,
-                                        label: {
-                                            show: false,
-                                            position: 'center'
-                                        },
-                                        emphasis: {
-                                            label: {
-                                                show: true,
-                                                fontSize: '18',
-                                                fontWeight: 'bold'
-                                            }
-                                        },
-                                        labelLine: {
-                                            show: false
-                                        },
-                                        data: [{
-                                            value: 1048,
-                                            name: 'Assembly'
-                                        },
-                                        {
-                                            value: 735,
-                                            name: 'Crankshaft'
-                                        },
-                                        {
-                                            value: 580,
-                                            name: 'Cylinder Block'
-                                        },
-                                        {
-                                            value: 484,
-                                            name: 'Cylinder Head'
-                                        },
-                                        {
-                                            value: 300,
-                                            name: 'Camshaft'
-                                        },
-                                        {
-                                            value: 300,
-                                            name: 'Die Casting'
-                                        }
-                                        ]
-                                    }]
-                                });
-                            });
+                            // document.addEventListener("DOMContentLoaded", () => {
+                            //     echarts.init(document.querySelector("#trafficChart")).setOption({
+                            //         tooltip: {
+                            //             trigger: 'item'
+                            //         },
+                            //         legend: {
+                            //             top: '5%',
+                            //             left: 'center'
+                            //         },
+                            //         series: [{
+                            //             name: 'Access From',
+                            //             type: 'pie',
+                            //             radius: ['40%', '80%'],
+                            //             avoidLabelOverlap: false,
+                            //             label: {
+                            //                 show: false,
+                            //                 position: 'center'
+                            //             },
+                            //             emphasis: {
+                            //                 label: {
+                            //                     show: true,
+                            //                     fontSize: '18',
+                            //                     fontWeight: 'bold'
+                            //                 }
+                            //             },
+                            //             labelLine: {
+                            //                 show: false
+                            //             },
+                            //             data: [{
+                            //                 value: 1048,
+                            //                 name: 'Assembly'
+                            //             },
+                            //             {
+                            //                 value: 735,
+                            //                 name: 'Machining'
+                            //             },
+                            //             {
+                            //                 value: 580,
+                            //                 name: 'Casting'
+                            //             },
+                            //             ]
+                            //         }]
+                            //     });
+                            // });
                         </script>
 
                     </div>

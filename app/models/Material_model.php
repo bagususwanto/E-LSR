@@ -172,6 +172,110 @@ class Material_model
     }
 
 
+
+    // UNTUK HALAMAN DASHBOARD BAGIAN CARD //
+    public function getMaterialByYear($machiningLineValues, $castingLineValues, $assemblyLineValues)
+    {
+        return $this->getMaterialByCriteria($machiningLineValues, $castingLineValues, $assemblyLineValues, date("Y"));
+    }
+
+    public function getMaterialByMonth($machiningLineValues, $castingLineValues, $assemblyLineValues)
+    {
+        return $this->getMaterialByCriteria($machiningLineValues, $castingLineValues, $assemblyLineValues, date("Y-m"));
+    }
+
+    public function getMaterialByDay($machiningLineValues, $castingLineValues, $assemblyLineValues)
+    {
+        return $this->getMaterialByCriteria($machiningLineValues, $castingLineValues, $assemblyLineValues, date("Y-m-d"));
+    }
+
+    public function getMaterialByCriteria($machiningLineValues, $castingLineValues, $assemblyLineValues, $dateCondition = null)
+    {
+        $placeholdersMachining = implode(',', array_fill(0, count($machiningLineValues), '?'));
+        $placeholdersCasting = implode(',', array_fill(0, count($castingLineValues), '?'));
+        $placeholdersAssembly = implode(',', array_fill(0, count($assemblyLineValues), '?'));
+
+        $queryMachining = 'SELECT COALESCE(SUM(qty), 0) as total_qty FROM ' . $this->table . ' WHERE material IN (' . $placeholdersMachining . ')';
+        $queryCasting = 'SELECT COALESCE(SUM(qty), 0) as total_qty FROM data_lsr WHERE material = ? AND YEAR(tanggal) = YEAR(CURDATE())';
+        $queryAssembly = 'SELECT COALESCE(SUM(qty), 0) as total_qty FROM data_lsr WHERE material = ? AND YEAR(tanggal) = YEAR(CURDATE())';
+
+        if ($dateCondition !== null) {
+            if ($dateCondition === 'today') {
+                $queryMachining .= ' AND DATE(tanggal) = CURDATE()';
+                $queryCasting .= ' AND DATE(tanggal) = CURDATE()';
+                $queryAssembly .= ' AND DATE(tanggal) = CURDATE()';
+            } else if ($dateCondition === 'thisMonth') {
+                $queryMachining .= ' AND MONTH(tanggal) = MONTH(CURDATE()) AND YEAR(tanggal) = YEAR(CURDATE())';
+                $queryCasting .= ' AND MONTH(tanggal) = MONTH(CURDATE()) AND YEAR(tanggal) = YEAR(CURDATE())';
+                $queryAssembly .= ' AND MONTH(tanggal) = MONTH(CURDATE()) AND YEAR(tanggal) = YEAR(CURDATE())';
+            } else if ($dateCondition === 'thisYear') {
+                $queryMachining .= ' AND YEAR(tanggal) = YEAR(CURDATE())';
+                $queryCasting .= ' AND YEAR(tanggal) = YEAR(CURDATE())';
+                $queryAssembly .= ' AND YEAR(tanggal) = YEAR(CURDATE())';
+            }
+        }
+
+        $this->db->query($queryMachining);
+        $this->bindValues($this->db, $machiningLineValues);
+        $this->bindCondition($this->db, $dateCondition);
+        $resultMachining = $this->db->single();
+
+        $this->db->query($queryCasting);
+        $this->bindValues($this->db, $castingLineValues);
+        $resultCasting = $this->db->single();
+
+        $this->db->query($queryAssembly);
+        $this->bindValues($this->db, $assemblyLineValues);
+        $resultAssembly = $this->db->single();
+
+        return [
+            'total_qty_machining' => $resultMachining['total_qty'],
+            'total_qty_casting' => $resultCasting['total_qty'],
+            'total_qty_assembly' => $resultAssembly['total_qty'],
+        ];
+    }
+
+
+
+
+    private function bindValues($db, $values)
+    {
+        $index = 1;
+
+        foreach ($values as $value) {
+            $db->bind($index++, $value);
+        }
+    }
+
+    private function bindCondition($db, $condition, $paramType = PDO::PARAM_STR)
+    {
+        if ($condition !== null) {
+            $db->bind($db->rowCount() + 1, $condition, $paramType);
+        }
+    }
+    // END //
+
+
+    public function getDataChartHome()
+    {
+        $this->db->query('SELECT MONTH(tanggal) AS bulan, YEAR(tanggal) AS tahun, material, SUM(qty) AS total_qty 
+                          FROM ' . $this->table . ' 
+                          GROUP BY bulan, tahun, material 
+                          ORDER BY tahun DESC, bulan DESC');
+        return $this->db->resultSet();
+    }
+
+    public function getDataPie()
+    {
+        $this->db->query('SELECT MONTH(tanggal) AS bulan, YEAR(tanggal) AS tahun, material, SUM(qty) AS total_qty 
+                          FROM ' . $this->table . ' 
+                          GROUP BY bulan, tahun, material 
+                          ORDER BY tahun DESC, bulan DESC');
+        return $this->db->resultSet();
+    }
+
+
+
     public function getFilteredData($tanggalFrom, $tanggalTo, $line, $shift, $material)
     {
         // Jika tanggalTo kosong, atur nilai tanggalTo ke tanggalFrom

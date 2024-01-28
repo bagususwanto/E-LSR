@@ -181,6 +181,285 @@ $(function () {
     });
   });
 
+  //==== ISI CARD DASHBOARD======//
+  $(document).ready(function () {
+    function updateCardTitle(lineType, filter) {
+      // Update teks judul card
+      let titleText = "This Year";
+      if (filter === "today") {
+        titleText = "Today";
+      } else if (filter === "thisMonth") {
+        titleText = "This Month";
+      }
+      $(`#${lineType}Card .card-title span`).text(`| ${titleText}`);
+    }
+
+    function updateMachiningData(filter, data) {
+      $("#qtyM").text(data.qtyM);
+      $("#machiningFilterText").text(`| ${filter}`);
+      updateCardTitle("machining", filter);
+    }
+
+    function updateCastingData(filter, data) {
+      $("#qtyC").text(data.qtyC);
+      $("#castingFilterText").text(`| ${filter}`);
+      updateCardTitle("casting", filter);
+    }
+
+    function updateAssemblyData(filter, data) {
+      $("#qtyK").text(data.qtyK);
+      $("#assemblyFilterText").text(`| ${filter}`);
+      updateCardTitle("assembly", filter);
+    }
+
+    // Fungsi untuk memperbarui data berdasarkan filter yang dipilih
+    function updateData(filter, lineType) {
+      const lineValues = $(`#${lineType}Line`).val();
+
+      $.ajax({
+        url: BASEURL + "/home/getDataCardHome",
+        data: {
+          machiningLineValues: lineType === "machining" ? lineValues : "",
+          castingLineValues: lineType === "casting" ? lineValues : "",
+          assemblyLineValues: lineType === "assembly" ? lineValues : "",
+          filter: filter,
+        },
+        method: "post",
+        dataType: "json",
+        success: function (data) {
+          console.log(data);
+
+          switch (lineType) {
+            case "machining":
+              updateMachiningData(filter, data);
+              break;
+            case "casting":
+              updateCastingData(filter, data);
+              break;
+            case "assembly":
+              updateAssemblyData(filter, data);
+              break;
+          }
+        },
+        error: function (error) {
+          console.log("Error:", error);
+        },
+      });
+    }
+
+    // Fungsi untuk mengubah teks filter dan memanggil fungsi updateData
+    function updateFilterText(filter, lineType) {
+      $(`#${lineType}FilterText`).text(`| ${filter}`);
+      updateData(filter, lineType);
+    }
+
+    // Event handler untuk setiap dropdown filter
+    $(".dropdown-item").on("click", function (event) {
+      event.preventDefault();
+      const filter = $(this).data("filter");
+      const lineType = $(this).closest(".filter").data("line-type");
+
+      updateFilterText(filter, lineType);
+    });
+
+    // Set nilai default "thisYear" pada saat dokumen siap
+    updateFilterText("thisYear", "machining");
+    updateFilterText("thisYear", "casting");
+    updateFilterText("thisYear", "assembly");
+  });
+
+  $(document).ready(function () {
+    // Menggunakan jQuery untuk mengambil data dari URL
+    $.ajax({
+      url: BASEURL + "/home/getDataChart",
+      method: "GET",
+      dataType: "json",
+      success: function (jsonData) {
+        // Membuat objek untuk menyimpan data series
+        var seriesData = {
+          Assembly: [],
+          Machining: [],
+          Casting: [],
+        };
+
+        // Membuat Set untuk menyimpan semua tanggal unik
+        var allDates = new Set();
+
+        // Mengelompokkan data berdasarkan kategori material
+        jsonData.forEach(function (item) {
+          var materialCategory = getMaterialCategory(item.material);
+
+          if (materialCategory) {
+            seriesData[materialCategory].push({
+              x: new Date(item.tahun, item.bulan, 1).getTime(),
+              y: parseInt(item.total_qty),
+            });
+
+            // Menambahkan tanggal ke dalam set untuk menghindari duplikasi
+            allDates.add(new Date(item.tahun, item.bulan, 1).getTime());
+          }
+        });
+
+        // Menghapus tanggal-tanggal yang duplikat dan mengurutkannya
+        var uniqueDates = Array.from(allDates).sort();
+
+        // Membuat array series berdasarkan kategori material
+        var seriesArray = [];
+        for (var category in seriesData) {
+          seriesArray.push({
+            name: category,
+            data: seriesData[category],
+          });
+        }
+
+        // Render chart ApexCharts
+        new ApexCharts(document.querySelector("#reportsChart"), {
+          series: seriesArray,
+          chart: {
+            height: 350,
+            type: "area",
+            toolbar: {
+              show: false,
+            },
+          },
+          markers: {
+            size: 4,
+          },
+          fill: {
+            type: "gradient",
+            gradient: {
+              shadeIntensity: 1,
+              opacityFrom: 0.3,
+              opacityTo: 0.4,
+              stops: [0, 90, 100],
+            },
+          },
+          dataLabels: {
+            enabled: false,
+          },
+          stroke: {
+            curve: "smooth",
+            width: 2,
+          },
+          xaxis: {
+            type: "datetime",
+            categories: uniqueDates,
+          },
+          tooltip: {
+            x: {
+              format: "MMM yyyy", // Format tanggal sesuai dengan hasil query
+            },
+          },
+        }).render();
+      },
+      error: function (error) {
+        console.log(error);
+      },
+    });
+
+    // Fungsi untuk menentukan kategori material
+    function getMaterialCategory(material) {
+      // Menentukan kategori material berdasarkan kondisi tertentu
+      if (
+        ["Crankshaft", "Cylinder Block", "Cylinder Head", "Camshaft"].includes(
+          material
+        )
+      ) {
+        return "Machining";
+      } else if (material === "Die Casting") {
+        return "Casting";
+      } else if (material === "Assembly") {
+        return "Assembly";
+      }
+      // Jika tidak termasuk ke dalam kategori yang ditentukan
+      return null;
+    }
+  });
+
+  $(document).ready(function () {
+    function getPieMaterialCategory(material) {
+      // Menentukan kategori material berdasarkan kondisi tertentu
+      if (
+          ["Crankshaft", "Cylinder Block", "Cylinder Head", "Camshaft"].includes(material)
+      ) {
+          return "Machining";
+      } else if (material === "Die Casting") {
+          return "Casting";
+      } else if (material === "Assembly") {
+          return "Assembly";
+      }
+      // Jika tidak termasuk ke dalam kategori yang ditentukan
+      return null;
+  }
+      // Menggunakan jQuery untuk mengambil data dari URL
+      $.ajax({
+        url: BASEURL + "/home/getPieChartData", // Ganti URL dengan endpoint yang sesuai
+        method: "GET",
+        dataType: "json",
+        success: function (jsonData) {
+          // Membuat objek untuk menyimpan data pie chart
+          var pieChartData = {};
+
+          // Mengelompokkan data berdasarkan kategori material
+          jsonData.forEach(function (item) {
+            var pieCategory = getPieMaterialCategory(item.material);
+
+            if (pieCategory) {
+              if (!pieChartData[pieCategory]) {
+                pieChartData[pieCategory] = 0;
+              }
+              pieChartData[pieCategory] += parseInt(item.total_qty);
+            }
+          });
+
+          // Membuat array data untuk chart pie
+          var pieChartArray = Object.keys(pieChartData).map(function (key) {
+            return {
+              value: pieChartData[key],
+              name: key,
+            };
+          });
+          console.log(pieChartArray);
+          // Inisialisasi chart pie menggunakan data dari database
+          echarts.init(document.querySelector("#trafficChart")).setOption({
+            tooltip: {
+              trigger: "item",
+            },
+            legend: {
+              top: "5%",
+              left: "center",
+            },
+            series: [
+              {
+                name: "Material",
+                type: "pie",
+                radius: ["40%", "80%"],
+                avoidLabelOverlap: false,
+                label: {
+                  show: false,
+                  position: "center",
+                },
+                emphasis: {
+                  label: {
+                    show: true,
+                    fontSize: "18",
+                    fontWeight: "bold",
+                  },
+                },
+                labelLine: {
+                  show: false,
+                },
+                data: pieChartArray,
+              },
+            ],
+          });
+        },
+        error: function (error) {
+          console.log(error);
+        },
+      });
+  });
+
   //=================EVENT CHANGE===================//
   $("#partNumber").on("change", function () {
     const id = $(this).find(":selected").data("id");
@@ -759,7 +1038,92 @@ $(function () {
     });
   });
 
+  //=====UNTUK REFRESH TABLE SUBMIT=====//
+  function RefreshDataSubmit() {
+    // Ambil nilai
+    const material = $("#lineUser").val();
+    const shiftUser = $("#shiftUser").val();
+    const lineUser = $("#lineUser").val();
+    const tanggalValue = $("#tanggal").val();
+    $.ajax({
+      url: BASEURL + "/create/getDataTable",
+      data: {
+        material: material,
+        tanggalValue: tanggalValue,
+        shiftUser: shiftUser,
+        lineUser: lineUser,
+      },
+      method: "post",
+      dataType: "json",
+      success: function (data) {
+        // Hapus semua baris sebelum menambahkan data baru
+        $("#tabelData2").DataTable().clear().draw();
+
+        // Iterasi melalui data dan tambahkan baris ke dalam tabel
+        for (var i = 0; i < data.length; i++) {
+          $("#tabelData2")
+            .DataTable()
+            .row.add([
+              i + 1,
+              data[i].part_number,
+              data[i].part_name,
+              data[i].uniqe_no,
+              data[i].qty,
+              data[i].reason,
+              data[i].condition,
+              data[i].repair,
+              data[i].source_type,
+              data[i].remarks,
+              data[i].material,
+              data[i].tanggal,
+              data[i].cost_center,
+            ])
+            .draw();
+        }
+      },
+      error: function (error) {
+        console.log("Error:", error);
+      },
+    });
+  }
+
   //============EVENT CLICK==================//
+  $("#submit").on("click", function () {
+    // Mengambil data formulir
+    var formData = $("#formInput").serialize();
+    console.log(formData);
+    // Mengirim data ke server menggunakan AJAX
+    $.ajax({
+      url: BASEURL + "/create/tambah",
+      method: "POST",
+      data: formData,
+      success: function (response) {
+        RefreshDataSubmit();
+
+        $("#remarks").val("");
+        $("#qty").val("");
+        $("#reason").val("");
+        $("#condition").val("");
+        $("#repair").val("");
+
+        // Menampilkan notifikasi modal Bootstrap setelah berhasil
+        setModal("Sukses!", "Data berhasil dikirim.");
+        $("#alertModal").modal("show");
+      },
+      error: function (error) {
+        setModal("Gagal!", "Data gagal terkirim.");
+        $("#alertModal").modal("show");
+        // Handle kesalahan jika diperlukan
+      },
+    });
+  });
+
+  function setModal(sukses, caption) {
+    // Set modal content sesuai dengan parameter content
+    $("#alertModalLabel").text(sukses);
+    $("#modalAlertContent").text(caption);
+  }
+
   $("#clear").on("click", function () {
     $("#remarks").val("");
     $("#qty").val("");
@@ -801,9 +1165,9 @@ $(function () {
 
             // Tentukan kelas berdasarkan nilai status_lsr
             if (data[i].status_lsr === "pending") {
-              statusClass = "bg-warning";
+              statusClass = "";
             } else if (data[i].status_lsr === "approved") {
-              statusClass = "bg-success";
+              statusClass = "bg-info";
             } else if (data[i].status_lsr === "rejected") {
               statusClass = "bg-danger";
             }
@@ -1051,7 +1415,6 @@ $(function () {
                 setModal("Gagal!", "Data gagal diubah.");
                 $("#alertModal").modal("show");
                 // Handle kesalahan jika diperlukan
-                console.log("Error:", error);
               },
             });
           });

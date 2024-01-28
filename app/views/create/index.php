@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-lg-12">
 
-                <Form method="POST" action="<?php echo BASEURL; ?>/create/tambah"
+            <Form id="formInput" method="POST" action=""
                     class="card bg-transparent p-3 card-blur"> <!--Form-->
                     <div class="card-header mb-3 bg-transparent card-blur">
                         Form Input
@@ -258,12 +258,34 @@
 
                     <div class="row">
                         <div class="col text-center">
-                            <button type="submit" id="getSelectedTextBtn" class="btn btn-primary"
+                            <button type="button" id="submit" class="btn btn-primary"
                                 name="submit">Submit</button>
                             <button id="clear" type="button" class="btn btn-danger" name="clear">Clear</button>
                         </div>
                     </div>
                 </Form> <!--form end-->
+
+                 <!-- Modal Bootstrap Alert -->
+                 <div class="modal fade" id="alertModal" tabindex="-1" role="dialog"
+                        aria-labelledby="alertModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="alertModalLabel">Sukses!</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" id="modalAlertContent">
+                                    Data berhasil dikirim.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Tutup</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                 <!-- columns center Footer-->
                 <div class="card bg-transparent p-3 card-blur">

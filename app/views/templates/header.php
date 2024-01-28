@@ -41,6 +41,41 @@
         const BASEURL = "<?= BASEURL ?>";
     </script>
 
+    <style>
+        @media screen and (min-width: 1024px) {
+            #trafficChart {
+                min-height: 640px;
+                /* Nilai untuk layar setidaknya 1200px atau lebih lebar */
+            }
+        }
+
+        #trafficChart {
+            min-height: 640px;
+            /* Nilai default untuk layar yang lebih kecil dari 1200px */
+        }
+
+        @media screen and (max-width: 1024px) {
+            #trafficChart {
+                min-height: 890px;
+                /* Nilai untuk layar dalam rentang ukuran tablet */
+            }
+        }
+
+        @media screen and (max-height: 1280px) {
+            #trafficChart {
+                min-height: 890px;
+                /* Nilai untuk layar dengan max-height 1280px */
+            }
+        }
+
+        @media screen and (min-width: 1200px) {
+            #trafficChart {
+                min-height: 640px;
+                /* Nilai untuk layar setidaknya 1200px atau lebih lebar */
+            }
+        }
+    </style>
+
     <!-- =======================================================
   * Updated: Nov 17 2023 with Bootstrap v5.3.2
   ======================================================== -->
@@ -60,13 +95,6 @@
             <input type="hidden" id="roleUser"
                 value="<?php echo isset($data['user']['role']) ? $data['user']['role'] : 'public'; ?>" name="roleUser">
         </div><!-- End Logo -->
-
-        <div class="search-bar">
-            <form class="search-form d-flex align-items-center" method="POST" action="#">
-                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-            </form>
-        </div><!-- End Search Bar -->
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">

@@ -33,6 +33,7 @@ class Database
     {
         $this->stmn = $this->dbh->prepare($query);
     }
+    
 
     public function bind($param, $value, $type = null)
     {
@@ -78,6 +79,8 @@ class Database
     }
 
 
-
+    
+    
+    
 }
 ?>
