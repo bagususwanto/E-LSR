@@ -44,13 +44,13 @@
     <style>
         @media screen and (min-width: 1024px) {
             #trafficChart {
-                min-height: 640px;
+                min-height: 570px;
                 /* Nilai untuk layar setidaknya 1200px atau lebih lebar */
             }
         }
 
         #trafficChart {
-            min-height: 640px;
+            min-height: 570px;
             /* Nilai default untuk layar yang lebih kecil dari 1200px */
         }
 
@@ -70,7 +70,7 @@
 
         @media screen and (min-width: 1200px) {
             #trafficChart {
-                min-height: 640px;
+                min-height: 570px;
                 /* Nilai untuk layar setidaknya 1200px atau lebih lebar */
             }
         }

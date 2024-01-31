@@ -35,14 +35,16 @@
 
                             <div class="card-body">
                                 <h5 class="card-title">Assembly <span id="assemblyFilterText">| Today</span></h5>
-                                <div class="d-flex pb-3 justify-content-center">
+                                <!-- <div class="d-flex pb-3 justify-content-center">
                                     <img src="<?php echo BASEURL; ?>/img/1NR-VE_Engine-removebg-preview.gif"
                                         alt="1NR-VE_Engine-removebg-preview.gif" width="50px" height="auto">
-                                </div>
+                                </div> -->
                                 <input type="hidden" id="assemblyLine" value="Assembly" name="assemblyLine">
                                 <div class="d-flex align-items-center">
                                     <div
                                         class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <img src="<?php echo BASEURL; ?>/img/1NR-VE_Engine-removebg-preview.gif"
+                                            alt="1NR-VE_Engine-removebg-preview.gif" width="50px" height="auto">
                                     </div>
                                     <div class="ps-3">
                                         <h6 id="qtyK"></h6>
@@ -71,7 +73,7 @@
 
                             <div class="card-body">
                                 <h5 class="card-title">Machining <span id="machiningFilterText">| This Month</span></h5>
-                                <div class="d-flex pb-3 justify-content-center">
+                                <!-- <div class="d-flex pb-3 justify-content-center">
                                     <img src="<?php echo BASEURL; ?>/img/CR-removebg-preview.gif"
                                         alt="CR-removebg-preview.gif" width="50px" height="auto">
                                     <img src="<?php echo BASEURL; ?>/img/CB-removebg-preview.gif"
@@ -80,12 +82,14 @@
                                         alt="CH-removebg-preview.gif" width="50px" height="auto">
                                     <img src="<?php echo BASEURL; ?>/img/CA-removebg-preview.gif"
                                         alt="CA-removebg-preview.gif" width="50px" height="auto">
-                                </div>
+                                </div> -->
                                 <input type="hidden" id="machiningLine"
                                     value="Crankshaft,Cylinder Block,Cylinder Head,Camshaft" name="machiningLine">
                                 <div class="d-flex align-items-center">
                                     <div
                                         class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <img src="<?php echo BASEURL; ?>/img/CR-removebg-preview.gif"
+                                            alt="CR-removebg-preview.gif" width="50px" height="auto">
                                     </div>
                                     <div class="ps-3">
                                         <h6 id="qtyM"></h6>
@@ -116,14 +120,16 @@
 
                             <div class="card-body">
                                 <h5 class="card-title">Casting <span id="castingFilterText">| This Year</span></h5>
-                                <div class="d-flex pb-3 justify-content-center">
+                                <!-- <div class="d-flex pb-3 justify-content-center">
                                     <img src="<?php echo BASEURL; ?>/img/CB-removebg-preview.gif"
                                         alt="CB-removebg-preview.gif" width="50px" height="auto">
-                                </div>
+                                </div> -->
                                 <input type="hidden" id="castingLine" value="Die Casting" name="castingLine">
                                 <div class="d-flex align-items-center">
                                     <div
                                         class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <img src="<?php echo BASEURL; ?>/img/CB-removebg-preview.gif"
+                                            alt="CB-removebg-preview.gif" width="50px" height="auto">
                                     </div>
                                     <div class="ps-3">
                                         <h6 id="qtyC"></h6>

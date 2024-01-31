@@ -1238,3 +1238,15 @@ h6 {
 .card-blur {
   backdrop-filter: blur(3px);
 }
+
+.error-message {
+  color: red;
+  display: inline-block;
+  margin-top: 5px; 
+}
+
+.error {
+  color: red;
+}
+
+

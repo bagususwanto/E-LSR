@@ -227,8 +227,6 @@ $(function () {
         method: "post",
         dataType: "json",
         success: function (data) {
-          console.log(data);
-
           switch (lineType) {
             case "machining":
               updateMachiningData(filter, data);
@@ -380,84 +378,90 @@ $(function () {
     function getPieMaterialCategory(material) {
       // Menentukan kategori material berdasarkan kondisi tertentu
       if (
-          ["Crankshaft", "Cylinder Block", "Cylinder Head", "Camshaft"].includes(material)
+        ["Crankshaft", "Cylinder Block", "Cylinder Head", "Camshaft"].includes(
+          material
+        )
       ) {
-          return "Machining";
+        return "Machining";
       } else if (material === "Die Casting") {
-          return "Casting";
+        return "Casting";
       } else if (material === "Assembly") {
-          return "Assembly";
+        return "Assembly";
       }
       // Jika tidak termasuk ke dalam kategori yang ditentukan
       return null;
-  }
-      // Menggunakan jQuery untuk mengambil data dari URL
-      $.ajax({
-        url: BASEURL + "/home/getPieChartData", // Ganti URL dengan endpoint yang sesuai
-        method: "GET",
-        dataType: "json",
-        success: function (jsonData) {
-          // Membuat objek untuk menyimpan data pie chart
-          var pieChartData = {};
+    }
+    // Menggunakan jQuery untuk mengambil data dari URL
+    $.ajax({
+      url: BASEURL + "/home/getPieChartData", // Ganti URL dengan endpoint yang sesuai
+      method: "GET",
+      dataType: "json",
+      success: function (jsonData) {
+        // Membuat objek untuk menyimpan data pie chart
+        var pieChartData = {
+          Assembly: [],
+          Machining: [],
+          Casting: [],
+        };
 
-          // Mengelompokkan data berdasarkan kategori material
-          jsonData.forEach(function (item) {
-            var pieCategory = getPieMaterialCategory(item.material);
+        // Mengelompokkan data berdasarkan kategori material
+        jsonData.forEach(function (item) {
+          var pieCategory = getPieMaterialCategory(item.material);
 
-            if (pieCategory) {
-              if (!pieChartData[pieCategory]) {
-                pieChartData[pieCategory] = 0;
-              }
-              pieChartData[pieCategory] += parseInt(item.total_qty);
+          if (pieCategory) {
+            if (!pieChartData[pieCategory]) {
+              pieChartData[pieCategory] = 0;
             }
-          });
+            pieChartData[pieCategory] += parseInt(item.total_qty);
+          }
+        });
 
-          // Membuat array data untuk chart pie
-          var pieChartArray = Object.keys(pieChartData).map(function (key) {
-            return {
-              value: pieChartData[key],
-              name: key,
-            };
-          });
-          console.log(pieChartArray);
-          // Inisialisasi chart pie menggunakan data dari database
-          echarts.init(document.querySelector("#trafficChart")).setOption({
-            tooltip: {
-              trigger: "item",
-            },
-            legend: {
-              top: "5%",
-              left: "center",
-            },
-            series: [
-              {
-                name: "Material",
-                type: "pie",
-                radius: ["40%", "80%"],
-                avoidLabelOverlap: false,
-                label: {
-                  show: false,
-                  position: "center",
-                },
-                emphasis: {
-                  label: {
-                    show: true,
-                    fontSize: "18",
-                    fontWeight: "bold",
-                  },
-                },
-                labelLine: {
-                  show: false,
-                },
-                data: pieChartArray,
+        // Membuat array data untuk chart pie
+        var pieChartArray = Object.keys(pieChartData).map(function (key) {
+          return {
+            value: pieChartData[key],
+            name: key,
+          };
+        });
+        console.log(pieChartArray);
+        // Inisialisasi chart pie menggunakan data dari database
+        echarts.init(document.querySelector("#trafficChart")).setOption({
+          tooltip: {
+            trigger: "item",
+          },
+          legend: {
+            top: "5%",
+            left: "center",
+          },
+          series: [
+            {
+              name: "Material",
+              type: "pie",
+              radius: ["40%", "80%"],
+              avoidLabelOverlap: false,
+              label: {
+                show: false,
+                position: "center",
               },
-            ],
-          });
-        },
-        error: function (error) {
-          console.log(error);
-        },
-      });
+              emphasis: {
+                label: {
+                  show: true,
+                  fontSize: "18",
+                  fontWeight: "bold",
+                },
+              },
+              labelLine: {
+                show: false,
+              },
+              data: pieChartArray,
+            },
+          ],
+        });
+      },
+      error: function (error) {
+        console.log(error);
+      },
+    });
   });
 
   //=================EVENT CHANGE===================//
@@ -1041,9 +1045,9 @@ $(function () {
   //=====UNTUK REFRESH TABLE SUBMIT=====//
   function RefreshDataSubmit() {
     // Ambil nilai
-    const material = $("#lineUser").val();
-    const shiftUser = $("#shiftUser").val();
-    const lineUser = $("#lineUser").val();
+    const material = $("#material").val();
+    const shiftUser = $("#shift").val();
+    const lineUser = $("#line").val();
     const tanggalValue = $("#tanggal").val();
     $.ajax({
       url: BASEURL + "/create/getDataTable",
@@ -1088,41 +1092,59 @@ $(function () {
   }
 
   //============EVENT CLICK==================//
-  $("#submit").on("click", function () {
-    // Mengambil data formulir
-    var formData = $("#formInput").serialize();
-    console.log(formData);
-    // Mengirim data ke server menggunakan AJAX
-    $.ajax({
-      url: BASEURL + "/create/tambah",
-      method: "POST",
-      data: formData,
-      success: function (response) {
-        RefreshDataSubmit();
-
-        $("#remarks").val("");
-        $("#qty").val("");
-        $("#reason").val("");
-        $("#condition").val("");
-        $("#repair").val("");
-
-        // Menampilkan notifikasi modal Bootstrap setelah berhasil
-        setModal("Sukses!", "Data berhasil dikirim.");
-        $("#alertModal").modal("show");
+  $(document).ready(function () {
+    $("#formInput").validate({
+      rules: {
+        remarks: "required",
+        qty: "required",
+        reason: "required",
+        condition: "required",
+        repair: "required",
       },
-      error: function (error) {
-        setModal("Gagal!", "Data gagal terkirim.");
-        $("#alertModal").modal("show");
-        // Handle kesalahan jika diperlukan
+      messages: {
+        remarks: "<span class='error'>Harap isi field ini.</span>",
+        qty: "<span class='error'>Harap isi field ini.</span>",
+        reason: "<span class='error'>Harap isi field ini.</span>",
+        condition: "<span class='error'>Harap isi field ini.</span>",
+        repair: "<span class='error'>Harap isi field ini.</span>",
+      },
+      errorPlacement: function (error, element) {
+        if (
+          element.is("input") ||
+          element.is("select") ||
+          element.is("textarea")
+        ) {
+          error.insertAfter(element);
+        } else {
+          error.appendTo("#error-messages");
+        }
+      },
+      submitHandler: function (form) {
+        var formData = $(form).serialize();
+        $.ajax({
+          url: BASEURL + "/create/tambah",
+          method: "POST",
+          data: formData,
+          success: function (response) {
+            RefreshDataSubmit();
+
+            $("#remarks").val("");
+            $("#qty").val("");
+            $("#reason").val("");
+            $("#condition").val("");
+            $("#repair").val("");
+
+            setModal("Sukses!", "Data berhasil dikirim.");
+            $("#alertModal").modal("show");
+          },
+          error: function (error) {
+            setModal("Gagal!", "Data gagal terkirim.");
+            $("#alertModal").modal("show");
+          },
+        });
       },
     });
   });
-
-  function setModal(sukses, caption) {
-    // Set modal content sesuai dengan parameter content
-    $("#alertModalLabel").text(sukses);
-    $("#modalAlertContent").text(caption);
-  }
 
   $("#clear").on("click", function () {
     $("#remarks").val("");

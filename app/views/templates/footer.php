@@ -15,6 +15,7 @@
 <script src="<?php echo BASEURL ?>/vendor/echarts/echarts.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/quill/quill.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/jquery/jquery-3.7.1.min.js"></script>
+<script src="<?php echo BASEURL ?>/vendor/jquery-validation-1.19.5/jquery.validate.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/tinymce/tinymce.min.js"></script>
 
 

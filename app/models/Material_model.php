@@ -174,21 +174,6 @@ class Material_model
 
 
     // UNTUK HALAMAN DASHBOARD BAGIAN CARD //
-    public function getMaterialByYear($machiningLineValues, $castingLineValues, $assemblyLineValues)
-    {
-        return $this->getMaterialByCriteria($machiningLineValues, $castingLineValues, $assemblyLineValues, date("Y"));
-    }
-
-    public function getMaterialByMonth($machiningLineValues, $castingLineValues, $assemblyLineValues)
-    {
-        return $this->getMaterialByCriteria($machiningLineValues, $castingLineValues, $assemblyLineValues, date("Y-m"));
-    }
-
-    public function getMaterialByDay($machiningLineValues, $castingLineValues, $assemblyLineValues)
-    {
-        return $this->getMaterialByCriteria($machiningLineValues, $castingLineValues, $assemblyLineValues, date("Y-m-d"));
-    }
-
     public function getMaterialByCriteria($machiningLineValues, $castingLineValues, $assemblyLineValues, $dateCondition = null)
     {
         $placeholdersMachining = implode(',', array_fill(0, count($machiningLineValues), '?'));
