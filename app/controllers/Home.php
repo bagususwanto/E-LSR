@@ -14,11 +14,10 @@ class Home extends Controller
         $this->view('templates/footer');
 
         echo "<script>document.getElementById('dashboard').classList.remove('collapsed');</script>";
-        echo " <script>
-        $(document).ready(function () {
-            $('#example').DataTable();
-        });
-    </script>";
+        echo '<script src="' . BASEURL . '/js/home.js"></script>';
+        echo '<script src="' . BASEURL . '/vendor/chart.js/chart.umd.js"></script>';
+        echo '<script src="' . BASEURL . '/vendor/echarts/echarts.min.js"></script>';
+        echo '<script src="' . BASEURL . '/vendor/apexcharts/apexcharts.min.js"></script>';
     }
 
     public function getDataTableHome()
@@ -76,16 +75,16 @@ class Home extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Content-Type: application/json');
-    
+
             try {
                 // Mendapatkan nilai dari elemen input tersembunyi machiningLine
                 $machiningLineValues = isset($_POST['machiningLineValues']) ? explode(',', $_POST['machiningLineValues']) : [];
-    
+
                 // Dapatkan data machining dan kategori sesuai dengan nilai dari input
                 $machiningModel = $this->model('Material_model');
                 $machiningData = $machiningModel->getMachiningData($machiningLineValues);
                 $machiningCategories = $machiningModel->getMachiningCategories(); // Sesuaikan dengan metode yang sesuai
-    
+
                 // Mengembalikan data machining dan kategori dalam format JSON
                 echo json_encode(['machiningData' => $machiningData, 'categories' => $machiningCategories]);
             } catch (Exception $e) {
@@ -95,7 +94,7 @@ class Home extends Controller
             echo json_encode(['error' => 'Invalid request method']);
         }
     }
-    
+
 
 
     public function getDataChart()

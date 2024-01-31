@@ -1,21 +1,5 @@
 $(function () {
   $(document).ready(function () {
-    //====VALIDASI UNTUK USER ROLE======//
-    const userRoleElement = $("#roleUser");
-    if (userRoleElement.length > 0) {
-      const userRole = userRoleElement.val();
-
-      const restrictedPage = BASEURL + "/master";
-
-      if (
-        userRole.toLowerCase() === "public" &&
-        window.location.href.includes(restrictedPage)
-      ) {
-        alert("Anda tidak diizinkan mengakses halaman master data.");
-        window.location.href = BASEURL; // Redirect jika diakses dari halaman terlarang
-      }
-    }
-
     //==== ISI NILAI DARI DATE DAN TIME======//
     // Mendapatkan tanggal dan waktu sekarang
     var currentDate = new Date();
@@ -109,6 +93,7 @@ $(function () {
         clearAndAppendOptions("#partName", data, "part_name");
         clearAndAppendOptions("#uniqeNo", data, "uniqe_no");
         clearAndAppendOptions("#sourceType", data, "source_type");
+        clearAndAppendOptions("#price", data, "price");
       },
       error: function (error) {
         console.log("Error:", error);
@@ -181,288 +166,7 @@ $(function () {
     });
   });
 
-  //==== ISI CARD DASHBOARD======//
-  $(document).ready(function () {
-    function updateCardTitle(lineType, filter) {
-      // Update teks judul card
-      let titleText = "This Year";
-      if (filter === "today") {
-        titleText = "Today";
-      } else if (filter === "thisMonth") {
-        titleText = "This Month";
-      }
-      $(`#${lineType}Card .card-title span`).text(`| ${titleText}`);
-    }
-
-    function updateMachiningData(filter, data) {
-      $("#qtyM").text(data.qtyM);
-      $("#machiningFilterText").text(`| ${filter}`);
-      updateCardTitle("machining", filter);
-    }
-
-    function updateCastingData(filter, data) {
-      $("#qtyC").text(data.qtyC);
-      $("#castingFilterText").text(`| ${filter}`);
-      updateCardTitle("casting", filter);
-    }
-
-    function updateAssemblyData(filter, data) {
-      $("#qtyK").text(data.qtyK);
-      $("#assemblyFilterText").text(`| ${filter}`);
-      updateCardTitle("assembly", filter);
-    }
-
-    // Fungsi untuk memperbarui data berdasarkan filter yang dipilih
-    function updateData(filter, lineType) {
-      const lineValues = $(`#${lineType}Line`).val();
-
-      $.ajax({
-        url: BASEURL + "/home/getDataCardHome",
-        data: {
-          machiningLineValues: lineType === "machining" ? lineValues : "",
-          castingLineValues: lineType === "casting" ? lineValues : "",
-          assemblyLineValues: lineType === "assembly" ? lineValues : "",
-          filter: filter,
-        },
-        method: "post",
-        dataType: "json",
-        success: function (data) {
-          switch (lineType) {
-            case "machining":
-              updateMachiningData(filter, data);
-              break;
-            case "casting":
-              updateCastingData(filter, data);
-              break;
-            case "assembly":
-              updateAssemblyData(filter, data);
-              break;
-          }
-        },
-        error: function (error) {
-          console.log("Error:", error);
-        },
-      });
-    }
-
-    // Fungsi untuk mengubah teks filter dan memanggil fungsi updateData
-    function updateFilterText(filter, lineType) {
-      $(`#${lineType}FilterText`).text(`| ${filter}`);
-      updateData(filter, lineType);
-    }
-
-    // Event handler untuk setiap dropdown filter
-    $(".dropdown-item").on("click", function (event) {
-      event.preventDefault();
-      const filter = $(this).data("filter");
-      const lineType = $(this).closest(".filter").data("line-type");
-
-      updateFilterText(filter, lineType);
-    });
-
-    // Set nilai default "thisYear" pada saat dokumen siap
-    updateFilterText("thisYear", "machining");
-    updateFilterText("thisYear", "casting");
-    updateFilterText("thisYear", "assembly");
-  });
-
-  $(document).ready(function () {
-    // Menggunakan jQuery untuk mengambil data dari URL
-    $.ajax({
-      url: BASEURL + "/home/getDataChart",
-      method: "GET",
-      dataType: "json",
-      success: function (jsonData) {
-        // Membuat objek untuk menyimpan data series
-        var seriesData = {
-          Assembly: [],
-          Machining: [],
-          Casting: [],
-        };
-
-        // Membuat Set untuk menyimpan semua tanggal unik
-        var allDates = new Set();
-
-        // Mengelompokkan data berdasarkan kategori material
-        jsonData.forEach(function (item) {
-          var materialCategory = getMaterialCategory(item.material);
-
-          if (materialCategory) {
-            seriesData[materialCategory].push({
-              x: new Date(item.tahun, item.bulan, 1).getTime(),
-              y: parseInt(item.total_qty),
-            });
-
-            // Menambahkan tanggal ke dalam set untuk menghindari duplikasi
-            allDates.add(new Date(item.tahun, item.bulan, 1).getTime());
-          }
-        });
-
-        // Menghapus tanggal-tanggal yang duplikat dan mengurutkannya
-        var uniqueDates = Array.from(allDates).sort();
-
-        // Membuat array series berdasarkan kategori material
-        var seriesArray = [];
-        for (var category in seriesData) {
-          seriesArray.push({
-            name: category,
-            data: seriesData[category],
-          });
-        }
-
-        // Render chart ApexCharts
-        new ApexCharts(document.querySelector("#reportsChart"), {
-          series: seriesArray,
-          chart: {
-            height: 350,
-            type: "area",
-            toolbar: {
-              show: false,
-            },
-          },
-          markers: {
-            size: 4,
-          },
-          fill: {
-            type: "gradient",
-            gradient: {
-              shadeIntensity: 1,
-              opacityFrom: 0.3,
-              opacityTo: 0.4,
-              stops: [0, 90, 100],
-            },
-          },
-          dataLabels: {
-            enabled: false,
-          },
-          stroke: {
-            curve: "smooth",
-            width: 2,
-          },
-          xaxis: {
-            type: "datetime",
-            categories: uniqueDates,
-          },
-          tooltip: {
-            x: {
-              format: "MMM yyyy", // Format tanggal sesuai dengan hasil query
-            },
-          },
-        }).render();
-      },
-      error: function (error) {
-        console.log(error);
-      },
-    });
-
-    // Fungsi untuk menentukan kategori material
-    function getMaterialCategory(material) {
-      // Menentukan kategori material berdasarkan kondisi tertentu
-      if (
-        ["Crankshaft", "Cylinder Block", "Cylinder Head", "Camshaft"].includes(
-          material
-        )
-      ) {
-        return "Machining";
-      } else if (material === "Die Casting") {
-        return "Casting";
-      } else if (material === "Assembly") {
-        return "Assembly";
-      }
-      // Jika tidak termasuk ke dalam kategori yang ditentukan
-      return null;
-    }
-  });
-
-  $(document).ready(function () {
-    function getPieMaterialCategory(material) {
-      // Menentukan kategori material berdasarkan kondisi tertentu
-      if (
-        ["Crankshaft", "Cylinder Block", "Cylinder Head", "Camshaft"].includes(
-          material
-        )
-      ) {
-        return "Machining";
-      } else if (material === "Die Casting") {
-        return "Casting";
-      } else if (material === "Assembly") {
-        return "Assembly";
-      }
-      // Jika tidak termasuk ke dalam kategori yang ditentukan
-      return null;
-    }
-    // Menggunakan jQuery untuk mengambil data dari URL
-    $.ajax({
-      url: BASEURL + "/home/getPieChartData", // Ganti URL dengan endpoint yang sesuai
-      method: "GET",
-      dataType: "json",
-      success: function (jsonData) {
-        // Membuat objek untuk menyimpan data pie chart
-        var pieChartData = {
-          Assembly: [],
-          Machining: [],
-          Casting: [],
-        };
-
-        // Mengelompokkan data berdasarkan kategori material
-        jsonData.forEach(function (item) {
-          var pieCategory = getPieMaterialCategory(item.material);
-
-          if (pieCategory) {
-            if (!pieChartData[pieCategory]) {
-              pieChartData[pieCategory] = 0;
-            }
-            pieChartData[pieCategory] += parseInt(item.total_qty);
-          }
-        });
-
-        // Membuat array data untuk chart pie
-        var pieChartArray = Object.keys(pieChartData).map(function (key) {
-          return {
-            value: pieChartData[key],
-            name: key,
-          };
-        });
-        console.log(pieChartArray);
-        // Inisialisasi chart pie menggunakan data dari database
-        echarts.init(document.querySelector("#trafficChart")).setOption({
-          tooltip: {
-            trigger: "item",
-          },
-          legend: {
-            top: "5%",
-            left: "center",
-          },
-          series: [
-            {
-              name: "Material",
-              type: "pie",
-              radius: ["40%", "80%"],
-              avoidLabelOverlap: false,
-              label: {
-                show: false,
-                position: "center",
-              },
-              emphasis: {
-                label: {
-                  show: true,
-                  fontSize: "18",
-                  fontWeight: "bold",
-                },
-              },
-              labelLine: {
-                show: false,
-              },
-              data: pieChartArray,
-            },
-          ],
-        });
-      },
-      error: function (error) {
-        console.log(error);
-      },
-    });
-  });
+ 
 
   //=================EVENT CHANGE===================//
   $("#partNumber").on("change", function () {
@@ -476,6 +180,7 @@ $(function () {
         $("#partName").val(data.part_name);
         $("#uniqeNo").val(data.uniqe_no);
         $("#sourceType").val(data.source_type);
+        $("#price").val(data.price);
       },
     });
   });
@@ -491,6 +196,7 @@ $(function () {
         $("#partNumber").val(data.part_number);
         $("#uniqeNo").val(data.uniqe_no);
         $("#sourceType").val(data.source_type);
+        $("#price").val(data.price);
       },
     });
   });
@@ -506,6 +212,7 @@ $(function () {
         $("#partName").val(data.part_name);
         $("#partNumber").val(data.part_number);
         $("#sourceType").val(data.source_type);
+        $("#price").val(data.price);
       },
     });
   });
@@ -521,6 +228,7 @@ $(function () {
         $("#partName").val(data.part_name);
         $("#partNumber").val(data.part_number);
         $("#uniqeNo").val(data.uniqe_no);
+        $("#price").val(data.price);
       },
     });
   });
@@ -594,40 +302,7 @@ $(function () {
           },
         });
 
-        //ADD DATA MASTER MATERIAL//
-        const validLineValue2 = $("#material").val();
-        // Mengkonfigurasi objek AJAX
-        const ajaxOptions = {
-          url: BASEURL + "/create/getMasterPart",
-          data: { validLineValue2: validLineValue2 },
-          method: "post",
-          dataType: "json",
-          success: function (data) {
-            // Membersihkan dan menambahkan opsi baru ke dalam elemen select
-            $("#partNumber, #partName, #uniqeNo, #sourceType").empty();
-
-            // Iterasi melalui data dan menambahkan opsi ke dalam elemen select
-            for (var i = 0; i < data.length; i++) {
-              addOption("#partNumber", data[i].part_number, data[i].id);
-              addOption("#partName", data[i].part_name, data[i].id);
-              addOption("#uniqeNo", data[i].uniqe_no, data[i].id);
-              addOption("#sourceType", data[i].source_type, data[i].id);
-            }
-          },
-          error: function (error) {
-            console.log("Error:", error);
-          },
-        };
-
-        // Memanggil fungsi AJAX dengan menggunakan konfigurasi objek yang telah dibuat
-        $.ajax(ajaxOptions);
-
-        // Fungsi untuk menambahkan opsi ke dalam elemen select
-        function addOption(selectId, optionValue, dataId) {
-          $(selectId).append(
-            `<option value="${optionValue}" data-id="${dataId}">${optionValue}</option>`
-          );
-        }
+        addMasterMaterial();
       },
     });
   });
@@ -703,40 +378,7 @@ $(function () {
           },
         });
 
-        //ADD MAASTER MATERIAL//
-        const validLineValue2 = $("#material").val();
-        // Mengkonfigurasi objek AJAX
-        const ajaxOptions = {
-          url: BASEURL + "/create/getMasterPart",
-          data: { validLineValue2: validLineValue2 },
-          method: "post",
-          dataType: "json",
-          success: function (data) {
-            // Membersihkan dan menambahkan opsi baru ke dalam elemen select
-            $("#partNumber, #partName, #uniqeNo, #sourceType").empty();
-
-            // Iterasi melalui data dan menambahkan opsi ke dalam elemen select
-            for (var i = 0; i < data.length; i++) {
-              addOption("#partNumber", data[i].part_number, data[i].id);
-              addOption("#partName", data[i].part_name, data[i].id);
-              addOption("#uniqeNo", data[i].uniqe_no, data[i].id);
-              addOption("#sourceType", data[i].source_type, data[i].id);
-            }
-          },
-          error: function (error) {
-            console.log("Error:", error);
-          },
-        };
-
-        // Memanggil fungsi AJAX dengan menggunakan konfigurasi objek yang telah dibuat
-        $.ajax(ajaxOptions);
-
-        // Fungsi untuk menambahkan opsi ke dalam elemen select
-        function addOption(selectId, optionValue, dataId) {
-          $(selectId).append(
-            `<option value="${optionValue}" data-id="${dataId}">${optionValue}</option>`
-          );
-        }
+        addMasterMaterial();
       },
     });
   });
@@ -812,79 +454,13 @@ $(function () {
           },
         });
 
-        // ADD MASTER MATERIAL//
-        const validLineValue2 = $("#material").val();
-        // Mengkonfigurasi objek AJAX
-        const ajaxOptions = {
-          url: BASEURL + "/create/getMasterPart",
-          data: { validLineValue2: validLineValue2 },
-          method: "post",
-          dataType: "json",
-          success: function (data) {
-            // Membersihkan dan menambahkan opsi baru ke dalam elemen select
-            $("#partNumber, #partName, #uniqeNo, #sourceType").empty();
-
-            // Iterasi melalui data dan menambahkan opsi ke dalam elemen select
-            for (var i = 0; i < data.length; i++) {
-              addOption("#partNumber", data[i].part_number, data[i].id);
-              addOption("#partName", data[i].part_name, data[i].id);
-              addOption("#uniqeNo", data[i].uniqe_no, data[i].id);
-              addOption("#sourceType", data[i].source_type, data[i].id);
-            }
-          },
-          error: function (error) {
-            console.log("Error:", error);
-          },
-        };
-
-        // Memanggil fungsi AJAX dengan menggunakan konfigurasi objek yang telah dibuat
-        $.ajax(ajaxOptions);
-
-        // Fungsi untuk menambahkan opsi ke dalam elemen select
-        function addOption(selectId, optionValue, dataId) {
-          $(selectId).append(
-            `<option value="${optionValue}" data-id="${dataId}">${optionValue}</option>`
-          );
-        }
+        addMasterMaterial();
       },
     });
   });
 
   $("#material").on("change", function () {
-    //ADD MASTER MATERIAL//
-    const validLineValue2 = $(this).val();
-    // Mengkonfigurasi objek AJAX
-    const ajaxOptions = {
-      url: BASEURL + "/create/getMasterPart",
-      data: { validLineValue2: validLineValue2 },
-      method: "post",
-      dataType: "json",
-      success: function (data) {
-        // Membersihkan dan menambahkan opsi baru ke dalam elemen select
-        $("#partNumber, #partName, #uniqeNo, #sourceType").empty();
-
-        // Iterasi melalui data dan menambahkan opsi ke dalam elemen select
-        for (var i = 0; i < data.length; i++) {
-          addOption("#partNumber", data[i].part_number, data[i].id);
-          addOption("#partName", data[i].part_name, data[i].id);
-          addOption("#uniqeNo", data[i].uniqe_no, data[i].id);
-          addOption("#sourceType", data[i].source_type, data[i].id);
-        }
-      },
-      error: function (error) {
-        console.log("Error:", error);
-      },
-    };
-
-    // Memanggil fungsi AJAX dengan menggunakan konfigurasi objek yang telah dibuat
-    $.ajax(ajaxOptions);
-
-    // Fungsi untuk menambahkan opsi ke dalam elemen select
-    function addOption(selectId, optionValue, dataId) {
-      $(selectId).append(
-        `<option value="${optionValue}" data-id="${dataId}">${optionValue}</option>`
-      );
-    }
+    addMasterMaterial();
   });
 
   $("#tanggal").on("change", function () {
@@ -1042,6 +618,43 @@ $(function () {
     });
   });
 
+  //ADD DATA MASTER MATERIAL//
+  function addMasterMaterial() {
+    const validLineValue2 = $("#material").val();
+    // Mengkonfigurasi objek AJAX
+    const ajaxOptions = {
+      url: BASEURL + "/create/getMasterPart",
+      data: { validLineValue2: validLineValue2 },
+      method: "post",
+      dataType: "json",
+      success: function (data) {
+        // Membersihkan dan menambahkan opsi baru ke dalam elemen select
+        $("#partNumber, #partName, #uniqeNo, #sourceType").empty();
+
+        // Iterasi melalui data dan menambahkan opsi ke dalam elemen select
+        for (var i = 0; i < data.length; i++) {
+          addOption("#partNumber", data[i].part_number, data[i].id);
+          addOption("#partName", data[i].part_name, data[i].id);
+          addOption("#uniqeNo", data[i].uniqe_no, data[i].id);
+          addOption("#sourceType", data[i].source_type, data[i].id);
+        }
+      },
+      error: function (error) {
+        console.log("Error:", error);
+      },
+    };
+
+    // Memanggil fungsi AJAX dengan menggunakan konfigurasi objek yang telah dibuat
+    $.ajax(ajaxOptions);
+
+    // Fungsi untuk menambahkan opsi ke dalam elemen select
+    function addOption(selectId, optionValue, dataId) {
+      $(selectId).append(
+        `<option value="${optionValue}" data-id="${dataId}">${optionValue}</option>`
+      );
+    }
+  }
+
   //=====UNTUK REFRESH TABLE SUBMIT=====//
   function RefreshDataSubmit() {
     // Ambil nilai
@@ -1091,7 +704,7 @@ $(function () {
     });
   }
 
-  //============EVENT CLICK==================//
+  //============INPUT FORM WITH JQUERY==================//
   $(document).ready(function () {
     $("#formInput").validate({
       rules: {
@@ -1146,6 +759,7 @@ $(function () {
     });
   });
 
+  //============EVENT CLICK==================//
   $("#clear").on("click", function () {
     $("#remarks").val("");
     $("#qty").val("");
@@ -1157,7 +771,6 @@ $(function () {
   //========DATATABLES========//
   $(document).ready(function () {
     function RefreshDataTables() {
-      // Memastikan respons dari server menyatakan keberhasilan
       // Mendapatkan nilai dari input
       const tanggalFrom = $("#tanggal").val();
       const tanggalTo = $("#tanggalTo").val();
@@ -1570,5 +1183,32 @@ $(function () {
 
     // Mengatur tombol container ke posisi yang sesuai
     table.buttons().container().appendTo("#tabelData_wrapper .col-md-6:eq(0)");
+  });
+
+  //====VALIDASI UNTUK USER ROLE======//
+  $(document).ready(function () {
+    const userRoleElement = $("#roleUser");
+    if (userRoleElement.length > 0) {
+      const userRole = userRoleElement.val();
+
+      const restrictedPage = BASEURL + "/master";
+
+      if (
+        userRole.toLowerCase() === "public" &&
+        window.location.href.includes(restrictedPage)
+      ) {
+        alert("Anda tidak diizinkan mengakses halaman master data.");
+        window.location.href = BASEURL; // Redirect jika diakses dari halaman terlarang
+      }
+    }
+
+    if (userRoleElement.length > 0 && $("#editSelected").length > 0) {
+      const userRole = userRoleElement.val();
+      if (userRole.toLowerCase() === "public") {
+        $("#editSelected").prop("disabled", true);
+        $("#deleteSelected").prop("disabled", true);
+        $("#approveSelected").prop("disabled", true);
+      }
+    }
   });
 });

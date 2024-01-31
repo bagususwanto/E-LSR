@@ -162,7 +162,7 @@
                             </div> -->
 
                             <div class="card-body">
-                                <h5 class="card-title">Reports <span>| This Year</span></h5>
+                                <h5 class="card-title">Reports <!--<span>| This Year</span>--></h5>
 
                                 <!-- Line Chart -->
                                 <div id="reportsChart"></div>
@@ -199,7 +199,7 @@
                     </div> -->
 
                     <div class="card-body pb-0">
-                        <h5 class="card-title">Material Traffic <span>| This Year</span></h5>
+                        <h5 class="card-title">Material Traffic <!--<span>| This Year</span>--></h5>
 
                         <div id="trafficChart" class="echart"></div> <!-- class="echart" -->
 

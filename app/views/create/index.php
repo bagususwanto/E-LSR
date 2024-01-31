@@ -169,6 +169,12 @@
                                     <input type="hidden" id="shiftUser"
                                         value="<?php echo isset($data['user']['shift_user']) ? $data['user']['shift_user'] : 'Guest'; ?>"
                                         name="shiftUser">
+                                    <select hidden class="form-select form-select-sm" id="price" name="price"
+                                        aria-label="Default select example">
+                                        <!-- <option selected>Pilih Part Name</option> -->
+                                        <option data-id="" value=""></option>
+                                    </select>
+
 
                                     <div class="col-1">
                                         <label for="qty" class="form-label col-form-label-sm">Qty</label>

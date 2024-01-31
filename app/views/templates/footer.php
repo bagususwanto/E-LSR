@@ -9,10 +9,7 @@
         class="bi bi-arrow-up-short"></i></a>
 
 <!-- Vendor JS Files -->
-<script src="<?php echo BASEURL ?>/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="<?php echo BASEURL ?>/vendor/chart.js/chart.umd.js"></script>
-<script src="<?php echo BASEURL ?>/vendor/echarts/echarts.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/quill/quill.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/jquery/jquery-3.7.1.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/jquery-validation-1.19.5/jquery.validate.min.js"></script>

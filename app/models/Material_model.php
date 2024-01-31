@@ -72,8 +72,11 @@ class Material_model
 
     public function AddDataMaterial($data)
     {
+        // Menambahkan kalkulasi total price
+        $total_price = $data['qty'] * $data['price'];
+
         $query = 'INSERT INTO ' . $this->table .
-            ' VALUES (null, :part_number, :part_name, :uniqe_no, :qty, :reason, :condition, :repair, :source_type, :remarks, :material, :tanggal, :waktu, :line_lsr, :shift, :user_lsr, :line_code, :cost_center, :status_lsr)';
+            ' VALUES (null, :part_number, :part_name, :uniqe_no, :qty, :reason, :condition, :repair, :source_type, :remarks, :material, :tanggal, :waktu, :line_lsr, :shift, :user_lsr, :line_code, :cost_center, :status_lsr, :price, :total_price)';
 
         $this->db->query($query);
         $this->db->bind('part_number', $data['part_number']);
@@ -94,10 +97,13 @@ class Material_model
         $this->db->bind('line_code', $data['line_code']);
         $this->db->bind('cost_center', $data['cost_center']);
         $this->db->bind('status_lsr', 'pending');
+        $this->db->bind('price', $data['price']);
+        $this->db->bind('total_price', $total_price);
 
         $this->db->execute();
         return $this->db->rowCount();
     }
+
 
     public function UbahDataMaterial($data)
     {
@@ -243,19 +249,19 @@ class Material_model
 
     public function getDataChartHome()
     {
-        $this->db->query('SELECT MONTH(tanggal) AS bulan, YEAR(tanggal) AS tahun, material, SUM(qty) AS total_qty 
+        $this->db->query('SELECT DAY(tanggal) AS hari, MONTH(tanggal) AS bulan, YEAR(tanggal) AS tahun, material, SUM(qty) AS total_qty 
                           FROM ' . $this->table . ' 
-                          GROUP BY bulan, tahun, material 
-                          ORDER BY tahun DESC, bulan DESC');
+                          GROUP BY hari, bulan, tahun, material 
+                          ORDER BY tahun DESC, bulan DESC, hari DESC');
         return $this->db->resultSet();
     }
 
+
     public function getDataPie()
     {
-        $this->db->query('SELECT MONTH(tanggal) AS bulan, YEAR(tanggal) AS tahun, material, SUM(qty) AS total_qty 
+        $this->db->query('SELECT material, SUM(qty) AS total_qty 
                           FROM ' . $this->table . ' 
-                          GROUP BY bulan, tahun, material 
-                          ORDER BY tahun DESC, bulan DESC');
+                          GROUP BY material');
         return $this->db->resultSet();
     }
 
