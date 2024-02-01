@@ -88,8 +88,8 @@
                                 <div class="d-flex align-items-center">
                                     <div
                                         class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <img src="<?php echo BASEURL; ?>/img/CR-removebg-preview.gif"
-                                            alt="CR-removebg-preview.gif" width="50px" height="auto">
+                                        <img src="<?php echo BASEURL; ?>/img/machining.png" alt="machining.png"
+                                            width="50px" height="auto">
                                     </div>
                                     <div class="ps-3">
                                         <h6 id="qtyM"></h6>

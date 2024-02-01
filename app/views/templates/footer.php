@@ -14,6 +14,7 @@
 <script src="<?php echo BASEURL ?>/vendor/jquery/jquery-3.7.1.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/jquery-validation-1.19.5/jquery.validate.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/tinymce/tinymce.min.js"></script>
+<script src="<?php echo BASEURL ?>/vendor/select2/js/select2.min.js"></script>
 
 
 <!-- DataTables -->

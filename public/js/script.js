@@ -166,26 +166,8 @@ $(function () {
     });
   });
 
- 
-
   //=================EVENT CHANGE===================//
-  $("#partNumber").on("change", function () {
-    const id = $(this).find(":selected").data("id");
-    $.ajax({
-      url: BASEURL + "/create/getUbahSelectedMat",
-      data: { id: id },
-      method: "post",
-      dataType: "json",
-      success: function (data) {
-        $("#partName").val(data.part_name);
-        $("#uniqeNo").val(data.uniqe_no);
-        $("#sourceType").val(data.source_type);
-        $("#price").val(data.price);
-      },
-    });
-  });
-
-  $("#partName").on("change", function () {
+  $("#partNumber, #partName, #uniqeNo, #sourceType").on("change", function () {
     const id = $(this).find(":selected").data("id");
     $.ajax({
       url: BASEURL + "/create/getUbahSelectedMat",
@@ -194,46 +176,17 @@ $(function () {
       dataType: "json",
       success: function (data) {
         $("#partNumber").val(data.part_number);
+        $("#partName").val(data.part_name);
         $("#uniqeNo").val(data.uniqe_no);
         $("#sourceType").val(data.source_type);
         $("#price").val(data.price);
+
+        $("#partNumber, #partName, #uniqeNo").select2();
       },
     });
   });
 
-  $("#uniqeNo").on("change", function () {
-    const id = $(this).find(":selected").data("id");
-    $.ajax({
-      url: BASEURL + "/create/getUbahSelectedMat",
-      data: { id: id },
-      method: "post",
-      dataType: "json",
-      success: function (data) {
-        $("#partName").val(data.part_name);
-        $("#partNumber").val(data.part_number);
-        $("#sourceType").val(data.source_type);
-        $("#price").val(data.price);
-      },
-    });
-  });
-
-  $("#sourceType").on("change", function () {
-    const id = $(this).find(":selected").data("id");
-    $.ajax({
-      url: BASEURL + "/create/getUbahSelectedMat",
-      data: { id: id },
-      method: "post",
-      dataType: "json",
-      success: function (data) {
-        $("#partName").val(data.part_name);
-        $("#partNumber").val(data.part_number);
-        $("#uniqeNo").val(data.uniqe_no);
-        $("#price").val(data.price);
-      },
-    });
-  });
-
-  $("#lineCode").on("change", function () {
+  $("#lineCode").on("change", function () { 
     const id = $(this).find(":selected").data("id");
     const lineCode = $(this).val();
     $.ajax({
@@ -629,7 +582,7 @@ $(function () {
       dataType: "json",
       success: function (data) {
         // Membersihkan dan menambahkan opsi baru ke dalam elemen select
-        $("#partNumber, #partName, #uniqeNo, #sourceType").empty();
+        $("#partNumber, #partName, #uniqeNo, #sourceType, #price").empty();
 
         // Iterasi melalui data dan menambahkan opsi ke dalam elemen select
         for (var i = 0; i < data.length; i++) {
@@ -637,6 +590,7 @@ $(function () {
           addOption("#partName", data[i].part_name, data[i].id);
           addOption("#uniqeNo", data[i].uniqe_no, data[i].id);
           addOption("#sourceType", data[i].source_type, data[i].id);
+          addOption("#price", data[i].price, data[i].id);
         }
       },
       error: function (error) {
@@ -1210,5 +1164,11 @@ $(function () {
         $("#approveSelected").prop("disabled", true);
       }
     }
+  });
+
+  //=======SELECT2============//
+  $(document).ready(function () {
+    // Initialize Select2 on both elements
+    $("#partNumber, #partName, #uniqeNo").select2();
   });
 });

@@ -135,7 +135,6 @@
                                             Number</label>
                                         <select class="form-select form-select-sm" id="partNumber" name="part_number"
                                             aria-label="Default select example">
-                                            <!-- <option selected>Pilih Part Number</option> -->
                                             <option data-id="" value=""></option>
                                         </select>
                                     </div>
@@ -144,7 +143,6 @@
                                         <label for="part_name" class="form-label col-form-label-sm">Part Name</label>
                                         <select class="form-select form-select-sm" id="partName" name="part_name"
                                             aria-label="Default select example">
-                                            <!-- <option selected>Pilih Part Name</option> -->
                                             <option data-id="" value=""></option>
                                         </select>
                                     </div>
@@ -153,7 +151,6 @@
                                         <label for="uniqe_no" class="form-label col-form-label-sm">Uniqe No</label>
                                         <select class="form-select form-select-sm" id="uniqeNo" name="uniqe_no"
                                             aria-label="Default select example">
-                                            <!-- <option selected>Pilih Uniqe No</option> -->
                                             <option data-id="" value=""></option>
                                         </select>
                                     </div>
