@@ -807,6 +807,8 @@ $(function () {
     });
 
     // konfigurasi DataTbales untuk halaman Data
+    var tanggalValue = $("#tanggal").val();
+    var tanggalToValue = $("#tanggalTo").val();
     var table = $("#tabelData").DataTable({
       // ordering: false,
       fixedHeader: true,
@@ -818,6 +820,7 @@ $(function () {
           extend: "excelHtml5",
           text: '<i class="bi bi-download"></i> Excel',
           className: "btn-sm btn-success",
+          title: "Data LSR " + tanggalValue + " - " + tanggalToValue,
         },
         {
           text: '<i class="bi bi-pencil-square"></i> Edit',
