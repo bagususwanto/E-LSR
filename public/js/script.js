@@ -186,7 +186,7 @@ $(function () {
     });
   });
 
-  $("#lineCode").on("change", function () { 
+  $("#lineCode").on("change", function () {
     const id = $(this).find(":selected").data("id");
     const lineCode = $(this).val();
     $.ajax({
@@ -1026,9 +1026,9 @@ $(function () {
         contentType: "application/json",
         data: JSON.stringify({ selectedData: selectedData }),
         success: function (data) {
-          $("#partNumber").val(data.success.part_number);
-          $("#partName").val(data.success.part_name);
-          $("#uniqeNo").val(data.success.uniqe_no);
+          $("#partNumberModal").val(data.success.part_number);
+          $("#partNameModal").val(data.success.part_name);
+          $("#uniqeNoModal").val(data.success.uniqe_no);
           $("#qty").val(data.success.qty);
           $("#sourceType").val(data.success.source_type);
           $("#reason").val(data.success.reason);

@@ -134,7 +134,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Modal Bootstrap untuk konfirmasi approve-->
                     <div class="modal fade" id="confirmationModalApprove" tabindex="-1"
                         aria-labelledby="confirmationModalLabel" aria-hidden="true">
@@ -146,12 +146,13 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body" id="modalContent">
-                                Apakah Anda yakin ingin approve baris yang dipilih?
+                                    Apakah Anda yakin ingin approve baris yang dipilih?
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Batal</button>
-                                    <button type="button" class="btn btn-primary" id="confirmApproveBtn">Approve</button>
+                                    <button type="button" class="btn btn-primary"
+                                        id="confirmApproveBtn">Approve</button>
                                 </div>
                             </div>
                         </div>
@@ -173,7 +174,7 @@
                                         <div class="mb-3">
                                             <label for="part_number" class="form-label col-form-label-sm">Part
                                                 Number</label>
-                                            <input class="form-control form-control-sm" id="partNumber"
+                                            <input class="form-control form-control-sm" id="partNumberModal"
                                                 name="part_number" aria-label="Disabled input example" disabled
                                                 readonly>
                                         </div>
@@ -181,8 +182,8 @@
                                         <div class="mb-3">
                                             <label for="part_name" class="form-label col-form-label-sm">Part
                                                 Name</label>
-                                            <input class="form-control form-control-sm" id="partName" name="part_name"
-                                                aria-label="Disabled input example" disabled readonly>
+                                            <input class="form-control form-control-sm" id="partNameModal"
+                                                name="part_name" aria-label="Disabled input example" disabled readonly>
                                         </div>
 
                                         <div class="row">
@@ -190,7 +191,7 @@
                                                 <div class="mb-3">
                                                     <label for="uniqe_no" class="form-label col-form-label-sm">Uniqe
                                                         No</label>
-                                                    <input class="form-control form-control-sm" id="uniqeNo"
+                                                    <input class="form-control form-control-sm" id="uniqeNoModal"
                                                         name="uniqe_no" aria-label="Disabled input example" disabled
                                                         readonly>
                                                 </div>
