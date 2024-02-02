@@ -269,7 +269,7 @@
                 <div id="error-messages" class="error-message"></div>
 
                 <!-- Modal Bootstrap Alert -->
-                <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+                <div class="modal fade" id="alertModalSubmit" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">

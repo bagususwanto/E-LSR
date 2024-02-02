@@ -701,17 +701,23 @@ $(function () {
             $("#condition").val("");
             $("#repair").val("");
 
-            setModal("Sukses!", "Data berhasil dikirim.");
-            $("#alertModal").modal("show");
+            setModalSubmit("Sukses!", "Data berhasil dikirim.");
+            $("#alertModalSubmit").modal("show");
           },
           error: function (error) {
-            setModal("Gagal!", "Data gagal terkirim.");
-            $("#alertModal").modal("show");
+            setModalSubmit("Gagal!", "Data gagal terkirim.");
+            $("#alertModalSubmit").modal("show");
           },
         });
       },
     });
   });
+
+  function setModalSubmit(sukses, caption) {
+    // Set modal content sesuai dengan parameter content
+    $("#alertModalLabel").text(sukses);
+    $("#modalAlertContent").text(caption);
+  }
 
   //============EVENT CLICK==================//
   $("#clear").on("click", function () {
