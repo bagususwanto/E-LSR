@@ -32,6 +32,9 @@
     <link href="<?php echo BASEURL ?>/vendor/datatables/DataTables-1.13.8/css/dataTables.bootstrap5.min.css"
         rel="stylesheet">
     <link href="<?php echo BASEURL ?>/vendor/datatables/Buttons-2.4.2/css/buttons.bootstrap5.min.css" rel="stylesheet">
+    <link href="<?php echo BASEURL ?>/vendor/datatables/Buttons-2.4.2/css/buttons.bootstrap5.min.css" rel="stylesheet">
+    <link href="<?php echo BASEURL ?>/vendor/datatables/fixedcolumns-4.3.0/css/fixedColumns.dataTables.min.css"
+        rel="stylesheet">
 
 
     <!-- Template Main CSS File -->

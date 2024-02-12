@@ -222,7 +222,6 @@
                                                 <label for="reason" class="form-label col-form-label-sm">Reason</label>
                                                 <select required class="form-select form-select-sm" id="reason"
                                                     name="reason" aria-label="Default select example">
-                                                    <option selected></option>
                                                     <option value="A. Shortage / Missing">A. Shortage / Missing</option>
                                                     <option value="B. Wrong ( Shortage )">B. Wrong ( Shortage )</option>
                                                     <option value="C. Surplus">C. Surplus</option>
@@ -241,7 +240,6 @@
                                                     class="form-label col-form-label-sm">Condition</label>
                                                 <select required class="form-select form-select-sm" id="condition"
                                                     name="condition" aria-label="Default select example">
-                                                    <option selected></option>
                                                     <option value="- Unknow">- Unknow</option>
                                                     <option value="1. Good">1. Good</option>
                                                     <option value="2. Damage">2. Damage</option>
@@ -254,7 +252,6 @@
                                                 <label for="repair" class="form-label col-form-label-sm">Repair</label>
                                                 <select required class="form-select form-select-sm" id="repair"
                                                     name="repair" aria-label="Default select example">
-                                                    <option selected></option>
                                                     <option value="0. Unrepairable">0. Unrepairable</option>
                                                     <option value="1. Plant Repair">1. Plant Repair</option>
                                                     <option value="6. Unrepairable caused by other parts">6.
@@ -265,11 +262,25 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="mb-3">
+                                            <div class="col-12">
                                                 <label for="remarks"
                                                     class="form-label col-form-label-sm">Remarks</label>
                                                 <textarea required class="form-control form-control-sm" name="remarks"
                                                     id="remarks" rows="3"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="mb-3">
+                                                    <label for="status"
+                                                        class="form-label col-form-label-sm">Status</label>
+                                                    <select required class="form-select form-select-sm" id="status"
+                                                        name="status" aria-label="Default select example">
+                                                        <option value="pending">pending</option>
+                                                        <option value="approved">approved</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -280,7 +291,6 @@
                                         <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
                                     </div>
                                 </form>
-
                             </div>
                         </div>
                     </div>

@@ -112,7 +112,8 @@ class Material_model
                     reason = :reason,
                     `condition` = :condition,
                     repair = :repair,
-                    remarks = :remarks
+                    remarks = :remarks,
+                    status_lsr = :status
                     WHERE id = :id';
 
         $this->db->query($query);
@@ -121,6 +122,7 @@ class Material_model
         $this->db->bind('condition', $data['condition']);
         $this->db->bind('repair', $data['repair']);
         $this->db->bind('remarks', $data['remarks']);
+        $this->db->bind('status', $data['status']);
         $this->db->bind('id', $data['id']);
 
         // Eksekusi query dan tangani kesalahan jika ada
@@ -321,6 +323,24 @@ class Material_model
         }
 
         return $this->db->execute();
+    }
+
+    public function deleteDataCreate($data)
+    {
+        $id = $data['id'];
+
+        $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
+
+        $this->db->query($query);
+        $this->db->bind('id', $id);
+
+        try {
+            $this->db->execute();
+            return $this->db->rowCount();
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return -1;
+        }
     }
 
 

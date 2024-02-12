@@ -147,5 +147,16 @@ class Create extends Controller
         }
     }
 
+    public function getDataDelete()
+    {
+        $result = $this->model('Material_model')->deleteDataCreate($_POST);
+
+        if ($result > 0) {
+            echo json_encode(['success' => true, 'message' => 'Data berhasil dihapus.']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Gagal menghapus data.']);
+        }
+    }
+
 }
 ?>

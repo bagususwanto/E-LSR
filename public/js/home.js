@@ -81,6 +81,7 @@ $(function () {
     updateFilterText("thisYear", "casting");
     updateFilterText("thisYear", "assembly");
 
+    // LINE CHART
     $.ajax({
       url: BASEURL + "/home/getDataChart",
       method: "GET",
@@ -195,6 +196,7 @@ $(function () {
       return null;
     }
 
+    // PIE CHART
     $.ajax({
       url: BASEURL + "/home/getPieChartData",
       method: "GET",

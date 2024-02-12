@@ -28,6 +28,7 @@
 <script src="<?php echo BASEURL ?>/vendor/datatables/Buttons-2.4.2/js/buttons.html5.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/datatables/Buttons-2.4.2/js/buttons.print.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/datatables/Buttons-2.4.2/js/buttons.colVis.min.js"></script>
+<script src="<?php echo BASEURL ?>/vendor/datatables/fixedcolumns-4.3.0/js/dataTables.fixedColumns.min.js"></script>
 
 <!-- Main JS File -->
 <script src="<?php echo BASEURL ?>/js/main.js"></script>

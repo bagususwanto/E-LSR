@@ -124,46 +124,7 @@ $(function () {
     const shiftUser = $("#shiftUser").val();
     const lineUser = $("#lineUser").val();
     const tanggalValue = formattedDate;
-    $.ajax({
-      url: BASEURL + "/create/getDataTable",
-      data: {
-        material: material,
-        tanggalValue: tanggalValue,
-        shiftUser: shiftUser,
-        lineUser: lineUser,
-      },
-      method: "post",
-      dataType: "json",
-      success: function (data) {
-        // Hapus semua baris sebelum menambahkan data baru
-        $("#tabelData2").DataTable().clear().draw();
-
-        // Iterasi melalui data dan tambahkan baris ke dalam tabel
-        for (var i = 0; i < data.length; i++) {
-          $("#tabelData2")
-            .DataTable()
-            .row.add([
-              i + 1,
-              data[i].part_number,
-              data[i].part_name,
-              data[i].uniqe_no,
-              data[i].qty,
-              data[i].reason,
-              data[i].condition,
-              data[i].repair,
-              data[i].source_type,
-              data[i].remarks,
-              data[i].material,
-              data[i].tanggal,
-              data[i].cost_center,
-            ])
-            .draw();
-        }
-      },
-      error: function (error) {
-        console.log("Error:", error);
-      },
-    });
+    RefreshDataSubmitChange(material, tanggalValue, shiftUser, lineUser);
   });
 
   //=================EVENT CHANGE===================//
@@ -212,48 +173,14 @@ $(function () {
         const tanggalValue = $("#tanggal").val();
         const lineUser = $("#line").val();
         const costCenter = $("#costCenter").val();
-        $.ajax({
-          url: BASEURL + "/create/getDataTableChange",
-          data: {
-            material: material,
-            tanggalValue: tanggalValue,
-            shiftUser: shiftUser,
-            lineUser: lineUser,
-            lineCode: lineCode,
-            costCenter: costCenter,
-          },
-          method: "post",
-          dataType: "json",
-          success: function (data) {
-            // Hapus semua baris sebelum menambahkan data baru
-            $("#tabelData2").DataTable().clear().draw();
-
-            // Iterasi melalui data dan tambahkan baris ke dalam tabel
-            for (var i = 0; i < data.length; i++) {
-              $("#tabelData2")
-                .DataTable()
-                .row.add([
-                  i + 1,
-                  data[i].part_number,
-                  data[i].part_name,
-                  data[i].uniqe_no,
-                  data[i].qty,
-                  data[i].reason,
-                  data[i].condition,
-                  data[i].repair,
-                  data[i].source_type,
-                  data[i].remarks,
-                  data[i].material,
-                  data[i].tanggal,
-                  data[i].cost_center,
-                ])
-                .draw();
-            }
-          },
-          error: function (error) {
-            console.log("Error:", error);
-          },
-        });
+        RefreshDataSubmitChange(
+          material,
+          tanggalValue,
+          shiftUser,
+          lineUser,
+          lineCode,
+          costCenter
+        );
 
         addMasterMaterial();
       },
@@ -288,48 +215,14 @@ $(function () {
         const tanggalValue = $("#tanggal").val();
         const lineUser = $("#line").val();
         const lineCode = $("#lineCode").val();
-        $.ajax({
-          url: BASEURL + "/create/getDataTableChange",
-          data: {
-            material: material,
-            tanggalValue: tanggalValue,
-            shiftUser: shiftUser,
-            lineUser: lineUser,
-            lineCode: lineCode,
-            costCenter: costCenter,
-          },
-          method: "post",
-          dataType: "json",
-          success: function (data) {
-            // Hapus semua baris sebelum menambahkan data baru
-            $("#tabelData2").DataTable().clear().draw();
-
-            // Iterasi melalui data dan tambahkan baris ke dalam tabel
-            for (var i = 0; i < data.length; i++) {
-              $("#tabelData2")
-                .DataTable()
-                .row.add([
-                  i + 1,
-                  data[i].part_number,
-                  data[i].part_name,
-                  data[i].uniqe_no,
-                  data[i].qty,
-                  data[i].reason,
-                  data[i].condition,
-                  data[i].repair,
-                  data[i].source_type,
-                  data[i].remarks,
-                  data[i].material,
-                  data[i].tanggal,
-                  data[i].cost_center,
-                ])
-                .draw();
-            }
-          },
-          error: function (error) {
-            console.log("Error:", error);
-          },
-        });
+        RefreshDataSubmitChange(
+          material,
+          tanggalValue,
+          shiftUser,
+          lineUser,
+          lineCode,
+          costCenter
+        );
 
         addMasterMaterial();
       },
@@ -364,48 +257,14 @@ $(function () {
         const tanggalValue = $("#tanggal").val();
         const lineCode = $("#lineCode").val();
         const costCenter = $("#costCenter").val();
-        $.ajax({
-          url: BASEURL + "/create/getDataTableChange",
-          data: {
-            material: material,
-            tanggalValue: tanggalValue,
-            shiftUser: shiftUser,
-            lineUser: lineUser,
-            lineCode: lineCode,
-            costCenter: costCenter,
-          },
-          method: "post",
-          dataType: "json",
-          success: function (data) {
-            // Hapus semua baris sebelum menambahkan data baru
-            $("#tabelData2").DataTable().clear().draw();
-
-            // Iterasi melalui data dan tambahkan baris ke dalam tabel
-            for (var i = 0; i < data.length; i++) {
-              $("#tabelData2")
-                .DataTable()
-                .row.add([
-                  i + 1,
-                  data[i].part_number,
-                  data[i].part_name,
-                  data[i].uniqe_no,
-                  data[i].qty,
-                  data[i].reason,
-                  data[i].condition,
-                  data[i].repair,
-                  data[i].source_type,
-                  data[i].remarks,
-                  data[i].material,
-                  data[i].tanggal,
-                  data[i].cost_center,
-                ])
-                .draw();
-            }
-          },
-          error: function (error) {
-            console.log("Error:", error);
-          },
-        });
+        RefreshDataSubmitChange(
+          material,
+          tanggalValue,
+          shiftUser,
+          lineUser,
+          lineCode,
+          costCenter
+        );
 
         addMasterMaterial();
       },
@@ -413,6 +272,20 @@ $(function () {
   });
 
   $("#material").on("change", function () {
+    const material = $(this).val();
+    const shiftUser = $("#shift").val();
+    const tanggalValue = $("#tanggal").val();
+    const lineUser = $("#line").val();
+    const lineCode = $("#lineCode").val();
+    const costCenter = $("#costCenter").val();
+    RefreshDataSubmitChange(
+      material,
+      tanggalValue,
+      shiftUser,
+      lineUser,
+      lineCode,
+      costCenter
+    );
     addMasterMaterial();
   });
 
@@ -421,51 +294,17 @@ $(function () {
     const tanggalValue = $(this).val();
     const shiftUser = $("#shift").val();
     const material = $("#material").val();
-    const lineUser = $("#lineUser").val();
+    const lineUser = $("#line").val();
     const lineCode = $("#lineCode").val();
     const costCenter = $("#costCenter").val();
-    $.ajax({
-      url: BASEURL + "/create/getDataTableChange",
-      data: {
-        material: material,
-        tanggalValue: tanggalValue,
-        shiftUser: shiftUser,
-        lineUser: lineUser,
-        lineCode: lineCode,
-        costCenter: costCenter,
-      },
-      method: "post",
-      dataType: "json",
-      success: function (data) {
-        // Hapus semua baris sebelum menambahkan data baru
-        $("#tabelData2").DataTable().clear().draw();
-
-        // Iterasi melalui data dan tambahkan baris ke dalam tabel
-        for (var i = 0; i < data.length; i++) {
-          $("#tabelData2")
-            .DataTable()
-            .row.add([
-              i + 1,
-              data[i].part_number,
-              data[i].part_name,
-              data[i].uniqe_no,
-              data[i].qty,
-              data[i].reason,
-              data[i].condition,
-              data[i].repair,
-              data[i].source_type,
-              data[i].remarks,
-              data[i].material,
-              data[i].tanggal,
-              data[i].cost_center,
-            ])
-            .draw();
-        }
-      },
-      error: function (error) {
-        console.log("Error:", error);
-      },
-    });
+    RefreshDataSubmitChange(
+      material,
+      tanggalValue,
+      shiftUser,
+      lineUser,
+      lineCode,
+      costCenter
+    );
   });
 
   $("#shift").on("change", function () {
@@ -473,51 +312,17 @@ $(function () {
     const shiftUser = $(this).val();
     const tanggalValue = $("#tanggal").val();
     const material = $("#material").val();
-    const lineUser = $("#lineUser").val();
+    const lineUser = $("#line").val();
     const lineCode = $("#lineCode").val();
     const costCenter = $("#costCenter").val();
-    $.ajax({
-      url: BASEURL + "/create/getDataTableChange",
-      data: {
-        material: material,
-        tanggalValue: tanggalValue,
-        shiftUser: shiftUser,
-        lineUser: lineUser,
-        lineCode: lineCode,
-        costCenter: costCenter,
-      },
-      method: "post",
-      dataType: "json",
-      success: function (data) {
-        // Hapus semua baris sebelum menambahkan data baru
-        $("#tabelData2").DataTable().clear().draw();
-
-        // Iterasi melalui data dan tambahkan baris ke dalam tabel
-        for (var i = 0; i < data.length; i++) {
-          $("#tabelData2")
-            .DataTable()
-            .row.add([
-              i + 1,
-              data[i].part_number,
-              data[i].part_name,
-              data[i].uniqe_no,
-              data[i].qty,
-              data[i].reason,
-              data[i].condition,
-              data[i].repair,
-              data[i].source_type,
-              data[i].remarks,
-              data[i].material,
-              data[i].tanggal,
-              data[i].cost_center,
-            ])
-            .draw();
-        }
-      },
-      error: function (error) {
-        console.log("Error:", error);
-      },
-    });
+    RefreshDataSubmitChange(
+      material,
+      tanggalValue,
+      shiftUser,
+      lineUser,
+      lineCode,
+      costCenter
+    );
   });
 
   $("#material").on("change", function () {
@@ -527,6 +332,24 @@ $(function () {
     const lineUser = $("#line").val();
     const lineCode = $("#lineCode").val();
     const costCenter = $("#costCenter").val();
+    RefreshDataSubmitChange(
+      material,
+      tanggalValue,
+      shiftUser,
+      lineUser,
+      lineCode,
+      costCenter
+    );
+  });
+
+  function RefreshDataSubmitChange(
+    material,
+    tanggalValue,
+    shiftUser,
+    lineUser,
+    lineCode,
+    costCenter
+  ) {
     $.ajax({
       url: BASEURL + "/create/getDataTableChange",
       data: {
@@ -545,6 +368,14 @@ $(function () {
 
         // Iterasi melalui data dan tambahkan baris ke dalam tabel
         for (var i = 0; i < data.length; i++) {
+          if (data[i].status_lsr === "pending") {
+            statusClass = "";
+          } else if (data[i].status_lsr === "approved") {
+            statusClass = "bg-info";
+          } else if (data[i].status_lsr === "rejected") {
+            statusClass = "bg-danger";
+          }
+
           $("#tabelData2")
             .DataTable()
             .row.add([
@@ -560,16 +391,24 @@ $(function () {
               data[i].remarks,
               data[i].material,
               data[i].tanggal,
+              data[i].waktu,
               data[i].cost_center,
+              data[i].status_lsr,
+              `<button type="button" class="btn btn-danger btn-sm btn-delete" data-id="${data[i].id}">
+              <i class="bi bi-trash"></i></button>`,
             ])
-            .draw();
+            .nodes()
+            .to$() // Dapatkan elemen HTML tr (baris)
+            .addClass(statusClass); // Tambahkan kelas status
         }
+        $("#tabelData2").DataTable().draw();
+        checkStatus();
       },
       error: function (error) {
         console.log("Error:", error);
       },
     });
-  });
+  }
 
   //ADD DATA MASTER MATERIAL//
   function addMasterMaterial() {
@@ -632,6 +471,14 @@ $(function () {
 
         // Iterasi melalui data dan tambahkan baris ke dalam tabel
         for (var i = 0; i < data.length; i++) {
+          if (data[i].status_lsr === "pending") {
+            statusClass = "";
+          } else if (data[i].status_lsr === "approved") {
+            statusClass = "bg-info";
+          } else if (data[i].status_lsr === "rejected") {
+            statusClass = "bg-danger";
+          }
+
           $("#tabelData2")
             .DataTable()
             .row.add([
@@ -647,15 +494,43 @@ $(function () {
               data[i].remarks,
               data[i].material,
               data[i].tanggal,
+              data[i].waktu,
               data[i].cost_center,
+              data[i].status_lsr,
+              `<button type="button" class="btn btn-danger btn-sm btn-delete" data-id="${data[i].id}">
+               <i class="bi bi-trash"></i></button>`,
             ])
-            .draw();
+            .nodes()
+            .to$() // Dapatkan elemen HTML tr (baris)
+            .addClass(statusClass); // Tambahkan kelas status
         }
+        $("#tabelData2").DataTable().draw();
+        checkStatus();
       },
       error: function (error) {
         console.log("Error:", error);
       },
     });
+  }
+
+  // CHECK STATUS DATA
+  function checkStatus() {
+    $("#tabelData2")
+      .DataTable()
+      .rows()
+      .every(function () {
+        var data = this.data();
+        var status_lsr = data[data.length - 2]; // Ambil status dari data terakhir (sebelum kolom tombol)
+        var btnDelete = $(this.node()).find(".btn-delete");
+
+        if (status_lsr === "approved") {
+          // Jika status sudah disetujui, nonaktifkan tombol hapus
+          btnDelete.prop("disabled", true);
+        } else {
+          // Jika status belum disetujui, aktifkan tombol hapus
+          btnDelete.prop("disabled", false);
+        }
+      });
   }
 
   //============INPUT FORM WITH JQUERY==================//
@@ -726,6 +601,21 @@ $(function () {
     $("#reason").val("");
     $("#condition").val("");
     $("#repair").val("");
+  });
+
+  $("#tabelData2").on("click", ".btn-delete", function () {
+    var id = $(this).data("id");
+    $.ajax({
+      url: BASEURL + "/create/getDataDelete",
+      method: "POST",
+      data: { id: id },
+      success: function (response) {
+        RefreshDataSubmit();
+      },
+      error: function (error) {
+        console.log("Error:", error);
+      },
+    });
   });
 
   //========DATATABLES========//
@@ -817,6 +707,10 @@ $(function () {
     var tanggalToValue = $("#tanggalTo").val();
     var table = $("#tabelData").DataTable({
       // ordering: false,
+      fixedColumns: {
+        left: 1,
+      },
+      scrollCollapse: true,
       fixedHeader: true,
       scrollX: true,
       autoWidth: true,
@@ -874,8 +768,8 @@ $(function () {
         { title: "Source Type" },
         { title: "Remarks" },
         { title: "Material" },
-        { title: "Tanggal" },
-        { title: "Waktu" },
+        { title: "Date" },
+        { title: "Time" },
         { title: "Line" },
         { title: "Shift" },
         { title: "User" },
@@ -1044,6 +938,7 @@ $(function () {
           $("#condition").val(data.success.condition);
           $("#repair").val(data.success.repair);
           $("#remarks").val(data.success.remarks);
+          $("#status").val(data.success.status_lsr);
           $("#id").val(data.success.id);
 
           // Tampilkan modal edit
@@ -1113,8 +1008,13 @@ $(function () {
     });
 
     // DataTbales untuk halaman Create
-    var table = $("#tabelData2").DataTable({
+    var table2 = $("#tabelData2").DataTable({
       // ordering: false,
+      fixedColumns: {
+        left: 1,
+        right: 1,
+      },
+      scrollCollapse: true,
       fixedHeader: true,
       scrollX: true,
       autoWidth: true,
@@ -1128,7 +1028,7 @@ $(function () {
         [5, 10, 25, 50, 100, "All"],
       ],
       columns: [
-        { title: "#" },
+        { title: "No" },
         { title: "Part Number" },
         { title: "Part Name" },
         { title: "Unique No" },
@@ -1139,13 +1039,19 @@ $(function () {
         { title: "Source Type" },
         { title: "Remarks" },
         { title: "Material" },
-        { title: "Tanggal" },
+        { title: "Date" },
+        { title: "Time" },
         { title: "Cost Center" },
+        { title: "Status" },
+        { title: "Action" },
       ],
     });
 
     // Mengatur tombol container ke posisi yang sesuai
-    table.buttons().container().appendTo("#tabelData_wrapper .col-md-6:eq(0)");
+    table2
+      .buttons()
+      .container()
+      .appendTo("#tabelData2_wrapper .col-md-6:eq(0)");
   });
 
   //====VALIDASI UNTUK USER ROLE======//

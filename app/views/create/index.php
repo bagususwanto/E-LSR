@@ -269,8 +269,8 @@
                 <div id="error-messages" class="error-message"></div>
 
                 <!-- Modal Bootstrap Alert -->
-                <div class="modal fade" id="alertModalSubmit" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="alertModalSubmit" tabindex="-1" role="dialog"
+                    aria-labelledby="alertModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -319,7 +319,10 @@
                                                 <th scope="col">Remarks</th>
                                                 <th scope="col">Material</th>
                                                 <th scope="col">Date</th>
+                                                <th scope="col">Time</th>
                                                 <th scope="col">Cost Center</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody id="dataTable">
