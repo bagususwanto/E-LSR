@@ -1011,7 +1011,7 @@ $(function () {
     var table2 = $("#tabelData2").DataTable({
       // ordering: false,
       fixedColumns: {
-        left: 1,
+        left: 0,
         right: 1,
       },
       scrollCollapse: true,

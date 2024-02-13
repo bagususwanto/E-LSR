@@ -69,7 +69,7 @@ $(function () {
       updateData(filter, lineType);
     }
 
-    $(".dropdown-item").on("click", function (event) {
+    $(".card-filter").on("click", function (event) {
       event.preventDefault();
       const filter = $(this).data("filter");
       const lineType = $(this).closest(".filter").data("line-type");

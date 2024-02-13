@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 02, 2024 at 04:57 PM
+-- Generation Time: Feb 13, 2024 at 08:14 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -108,7 +108,14 @@ INSERT INTO `data_lsr` (`id`, `part_number`, `part_name`, `uniqe_no`, `qty`, `re
 (112, '13540-0Y010-00', 'TENSIONER ASSY, CHAIN', 'S102', 32, 'B. Wrong ( Shortage )', '3. From TMMIN Unpacking', '1. Plant Repair', 4, 'sfsfs', 'Assembly', '2024-02-01', '23:47:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 70887.00, 2268384.00),
 (113, '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 12, 'D. Damage Origin', '2. Damage', '6. Unrepairable caused by other parts', 4, 'xcvcxv', 'Assembly', '2024-02-02', '04:59:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 5383.00, 64596.00),
 (114, '15301-0Y010-00', 'GAGE SUB-ASSY, OIL LEVEL                ', 'D189', 22, 'C. Surplus', '1. Good', '0. Unrepairable', 1, 'sfsdf', 'Assembly', '2024-02-02', '05:33:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 8600.00, 189200.00),
-(115, '15678-0Y010-00', 'FILTER, OIL CONTROL VALVE', 'S108', 60, 'C. Surplus', '1. Good', '0. Unrepairable', 4, 'jbgjhgj', 'Assembly', '2024-02-02', '05:33:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 8822.00, 529320.00);
+(115, '15678-0Y010-00', 'FILTER, OIL CONTROL VALVE', 'S108', 60, 'C. Surplus', '1. Good', '0. Unrepairable', 4, 'jbgjhgj', 'Assembly', '2024-02-02', '05:33:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 8822.00, 529320.00),
+(116, '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'B. Wrong ( Shortage )', '1. Good', '1. Plant Repair', 1, 'sadfsa', 'Die Casting', '2024-02-03', '00:40:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 35740.00, 428880.00),
+(117, '13506-0Y040-00', 'CHAIN SUB-ASSY', 'S101', 46, 'B. Wrong ( Shortage )', '- Unknow', '1. Plant Repair', 4, 'sdsdsd', 'Assembly', '2024-02-03', '03:02:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 117248.00, 5393408.00),
+(118, '13566-0Y010-00', 'GUIDE, TIMING CHAIN', 'S104', 23, 'I. Wet', '- Unknow', '0. Unrepairable', 4, 'edfesf', 'Assembly', '2024-02-07', '11:29:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 28116.00, 646668.00),
+(120, '90406-T0009-00', 'TUBE, UNION', 'S506', 22, 'C. Surplus', '2. Damage', '1. Plant Repair', 4, 'dfdf', 'Assembly', '2024-02-12', '23:34:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'approved', 7778.00, 171116.00),
+(126, '13562-0Y020-00', 'DAMPER, CHAIN VIBRATION, NO.2', 'S103', 33, 'C. Surplus', '1. Good', '0. Unrepairable', 4, 'dgdg', 'Assembly', '2024-02-12', '04:40:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 14656.00, 483648.00),
+(127, '13566-0Y010-00', 'GUIDE, TIMING CHAIN', 'S104', 44, 'C. Surplus', '2. Damage', '0. Unrepairable', 4, 'fdgdfg', 'Assembly', '2024-02-13', '04:45:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 28116.00, 1237104.00),
+(129, '16031-0Y030-00', 'INLET SUB-ASSY, WATER W/THERMOSTAT', 'U400', 24, 'B. Wrong ( Shortage )', '- Unknow', '0. Unrepairable', 4, 'xgfg', 'Assembly', '2024-02-14', '00:50:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 91826.00, 2203824.00);
 
 -- --------------------------------------------------------
 
@@ -496,7 +503,9 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `password`, `nama`, `line_user`, `shift_user`, `position`, `role`) VALUES
 (1, 'murtala', '$2y$10$i4yXskjtABWgGU4IbfUoyuZ3zwFjlhQ55UQfQvx82K3KHglBKSwya', 'Murtala', 'Die Casting', 'Red', 'Line Head', 'public'),
 (2, 'sujarwo.ca', '$2y$10$LO3TEEwBVYjKzEapZ3TBuOQ3YKOA/QYWvpuD9PLVl4FWfPXKxU74m', 'Sujarwo', 'Camshaft', 'Red', 'Line Head', 'public'),
-(3, 'bagus', '$2y$10$FZZeHmM.Q3VJAyfTOIqgee1owAqaW2RCVJ6XKMePao6/L.TtnCDMi', 'Bagus Uswanto', 'CCR & Oredering', 'Red', 'Team Member', 'dev');
+(3, 'bagus', '$2y$10$FZZeHmM.Q3VJAyfTOIqgee1owAqaW2RCVJ6XKMePao6/L.TtnCDMi', 'Bagus Uswanto', 'CCR & Oredering', 'Red', 'Team Member', 'dev'),
+(4, 'hendro', '$2y$10$.z/UsSbhGj0HLY8NMrX6Su0g3xxFoKZHkeBuTb0plVeZGIUhZ9dQ.', 'Hendro Sujatmiko', 'CCR & Oredering', 'Red', 'Line Head', 'admin'),
+(5, 'rasty', '$2y$10$JyEUSzjROkdLE8KXyu8H0.nXQ0x6mwsyIR7VYDRX5ErizrQHaRy/q', 'Dayudya Luthfiarasty', 'CCR & Oredering', 'Red', 'Team Member', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -534,7 +543,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `data_lsr`
 --
 ALTER TABLE `data_lsr`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 
 --
 -- AUTO_INCREMENT for table `master_line`
@@ -552,7 +561,7 @@ ALTER TABLE `master_material`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

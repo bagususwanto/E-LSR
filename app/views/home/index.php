@@ -27,9 +27,11 @@
                                     <li class="dropdown-header text-start">
                                         <h6>Filter</h6>
                                     </li>
-                                    <li><a class="dropdown-item" href="#" data-filter="today">Today</a></li>
-                                    <li><a class="dropdown-item" href="#" data-filter="thisMonth">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#" data-filter="thisYear">This Year</a></li>
+                                    <li><a class="dropdown-item card-filter" href="#" data-filter="today">Today</a></li>
+                                    <li><a class="dropdown-item card-filter" href="#" data-filter="thisMonth">This
+                                            Month</a></li>
+                                    <li><a class="dropdown-item card-filter" href="#" data-filter="thisYear">This
+                                            Year</a></li>
                                 </ul>
                             </div>
 
@@ -65,9 +67,11 @@
                                     <li class="dropdown-header text-start">
                                         <h6>Filter</h6>
                                     </li>
-                                    <li><a class="dropdown-item" href="#" data-filter="today">Today</a></li>
-                                    <li><a class="dropdown-item" href="#" data-filter="thisMonth">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#" data-filter="thisYear">This Year</a></li>
+                                    <li><a class="dropdown-item card-filter" href="#" data-filter="today">Today</a></li>
+                                    <li><a class="dropdown-item card-filter" href="#" data-filter="thisMonth">This
+                                            Month</a></li>
+                                    <li><a class="dropdown-item card-filter" href="#" data-filter="thisYear">This
+                                            Year</a></li>
                                 </ul>
                             </div>
 
@@ -112,9 +116,11 @@
                                     <li class="dropdown-header text-start">
                                         <h6>Filter</h6>
                                     </li>
-                                    <li><a class="dropdown-item" href="#" data-filter="today">Today</a></li>
-                                    <li><a class="dropdown-item" href="#" data-filter="thisMonth">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#" data-filter="thisYear">This Year</a></li>
+                                    <li><a class="dropdown-item card-filter" href="#" data-filter="today">Today</a></li>
+                                    <li><a class="dropdown-item card-filter" href="#" data-filter="thisMonth">This
+                                            Month</a></li>
+                                    <li><a class="dropdown-item card-filter" href="#" data-filter="thisYear">This
+                                            Year</a></li>
                                 </ul>
                             </div>
 
