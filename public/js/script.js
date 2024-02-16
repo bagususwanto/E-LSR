@@ -1057,6 +1057,8 @@ $(function () {
   //====VALIDASI UNTUK USER ROLE======//
   $(document).ready(function () {
     const userRoleElement = $("#roleUser");
+
+    // halaman master validasi
     if (userRoleElement.length > 0) {
       const userRole = userRoleElement.val();
 
@@ -1071,12 +1073,29 @@ $(function () {
       }
     }
 
+    // fitur di halaman data validasi
     if (userRoleElement.length > 0 && $("#editSelected").length > 0) {
       const userRole = userRoleElement.val();
-      if (userRole.toLowerCase() === "public") {
+      if (
+        userRole.toLowerCase() === "public" ||
+        userRole.toLowerCase() === "common"
+      ) {
         $("#editSelected").prop("disabled", true);
         $("#deleteSelected").prop("disabled", true);
         $("#approveSelected").prop("disabled", true);
+      }
+    }
+
+    // item select halaman create validasi
+    if (userRoleElement.length > 0) {
+      const userRole = userRoleElement.val();
+      if (userRole.toLowerCase() === "public") {
+        $("#material").prop("disabled", true);
+        $("#shift").prop("disabled", true);
+        $("#line").prop("disabled", true);
+      } else if (userRole.toLowerCase() === "common") {
+        $("#shift").prop("disabled", true);
+        $("#line").prop("disabled", true);
       }
     }
   });
