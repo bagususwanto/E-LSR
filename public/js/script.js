@@ -124,7 +124,7 @@ $(function () {
     const shiftUser = $("#shiftUser").val();
     const lineUser = $("#lineUser").val();
     const tanggalValue = formattedDate;
-    RefreshDataSubmitChange(material, tanggalValue, shiftUser, lineUser);
+    RefreshDataSubmit(material, tanggalValue, shiftUser, lineUser);
   });
 
   //=================EVENT CHANGE===================//
@@ -449,12 +449,7 @@ $(function () {
   }
 
   //=====UNTUK REFRESH TABLE SUBMIT=====//
-  function RefreshDataSubmit() {
-    // Ambil nilai
-    const material = $("#material").val();
-    const shiftUser = $("#shift").val();
-    const lineUser = $("#line").val();
-    const tanggalValue = $("#tanggal").val();
+  function RefreshDataSubmit(material, tanggalValue, shiftUser, lineUser) {
     $.ajax({
       url: BASEURL + "/create/getDataTable",
       data: {
@@ -562,13 +557,24 @@ $(function () {
         }
       },
       submitHandler: function (form) {
+        $("#material").prop("disabled", false);
+        $("#shift").prop("disabled", false);
+        $("#line").prop("disabled", false);
+        $("#lineCode").prop("disabled", false);
+        $("#costCenter").prop("disabled", false);
+
         var formData = $(form).serialize();
         $.ajax({
           url: BASEURL + "/create/tambah",
           method: "POST",
           data: formData,
           success: function (response) {
-            RefreshDataSubmit();
+            const material = $("#material").val();
+            const shiftUser = $("#shift").val();
+            const lineUser = $("#line").val();
+            const tanggalValue = $("#tanggal").val();
+            RefreshDataSubmit(material, tanggalValue, shiftUser, lineUser);
+            roleValidtionPageCreate();
 
             $("#remarks").val("");
             $("#qty").val("");
@@ -610,7 +616,11 @@ $(function () {
       method: "POST",
       data: { id: id },
       success: function (response) {
-        RefreshDataSubmit();
+        const material = $("#material").val();
+        const shiftUser = $("#shift").val();
+        const lineUser = $("#line").val();
+        const tanggalValue = $("#tanggal").val();
+        RefreshDataSubmit(material, tanggalValue, shiftUser, lineUser);
       },
       error: function (error) {
         console.log("Error:", error);
@@ -1086,19 +1096,29 @@ $(function () {
       }
     }
 
-    // item select halaman create validasi
-    if (userRoleElement.length > 0) {
+    roleValidtionPageCreate();
+  });
+
+  // item select halaman create validasi
+  function roleValidtionPageCreate() {
+    const userRoleElement = $("#roleUser");
+
+    if (userRoleElement.length > 0 && $("#submitBtn").length > 0) {
       const userRole = userRoleElement.val();
       if (userRole.toLowerCase() === "public") {
         $("#material").prop("disabled", true);
         $("#shift").prop("disabled", true);
         $("#line").prop("disabled", true);
+        $("#lineCode").prop("disabled", true);
+        $("#costCenter").prop("disabled", true);
       } else if (userRole.toLowerCase() === "common") {
         $("#shift").prop("disabled", true);
         $("#line").prop("disabled", true);
+        $("#lineCode").prop("disabled", true);
+        $("#costCenter").prop("disabled", true);
       }
     }
-  });
+  }
 
   //=======SELECT2============//
   $(document).ready(function () {

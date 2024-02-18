@@ -90,7 +90,7 @@
                                     <div class="col-3 pt-3">
                                         <label for="line_code" class="form-label col-form-label-sm">Line Code</label>
                                         <select class="form-select form-select-sm" id="lineCode" name="line_code"
-                                            aria-label="Disabled select example" Disabled>
+                                            aria-label="Disabled select example">
                                             <?php foreach ($data['lineMaster'] as $lineMaster): ?>
                                                 <option data-id="<?php echo $lineMaster['id']; ?>"
                                                     value="<?php echo $lineMaster['line_code']; ?>">
@@ -104,7 +104,7 @@
                                         <label for="cost_center" class="form-label col-form-label-sm">Cost
                                             Center</label>
                                         <select class="form-select form-select-sm" id="costCenter" name="cost_center"
-                                            aria-label="Disabled select example" Disabled>
+                                            aria-label="Disabled select example">
                                             <?php foreach ($data['lineMaster'] as $lineMaster): ?>
                                                 <option data-id="<?php echo $lineMaster['id']; ?>"
                                                     value="<?php echo $lineMaster['cost_center']; ?>">
@@ -260,7 +260,7 @@
 
                     <div class="row">
                         <div class="col text-center">
-                            <button type="submit" id="submit" class="btn btn-primary" name="submit">Submit</button>
+                            <button id="submitBtn" type="submit" id="submit" class="btn btn-primary" name="submit">Submit</button>
                             <button id="clear" type="button" class="btn btn-danger" name="clear">Clear</button>
                         </div>
                     </div>
