@@ -129,6 +129,9 @@ $(function () {
 
   //=================EVENT CHANGE===================//
   $("#partNumber, #partName, #uniqeNo, #sourceType").on("change", function () {
+    $("body").loadingModal({
+      text: "Loading...",
+    });
     const id = $(this).find(":selected").data("id");
     $.ajax({
       url: BASEURL + "/create/getUbahSelectedMat",
@@ -143,11 +146,15 @@ $(function () {
         $("#price").val(data.price);
 
         $("#partNumber, #partName, #uniqeNo").select2();
+        $("body").loadingModal("hide");
       },
     });
   });
 
   $("#lineCode").on("change", function () {
+    $("body").loadingModal({
+      text: "Loading...",
+    });
     const id = $(this).find(":selected").data("id");
     const lineCode = $(this).val();
     $.ajax({
@@ -183,11 +190,15 @@ $(function () {
         );
 
         addMasterMaterial();
+        $("body").loadingModal("hide");
       },
     });
   });
 
   $("#costCenter").on("change", function () {
+    $("body").loadingModal({
+      text: "Loading...",
+    });
     const id = $(this).find(":selected").data("id");
     const costCenter = $(this).val();
     $.ajax({
@@ -225,11 +236,15 @@ $(function () {
         );
 
         addMasterMaterial();
+        $("body").loadingModal("hide");
       },
     });
   });
 
   $("#line").on("change", function () {
+    $("body").loadingModal({
+      text: "Loading...",
+    });
     const id = $(this).find(":selected").data("id");
     const lineUser = $(this).val();
     $.ajax({
@@ -267,11 +282,15 @@ $(function () {
         );
 
         addMasterMaterial();
+        $("body").loadingModal("hide");
       },
     });
   });
 
   $("#material").on("change", function () {
+    $("body").loadingModal({
+      text: "Loading...",
+    });
     const material = $(this).val();
     const shiftUser = $("#shift").val();
     const tanggalValue = $("#tanggal").val();
@@ -287,9 +306,13 @@ $(function () {
       costCenter
     );
     addMasterMaterial();
+    $("body").loadingModal("hide");
   });
 
   $("#tanggal").on("change", function () {
+    $("body").loadingModal({
+      text: "Loading...",
+    });
     // ISI DATATABLE//
     const tanggalValue = $(this).val();
     const shiftUser = $("#shift").val();
@@ -305,9 +328,13 @@ $(function () {
       lineCode,
       costCenter
     );
+    $("body").loadingModal("hide");
   });
 
   $("#shift").on("change", function () {
+    $("body").loadingModal({
+      text: "Loading...",
+    });
     //ISI DATATABLE//
     const shiftUser = $(this).val();
     const tanggalValue = $("#tanggal").val();
@@ -323,9 +350,13 @@ $(function () {
       lineCode,
       costCenter
     );
+    $("body").loadingModal("hide");
   });
 
   $("#material").on("change", function () {
+    $("body").loadingModal({
+      text: "Loading...",
+    });
     const material = $(this).val();
     const tanggalValue = $("#tanggal").val();
     const shiftUser = $("#shift").val();
@@ -340,6 +371,7 @@ $(function () {
       lineCode,
       costCenter
     );
+    $("body").loadingModal("hide");
   });
 
   function RefreshDataSubmitChange(
@@ -557,6 +589,10 @@ $(function () {
         }
       },
       submitHandler: function (form) {
+        $("body").loadingModal({
+          text: "Loading...",
+        });
+
         $("#material").prop("disabled", false);
         $("#shift").prop("disabled", false);
         $("#line").prop("disabled", false);
@@ -569,6 +605,8 @@ $(function () {
           method: "POST",
           data: formData,
           success: function (response) {
+            $("body").loadingModal("hide");
+
             const material = $("#material").val();
             const shiftUser = $("#shift").val();
             const lineUser = $("#line").val();
@@ -582,12 +620,25 @@ $(function () {
             $("#condition").val("");
             $("#repair").val("");
 
-            setModalSubmit("Sukses!", "Data berhasil dikirim.");
-            $("#alertModalSubmit").modal("show");
+            $.toast({
+              title: "Pesan sukses",
+              message: "Berhasil menambahkan data.",
+              type: "success",
+              duration: 5000,
+            });
+            // setModalSubmit("Sukses!", "Data berhasil dikirim.");
+            // $("#alertModalSubmit").modal("show");
           },
           error: function (error) {
-            setModalSubmit("Gagal!", "Data gagal terkirim.");
-            $("#alertModalSubmit").modal("show");
+            console.log(error);
+            $.toast({
+              title: "Pesan gagal",
+              message: "Gagal menambahkan data.",
+              type: "warning",
+              duration: 5000,
+            });
+            // setModalSubmit("Gagal!", "Data gagal terkirim.");
+            // $("#alertModalSubmit").modal("show");
           },
         });
       },
@@ -705,11 +756,15 @@ $(function () {
 
     // Event handler untuk form submission
     $("#searchForm").submit(function (event) {
+      $("body").loadingModal({
+        text: "Loading...",
+      });
       // Menghentikan perilaku default formulir
       event.preventDefault();
 
       // panggil untuk hasiil dari datatables
       RefreshDataTables();
+      $("body").loadingModal("hide");
     });
 
     // konfigurasi DataTbales untuk halaman Data

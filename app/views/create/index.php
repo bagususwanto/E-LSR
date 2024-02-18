@@ -260,7 +260,8 @@
 
                     <div class="row">
                         <div class="col text-center">
-                            <button id="submitBtn" type="submit" id="submit" class="btn btn-primary" name="submit">Submit</button>
+                            <button id="submitBtn" type="submit" id="submit" class="btn btn-primary"
+                                name="submit">Submit</button>
                             <button id="clear" type="button" class="btn btn-danger" name="clear">Clear</button>
                         </div>
                     </div>

@@ -27,6 +27,8 @@
     <link href="<?php echo BASEURL ?>/vendor/quill/quill.bubble.css" rel="stylesheet">
     <link href="<?php echo BASEURL ?>/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="<?php echo BASEURL ?>/vendor/select2/css/select2.min.css" rel="stylesheet">
+    <link href="<?php echo BASEURL ?>/vendor/jquery/jquery.loadingModal.css" rel="stylesheet">
+    <link href="<?php echo BASEURL ?>/vendor/toast/toast-plugin.css" rel="stylesheet">
 
     <!-- DataTables -->
     <link href="<?php echo BASEURL ?>/vendor/datatables/DataTables-1.13.8/css/dataTables.bootstrap5.min.css"
