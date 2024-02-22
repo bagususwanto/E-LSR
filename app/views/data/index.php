@@ -25,13 +25,13 @@
                                 <div class="row card-body pb-0">
                                     <div class="col-2">
                                         <label for="tanggal" class="form-label col-form-label-sm">Date From</label>
-                                        <input type="date" id="tanggal" name="tanggal" value=""
+                                        <input type="" id="tanggal" name="tanggal" value=""
                                             class="form-control form-control-sm" />
                                     </div>
 
                                     <div class="col-2">
                                         <label for="tanggalTo" class="form-label col-form-label-sm">Date To</label>
-                                        <input type="date" id="tanggalTo" name="tanggalTo" value=""
+                                        <input type="" id="tanggalTo" name="tanggalTo" value=""
                                             class="form-control form-control-sm" />
                                     </div>
 

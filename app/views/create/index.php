@@ -35,12 +35,12 @@
                                 <div class="row card-body">
                                     <div class="col-3">
                                         <label for="tanggal" class="form-label col-form-label-sm">Date</label>
-                                        <input type="date" id="tanggal" name="tanggal" value=""
+                                        <input type="text" id="tanggal" name="tanggal" value=""
                                             class="form-control form-control-sm" />
                                     </div>
                                     <div class="cs-form col-3">
                                         <label for="waktu" class="form-label col-form-label-sm">Time</label>
-                                        <input type="time" id="waktu" name="waktu" class="form-control form-control-sm"
+                                        <input type="" id="waktu" name="waktu" class="form-control form-control-sm"
                                             value="" />
                                     </div>
                                     <div class="col-3">

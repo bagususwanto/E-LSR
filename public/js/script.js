@@ -44,6 +44,25 @@ $(function () {
     // $("#tanggalTo").val(formattedDate2);
     $("#waktu").val(formattedTime);
 
+    // konfigurasi flatpickr untuk date&time picker
+    flatpickr("#tanggal", {
+      maxDate: "today",
+      dateFormat: "Y-m-d",
+    });
+
+    flatpickr("#tanggalTo", {
+      maxDate: "today",
+      dateFormat: "Y-m-d",
+    });
+
+    flatpickr("#waktu", {
+      enableTime: true,
+      noCalendar: true,
+      dateFormat: "H:i",
+      time_24hr: true,
+      defaultDate: formattedTime,
+    });
+
     //==== ISI NILAI DARI LINE DAN SHIFT======//
     // Ambil nilai dari data-id
     const id = $("#userLog").data("id");

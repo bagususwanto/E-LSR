@@ -17,6 +17,7 @@
 <script src="<?php echo BASEURL ?>/vendor/tinymce/tinymce.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/select2/js/select2.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/toast/toast-plugin.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 
 <!-- DataTables -->
