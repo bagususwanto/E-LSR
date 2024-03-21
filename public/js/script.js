@@ -828,7 +828,7 @@ $(function () {
       },
       dom:
         "<'row'<'col-6'B><'col-6'f>>" +
-        "<'row'<'col-12'tr>>" +
+        "<'row'<'col-12't>>" +
         "<'row'<'col-9'l><'col-3 text-end'i>>" +
         "<'row'<'col-12 pt-3'p>>",
       lengthMenu: [
@@ -1104,7 +1104,7 @@ $(function () {
       autoWidth: true,
       responsive: true,
       dom:
-        "<'row'<'col-12'tr>>" +
+        "<'row'<'col-12't>>" +
         "<'row'<'col-9'l><'col-3 text-end'i>>" +
         "<'row'<'col-12 pt-3'p>>",
       lengthMenu: [

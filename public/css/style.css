@@ -1242,44 +1242,49 @@ h6 {
 .error-message {
   color: red;
   display: inline-block;
-  margin-top: 5px; 
+  margin-top: 5px;
 }
 
 .error {
   color: red;
 }
 
- @media screen and (min-width: 1024px) {
-            #trafficChart {
-                min-height: 570px;
-                /* Nilai untuk layar setidaknya 1200px atau lebih lebar */
-            }
-        }
+.vertical-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: center;
+  white-space: nowrap;
+}
 
-        #trafficChart {
-            min-height: 570px;
-            /* Nilai default untuk layar yang lebih kecil dari 1200px */
-        }
+@media screen and (min-width: 1024px) {
+  #trafficChart {
+    min-height: 570px;
+    /* Nilai untuk layar setidaknya 1200px atau lebih lebar */
+  }
+}
 
-        @media screen and (max-width: 1024px) {
-            #trafficChart {
-                min-height: 890px;
-                /* Nilai untuk layar dalam rentang ukuran tablet */
-            }
-        }
+#trafficChart {
+  min-height: 570px;
+  /* Nilai default untuk layar yang lebih kecil dari 1200px */
+}
 
-        @media screen and (max-height: 1280px) {
-            #trafficChart {
-                min-height: 890px;
-                /* Nilai untuk layar dengan max-height 1280px */
-            }
-        }
+@media screen and (max-width: 1024px) {
+  #trafficChart {
+    min-height: 890px;
+    /* Nilai untuk layar dalam rentang ukuran tablet */
+  }
+}
 
-        @media screen and (min-width: 1200px) {
-            #trafficChart {
-                min-height: 570px;
-                /* Nilai untuk layar setidaknya 1200px atau lebih lebar */
-            }
-        }
+@media screen and (max-height: 1280px) {
+  #trafficChart {
+    min-height: 890px;
+    /* Nilai untuk layar dengan max-height 1280px */
+  }
+}
 
-
+@media screen and (min-width: 1200px) {
+  #trafficChart {
+    min-height: 570px;
+    /* Nilai untuk layar setidaknya 1200px atau lebih lebar */
+  }
+}

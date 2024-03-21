@@ -302,7 +302,11 @@
                                     List Material Updated
                                 </div>
                                 <div class="row card-body">
-
+                                    <!-- <div class="col-12">
+                                        <a href="<?php echo BASEURL ?>/report" target="_blank">
+                                            <button class="btn btn-sm btn-warning"><i class="bi bi-journal-text"></i>
+                                                Generate Report</button></a>
+                                    </div> -->
                                     <table id="tabelData2"
                                         class="display nowrap table-sm table-bordered text-center table-striped"
                                         style="width: 100%;">
