@@ -75,7 +75,7 @@
                                             <?php
                                             $uniqueMaterials = array_unique(array_column($data['lineMaster'], 'material'));
                                             foreach ($uniqueMaterials as $material):
-                                                if (!empty($material)):
+                                                if (!empty ($material)):
                                                     ?>
                                                     <option data-id="<?php echo $lineMaster['id']; ?>"
                                                         value="<?php echo $material; ?>">
@@ -112,6 +112,14 @@
                                                 </option>
                                             <?php endforeach; ?>
                                         </select>
+                                    </div>
+
+                                    <div class="col-3 pt-3">
+                                        <label for="no_lsr" class="form-label col-form-label-sm">No LSR</label>
+                                        <input class="form-control form-control-sm" type="text"
+                                            aria-label=".form-control-sm example" id="noLsr" name="no_lsr" Disabled
+                                            readonly>
+                                        </input>
                                     </div>
 
                                 </div>
@@ -161,10 +169,10 @@
                                     <input type="hidden" id="hiddenUniqeNo" name="hiddenUniqeNo">
                                     <input type="hidden" id="hiddenSourceType" name="hiddenSourceType"> -->
                                     <input type="hidden" id="lineUser"
-                                        value="<?php echo isset($data['user']['line_user']) ? $data['user']['line_user'] : 'Guest'; ?>"
+                                        value="<?php echo isset ($data['user']['line_user']) ? $data['user']['line_user'] : 'Guest'; ?>"
                                         name="lineUser">
                                     <input type="hidden" id="shiftUser"
-                                        value="<?php echo isset($data['user']['shift_user']) ? $data['user']['shift_user'] : 'Guest'; ?>"
+                                        value="<?php echo isset ($data['user']['shift_user']) ? $data['user']['shift_user'] : 'Guest'; ?>"
                                         name="shiftUser">
                                     <select hidden class="form-select form-select-sm" id="price" name="price"
                                         aria-label="Default select example">
@@ -261,7 +269,7 @@
                     <div class="row">
                         <div class="col text-center">
                             <button id="submitBtn" type="submit" id="submit" class="btn btn-primary"
-                                name="submit">Submit</button>
+                                name="submit">Add</button>
                             <button id="clear" type="button" class="btn btn-danger" name="clear">Clear</button>
                         </div>
                     </div>
@@ -349,6 +357,12 @@
                             </div> <!--Card #4 End-->
                         </div>
                     </div> <!--columns center footer end-->
+                    <div class="row">
+                        <div class="col text-center">
+                            <button id="submitReport" type="submit" class="btn btn-lg btn-success"
+                                name="submitReport">Submit</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 

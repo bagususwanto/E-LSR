@@ -76,9 +76,10 @@ class Material_model
         $total_price = $data['qty'] * $data['price'];
 
         $query = 'INSERT INTO ' . $this->table .
-            ' VALUES (null, :part_number, :part_name, :uniqe_no, :qty, :reason, :condition, :repair, :source_type, :remarks, :material, :tanggal, :waktu, :line_lsr, :shift, :user_lsr, :line_code, :cost_center, :status_lsr, :price, :total_price)';
+            ' VALUES (null, :no_lsr, :part_number, :part_name, :uniqe_no, :qty, :reason, :condition, :repair, :source_type, :remarks, :material, :tanggal, :waktu, :line_lsr, :shift, :user_lsr, :line_code, :cost_center, :status_lsr, :price, :total_price)';
 
         $this->db->query($query);
+        $this->db->bind('no_lsr', $data['no_lsr']);
         $this->db->bind('part_number', $data['part_number']);
         $this->db->bind('part_name', $data['part_name']);
         $this->db->bind('uniqe_no', $data['uniqe_no']);
@@ -272,7 +273,7 @@ class Material_model
     public function getFilteredData($tanggalFrom, $tanggalTo, $line, $shift, $material)
     {
         // Jika tanggalTo kosong, atur nilai tanggalTo ke tanggalFrom
-        if (empty($tanggalTo)) {
+        if (empty ($tanggalTo)) {
             $tanggalTo = $tanggalFrom;
         }
 
@@ -287,17 +288,17 @@ class Material_model
         }
 
         if ($shift !== 'All') {
-            $query .= (empty($params) ? ' WHERE' : ' AND') . ' shift = :shift';
+            $query .= (empty ($params) ? ' WHERE' : ' AND') . ' shift = :shift';
             $params[':shift'] = $shift;
         }
 
         if ($material !== 'All') {
-            $query .= (empty($params) ? ' WHERE' : ' AND') . ' material = :material';
+            $query .= (empty ($params) ? ' WHERE' : ' AND') . ' material = :material';
             $params[':material'] = $material;
         }
 
         // Tambahkan kondisi tanggal
-        $query .= (empty($params) ? ' WHERE' : ' AND') . ' tanggal BETWEEN :tanggalFrom AND :tanggalTo';
+        $query .= (empty ($params) ? ' WHERE' : ' AND') . ' tanggal BETWEEN :tanggalFrom AND :tanggalTo';
         $params[':tanggalFrom'] = $tanggalFrom;
         $params[':tanggalTo'] = $tanggalTo;
 

@@ -98,6 +98,20 @@ $(function () {
       },
     });
 
+    //==== ISI NILAI DARI NO LSR======//
+    $.ajax({
+      url: BASEURL + "/create/getIdReport",
+      data: { validLineValue: validLineValue },
+      method: "post",
+      dataType: "json",
+      success: function (data) {
+        $("#noLsr").val(data.no_lsr);
+      },
+      error: function (error) {
+        console.log("Error:", error);
+      },
+    });
+
     //==== ISI NILAI DARI PART NUMBER , PART NAME, UNIQE NO, DAN SOURCE TYPE======//
     const validLineValue2 = $("#validLine").text().trim();
     // Konfigurasi objek AJAX
@@ -617,6 +631,7 @@ $(function () {
         $("#line").prop("disabled", false);
         $("#lineCode").prop("disabled", false);
         $("#costCenter").prop("disabled", false);
+        $("#noLsr").prop("disabled", false);
 
         var formData = $(form).serialize();
         $.ajax({
@@ -638,7 +653,7 @@ $(function () {
             $("#reason").val("");
             $("#condition").val("");
             $("#repair").val("");
-
+            $("#noLsr").prop("disabled", true);
             $.toast({
               title: "Pesan sukses",
               message: "Berhasil menambahkan data.",

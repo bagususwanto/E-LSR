@@ -93,10 +93,10 @@ class Create extends Controller
         header('Content-Type: application/json');
 
         // Validasi dan bersihkan input
-        $material = isset($_POST['material']) ? $_POST['material'] : null;
-        $tanggalValue = isset($_POST['tanggalValue']) ? $_POST['tanggalValue'] : null;
-        $shiftUser = isset($_POST['shiftUser']) ? $_POST['shiftUser'] : null;
-        $lineUser = isset($_POST['lineUser']) ? $_POST['lineUser'] : null;
+        $material = isset ($_POST['material']) ? $_POST['material'] : null;
+        $tanggalValue = isset ($_POST['tanggalValue']) ? $_POST['tanggalValue'] : null;
+        $shiftUser = isset ($_POST['shiftUser']) ? $_POST['shiftUser'] : null;
+        $lineUser = isset ($_POST['lineUser']) ? $_POST['lineUser'] : null;
 
         if ($material === null || $tanggalValue === null || $shiftUser === null || $lineUser === null) {
             echo json_encode(['error' => 'Invalid input']);
@@ -122,12 +122,12 @@ class Create extends Controller
         header('Content-Type: application/json');
 
         // Validasi dan bersihkan input
-        $material = isset($_POST['material']) ? $_POST['material'] : null;
-        $tanggalValue = isset($_POST['tanggalValue']) ? $_POST['tanggalValue'] : null;
-        $shiftUser = isset($_POST['shiftUser']) ? $_POST['shiftUser'] : null;
-        $lineUser = isset($_POST['lineUser']) ? $_POST['lineUser'] : null;
-        $lineCode = isset($_POST['lineCode']) ? $_POST['lineCode'] : null;
-        $costCenter = isset($_POST['costCenter']) ? $_POST['costCenter'] : null;
+        $material = isset ($_POST['material']) ? $_POST['material'] : null;
+        $tanggalValue = isset ($_POST['tanggalValue']) ? $_POST['tanggalValue'] : null;
+        $shiftUser = isset ($_POST['shiftUser']) ? $_POST['shiftUser'] : null;
+        $lineUser = isset ($_POST['lineUser']) ? $_POST['lineUser'] : null;
+        $lineCode = isset ($_POST['lineCode']) ? $_POST['lineCode'] : null;
+        $costCenter = isset ($_POST['costCenter']) ? $_POST['costCenter'] : null;
 
         if ($material === null || $tanggalValue === null || $shiftUser === null || $lineUser === null || $lineCode === null || $costCenter === null) {
             echo json_encode(['error' => 'Invalid input']);
@@ -157,6 +157,19 @@ class Create extends Controller
             echo json_encode(['success' => false, 'message' => 'Gagal menghapus data.']);
         }
     }
+
+    public function getIdReport()
+    {
+        header('Content-Type: application/json');
+
+        $validLineValue = $_POST['validLineValue'];
+
+        $report_model = $this->model('Report_model');
+        $id = $report_model->generateUniqueID($validLineValue);
+
+        echo json_encode(array("no_lsr" => $id));
+    }
+
 
 }
 ?>
