@@ -90,7 +90,7 @@
                                     <div class="col-3 pt-3">
                                         <label for="line_code" class="form-label col-form-label-sm">Line Code</label>
                                         <select class="form-select form-select-sm" id="lineCode" name="line_code"
-                                            aria-label="Disabled select example">
+                                            aria-label="Disabled select example" disabled>
                                             <?php foreach ($data['lineMaster'] as $lineMaster): ?>
                                                 <option data-id="<?php echo $lineMaster['id']; ?>"
                                                     value="<?php echo $lineMaster['line_code']; ?>">
@@ -104,7 +104,7 @@
                                         <label for="cost_center" class="form-label col-form-label-sm">Cost
                                             Center</label>
                                         <select class="form-select form-select-sm" id="costCenter" name="cost_center"
-                                            aria-label="Disabled select example">
+                                            aria-label="Disabled select example" disabled>
                                             <?php foreach ($data['lineMaster'] as $lineMaster): ?>
                                                 <option data-id="<?php echo $lineMaster['id']; ?>"
                                                     value="<?php echo $lineMaster['cost_center']; ?>">
@@ -321,6 +321,7 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col">No</th>
+                                                <th scope="col">No LSR</th>
                                                 <th scope="col">Part Number</th>
                                                 <th scope="col">Part Name</th>
                                                 <th scope="col">Uniqe No</th>
@@ -339,16 +340,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="dataTable">
-                                            <!-- <tr>
-                                                <td>
-                                                </td>
-                                                <td>
-                                                        <button type="button" class="btn btn-success btn-sm"
-                                                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .8rem; --bs-btn-font-size: .75rem;">Edit</button>
-                                                        <button type="button" class="btn btn-danger btn-sm"
-                                                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Delete</button>
-                                                    </td>
-                                            </tr> -->
+
                                         </tbody>
                                     </table>
 

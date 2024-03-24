@@ -316,6 +316,19 @@ $(function () {
 
         addMasterMaterial();
         $("body").loadingModal("hide");
+
+        $.ajax({
+          url: BASEURL + "/create/getIdReport",
+          data: { validLineValue: lineUser },
+          method: "post",
+          dataType: "json",
+          success: function (data) {
+            $("#noLsr").val(data.no_lsr);
+          },
+          error: function (error) {
+            console.log("Error:", error);
+          },
+        });
       },
     });
   });
@@ -445,6 +458,7 @@ $(function () {
             .DataTable()
             .row.add([
               i + 1,
+              data[i].no_lsr,
               data[i].part_number,
               data[i].part_name,
               data[i].uniqe_no,
@@ -543,6 +557,7 @@ $(function () {
             .DataTable()
             .row.add([
               i + 1,
+              data[i].no_lsr,
               data[i].part_number,
               data[i].part_name,
               data[i].uniqe_no,
@@ -593,8 +608,34 @@ $(function () {
       });
   }
 
+  // UPDATE TOMBOL SUBMIT LIVE BERDASARKAN TABEL
+  function checkTablePageCreate() {
+    var submitButton = $("#submitReport");
+
+    var tableBody = $("#dataTable");
+
+    if (tableBody.find("td").length < 2) {
+      submitButton.hide();
+    } else {
+      submitButton.show();
+    }
+  }
+
+  // Membuat observer untuk memantau perubahan di dalam tabel
+  var observer = new MutationObserver(function (mutations) {
+    checkTablePageCreate();
+  });
+
+  var config = {
+    childList: true,
+    subtree: true,
+  };
+
+  observer.observe(document.getElementById("dataTable"), config);
+
   //============INPUT FORM WITH JQUERY==================//
   $(document).ready(function () {
+    checkTablePageCreate();
     $("#formInput").validate({
       rules: {
         remarks: "required",
@@ -602,6 +643,7 @@ $(function () {
         reason: "required",
         condition: "required",
         repair: "required",
+        line_lsr: "required",
       },
       messages: {
         remarks: "<span class='error'>Harap isi field ini.</span>",
@@ -609,6 +651,7 @@ $(function () {
         reason: "<span class='error'>Harap isi field ini.</span>",
         condition: "<span class='error'>Harap isi field ini.</span>",
         repair: "<span class='error'>Harap isi field ini.</span>",
+        line_lsr: "<span class='error'>Harap isi field ini.</span>",
       },
       errorPlacement: function (error, element) {
         if (
@@ -647,12 +690,15 @@ $(function () {
             const tanggalValue = $("#tanggal").val();
             RefreshDataSubmit(material, tanggalValue, shiftUser, lineUser);
             roleValidtionPageCreate();
+            checkTablePageCreate();
 
             $("#remarks").val("");
             $("#qty").val("");
             $("#reason").val("");
             $("#condition").val("");
             $("#repair").val("");
+            $("#lineCode").prop("disabled", true);
+            $("#costCenter").prop("disabled", true);
             $("#noLsr").prop("disabled", true);
             $.toast({
               title: "Pesan sukses",
@@ -706,6 +752,12 @@ $(function () {
         const lineUser = $("#line").val();
         const tanggalValue = $("#tanggal").val();
         RefreshDataSubmit(material, tanggalValue, shiftUser, lineUser);
+        $.toast({
+          title: "Pesan",
+          message: "Berhasil menghapus data.",
+          type: "success",
+          duration: 5000,
+        });
       },
       error: function (error) {
         console.log("Error:", error);
@@ -1128,6 +1180,7 @@ $(function () {
       ],
       columns: [
         { title: "No" },
+        { title: "No LSR" },
         { title: "Part Number" },
         { title: "Part Name" },
         { title: "Unique No" },
