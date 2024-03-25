@@ -168,6 +168,9 @@
                                     <input type="hidden" id="hiddenPartName" name="hiddenPartName">
                                     <input type="hidden" id="hiddenUniqeNo" name="hiddenUniqeNo">
                                     <input type="hidden" id="hiddenSourceType" name="hiddenSourceType"> -->
+                                    <input type="hidden" id="userName"
+                                        value="<?php echo isset ($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>"
+                                        name="userName">
                                     <input type="hidden" id="lineUser"
                                         value="<?php echo isset ($data['user']['line_user']) ? $data['user']['line_user'] : 'Guest'; ?>"
                                         name="lineUser">
@@ -272,8 +275,10 @@
                                 name="submit">Add</button>
                             <button id="clear" type="button" class="btn btn-danger" name="clear">Clear</button>
                         </div>
+
                     </div>
                 </form> <!--form end-->
+
 
                 <div id="error-messages" class="error-message"></div>
 
@@ -349,6 +354,10 @@
                             </div> <!--Card #4 End-->
                         </div>
                     </div> <!--columns center footer end-->
+                    <div id="alertWarning" class="row justify-content-center">
+
+                    </div>
+
                     <div class="row">
                         <div class="col text-center">
                             <button id="submitReport" type="submit" class="btn btn-lg btn-success"

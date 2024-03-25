@@ -94,7 +94,7 @@ class Material_model
         $this->db->bind('waktu', $data['waktu']);
         $this->db->bind('line_lsr', $data['line_lsr']);
         $this->db->bind('shift', $data['shift']);
-        $this->db->bind('user_lsr', $data['lineUser']);
+        $this->db->bind('user_lsr', $data['userName']);
         $this->db->bind('line_code', $data['line_code']);
         $this->db->bind('cost_center', $data['cost_center']);
         $this->db->bind('status_lsr', 'pending');

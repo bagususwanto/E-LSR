@@ -621,21 +621,27 @@ $(function () {
     }
   }
 
-  // Membuat observer untuk memantau perubahan di dalam tabel
-  var observer = new MutationObserver(function (mutations) {
-    checkTablePageCreate();
+  $(document).ready(function () {
+    // Membuat observer untuk memantau perubahan di dalam tabel
+    var observer = new MutationObserver(function (mutations) {
+      checkTablePageCreate();
+    });
+
+    var config = {
+      childList: true,
+      subtree: true,
+    };
+
+    observer.observe(document.getElementById("dataTable"), config);
+
+    // $("#data").on("click", function () {
+    //   observer.disconnect();
+    // });
   });
-
-  var config = {
-    childList: true,
-    subtree: true,
-  };
-
-  observer.observe(document.getElementById("dataTable"), config);
 
   //============INPUT FORM WITH JQUERY==================//
   $(document).ready(function () {
-    checkTablePageCreate();
+    // checkTablePageCreate();
     $("#formInput").validate({
       rules: {
         remarks: "required",
@@ -683,6 +689,22 @@ $(function () {
           data: formData,
           success: function (response) {
             $("body").loadingModal("hide");
+
+            $("#alertWarning").empty();
+
+            // Buat elemen alert baru
+            var alertElement = $(
+              '<div class="col-8 text-center mt-3 alert alert-warning alert-dismissible fade show" role="alert">' +
+                '<span style="font-weight: bold;">Jangan lupa klik tombol submit!</span> jika semua data sudah ditambahkan.' +
+                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+                "</div>"
+            );
+
+            $("#alertWarning").append(alertElement);
+
+            setTimeout(function () {
+              $("#dataTable")[0].scrollIntoView();
+            }, 100); // Tunda 100 milidetik sebelum menggulir
 
             const material = $("#material").val();
             const shiftUser = $("#shift").val();
@@ -793,6 +815,7 @@ $(function () {
 
           // Iterasi melalui data dan tambahkan baris ke dalam tabel
           for (var i = 0; i < data.length; i++) {
+            tabelData;
             let statusClass = "";
 
             // Tentukan kelas berdasarkan nilai status_lsr
@@ -809,6 +832,7 @@ $(function () {
               .row.add([
                 `<input class="form-check-input checkbox-single" type="checkbox" id="checkboxNoLabel${i}" 
         aria-label="" value="${data[i].id}">`,
+                data[i].no_lsr,
                 data[i].part_number,
                 data[i].part_name,
                 data[i].uniqe_no,
@@ -864,6 +888,7 @@ $(function () {
       scrollCollapse: true,
       fixedHeader: true,
       scrollX: true,
+      scrollY: "50vh",
       autoWidth: true,
       responsive: true,
       buttons: [
@@ -909,6 +934,7 @@ $(function () {
             </label>`,
           orderable: false,
         },
+        { title: "No LSR" },
         { title: "Part Number" },
         { title: "Part Name" },
         { title: "Unique No" },
@@ -1168,6 +1194,7 @@ $(function () {
       scrollCollapse: true,
       fixedHeader: true,
       scrollX: true,
+      scrollY: "50vh",
       autoWidth: true,
       responsive: true,
       dom:
