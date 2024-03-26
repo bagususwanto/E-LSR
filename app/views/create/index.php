@@ -358,12 +358,22 @@
 
                     </div>
 
-                    <div class="row">
-                        <div class="col text-center">
-                            <button id="submitReport" type="submit" class="btn btn-lg btn-success"
-                                name="submitReport">Submit</button>
+                    <form action="<?php echo BASEURL ?>/create/submitReport" method="POST">
+                        <input type="hidden" id="noLSRSub" value="" name="noLSRSub">
+                        <input type="hidden" id="lineSub" value="" name="lineSub">
+                        <input type="hidden" id="userNameSub"
+                            value="<?php echo isset ($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>"
+                            name="userNameSub">
+                        <input type="hidden" id="tanggalSub" value="" name="tanggalSub">
+                        <input type="hidden" id="waktuSub" value="" name="waktuSub">
+
+                        <div class="row">
+                            <div class="col text-center">
+                                <button id="submitReport" type="submit" class="btn btn-lg btn-success"
+                                    name="submitReport">Submit</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
 

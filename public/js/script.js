@@ -41,8 +41,10 @@ $(function () {
 
     // Mengatur nilai input tanggal dan waktu
     $("#tanggal").val(formattedDate);
+    $("#tanggalSub").val(formattedDate);
     // $("#tanggalTo").val(formattedDate2);
     $("#waktu").val(formattedTime);
+    $("#waktuSub").val(formattedTime);
 
     // konfigurasi flatpickr untuk date&time picker
     flatpickr("#tanggal", {
@@ -73,6 +75,7 @@ $(function () {
       dataType: "json",
       success: function (data) {
         $("#line").val(data.line_user);
+        $("#lineSub").val(data.line_user);
         $("#shift").val(data.shift_user);
       },
       error: function (error) {
@@ -106,6 +109,7 @@ $(function () {
       dataType: "json",
       success: function (data) {
         $("#noLsr").val(data.no_lsr);
+        $("#noLSRSub").val(data.no_lsr);
       },
       error: function (error) {
         console.log("Error:", error);
@@ -182,6 +186,15 @@ $(function () {
         $("body").loadingModal("hide");
       },
     });
+  });
+
+  $("#tanggal").on("change", function () {
+    const tanggal = $(this).val();
+    $("#tanggalSub").val(tanggal);
+  });
+  $("#waktu").on("change", function () {
+    const waktu = $(this).val();
+    $("#waktuSub").val(waktu);
   });
 
   $("#lineCode").on("change", function () {
@@ -299,6 +312,8 @@ $(function () {
           $("#lineCode").val(data.line_code);
         }
 
+        $("#lineSub").val(lineUser);
+
         //ISI DATATABLE//
         const shiftUser = $("#shift").val();
         const material = $("#material").val();
@@ -324,6 +339,7 @@ $(function () {
           dataType: "json",
           success: function (data) {
             $("#noLsr").val(data.no_lsr);
+            $("#noLSRSub").val(data.no_lsr);
           },
           error: function (error) {
             console.log("Error:", error);
@@ -746,6 +762,9 @@ $(function () {
       },
     });
   });
+
+  //=============SUBMIT FORM==============//
+  $(document).ready(function () {});
 
   function setModalSubmit(sukses, caption) {
     // Set modal content sesuai dengan parameter content

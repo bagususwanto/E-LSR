@@ -21,6 +21,7 @@ class Create extends Controller
 
         // Pindahkan pemanggilan JavaScript ke bagian bawah halaman atau setelah semua elemen HTML
         echo "<script>document.getElementById('create').classList.remove('collapsed');</script>";
+        Flasher::toast();
     }
 
     public function tambah()
@@ -36,6 +37,37 @@ class Create extends Controller
             exit;
         }
     }
+
+    public function submitReport()
+    {
+        $lineSub = isset ($_POST['lineSub']) ? $_POST['lineSub'] : null;
+        $noLSRSub = isset ($_POST['noLSRSub']) ? $_POST['noLSRSub'] : null;
+        $userNameSub = isset ($_POST['userNameSub']) ? $_POST['userNameSub'] : null;
+        $tanggalSub = isset ($_POST['tanggalSub']) ? $_POST['tanggalSub'] : null;
+        $waktuSub = isset ($_POST['waktuSub']) ? $_POST['waktuSub'] : null;
+
+        $data = [
+            'noLSRSub' => $noLSRSub,
+            'lineSub' => $lineSub,
+            'userNameSub' => $userNameSub,
+            'tanggalSub' => $tanggalSub,
+            'waktuSub' => $waktuSub
+        ];
+
+        $report_model = $this->model('Report_model');
+        $submit = $report_model->submitData($lineSub, $data);
+
+        if ($submit > 0) {
+            Flasher::setToast('Pesan sukses', 'Berhasil submit data dengan no LSR ' . $noLSRSub, 'success', 6000);
+            header('location:' . BASEURL . '/create');
+            exit;
+        } else {
+            Flasher::setToast('Pesan gagal', 'Gagal submit data', 'warning', 6000);
+            header('location:' . BASEURL . '/create');
+            exit;
+        }
+    }
+
 
     public function getUbahSelectedMat()
     {
