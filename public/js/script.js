@@ -50,6 +50,9 @@ $(function () {
     flatpickr("#tanggal", {
       maxDate: "today",
       dateFormat: "Y-m-d",
+      onChange: function (selectedDates, dateStr, instance) {
+        getIDnoLsr();
+      },
     });
 
     flatpickr("#tanggalTo", {
@@ -102,19 +105,23 @@ $(function () {
     });
 
     //==== ISI NILAI DARI NO LSR======//
-    $.ajax({
-      url: BASEURL + "/create/getIdReport",
-      data: { validLineValue: validLineValue },
-      method: "post",
-      dataType: "json",
-      success: function (data) {
-        $("#noLsr").val(data.no_lsr);
-        $("#noLSRSub").val(data.no_lsr);
-      },
-      error: function (error) {
-        console.log("Error:", error);
-      },
-    });
+    function getIDnoLsr() {
+      const validLineValue = $("#validLine").text().trim();
+      $.ajax({
+        url: BASEURL + "/create/getIdReport",
+        data: { validLineValue: validLineValue },
+        method: "post",
+        dataType: "json",
+        success: function (data) {
+          $("#noLsr").val(data.no_lsr);
+          $("#noLSRSub").val(data.no_lsr);
+        },
+        error: function (error) {
+          console.log("Error:", error);
+        },
+      });
+    }
+    getIDnoLsr();
 
     //==== ISI NILAI DARI PART NUMBER , PART NAME, UNIQE NO, DAN SOURCE TYPE======//
     const validLineValue2 = $("#validLine").text().trim();
@@ -189,12 +196,12 @@ $(function () {
   });
 
   $("#tanggal").on("change", function () {
-    const tanggal = $(this).val();
-    $("#tanggalSub").val(tanggal);
+    // const tanggal = $(this).val();
+    // $("#tanggalSub").val(tanggal);
   });
   $("#waktu").on("change", function () {
-    const waktu = $(this).val();
-    $("#waktuSub").val(waktu);
+    // const waktu = $(this).val();
+    // $("#waktuSub").val(waktu);
   });
 
   $("#lineCode").on("change", function () {
@@ -331,20 +338,7 @@ $(function () {
 
         addMasterMaterial();
         $("body").loadingModal("hide");
-
-        $.ajax({
-          url: BASEURL + "/create/getIdReport",
-          data: { validLineValue: lineUser },
-          method: "post",
-          dataType: "json",
-          success: function (data) {
-            $("#noLsr").val(data.no_lsr);
-            $("#noLSRSub").val(data.no_lsr);
-          },
-          error: function (error) {
-            console.log("Error:", error);
-          },
-        });
+        getIDnoLsr();
       },
     });
   });
