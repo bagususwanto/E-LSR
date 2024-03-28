@@ -75,7 +75,7 @@
                                             <?php
                                             $uniqueMaterials = array_unique(array_column($data['lineMaster'], 'material'));
                                             foreach ($uniqueMaterials as $material):
-                                                if (!empty ($material)):
+                                                if (!empty($material)):
                                                     ?>
                                                     <option data-id="<?php echo $lineMaster['id']; ?>"
                                                         value="<?php echo $material; ?>">
@@ -169,13 +169,13 @@
                                     <input type="hidden" id="hiddenUniqeNo" name="hiddenUniqeNo">
                                     <input type="hidden" id="hiddenSourceType" name="hiddenSourceType"> -->
                                     <input type="hidden" id="userName"
-                                        value="<?php echo isset ($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>"
+                                        value="<?php echo isset($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>"
                                         name="userName">
                                     <input type="hidden" id="lineUser"
-                                        value="<?php echo isset ($data['user']['line_user']) ? $data['user']['line_user'] : 'Guest'; ?>"
+                                        value="<?php echo isset($data['user']['line_user']) ? $data['user']['line_user'] : 'Guest'; ?>"
                                         name="lineUser">
                                     <input type="hidden" id="shiftUser"
-                                        value="<?php echo isset ($data['user']['shift_user']) ? $data['user']['shift_user'] : 'Guest'; ?>"
+                                        value="<?php echo isset($data['user']['shift_user']) ? $data['user']['shift_user'] : 'Guest'; ?>"
                                         name="shiftUser">
                                     <select hidden class="form-select form-select-sm" id="price" name="price"
                                         aria-label="Default select example">
@@ -272,7 +272,7 @@
                     <div class="row">
                         <div class="col text-center">
                             <button id="submitBtn" type="submit" id="submit" class="btn btn-primary"
-                                name="submit">Add</button>
+                                name="submit">Submit</button>
                             <button id="clear" type="button" class="btn btn-danger" name="clear">Clear</button>
                         </div>
 
@@ -358,11 +358,11 @@
 
                     </div>
 
-                    <form action="<?php echo BASEURL ?>/create/submitReport" method="POST">
+                    <!-- <form action="<?php echo BASEURL ?>/create/submitReport" method="POST">
                         <input type="hidden" id="noLSRSub" value="" name="noLSRSub">
                         <input type="hidden" id="lineSub" value="" name="lineSub">
                         <input type="hidden" id="userNameSub"
-                            value="<?php echo isset ($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>"
+                            value="<?php echo isset($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>"
                             name="userNameSub">
                         <input type="hidden" id="tanggalSub" value="" name="tanggalSub">
                         <input type="hidden" id="waktuSub" value="" name="waktuSub">
@@ -373,7 +373,7 @@
                                     name="submitReport">Submit</button>
                             </div>
                         </div>
-                    </form>
+                    </form> -->
                 </div>
             </div>
 

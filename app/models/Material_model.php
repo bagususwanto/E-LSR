@@ -102,7 +102,54 @@ class Material_model
         $this->db->bind('total_price', $total_price);
 
         $this->db->execute();
-        return $this->db->rowCount();
+        $rowCount = $this->db->rowCount();
+
+        // query 2 untuk table report
+        $line = $data['line_lsr'];
+        switch ($line) {
+            case 'Main Line':
+            case 'Sub Line':
+                $table = 'report_k';
+                break;
+            case 'Crankshaft':
+            case 'Cylinder Block':
+            case 'Cylinder Head':
+            case 'Camshaft':
+                $table = 'report_m';
+                break;
+            case 'Die Casting':
+                $table = 'report_c';
+                break;
+            default:
+                $table = 'report_x';
+        }
+
+        // Query untuk memeriksa apakah no_lsr sudah ada dalam tabel
+        $checkQuery = "SELECT COUNT(*) as count FROM $table WHERE no_lsr = :no_lsr";
+        $this->db->query($checkQuery);
+        $this->db->bind(':no_lsr', $data['no_lsr']);
+        $this->db->execute();
+
+        $count = $this->db->single()['count'];
+
+        if ($count > 0) {
+            return 0;
+        }
+
+        $query2 = 'INSERT INTO ' . $table .
+            ' VALUES (null, :no_lsr, :line, :pic, :tanggal, :waktu)';
+
+        $this->db->query($query2);
+        $this->db->bind('no_lsr', $data['no_lsr']);
+        $this->db->bind('line', $data['line_lsr']);
+        $this->db->bind('pic', $data['userName']);
+        $this->db->bind('tanggal', $data['tanggal']);
+        $this->db->bind('waktu', $data['waktu']);
+
+        $this->db->execute();
+        $rowCount += $this->db->rowCount();
+
+        return $rowCount;
     }
 
 
@@ -273,7 +320,7 @@ class Material_model
     public function getFilteredData($tanggalFrom, $tanggalTo, $line, $shift, $material)
     {
         // Jika tanggalTo kosong, atur nilai tanggalTo ke tanggalFrom
-        if (empty ($tanggalTo)) {
+        if (empty($tanggalTo)) {
             $tanggalTo = $tanggalFrom;
         }
 
@@ -288,17 +335,17 @@ class Material_model
         }
 
         if ($shift !== 'All') {
-            $query .= (empty ($params) ? ' WHERE' : ' AND') . ' shift = :shift';
+            $query .= (empty($params) ? ' WHERE' : ' AND') . ' shift = :shift';
             $params[':shift'] = $shift;
         }
 
         if ($material !== 'All') {
-            $query .= (empty ($params) ? ' WHERE' : ' AND') . ' material = :material';
+            $query .= (empty($params) ? ' WHERE' : ' AND') . ' material = :material';
             $params[':material'] = $material;
         }
 
         // Tambahkan kondisi tanggal
-        $query .= (empty ($params) ? ' WHERE' : ' AND') . ' tanggal BETWEEN :tanggalFrom AND :tanggalTo';
+        $query .= (empty($params) ? ' WHERE' : ' AND') . ' tanggal BETWEEN :tanggalFrom AND :tanggalTo';
         $params[':tanggalFrom'] = $tanggalFrom;
         $params[':tanggalTo'] = $tanggalTo;
 

@@ -21,7 +21,7 @@ class Create extends Controller
 
         // Pindahkan pemanggilan JavaScript ke bagian bawah halaman atau setelah semua elemen HTML
         echo "<script>document.getElementById('create').classList.remove('collapsed');</script>";
-        Flasher::toast();
+        // Flasher::toast();
     }
 
     public function tambah()
@@ -38,35 +38,35 @@ class Create extends Controller
         }
     }
 
-    public function submitReport()
-    {
-        $lineSub = isset ($_POST['lineSub']) ? $_POST['lineSub'] : null;
-        $noLSRSub = isset ($_POST['noLSRSub']) ? $_POST['noLSRSub'] : null;
-        $userNameSub = isset ($_POST['userNameSub']) ? $_POST['userNameSub'] : null;
-        $tanggalSub = isset ($_POST['tanggalSub']) ? $_POST['tanggalSub'] : null;
-        $waktuSub = isset ($_POST['waktuSub']) ? $_POST['waktuSub'] : null;
+    // public function submitReport()
+    // {
+    //     $lineSub = isset($_POST['lineSub']) ? $_POST['lineSub'] : null;
+    //     $noLSRSub = isset($_POST['noLSRSub']) ? $_POST['noLSRSub'] : null;
+    //     $userNameSub = isset($_POST['userNameSub']) ? $_POST['userNameSub'] : null;
+    //     $tanggalSub = isset($_POST['tanggalSub']) ? $_POST['tanggalSub'] : null;
+    //     $waktuSub = isset($_POST['waktuSub']) ? $_POST['waktuSub'] : null;
 
-        $data = [
-            'noLSRSub' => $noLSRSub,
-            'lineSub' => $lineSub,
-            'userNameSub' => $userNameSub,
-            'tanggalSub' => $tanggalSub,
-            'waktuSub' => $waktuSub
-        ];
+    //     $data = [
+    //         'noLSRSub' => $noLSRSub,
+    //         'lineSub' => $lineSub,
+    //         'userNameSub' => $userNameSub,
+    //         'tanggalSub' => $tanggalSub,
+    //         'waktuSub' => $waktuSub
+    //     ];
 
-        $report_model = $this->model('Report_model');
-        $submit = $report_model->submitData($lineSub, $data);
+    //     $report_model = $this->model('Report_model');
+    //     $submit = $report_model->submitData($lineSub, $data);
 
-        if ($submit > 0) {
-            Flasher::setToast('Pesan sukses', 'Berhasil submit data dengan no LSR ' . $noLSRSub, 'success', 6000);
-            header('location:' . BASEURL . '/create');
-            exit;
-        } else {
-            Flasher::setToast('Pesan gagal', 'Gagal submit data', 'warning', 6000);
-            header('location:' . BASEURL . '/create');
-            exit;
-        }
-    }
+    //     if ($submit > 0) {
+    //         Flasher::setToast('Pesan sukses', 'Berhasil submit data dengan no LSR ' . $noLSRSub, 'success', 6000);
+    //         header('location:' . BASEURL . '/create');
+    //         exit;
+    //     } else {
+    //         Flasher::setToast('Pesan gagal', 'Gagal submit data', 'warning', 6000);
+    //         header('location:' . BASEURL . '/create');
+    //         exit;
+    //     }
+    // }
 
 
     public function getUbahSelectedMat()
@@ -125,10 +125,10 @@ class Create extends Controller
         header('Content-Type: application/json');
 
         // Validasi dan bersihkan input
-        $material = isset ($_POST['material']) ? $_POST['material'] : null;
-        $tanggalValue = isset ($_POST['tanggalValue']) ? $_POST['tanggalValue'] : null;
-        $shiftUser = isset ($_POST['shiftUser']) ? $_POST['shiftUser'] : null;
-        $lineUser = isset ($_POST['lineUser']) ? $_POST['lineUser'] : null;
+        $material = isset($_POST['material']) ? $_POST['material'] : null;
+        $tanggalValue = isset($_POST['tanggalValue']) ? $_POST['tanggalValue'] : null;
+        $shiftUser = isset($_POST['shiftUser']) ? $_POST['shiftUser'] : null;
+        $lineUser = isset($_POST['lineUser']) ? $_POST['lineUser'] : null;
 
         if ($material === null || $tanggalValue === null || $shiftUser === null || $lineUser === null) {
             echo json_encode(['error' => 'Invalid input']);
@@ -154,12 +154,12 @@ class Create extends Controller
         header('Content-Type: application/json');
 
         // Validasi dan bersihkan input
-        $material = isset ($_POST['material']) ? $_POST['material'] : null;
-        $tanggalValue = isset ($_POST['tanggalValue']) ? $_POST['tanggalValue'] : null;
-        $shiftUser = isset ($_POST['shiftUser']) ? $_POST['shiftUser'] : null;
-        $lineUser = isset ($_POST['lineUser']) ? $_POST['lineUser'] : null;
-        $lineCode = isset ($_POST['lineCode']) ? $_POST['lineCode'] : null;
-        $costCenter = isset ($_POST['costCenter']) ? $_POST['costCenter'] : null;
+        $material = isset($_POST['material']) ? $_POST['material'] : null;
+        $tanggalValue = isset($_POST['tanggalValue']) ? $_POST['tanggalValue'] : null;
+        $shiftUser = isset($_POST['shiftUser']) ? $_POST['shiftUser'] : null;
+        $lineUser = isset($_POST['lineUser']) ? $_POST['lineUser'] : null;
+        $lineCode = isset($_POST['lineCode']) ? $_POST['lineCode'] : null;
+        $costCenter = isset($_POST['costCenter']) ? $_POST['costCenter'] : null;
 
         if ($material === null || $tanggalValue === null || $shiftUser === null || $lineUser === null || $lineCode === null || $costCenter === null) {
             echo json_encode(['error' => 'Invalid input']);

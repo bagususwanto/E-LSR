@@ -625,35 +625,35 @@ $(function () {
   }
 
   // UPDATE TOMBOL SUBMIT LIVE BERDASARKAN TABEL
-  function checkTablePageCreate() {
-    var submitButton = $("#submitReport");
+  // function checkTablePageCreate() {
+  //   var submitButton = $("#submitReport");
 
-    var tableBody = $("#dataTable");
+  //   var tableBody = $("#dataTable");
 
-    if (tableBody.find("td").length < 2) {
-      submitButton.hide();
-    } else {
-      submitButton.show();
-    }
-  }
+  //   if (tableBody.find("td").length < 2) {
+  //     submitButton.hide();
+  //   } else {
+  //     submitButton.show();
+  //   }
+  // }
 
-  $(document).ready(function () {
-    // Membuat observer untuk memantau perubahan di dalam tabel
-    var observer = new MutationObserver(function (mutations) {
-      checkTablePageCreate();
-    });
+  // $(document).ready(function () {
+  //   // Membuat observer untuk memantau perubahan di dalam tabel
+  //   var observer = new MutationObserver(function (mutations) {
+  //     checkTablePageCreate();
+  //   });
 
-    var config = {
-      childList: true,
-      subtree: true,
-    };
+  //   var config = {
+  //     childList: true,
+  //     subtree: true,
+  //   };
 
-    observer.observe(document.getElementById("dataTable"), config);
+  //   observer.observe(document.getElementById("dataTable"), config);
 
-    // $("#data").on("click", function () {
-    //   observer.disconnect();
-    // });
-  });
+  //   // $("#data").on("click", function () {
+  //   //   observer.disconnect();
+  //   // });
+  // });
 
   //============INPUT FORM WITH JQUERY==================//
   $(document).ready(function () {
@@ -706,17 +706,17 @@ $(function () {
           success: function (response) {
             $("body").loadingModal("hide");
 
-            $("#alertWarning").empty();
+            // $("#alertWarning").empty();
 
-            // Buat elemen alert baru
-            var alertElement = $(
-              '<div class="col-8 text-center mt-3 alert alert-warning alert-dismissible fade show" role="alert">' +
-                '<span style="font-weight: bold;">Jangan lupa klik tombol submit!</span> jika semua data sudah ditambahkan.' +
-                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
-                "</div>"
-            );
+            // // Buat elemen alert baru
+            // var alertElement = $(
+            //   '<div class="col-8 text-center mt-3 alert alert-warning alert-dismissible fade show" role="alert">' +
+            //     '<span style="font-weight: bold;">Jangan lupa klik tombol submit!</span> jika semua data sudah ditambahkan.' +
+            //     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+            //     "</div>"
+            // );
 
-            $("#alertWarning").append(alertElement);
+            // $("#alertWarning").append(alertElement);
 
             setTimeout(function () {
               $("#dataTable")[0].scrollIntoView();
@@ -728,7 +728,7 @@ $(function () {
             const tanggalValue = $("#tanggal").val();
             RefreshDataSubmit(material, tanggalValue, shiftUser, lineUser);
             roleValidtionPageCreate();
-            checkTablePageCreate();
+            // checkTablePageCreate();
 
             $("#remarks").val("");
             $("#qty").val("");
@@ -740,7 +740,8 @@ $(function () {
             $("#noLsr").prop("disabled", true);
             $.toast({
               title: "Pesan sukses",
-              message: "Berhasil menambahkan data.",
+              message:
+                "Berhasil menambahkan data dengan No LSR " + $("#noLsr").val(),
               type: "success",
               duration: 5000,
             });
