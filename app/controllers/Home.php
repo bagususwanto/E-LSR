@@ -62,7 +62,7 @@ class Home extends Controller
                     'qtyM' => $totalQtyMachining,
                     'qtyC' => $totalQtyCasting,
                     'qtyK' => $totalQtyAssembly,
-                ]); 
+                ]);
             } catch (Exception $e) {
                 echo json_encode(['error' => $e->getMessage()]);
             }

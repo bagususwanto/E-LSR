@@ -13,34 +13,43 @@
     <section class="section dashboard">
         <div class="row">
 
-            <!-- Left side columns -->
+            <!-- Button Group -->
             <div class="col-lg-8">
                 <div class="row">
 
+                    <div class="col-xxl-12 col-md-12 pb-3">
+                        <button type="button" class="btn btn-outline-primary">2023</button>
+                        <button type="button" class="btn btn-outline-primary">2024</button>
+                    </div>
+                    <div class="col-xxl-12 col-md-6 pb-3">
+                        <button type="button" class="btn btn-outline-primary">Jan</button>
+                        <button type="button" class="btn btn-outline-primary">Feb</button>
+                        <button type="button" class="btn btn-outline-primary">Mar</button>
+                        <button type="button" class="btn btn-outline-primary">Apr</button>
+                        <button type="button" class="btn btn-outline-primary">May</button>
+                        <button type="button" class="btn btn-outline-primary">Jun</button>
+                        <button type="button" class="btn btn-outline-primary">Jul</button>
+                        <button type="button" class="btn btn-outline-primary">Aug</button>
+                        <button type="button" class="btn btn-outline-primary">Sept</button>
+                        <button type="button" class="btn btn-outline-primary">Oct</button>
+                        <button type="button" class="btn btn-outline-primary">Nov</button>
+                        <button type="button" class="btn btn-outline-primary">Dec</button>
+                    </div>
+                </div>
+            </div> <!-- end Button Group -->
+
+            <!-- Left side columns -->
+            <div class="col-lg-12">
+                <div class="row">
+
+
                     <!-- Assembly Card -->
-                    <div class="col-xxl-4 col-md-6">
+                    <div class="col-xxl-3 col-md-6">
                         <div class="card info-card sales-card" id="assemblyCard">
 
-                            <div class="filter" id="assemblyFilter" data-line-type="assembly">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-                                    <li><a class="dropdown-item card-filter" href="#" data-filter="today">Today</a></li>
-                                    <li><a class="dropdown-item card-filter" href="#" data-filter="thisMonth">This
-                                            Month</a></li>
-                                    <li><a class="dropdown-item card-filter" href="#" data-filter="thisYear">This
-                                            Year</a></li>
-                                </ul>
-                            </div>
-
                             <div class="card-body">
-                                <h5 class="card-title">Assembly <span id="assemblyFilterText">| Today</span></h5>
-                                <!-- <div class="d-flex pb-3 justify-content-center">
-                                    <img src="<?php echo BASEURL; ?>/img/1NR-VE_Engine-removebg-preview.gif"
-                                        alt="1NR-VE_Engine-removebg-preview.gif" width="50px" height="auto">
-                                </div> -->
+                                <h5 class="card-title">Assembly <span>| Amount</span></h5>
+
                                 <input type="hidden" id="assemblyLine" value="Assembly" name="assemblyLine">
                                 <div class="d-flex align-items-center">
                                     <div
@@ -49,7 +58,8 @@
                                             alt="1NR-VE_Engine-removebg-preview.gif" width="50px" height="auto">
                                     </div>
                                     <div class="ps-3">
-                                        <h6 id="qtyK"></h6>
+                                        <h6 id="qtyK">65</h6>
+                                        <span class="text-success small pt-1 fw-bold">RP. 8.000.000.00</span>
                                     </div>
                                 </div>
                             </div>
@@ -58,35 +68,12 @@
                     </div><!-- End Assembly Card -->
 
                     <!-- Machining Card -->
-                    <div class="col-xxl-4 col-md-6">
+                    <div class="col-xxl-3 col-md-6">
                         <div class="card info-card revenue-card" id="machiningCard">
 
-                            <div class="filter" id="machiningFilter" data-line-type="machining">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-                                    <li><a class="dropdown-item card-filter" href="#" data-filter="today">Today</a></li>
-                                    <li><a class="dropdown-item card-filter" href="#" data-filter="thisMonth">This
-                                            Month</a></li>
-                                    <li><a class="dropdown-item card-filter" href="#" data-filter="thisYear">This
-                                            Year</a></li>
-                                </ul>
-                            </div>
-
                             <div class="card-body">
-                                <h5 class="card-title">Machining <span id="machiningFilterText">| This Month</span></h5>
-                                <!-- <div class="d-flex pb-3 justify-content-center">
-                                    <img src="<?php echo BASEURL; ?>/img/CR-removebg-preview.gif"
-                                        alt="CR-removebg-preview.gif" width="50px" height="auto">
-                                    <img src="<?php echo BASEURL; ?>/img/CB-removebg-preview.gif"
-                                        alt="CB-removebg-preview.gif" width="50px" height="auto">
-                                    <img src="<?php echo BASEURL; ?>/img/CH-removebg-preview.gif"
-                                        alt="CH-removebg-preview.gif" width="50px" height="auto">
-                                    <img src="<?php echo BASEURL; ?>/img/CA-removebg-preview.gif"
-                                        alt="CA-removebg-preview.gif" width="50px" height="auto">
-                                </div> -->
+                                <h5 class="card-title">Machining <span>| Amount</span></h5>
+
                                 <input type="hidden" id="machiningLine"
                                     value="Crankshaft,Cylinder Block,Cylinder Head,Camshaft" name="machiningLine">
                                 <div class="d-flex align-items-center">
@@ -96,7 +83,8 @@
                                             width="50px" height="auto">
                                     </div>
                                     <div class="ps-3">
-                                        <h6 id="qtyM"></h6>
+                                        <h6 id="qtyM">156</h6>
+                                        <span class="text-success small pt-1 fw-bold">RP. 2.000.000.00</span>
                                     </div>
 
                                 </div>
@@ -106,30 +94,13 @@
                     </div><!-- End Machining Card -->
 
                     <!-- Casting Card -->
-                    <div class="col-xxl-4 col-xl-12" id="castingCard">
+                    <div class="col-xxl-3 col-xl-12" id="castingCard">
 
                         <div class="card info-card customers-card">
 
-                            <div class="filter" id="castingFilter" data-line-type="casting">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-                                    <li><a class="dropdown-item card-filter" href="#" data-filter="today">Today</a></li>
-                                    <li><a class="dropdown-item card-filter" href="#" data-filter="thisMonth">This
-                                            Month</a></li>
-                                    <li><a class="dropdown-item card-filter" href="#" data-filter="thisYear">This
-                                            Year</a></li>
-                                </ul>
-                            </div>
-
                             <div class="card-body">
-                                <h5 class="card-title">Casting <span id="castingFilterText">| This Year</span></h5>
-                                <!-- <div class="d-flex pb-3 justify-content-center">
-                                    <img src="<?php echo BASEURL; ?>/img/CB-removebg-preview.gif"
-                                        alt="CB-removebg-preview.gif" width="50px" height="auto">
-                                </div> -->
+                                <h5 class="card-title">Casting <span>| Amount</span></h5>
+
                                 <input type="hidden" id="castingLine" value="Die Casting" name="castingLine">
                                 <div class="d-flex align-items-center">
                                     <div
@@ -138,7 +109,8 @@
                                             alt="CB-removebg-preview.gif" width="50px" height="auto">
                                     </div>
                                     <div class="ps-3">
-                                        <h6 id="qtyC"></h6>
+                                        <h6 id="qtyC">886</h6>
+                                        <span class="text-success small pt-1 fw-bold">RP. 6.000.000.00</span>
                                     </div>
                                 </div>
                             </div>
@@ -148,30 +120,42 @@
                     </div><!-- End Customers Card -->
 
 
+                    <!-- others Card -->
+                    <div class="col-xxl-3 col-xl-12" id="castingCard">
+
+                        <div class="card info-card others-card">
+
+                            <div class="card-body">
+                                <h5 class="card-title">Others <span>| Amount</span></h5>
+
+                                <input type="hidden" id="castingLine" value="others" name="castingLine">
+                                <div class="d-flex align-items-center">
+                                    <div
+                                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <img src="<?php echo BASEURL; ?>/img/others.png" alt="others.png" width="50px"
+                                            height="auto">
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6 id="qtyX">666</h6>
+                                        <span class="text-success small pt-1 fw-bold">RP. 5.000.000.00</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div><!-- End others Card -->
 
 
                     <!-- Reports -->
-                    <div class="col-12">
+                    <div class="col-lg-8">
                         <div class="card">
 
-                            <!-- <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                                </ul>
-                            </div> -->
-
                             <div class="card-body">
-                                <h5 class="card-title">Reports <!--<span>| This Year</span>--></h5>
+                                <h5 class="card-title">Qty Amount <!--<span>| This Year</span>--></h5>
 
                                 <!-- Line Chart -->
-                                <div id="reportsChart"></div>
+                                <div id="chartBar" style="height:400px;"></div>
 
                                 <script>
 
@@ -183,83 +167,74 @@
                         </div>
                     </div><!-- End Reports -->
 
+                    <!-- Right side columns -->
+                    <div class="col-lg-4">
+
+                        <!-- Material Traffic -->
+                        <div class="card">
+
+                            <div class="card-body pb-0">
+                                <h5 class="card-title">Cost Amount <!--<span>| This Year</span>--></h5>
+
+                                <div id="chartPie" class="echart" style="height:420px;"></div>
+                                <!-- class="echart" -->
+
+                                <script>
+                                    // document.addEventListener("DOMContentLoaded", () => {
+                                    //     echarts.init(document.querySelector("#trafficChart")).setOption({
+                                    //         tooltip: {
+                                    //             trigger: 'item'
+                                    //         },
+                                    //         legend: {
+                                    //             top: '5%',
+                                    //             left: 'center'
+                                    //         },
+                                    //         series: [{
+                                    //             name: 'Access From',
+                                    //             type: 'pie',
+                                    //             radius: ['40%', '80%'],
+                                    //             avoidLabelOverlap: false,
+                                    //             label: {
+                                    //                 show: false,
+                                    //                 position: 'center'
+                                    //             },
+                                    //             emphasis: {
+                                    //                 label: {
+                                    //                     show: true,
+                                    //                     fontSize: '18',
+                                    //                     fontWeight: 'bold'
+                                    //                 }
+                                    //             },
+                                    //             labelLine: {
+                                    //                 show: false
+                                    //             },
+                                    //             data: [{
+                                    //                 value: 1048,
+                                    //                 name: 'Assembly'
+                                    //             },
+                                    //             {
+                                    //                 value: 735,
+                                    //                 name: 'Machining'
+                                    //             },
+                                    //             {
+                                    //                 value: 580,
+                                    //                 name: 'Casting'
+                                    //             },
+                                    //             ]
+                                    //         }]
+                                    //     });
+                                    // });
+                                </script>
+
+                            </div>
+                        </div><!-- End Material Traffic -->
+
+                    </div><!-- End Right side columns -->
+
                 </div>
             </div><!-- End Left side columns -->
 
-            <!-- Right side columns -->
-            <div class="col-lg-4">
 
-                <!-- Material Traffic -->
-                <div class="card">
-                    <!-- <div class="filter">
-                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                            <li class="dropdown-header text-start">
-                                <h6>Filter</h6>
-                            </li>
-
-                            <li><a class="dropdown-item" href="#">Today</a></li>
-                            <li><a class="dropdown-item" href="#">This Month</a></li>
-                            <li><a class="dropdown-item" href="#">This Year</a></li>
-                        </ul>
-                    </div> -->
-
-                    <div class="card-body pb-0">
-                        <h5 class="card-title">Material Traffic <!--<span>| This Year</span>--></h5>
-
-                        <div id="trafficChart" class="echart"></div> <!-- class="echart" -->
-
-                        <script>
-                            // document.addEventListener("DOMContentLoaded", () => {
-                            //     echarts.init(document.querySelector("#trafficChart")).setOption({
-                            //         tooltip: {
-                            //             trigger: 'item'
-                            //         },
-                            //         legend: {
-                            //             top: '5%',
-                            //             left: 'center'
-                            //         },
-                            //         series: [{
-                            //             name: 'Access From',
-                            //             type: 'pie',
-                            //             radius: ['40%', '80%'],
-                            //             avoidLabelOverlap: false,
-                            //             label: {
-                            //                 show: false,
-                            //                 position: 'center'
-                            //             },
-                            //             emphasis: {
-                            //                 label: {
-                            //                     show: true,
-                            //                     fontSize: '18',
-                            //                     fontWeight: 'bold'
-                            //                 }
-                            //             },
-                            //             labelLine: {
-                            //                 show: false
-                            //             },
-                            //             data: [{
-                            //                 value: 1048,
-                            //                 name: 'Assembly'
-                            //             },
-                            //             {
-                            //                 value: 735,
-                            //                 name: 'Machining'
-                            //             },
-                            //             {
-                            //                 value: 580,
-                            //                 name: 'Casting'
-                            //             },
-                            //             ]
-                            //         }]
-                            //     });
-                            // });
-                        </script>
-
-                    </div>
-                </div><!-- End Material Traffic -->
-
-            </div><!-- End Right side columns -->
 
             <!-- Middle -->
             <!-- Recent Transaction -->
