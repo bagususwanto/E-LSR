@@ -1,29 +1,40 @@
 $(function () {
-  $(document).ready(function () {
-    // Chart Bar
-    var chartBar = document.getElementById("chartBar");
-    var initBar = echarts.init(chartBar);
-    var optionBar;
-    var tahun = "24";
+  function fetchData(year, month) {
+    $.ajax({
+      url: BASEURL + "/home/getDataHome",
+      method: "post",
+      data: {
+        year: year,
+        month: month,
+      },
+      dataType: "json",
+      success: function (response) {
+        var qtyK = 0;
+        var costK = 0;
+        var qtyM = 0;
+        var costM = 0;
+        var qtyC = 0;
+        var costC = 0;
+        var qtyX = 0;
+        var costX = 0;
 
-    optionBar = {
-      tooltip: {
-        trigger: "axis",
-        axisPointer: {
-          type: "shadow",
-        },
-      },
-      legend: {},
-      grid: {
-        left: "3%",
-        right: "4%",
-        bottom: "3%",
-        containLabel: true,
-      },
-      xAxis: [
-        {
-          type: "category",
-          data: [
+        var seriesDataBar = {
+          Jan: [0, 0, 0, 0],
+          Feb: [0, 0, 0, 0],
+          Mar: [0, 0, 0, 0],
+          Apr: [0, 0, 0, 0],
+          May: [0, 0, 0, 0],
+          Jun: [0, 0, 0, 0],
+          Jul: [0, 0, 0, 0],
+          Aug: [0, 0, 0, 0],
+          Sept: [0, 0, 0, 0],
+          Oct: [0, 0, 0, 0],
+          Nov: [0, 0, 0, 0],
+          Dec: [0, 0, 0, 0],
+        };
+        response.forEach(function (item) {
+          var dateString = item.tanggal;
+          var monthNames = [
             "Jan",
             "Feb",
             "Mar",
@@ -35,138 +46,304 @@ $(function () {
             "Sept",
             "Oct",
             "Nov",
-            "Dec'" + tahun,
-          ],
-        },
-      ],
-      yAxis: [
-        {
-          type: "value",
-        },
-      ],
-      series: [
-        {
-          label: {
-            show: true,
-            formatter: "{c}",
-            position: "inside",
-            fontWeight: "bold",
-            color: "white",
-          },
-          name: "Assembly",
-          type: "bar",
-          stack: "qty",
-          emphasis: {
-            focus: "series",
-          },
-          data: [320, 332, 301, 334, 390, 330, 320],
-        },
-        {
-          label: {
-            show: true,
-            formatter: "{c}",
-            position: "inside",
-            fontWeight: "bold",
-            color: "white",
-          },
-          label: {
-            show: true,
-            formatter: "{c}",
-            position: "inside",
-            fontWeight: "bold",
-            color: "white",
-          },
-          name: "Machining",
-          type: "bar",
-          stack: "qty",
-          emphasis: {
-            focus: "series",
-          },
-          data: [220, 182, 191, 234, 290, 330, 310],
-        },
-        {
-          label: {
-            show: true,
-            formatter: "{c}",
-            position: "inside",
-            fontWeight: "bold",
-            color: "white",
-          },
-          name: "Casting",
-          type: "bar",
-          stack: "qty",
-          emphasis: {
-            focus: "series",
-          },
-          data: [150, 232, 201, 154, 190, 330, 410],
-        },
-        {
-          label: {
-            show: true,
-            formatter: "{c}",
-            position: "inside",
-            fontWeight: "bold",
-            color: "white",
-          },
-          name: "Others",
-          type: "bar",
-          stack: "qty",
-          emphasis: {
-            focus: "series",
-          },
-          data: [62, 82, 91, 84, 109, 110, 120],
-        },
-      ],
-    };
+            "Dec",
+          ];
+          var month = monthNames[new Date(dateString).getMonth()];
 
-    optionBar && initBar.setOption(optionBar);
+          var line = item.line_lsr;
+          var qty = parseInt(item.qty);
+          var totalPrice = parseFloat(item.total_price);
 
-    // Chart Pie
-    var chartPie = document.getElementById("chartPie");
-    var initPie = echarts.init(chartPie);
-    var optionsPie = {
-      tooltip: {
-        trigger: "item",
-      },
-      legend: {
-        top: "5%",
-        left: "center",
-      },
-      series: [
-        {
-          name: "Cost",
-          type: "pie",
-          radius: ["30%", "80%"],
-          avoidLabelOverlap: false,
-          label: {
-            show: true,
-            formatter: "{d}%",
-            position: "inside",
-            fontWeight: "bold",
-            color: "white",
-          },
-          emphasis: {
-            label: {
-              show: true,
-              fontSize: 20,
-              fontWeight: "bold",
+          switch (line) {
+            case "Main Line":
+            case "Sub Line":
+              qtyK += qty;
+              costK += totalPrice;
+              seriesDataBar[month][0] += qty;
+              break;
+            case "Cylinder Block":
+            case "Crankshaft":
+            case "Cylinder Head":
+            case "Camshaft":
+              qtyM += qty;
+              costM += totalPrice;
+              seriesDataBar[month][1] += qty;
+              break;
+            case "Die Casting":
+              qtyC += qty;
+              costC += totalPrice;
+              seriesDataBar[month][2] += qty;
+              break;
+            default:
+              qtyX += qty;
+              costX += totalPrice;
+              seriesDataBar[month][3] += qty;
+          }
+        });
+
+        // CHART BAR
+        var chartBar = document.getElementById("chartBar");
+        var initBar = echarts.init(chartBar);
+        var optionBar;
+
+        optionBar = {
+          tooltip: {
+            trigger: "axis",
+            axisPointer: {
+              type: "shadow",
             },
           },
-          labelLine: {
-            show: false,
+          legend: {},
+          grid: {
+            left: "3%",
+            right: "4%",
+            bottom: "3%",
+            containLabel: true,
           },
-          data: [
-            { value: 1048, name: "Assembly" },
-            { value: 735, name: "Machining" },
-            { value: 580, name: "Casting" },
-            { value: 484, name: "Others" },
+          xAxis: [
+            {
+              type: "category",
+              data: [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sept",
+                "Oct",
+                "Nov",
+                "Dec",
+              ],
+            },
           ],
-        },
-      ],
-    };
-    optionsPie && initPie.setOption(optionsPie);
-    // updateAllData();
+          yAxis: [
+            {
+              type: "value",
+            },
+          ],
+          series: [
+            {
+              label: {
+                show: true,
+                formatter: "{c}",
+                position: "inside",
+                fontWeight: "bold",
+                color: "white",
+              },
+              name: "Assembly",
+              type: "bar",
+              stack: "qty",
+              emphasis: {
+                focus: "series",
+              },
+              data: [],
+            },
+            {
+              label: {
+                show: true,
+                formatter: "{c}",
+                position: "inside",
+                fontWeight: "bold",
+                color: "white",
+              },
+              label: {
+                show: true,
+                formatter: "{c}",
+                position: "inside",
+                fontWeight: "bold",
+                color: "white",
+              },
+              name: "Machining",
+              type: "bar",
+              stack: "qty",
+              emphasis: {
+                focus: "series",
+              },
+              data: [],
+            },
+            {
+              label: {
+                show: true,
+                formatter: "{c}",
+                position: "inside",
+                fontWeight: "bold",
+                color: "white",
+              },
+              name: "Casting",
+              type: "bar",
+              stack: "qty",
+              emphasis: {
+                focus: "series",
+              },
+              data: [],
+            },
+            {
+              label: {
+                show: true,
+                formatter: "{c}",
+                position: "inside",
+                fontWeight: "bold",
+                color: "white",
+              },
+              name: "Others",
+              type: "bar",
+              stack: "qty",
+              emphasis: {
+                focus: "series",
+              },
+              data: [],
+            },
+          ],
+        };
+
+        optionBar.series.forEach(function (series, index) {
+          series.data = Object.keys(seriesDataBar).map(function (month) {
+            var value = seriesDataBar[month][index];
+            return value !== 0 ? value : null;
+          });
+        });
+
+        initBar.setOption(optionBar);
+
+        // CHART PIE
+        var seriesDataPie = [
+          { value: costK, name: "Assembly" },
+          { value: costM, name: "Machining" },
+          { value: costC, name: "Casting" },
+          { value: costX, name: "Others" },
+        ];
+
+        var chartPie = document.getElementById("chartPie");
+        var initPie = echarts.init(chartPie);
+        var optionsPie = {
+          tooltip: {
+            trigger: "item",
+            formatter: function (params) {
+              return (
+                params.seriesName +
+                "<br/>" +
+                params.marker +
+                params.name +
+                ": " +
+                formatCurrency(params.value)
+              );
+            },
+          },
+          legend: {
+            top: "5%",
+            left: "center",
+          },
+          series: [
+            {
+              name: "Cost",
+              type: "pie",
+              radius: ["30%", "80%"],
+              avoidLabelOverlap: false,
+              label: {
+                show: true,
+                formatter: "{d}%",
+                position: "inside",
+                fontWeight: "bold",
+                color: "white",
+              },
+              emphasis: {
+                label: {
+                  show: true,
+                  fontSize: 20,
+                  fontWeight: "bold",
+                },
+              },
+              labelLine: {
+                show: false,
+              },
+              data: seriesDataPie,
+            },
+          ],
+        };
+        optionsPie && initPie.setOption(optionsPie);
+
+        $("#qtyK").text(qtyK);
+        $("#costK").text(formatCurrency(costK));
+        $("#qtyM").text(qtyM);
+        $("#costM").text(formatCurrency(costM));
+        $("#qtyC").text(qtyC);
+        $("#costC").text(formatCurrency(costC));
+        $("#qtyX").text(qtyX);
+        $("#costX").text(formatCurrency(costX));
+      },
+      error: function (error) {
+        console.error("Error:", error);
+      },
+    });
+  }
+
+  function formatCurrency(amount) {
+    return "RP. " + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  }
+
+  $(document).ready(function () {
+    var currentYear = [new Date().getFullYear()];
+    fetchData(getActiveYears(), getActiveMonths());
   });
+
+  $(".btn-year").click(function () {
+    $(this).toggleClass("active");
+    var years = $(".btn-year.active")
+      .map(function () {
+        return $(this).text();
+      })
+      .get();
+    var months = $(".btn-month.active")
+      .map(function () {
+        return $(this).data("month");
+      })
+      .get();
+    fetchData(years, months);
+  });
+
+  $(".btn-month").click(function () {
+    $(this).toggleClass("active");
+    var years = $(".btn-year.active")
+      .map(function () {
+        return $(this).text();
+      })
+      .get();
+    var months = $(".btn-month.active")
+      .map(function () {
+        return $(this).data("month");
+      })
+      .get();
+    fetchData(years, months);
+  });
+
+  // Set text for year buttons
+  var currentYear = new Date().getFullYear();
+  $("#lastYear").text(currentYear - 1);
+  $("#currentYear").text(currentYear);
+
+  function getActiveYears() {
+    return $(".btn-year.active")
+      .map(function () {
+        return $(this).text();
+      })
+      .get();
+  }
+
+  function getActiveMonths() {
+    return $(".btn-month.active")
+      .map(function () {
+        return $(this).data("month");
+      })
+      .get();
+  }
+
+  setInterval(function () {
+    fetchData(getActiveYears(), getActiveMonths());
+  }, 60000);
+
   // //==== ISI CARD DASHBOARD ======//
   // function updateAllData() {
   //   function updateCardTitle(lineType, filter) {

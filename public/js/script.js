@@ -105,23 +105,7 @@ $(function () {
     });
 
     //==== ISI NILAI DARI NO LSR======//
-    function getIDnoLsr() {
-      const validLineValue = $("#validLine").text().trim();
-      $.ajax({
-        url: BASEURL + "/create/getIdReport",
-        data: { validLineValue: validLineValue },
-        method: "post",
-        dataType: "json",
-        success: function (data) {
-          $("#noLsr").val(data.no_lsr);
-          $("#noLSRSub").val(data.no_lsr);
-        },
-        error: function (error) {
-          console.log("Error:", error);
-        },
-      });
-    }
-    getIDnoLsr();
+    getIDnoLsr(validLineValue);
 
     //==== ISI NILAI DARI PART NUMBER , PART NAME, UNIQE NO, DAN SOURCE TYPE======//
     const validLineValue2 = $("#validLine").text().trim();
@@ -300,6 +284,7 @@ $(function () {
     });
     const id = $(this).find(":selected").data("id");
     const lineUser = $(this).val();
+    const validLineValue = $(this).val();
     $.ajax({
       url: BASEURL + "/create/changeUbahSelectedLine",
       data: { id: id },
@@ -336,9 +321,10 @@ $(function () {
           costCenter
         );
 
+        getIDnoLsr(validLineValue);
+
         addMasterMaterial();
         $("body").loadingModal("hide");
-        getIDnoLsr();
       },
     });
   });
@@ -509,6 +495,7 @@ $(function () {
       method: "post",
       dataType: "json",
       success: function (data) {
+        console.log(data);
         // Membersihkan dan menambahkan opsi baru ke dalam elemen select
         $("#partNumber, #partName, #uniqeNo, #sourceType, #price").empty();
 
@@ -535,6 +522,24 @@ $(function () {
         `<option value="${optionValue}" data-id="${dataId}">${optionValue}</option>`
       );
     }
+  }
+
+  //==== ISI NILAI DARI NO LSR======//
+  function getIDnoLsr(validLineValue) {
+    // const validLineValue = $("#validLine").text().trim();
+    $.ajax({
+      url: BASEURL + "/create/getIdReport",
+      data: { validLineValue: validLineValue },
+      method: "post",
+      dataType: "json",
+      success: function (data) {
+        $("#noLsr").val(data.no_lsr);
+        $("#noLSRSub").val(data.no_lsr);
+      },
+      error: function (error) {
+        console.log("Error:", error);
+      },
+    });
   }
 
   //=====UNTUK REFRESH TABLE SUBMIT=====//

@@ -96,7 +96,6 @@ class Home extends Controller
     }
 
 
-
     public function getDataChart()
     {
         // Atur header untuk memberi tahu bahwa respons adalah JSON
@@ -114,6 +113,16 @@ class Home extends Controller
         echo json_encode($this->model('Material_model')->getDataPie());
     }
 
+
+    public function getDataHome()
+    {
+        $year = $_POST['year'];
+        $month = isset($_POST['month']) ? $_POST['month'] : null;
+
+        $data = $this->model('Material_model')->getDataByCriteria($year, $month);
+
+        echo json_encode($data);
+    }
 
 
 

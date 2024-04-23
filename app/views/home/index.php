@@ -18,22 +18,22 @@
                 <div class="row">
 
                     <div class="col-xxl-12 col-md-12 pb-3">
-                        <button type="button" class="btn btn-outline-primary">2023</button>
-                        <button type="button" class="btn btn-outline-primary">2024</button>
+                        <button type="button" class="btn btn-outline-primary btn-year" id="lastYear"></button>
+                        <button type="button" class="btn btn-outline-primary btn-year active" id="currentYear"></button>
                     </div>
                     <div class="col-xxl-12 col-md-6 pb-3">
-                        <button type="button" class="btn btn-outline-primary">Jan</button>
-                        <button type="button" class="btn btn-outline-primary">Feb</button>
-                        <button type="button" class="btn btn-outline-primary">Mar</button>
-                        <button type="button" class="btn btn-outline-primary">Apr</button>
-                        <button type="button" class="btn btn-outline-primary">May</button>
-                        <button type="button" class="btn btn-outline-primary">Jun</button>
-                        <button type="button" class="btn btn-outline-primary">Jul</button>
-                        <button type="button" class="btn btn-outline-primary">Aug</button>
-                        <button type="button" class="btn btn-outline-primary">Sept</button>
-                        <button type="button" class="btn btn-outline-primary">Oct</button>
-                        <button type="button" class="btn btn-outline-primary">Nov</button>
-                        <button type="button" class="btn btn-outline-primary">Dec</button>
+                        <button type="button" class="btn btn-outline-primary btn-month" data-month="1">Jan</button>
+                        <button type="button" class="btn btn-outline-primary btn-month" data-month="2">Feb</button>
+                        <button type="button" class="btn btn-outline-primary btn-month" data-month="3">Mar</button>
+                        <button type="button" class="btn btn-outline-primary btn-month" data-month="4">Apr</button>
+                        <button type="button" class="btn btn-outline-primary btn-month" data-month="5">May</button>
+                        <button type="button" class="btn btn-outline-primary btn-month" data-month="6">Jun</button>
+                        <button type="button" class="btn btn-outline-primary btn-month" data-month="7">Jul</button>
+                        <button type="button" class="btn btn-outline-primary btn-month" data-month="8">Aug</button>
+                        <button type="button" class="btn btn-outline-primary btn-month" data-month="9">Sept</button>
+                        <button type="button" class="btn btn-outline-primary btn-month" data-month="10">Oct</button>
+                        <button type="button" class="btn btn-outline-primary btn-month" data-month="11">Nov</button>
+                        <button type="button" class="btn btn-outline-primary btn-month" data-month="12">Dec</button>
                     </div>
                 </div>
             </div> <!-- end Button Group -->
@@ -59,7 +59,7 @@
                                     </div>
                                     <div class="ps-3">
                                         <h6 id="qtyK">65</h6>
-                                        <span class="text-success small pt-1 fw-bold">RP. 8.000.000.00</span>
+                                        <span id="costK" class="text-success small pt-1 fw-bold">RP. 8.000.000.00</span>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                                     </div>
                                     <div class="ps-3">
                                         <h6 id="qtyM">156</h6>
-                                        <span class="text-success small pt-1 fw-bold">RP. 2.000.000.00</span>
+                                        <span id="costM" class="text-success small pt-1 fw-bold">RP. 2.000.000.00</span>
                                     </div>
 
                                 </div>
@@ -110,7 +110,7 @@
                                     </div>
                                     <div class="ps-3">
                                         <h6 id="qtyC">886</h6>
-                                        <span class="text-success small pt-1 fw-bold">RP. 6.000.000.00</span>
+                                        <span id="costC" class="text-success small pt-1 fw-bold">RP. 6.000.000.00</span>
                                     </div>
                                 </div>
                             </div>
@@ -137,7 +137,7 @@
                                     </div>
                                     <div class="ps-3">
                                         <h6 id="qtyX">666</h6>
-                                        <span class="text-success small pt-1 fw-bold">RP. 5.000.000.00</span>
+                                        <span id="costX" class="text-success small pt-1 fw-bold">RP. 5.000.000.00</span>
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +147,7 @@
                     </div><!-- End others Card -->
 
 
-                    <!-- Reports -->
+                    <!-- Qty Amount -->
                     <div class="col-lg-8">
                         <div class="card">
 
@@ -157,77 +157,26 @@
                                 <!-- Line Chart -->
                                 <div id="chartBar" style="height:400px;"></div>
 
-                                <script>
 
-                                </script>
-                                <!-- End Line Chart -->
 
                             </div>
 
                         </div>
-                    </div><!-- End Reports -->
+                    </div><!-- End Qty Amount -->
 
                     <!-- Right side columns -->
                     <div class="col-lg-4">
 
-                        <!-- Material Traffic -->
+                        <!-- Cost Amount -->
                         <div class="card">
 
                             <div class="card-body pb-0">
                                 <h5 class="card-title">Cost Amount <!--<span>| This Year</span>--></h5>
 
                                 <div id="chartPie" class="echart" style="height:420px;"></div>
-                                <!-- class="echart" -->
-
-                                <script>
-                                    // document.addEventListener("DOMContentLoaded", () => {
-                                    //     echarts.init(document.querySelector("#trafficChart")).setOption({
-                                    //         tooltip: {
-                                    //             trigger: 'item'
-                                    //         },
-                                    //         legend: {
-                                    //             top: '5%',
-                                    //             left: 'center'
-                                    //         },
-                                    //         series: [{
-                                    //             name: 'Access From',
-                                    //             type: 'pie',
-                                    //             radius: ['40%', '80%'],
-                                    //             avoidLabelOverlap: false,
-                                    //             label: {
-                                    //                 show: false,
-                                    //                 position: 'center'
-                                    //             },
-                                    //             emphasis: {
-                                    //                 label: {
-                                    //                     show: true,
-                                    //                     fontSize: '18',
-                                    //                     fontWeight: 'bold'
-                                    //                 }
-                                    //             },
-                                    //             labelLine: {
-                                    //                 show: false
-                                    //             },
-                                    //             data: [{
-                                    //                 value: 1048,
-                                    //                 name: 'Assembly'
-                                    //             },
-                                    //             {
-                                    //                 value: 735,
-                                    //                 name: 'Machining'
-                                    //             },
-                                    //             {
-                                    //                 value: 580,
-                                    //                 name: 'Casting'
-                                    //             },
-                                    //             ]
-                                    //         }]
-                                    //     });
-                                    // });
-                                </script>
 
                             </div>
-                        </div><!-- End Material Traffic -->
+                        </div><!-- End Cost Amount -->
 
                     </div><!-- End Right side columns -->
 

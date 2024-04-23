@@ -222,10 +222,28 @@ class Material_model
 
     public function getMasterByMaterial($material)
     {
+        error_log("Material received: " . $material);
         $this->db->query('SELECT * FROM ' . $this->table2 . ' WHERE material=:material');
         $this->db->bind('material', $material);
-        return $this->db->resultSet();
+        $results = $this->db->resultSet();
+
+
+        if (empty($results)) {
+            $this->db->query('SELECT * FROM ' . $this->table2 . ' WHERE material=:default_material');
+            $this->db->bind('default_material', 'Assembly');
+            $results = $this->db->resultSet();
+
+            if (empty($results)) {
+                return array();
+            } else {
+                return $results;
+            }
+        } else {
+            return $results;
+        }
     }
+
+
 
 
 
@@ -390,6 +408,37 @@ class Material_model
             return -1;
         }
     }
+    public function getDataByCriteria($years, $months)
+    {
+        if ($years === null) {
+            $years = [];
+        }
+        if ($months === null) {
+            $months = [];
+        }
+
+        $yearsPlaceholder = implode(',', array_fill(0, count($years), '?'));
+        $monthsPlaceholder = implode(',', array_fill(0, count($months), '?'));
+
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE YEAR(tanggal) IN (' . $yearsPlaceholder . ')';
+
+        if (!empty($months)) {
+            $query .= ' AND MONTH(tanggal) IN (' . $monthsPlaceholder . ')';
+        }
+
+        $this->db->query($query);
+
+        foreach ($years as $index => $year) {
+            $this->db->bind($index + 1, $year);
+        }
+
+        foreach ($months as $index => $month) {
+            $this->db->bind($index + count($years) + 1, $month);
+        }
+
+        return $this->db->resultSet();
+    }
+
 
 
 
