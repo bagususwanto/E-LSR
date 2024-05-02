@@ -9,6 +9,7 @@ $(function () {
       },
       dataType: "json",
       success: function (response) {
+        console.log(response);
         var qtyK = 0;
         var costK = 0;
         var qtyM = 0;
@@ -34,20 +35,7 @@ $(function () {
         };
         response.forEach(function (item) {
           var dateString = item.tanggal;
-          var monthNames = [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sept",
-            "Oct",
-            "Nov",
-            "Dec",
-          ];
+          var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
           var month = monthNames[new Date(dateString).getMonth()];
 
           var line = item.line_lsr;
@@ -103,20 +91,7 @@ $(function () {
           xAxis: [
             {
               type: "category",
-              data: [
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sept",
-                "Oct",
-                "Nov",
-                "Dec",
-              ],
+              data: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"],
             },
           ],
           yAxis: [
@@ -222,14 +197,7 @@ $(function () {
           tooltip: {
             trigger: "item",
             formatter: function (params) {
-              return (
-                params.seriesName +
-                "<br/>" +
-                params.marker +
-                params.name +
-                ": " +
-                formatCurrency(params.value)
-              );
+              return params.seriesName + "<br/>" + params.marker + params.name + ": " + formatCurrency(params.value);
             },
           },
           legend: {
@@ -273,6 +241,106 @@ $(function () {
         $("#costC").text(formatCurrency(costC));
         $("#qtyX").text(qtyX);
         $("#costX").text(formatCurrency(costX));
+
+        $("#qtyK2").text(qtyK);
+        $("#costK2").text(formatCurrency(costK));
+
+        // EVENT KLIK MENU DASHBOARD DETAIL
+        var reponseData = {};
+        response.forEach(function (item) {
+          var lineLsr = item.line_lsr;
+          var qty = parseInt(item.qty);
+          var totalCost = parseFloat(item.total_price);
+
+          if (reponseData[lineLsr]) {
+            reponseData[lineLsr].qty += qty;
+            reponseData[lineLsr].totalCost += totalCost;
+          } else {
+            reponseData[lineLsr] = {
+              qty: qty,
+              totalCost: totalCost,
+            };
+          }
+        });
+
+        var title, imageSource, cardClass;
+
+        switch (getCardType()) {
+          case "assemblyCard":
+            title = ["Main Line", "Sub Line"];
+            imageSource = [BASEURL + "/img/assembly.gif", BASEURL + "/img/assembly.gif"];
+            cardClass = "sales-card";
+            break;
+          case "machiningCard":
+            title = ["Crankshaft", "Cylinder Block", "Cylinder Head", "Camshaft"];
+            imageSource = [
+              BASEURL + "/img/Crankshaft.gif",
+              BASEURL + "/img/Cylinder Block.gif",
+              BASEURL + "/img/Cylinder Head.gif",
+              BASEURL + "/img/Camshaft.gif",
+            ];
+            cardClass = "revenue-card";
+            break;
+
+          case "castingCard":
+            title = ["Die Casting"];
+            imageSource = [BASEURL + "/img/casting.gif"];
+            cardClass = "customers-card";
+            break;
+          case "othersCard":
+            title = [
+              "Quality",
+              "Logistic Operational",
+              "Maintenance",
+              "Engser",
+              "Technical Support",
+              "Engser Casting",
+              "Maintenance DC",
+              "CCR & Ordering",
+            ];
+            imageSource = [
+              BASEURL + "/img/others.png",
+              BASEURL + "/img/others.png",
+              BASEURL + "/img/others.png",
+              BASEURL + "/img/others.png",
+              BASEURL + "/img/others.png",
+              BASEURL + "/img/others.png",
+              BASEURL + "/img/others.png",
+              BASEURL + "/img/others.png",
+            ];
+            cardClass = "others-card";
+            break;
+          default:
+            console.log("Card type not recognized.");
+            return;
+        }
+
+        var cardContainer = $(".card-container");
+        cardContainer.empty(); // Menghapus konten sebelumnya (jika ada)
+        for (var i = 0; i < title.length; i++) {
+          var cardHTML = `
+              <div class="col-xxl-12 col-md-12" id="cardBottom">
+                  <div class="card amount-card ${cardClass}">
+                      <div class="card-body">
+                          <h5 class="card-title">${title[i]} <span>| Amount </span></h5>
+                          <div class="d-flex align-items-center">
+                              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                  <img src="${imageSource[i]}" alt="${title[i]}" width="50px" height="auto">
+                              </div>
+                              <div class="ps-3">
+                                  <h6 id="qty${i}">${reponseData[title[i]] ? reponseData[title[i]].qty : 0}</h6>
+                                  <span id="cost${i}" class="text-success small pt-1 fw-bold">${
+            reponseData[title[i]] ? formatCurrency(reponseData[title[i]].totalCost) : "RP. 0.00"
+          }</span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          `;
+
+          cardContainer.append(cardHTML); // Menambahkan kartu ke dalam container
+        }
       },
       error: function (error) {
         console.error("Error:", error);
@@ -285,13 +353,40 @@ $(function () {
   }
 
   $(document).ready(function () {
+    // get year untuk button
+    $.ajax({
+      url: BASEURL + "/home/getDataYear",
+      method: "post",
+      data: {},
+      dataType: "json",
+      success: function (response) {
+        response.sort(function (a, b) {
+          return a.year - b.year;
+        });
+        $.each(response, function (index, data) {
+          var dataYear = data.year;
+
+          var button = $("<button>", {
+            class: "btn btn-outline-primary btn-year me-1",
+            text: dataYear,
+          });
+
+          if (dataYear == new Date().getFullYear()) {
+            button.addClass("active");
+          }
+
+          $("#yearButton").append(button);
+        });
+      },
+    });
+
     var currentYear = [new Date().getFullYear()];
-    fetchData(getActiveYears(), getActiveMonths());
+    fetchData(currentYear, []);
   });
 
-  $(".btn-year").click(function () {
+  $(document).on("click", ".btn-year", function () {
     $(this).toggleClass("active");
-    var years = $(".btn-year.active")
+    var years = $(".btn-year.me-1.active")
       .map(function () {
         return $(this).text();
       })
@@ -306,7 +401,7 @@ $(function () {
 
   $(".btn-month").click(function () {
     $(this).toggleClass("active");
-    var years = $(".btn-year.active")
+    var years = $(".btn-year.me-1.active")
       .map(function () {
         return $(this).text();
       })
@@ -325,7 +420,7 @@ $(function () {
   $("#currentYear").text(currentYear);
 
   function getActiveYears() {
-    return $(".btn-year.active")
+    return $(".btn-year.me-1.active")
       .map(function () {
         return $(this).text();
       })
@@ -340,9 +435,25 @@ $(function () {
       .get();
   }
 
+  function getCardType() {
+    return clickedCardID;
+  }
+
   setInterval(function () {
     fetchData(getActiveYears(), getActiveMonths());
   }, 60000);
+
+  var clickedCardID = "";
+
+  $(".info-card").click(function () {
+    clickedCardID = $(this).attr("id");
+    fetchData(getActiveYears(), getActiveMonths());
+    var cardContainer = $(".card-container");
+    cardContainer.show(function () {
+      $("#cardBottom")[0].scrollIntoView();
+    });
+  });
+  $(document).ready(function () {});
 
   // //==== ISI CARD DASHBOARD ======//
   // function updateAllData() {

@@ -1261,35 +1261,29 @@ h6 {
   white-space: nowrap;
 }
 
-@media screen and (min-width: 1024px) {
-  #trafficChart {
-    min-height: 570px;
-    /* Nilai untuk layar setidaknya 1200px atau lebih lebar */
-  }
+.card.info-card {
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
-#trafficChart {
-  min-height: 570px;
-  /* Nilai default untuk layar yang lebih kecil dari 1200px */
+.card.info-card:hover {
+  transform: scale(1.05);
+  outline: 2px solid #007bff;
 }
 
-@media screen and (max-width: 1024px) {
-  #trafficChart {
-    min-height: 890px;
-    /* Nilai untuk layar dalam rentang ukuran tablet */
-  }
+.dashboard .amount-card {
+  padding-bottom: 10px;
 }
 
-@media screen and (max-height: 1280px) {
-  #trafficChart {
-    min-height: 890px;
-    /* Nilai untuk layar dengan max-height 1280px */
-  }
+.dashboard .amount-card h6 {
+  font-size: 28px;
+  color: #012970;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
 }
 
-@media screen and (min-width: 1200px) {
-  #trafficChart {
-    min-height: 570px;
-    /* Nilai untuk layar setidaknya 1200px atau lebih lebar */
-  }
+
+.card-container {
+  display: none;
 }

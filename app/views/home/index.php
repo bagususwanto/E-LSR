@@ -17,9 +17,8 @@
             <div class="col-lg-8">
                 <div class="row">
 
-                    <div class="col-xxl-12 col-md-12 pb-3">
-                        <button type="button" class="btn btn-outline-primary btn-year" id="lastYear"></button>
-                        <button type="button" class="btn btn-outline-primary btn-year active" id="currentYear"></button>
+                    <div class="col-xxl-12 col-md-12 pb-3" id="yearButton">
+
                     </div>
                     <div class="col-xxl-12 col-md-6 pb-3">
                         <button type="button" class="btn btn-outline-primary btn-month" data-month="1">Jan</button>
@@ -50,16 +49,15 @@
                             <div class="card-body">
                                 <h5 class="card-title">Assembly <span>| Amount</span></h5>
 
-                                <input type="hidden" id="assemblyLine" value="Assembly" name="assemblyLine">
                                 <div class="d-flex align-items-center">
                                     <div
                                         class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <img src="<?php echo BASEURL; ?>/img/1NR-VE_Engine-removebg-preview.gif"
-                                            alt="1NR-VE_Engine-removebg-preview.gif" width="50px" height="auto">
+                                        <img src="<?php echo BASEURL; ?>/img/assembly.gif" alt="assembly.gif"
+                                            width="50px" height="auto">
                                     </div>
                                     <div class="ps-3">
-                                        <h6 id="qtyK">65</h6>
-                                        <span id="costK" class="text-success small pt-1 fw-bold">RP. 8.000.000.00</span>
+                                        <h6 id="qtyK"></h6>
+                                        <span id="costK" class="text-success small pt-1 fw-bold"></span>
                                     </div>
                                 </div>
                             </div>
@@ -74,8 +72,6 @@
                             <div class="card-body">
                                 <h5 class="card-title">Machining <span>| Amount</span></h5>
 
-                                <input type="hidden" id="machiningLine"
-                                    value="Crankshaft,Cylinder Block,Cylinder Head,Camshaft" name="machiningLine">
                                 <div class="d-flex align-items-center">
                                     <div
                                         class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -83,8 +79,8 @@
                                             width="50px" height="auto">
                                     </div>
                                     <div class="ps-3">
-                                        <h6 id="qtyM">156</h6>
-                                        <span id="costM" class="text-success small pt-1 fw-bold">RP. 2.000.000.00</span>
+                                        <h6 id="qtyM"></h6>
+                                        <span id="costM" class="text-success small pt-1 fw-bold"></span>
                                     </div>
 
                                 </div>
@@ -94,23 +90,22 @@
                     </div><!-- End Machining Card -->
 
                     <!-- Casting Card -->
-                    <div class="col-xxl-3 col-xl-12" id="castingCard">
+                    <div class="col-xxl-3 col-xl-12">
 
-                        <div class="card info-card customers-card">
+                        <div class="card info-card customers-card" id="castingCard">
 
                             <div class="card-body">
                                 <h5 class="card-title">Casting <span>| Amount</span></h5>
 
-                                <input type="hidden" id="castingLine" value="Die Casting" name="castingLine">
                                 <div class="d-flex align-items-center">
                                     <div
                                         class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <img src="<?php echo BASEURL; ?>/img/CB-removebg-preview.gif"
-                                            alt="CB-removebg-preview.gif" width="50px" height="auto">
+                                        <img src="<?php echo BASEURL; ?>/img/casting.gif" alt="casting.gif" width="50px"
+                                            height="auto">
                                     </div>
                                     <div class="ps-3">
-                                        <h6 id="qtyC">886</h6>
-                                        <span id="costC" class="text-success small pt-1 fw-bold">RP. 6.000.000.00</span>
+                                        <h6 id="qtyC"></h6>
+                                        <span id="costC" class="text-success small pt-1 fw-bold"></span>
                                     </div>
                                 </div>
                             </div>
@@ -121,14 +116,13 @@
 
 
                     <!-- others Card -->
-                    <div class="col-xxl-3 col-xl-12" id="castingCard">
+                    <div class="col-xxl-3 col-xl-12">
 
-                        <div class="card info-card others-card">
+                        <div class="card info-card others-card" id="othersCard">
 
                             <div class="card-body">
                                 <h5 class="card-title">Others <span>| Amount</span></h5>
 
-                                <input type="hidden" id="castingLine" value="others" name="castingLine">
                                 <div class="d-flex align-items-center">
                                     <div
                                         class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -136,8 +130,8 @@
                                             height="auto">
                                     </div>
                                     <div class="ps-3">
-                                        <h6 id="qtyX">666</h6>
-                                        <span id="costX" class="text-success small pt-1 fw-bold">RP. 5.000.000.00</span>
+                                        <h6 id="qtyX"><span>Qty: </span></h6>
+                                        <span id="costX" class="text-success small pt-1 fw-bold"></span>
                                     </div>
                                 </div>
                             </div>
@@ -180,8 +174,38 @@
 
                     </div><!-- End Right side columns -->
 
+                    <div class="col-lg-12">
+                        <div class="row card-container">
+
+                        </div>
+                    </div>
+
+                    <!-- Assembly Card 2-->
+                    <!-- <div class="col-xxl-12 col-md-12">
+                        <div class="card amount-card sales-card" id="cardAmount">
+
+                            <div class="card-body">
+                                <h5 class="card-title">Main Line<span> | Amount</span></h5>
+
+                                <div class="d-flex align-items-center">
+                                    <div
+                                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <img src="<?php echo BASEURL; ?>/img/1NR-VE_Engine-removebg-preview.gif"
+                                            alt="1NR-VE_Engine-removebg-preview.gif" width="50px" height="auto">
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6 id="qtyK2"></h6>
+                                        <span id="costK2" class="text-success small pt-1 fw-bold"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div> End Assembly Card 2 -->
+
                 </div>
             </div><!-- End Left side columns -->
+
 
 
 

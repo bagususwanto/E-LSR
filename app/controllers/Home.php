@@ -124,6 +124,12 @@ class Home extends Controller
         echo json_encode($data);
     }
 
+    public function getDataYear()
+    {
+        $data = $this->model('Material_model')->getDataTanggal();
+
+        echo json_encode($data);
+    }
 
 
 

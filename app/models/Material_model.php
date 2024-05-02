@@ -439,6 +439,13 @@ class Material_model
         return $this->db->resultSet();
     }
 
+    public function getDataTanggal()
+    {
+        $this->db->query('SELECT DISTINCT YEAR(tanggal) AS year FROM ' . $this->table);
+        return $this->db->resultSet();
+    }
+
+
 
 
 

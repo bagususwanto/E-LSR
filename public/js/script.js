@@ -13,31 +13,12 @@ $(function () {
     var year2 = 9999;
 
     // Mengonversi ke format "yyyy-MM-dd"
-    var formattedDate =
-      year +
-      "-" +
-      (month < 10 ? "0" : "") +
-      month +
-      "-" +
-      (day < 10 ? "0" : "") +
-      day;
+    var formattedDate = year + "-" + (month < 10 ? "0" : "") + month + "-" + (day < 10 ? "0" : "") + day;
 
-    var formattedDate2 =
-      year2 +
-      "-" +
-      (month < 10 ? "0" : "") +
-      month +
-      "-" +
-      (day < 10 ? "0" : "") +
-      day;
+    var formattedDate2 = year2 + "-" + (month < 10 ? "0" : "") + month + "-" + (day < 10 ? "0" : "") + day;
 
     // Mengonversi ke format "HH:mm"
-    var formattedTime =
-      (hours < 10 ? "0" : "") +
-      hours +
-      ":" +
-      (minutes < 10 ? "0" : "") +
-      minutes;
+    var formattedTime = (hours < 10 ? "0" : "") + hours + ":" + (minutes < 10 ? "0" : "") + minutes;
 
     // Mengatur nilai input tanggal dan waktu
     $("#tanggal").val(formattedDate);
@@ -140,9 +121,7 @@ $(function () {
         const optionValue = data[i][property];
         const dataId = data[i].id;
 
-        $select.append(
-          `<option value="${optionValue}" data-id="${dataId}">${optionValue}</option>`
-        );
+        $select.append(`<option value="${optionValue}" data-id="${dataId}">${optionValue}</option>`);
       }
     }
 
@@ -217,14 +196,7 @@ $(function () {
         const tanggalValue = $("#tanggal").val();
         const lineUser = $("#line").val();
         const costCenter = $("#costCenter").val();
-        RefreshDataSubmitChange(
-          material,
-          tanggalValue,
-          shiftUser,
-          lineUser,
-          lineCode,
-          costCenter
-        );
+        RefreshDataSubmitChange(material, tanggalValue, shiftUser, lineUser, lineCode, costCenter);
 
         addMasterMaterial();
         $("body").loadingModal("hide");
@@ -263,14 +235,7 @@ $(function () {
         const tanggalValue = $("#tanggal").val();
         const lineUser = $("#line").val();
         const lineCode = $("#lineCode").val();
-        RefreshDataSubmitChange(
-          material,
-          tanggalValue,
-          shiftUser,
-          lineUser,
-          lineCode,
-          costCenter
-        );
+        RefreshDataSubmitChange(material, tanggalValue, shiftUser, lineUser, lineCode, costCenter);
 
         addMasterMaterial();
         $("body").loadingModal("hide");
@@ -312,14 +277,7 @@ $(function () {
         const tanggalValue = $("#tanggal").val();
         const lineCode = $("#lineCode").val();
         const costCenter = $("#costCenter").val();
-        RefreshDataSubmitChange(
-          material,
-          tanggalValue,
-          shiftUser,
-          lineUser,
-          lineCode,
-          costCenter
-        );
+        RefreshDataSubmitChange(material, tanggalValue, shiftUser, lineUser, lineCode, costCenter);
 
         getIDnoLsr(validLineValue);
 
@@ -339,14 +297,7 @@ $(function () {
     const lineUser = $("#line").val();
     const lineCode = $("#lineCode").val();
     const costCenter = $("#costCenter").val();
-    RefreshDataSubmitChange(
-      material,
-      tanggalValue,
-      shiftUser,
-      lineUser,
-      lineCode,
-      costCenter
-    );
+    RefreshDataSubmitChange(material, tanggalValue, shiftUser, lineUser, lineCode, costCenter);
     addMasterMaterial();
     $("body").loadingModal("hide");
   });
@@ -362,14 +313,7 @@ $(function () {
     const lineUser = $("#line").val();
     const lineCode = $("#lineCode").val();
     const costCenter = $("#costCenter").val();
-    RefreshDataSubmitChange(
-      material,
-      tanggalValue,
-      shiftUser,
-      lineUser,
-      lineCode,
-      costCenter
-    );
+    RefreshDataSubmitChange(material, tanggalValue, shiftUser, lineUser, lineCode, costCenter);
     $("body").loadingModal("hide");
   });
 
@@ -384,14 +328,7 @@ $(function () {
     const lineUser = $("#line").val();
     const lineCode = $("#lineCode").val();
     const costCenter = $("#costCenter").val();
-    RefreshDataSubmitChange(
-      material,
-      tanggalValue,
-      shiftUser,
-      lineUser,
-      lineCode,
-      costCenter
-    );
+    RefreshDataSubmitChange(material, tanggalValue, shiftUser, lineUser, lineCode, costCenter);
     $("body").loadingModal("hide");
   });
 
@@ -405,25 +342,11 @@ $(function () {
     const lineUser = $("#line").val();
     const lineCode = $("#lineCode").val();
     const costCenter = $("#costCenter").val();
-    RefreshDataSubmitChange(
-      material,
-      tanggalValue,
-      shiftUser,
-      lineUser,
-      lineCode,
-      costCenter
-    );
+    RefreshDataSubmitChange(material, tanggalValue, shiftUser, lineUser, lineCode, costCenter);
     $("body").loadingModal("hide");
   });
 
-  function RefreshDataSubmitChange(
-    material,
-    tanggalValue,
-    shiftUser,
-    lineUser,
-    lineCode,
-    costCenter
-  ) {
+  function RefreshDataSubmitChange(material, tanggalValue, shiftUser, lineUser, lineCode, costCenter) {
     $.ajax({
       url: BASEURL + "/create/getDataTableChange",
       data: {
@@ -518,9 +441,7 @@ $(function () {
 
     // Fungsi untuk menambahkan opsi ke dalam elemen select
     function addOption(selectId, optionValue, dataId) {
-      $(selectId).append(
-        `<option value="${optionValue}" data-id="${dataId}">${optionValue}</option>`
-      );
+      $(selectId).append(`<option value="${optionValue}" data-id="${dataId}">${optionValue}</option>`);
     }
   }
 
@@ -675,11 +596,7 @@ $(function () {
         line_lsr: "<span class='error'>Harap isi field ini.</span>",
       },
       errorPlacement: function (error, element) {
-        if (
-          element.is("input") ||
-          element.is("select") ||
-          element.is("textarea")
-        ) {
+        if (element.is("input") || element.is("select") || element.is("textarea")) {
           error.insertAfter(element);
         } else {
           error.appendTo("#error-messages");
@@ -739,8 +656,7 @@ $(function () {
             $("#noLsr").prop("disabled", true);
             $.toast({
               title: "Pesan sukses",
-              message:
-                "Berhasil menambahkan data dengan No LSR " + $("#noLsr").val(),
+              message: "Berhasil menambahkan data dengan No LSR " + $("#noLsr").val(),
               type: "success",
               duration: 5000,
             });
@@ -937,11 +853,7 @@ $(function () {
         var btns = $(".dt-buttons");
         btns.removeClass("btn-group");
       },
-      dom:
-        "<'row'<'col-6'B><'col-6'f>>" +
-        "<'row'<'col-12't>>" +
-        "<'row'<'col-9'l><'col-3 text-end'i>>" +
-        "<'row'<'col-12 pt-3'p>>",
+      dom: "<'row'<'col-6'B><'col-6'f>>" + "<'row'<'col-12't>>" + "<'row'<'col-9'l><'col-3 text-end'i>>" + "<'row'<'col-12 pt-3'p>>",
       lengthMenu: [
         [10, 25, 50, 100, 500, -1],
         [10, 25, 50, 100, 500, "All"],
@@ -1216,10 +1128,7 @@ $(function () {
       scrollY: "50vh",
       autoWidth: true,
       responsive: true,
-      dom:
-        "<'row'<'col-12't>>" +
-        "<'row'<'col-9'l><'col-3 text-end'i>>" +
-        "<'row'<'col-12 pt-3'p>>",
+      dom: "<'row'<'col-12't>>" + "<'row'<'col-9'l><'col-3 text-end'i>>" + "<'row'<'col-12 pt-3'p>>",
       lengthMenu: [
         [5, 10, 25, 50, 100, -1],
         [5, 10, 25, 50, 100, "All"],
@@ -1246,10 +1155,7 @@ $(function () {
     });
 
     // Mengatur tombol container ke posisi yang sesuai
-    table2
-      .buttons()
-      .container()
-      .appendTo("#tabelData2_wrapper .col-md-6:eq(0)");
+    table2.buttons().container().appendTo("#tabelData2_wrapper .col-md-6:eq(0)");
   });
 
   //====VALIDASI UNTUK USER ROLE======//
@@ -1262,10 +1168,7 @@ $(function () {
 
       const restrictedPage = BASEURL + "/master";
 
-      if (
-        userRole.toLowerCase() === "public" &&
-        window.location.href.includes(restrictedPage)
-      ) {
+      if (userRole.toLowerCase() === "public" && window.location.href.includes(restrictedPage)) {
         alert("Anda tidak diizinkan mengakses halaman master data.");
         window.location.href = BASEURL; // Redirect jika diakses dari halaman terlarang
       }
@@ -1274,10 +1177,7 @@ $(function () {
     // fitur di halaman data validasi
     if (userRoleElement.length > 0 && $("#editSelected").length > 0) {
       const userRole = userRoleElement.val();
-      if (
-        userRole.toLowerCase() === "public" ||
-        userRole.toLowerCase() === "common"
-      ) {
+      if (userRole.toLowerCase() === "public" || userRole.toLowerCase() === "common") {
         $("#editSelected").prop("disabled", true);
         $("#deleteSelected").prop("disabled", true);
         $("#approveSelected").prop("disabled", true);
