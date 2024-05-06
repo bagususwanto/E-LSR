@@ -247,8 +247,11 @@ $(function () {
 
         // EVENT KLIK MENU DASHBOARD DETAIL
         var reponseData = {};
+        var reponseData2 = {};
         response.forEach(function (item) {
           var lineLsr = item.line_lsr;
+          var partNumber = item.part_number;
+          var partName = item.part_name;
           var qty = parseInt(item.qty);
           var totalCost = parseFloat(item.total_price);
 
@@ -261,8 +264,49 @@ $(function () {
               totalCost: totalCost,
             };
           }
+
+          if (reponseData2[lineLsr]) {
+            // Cari apakah partNumber sudah ada dalam array
+            var existingData = reponseData2[lineLsr].find(function (data) {
+              return data.partNumber === partNumber;
+            });
+
+            if (existingData) {
+              // Jika partNumber sudah ada, tambahkan qty dan totalCost
+              existingData.qty += qty;
+              existingData.totalCost += totalCost;
+            } else {
+              // Jika partNumber belum ada, tambahkan data baru ke array
+              reponseData2[lineLsr].push({
+                partNumber: partNumber,
+                partName: partName,
+                qty: qty,
+                totalCost: totalCost,
+                lineLsr: lineLsr,
+              });
+            }
+          } else {
+            // Jika belum ada, inisialisasi array baru untuk lineLsr tersebut
+            reponseData2[lineLsr] = [
+              {
+                partNumber: partNumber,
+                partName: partName,
+                qty: qty,
+                totalCost: totalCost,
+                lineLsr: lineLsr,
+              },
+            ];
+          }
         });
 
+        // Urutkan data berdasarkan totalCost terbanyak
+        Object.keys(reponseData2).forEach(function (lineLsr) {
+          reponseData2[lineLsr].sort(function (a, b) {
+            return b.totalCost - a.totalCost;
+          });
+        });
+
+        console.log(reponseData2);
         var title, imageSource, cardClass;
 
         switch (getCardType()) {
@@ -314,32 +358,76 @@ $(function () {
             console.log("Card type not recognized.");
             return;
         }
+        console.log(reponseData);
 
         var cardContainer = $(".card-container");
         cardContainer.empty(); // Menghapus konten sebelumnya (jika ada)
+
         for (var i = 0; i < title.length; i++) {
-          var cardHTML = `
+          if (reponseData2[title[i]] && reponseData2[title[i]].length > 0) {
+            var cardHTML = `
               <div class="col-xxl-12 col-md-12" id="cardBottom">
                   <div class="card amount-card ${cardClass}">
-                      <div class="card-body">
-                          <h5 class="card-title">${title[i]} <span>| Amount </span></h5>
-                          <div class="d-flex align-items-center">
-                              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                  <img src="${imageSource[i]}" alt="${title[i]}" width="50px" height="auto">
-                              </div>
-                              <div class="ps-3">
-                                  <h6 id="qty${i}">${reponseData[title[i]] ? reponseData[title[i]].qty : 0}</h6>
-                                  <span id="cost${i}" class="text-success small pt-1 fw-bold">${
-            reponseData[title[i]] ? formatCurrency(reponseData[title[i]].totalCost) : "RP. 0.00"
-          }</span>
+                      <div class="card-body row">
+                          <div class="col-lg-3">
+                              <h5 class="card-title">${title[i]} <span>| Amount </span></h5>
+                              <div class="d-flex align-items-center">
+                                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                      <img src="${imageSource[i]}" alt="${title[i]}" width="50px" height="auto">
+                                  </div>
+                                  <div class="ps-3">
+                                      <h6 id="qty${i}">${reponseData[title[i]] ? reponseData[title[i]].qty : 0}</h6>
+                                      <span id="cost${i}" class="text-success small pt-1 fw-bold">${
+              reponseData[title[i]] ? formatCurrency(reponseData[title[i]].totalCost) : "RP. 0.00"
+            }</span>
+                                  </div>
                               </div>
                           </div>
-                      </div>
-                  </div>
-              </div>
+                          <div class="col-lg-8">
+                              <h5 class="card-title text-center">Top 5 Transaction</h5>
+                              <table class="table table-borderless text-center table-responsive">
+                                  <thead>
+                                      <tr class="fw-bold">
+                                          <th scope="col">#</th>
+                                          <th scope="col">Part Number</th>
+                                          <th scope="col">Part Name</th>
+                                          <th scope="col">Qty</th>
+                                          <th scope="col">Cost</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
           `;
 
-          cardContainer.append(cardHTML); // Menambahkan kartu ke dalam container
+            // Menambahkan baris-baris data ke dalam tabel dengan batasan maksimum 5 baris
+            var rowCount = 0;
+            if (reponseData2[title[i]]) {
+              reponseData2[title[i]].forEach(function (item, index) {
+                if (rowCount < 5) {
+                  cardHTML += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.partNumber}</td>
+                        <td>${item.partName}</td>
+                        <td class="fw-bold">${item.qty}</td>
+                        <td class="text-success fw-bold">${formatCurrency(item.totalCost)}</td>
+                    </tr>
+                `;
+                  rowCount++;
+                }
+              });
+            }
+
+            cardHTML += `
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+            cardContainer.append(cardHTML); // Menambahkan kartu ke dalam container
+          }
         }
       },
       error: function (error) {
