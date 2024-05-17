@@ -16,12 +16,12 @@
                 <!-- columns center top -->
                 <div class="row">
                     <div class="col-12">
-                        <div class="card bg-transparent"> <!--Card Create LSR-->
-                            <div class="card-header bg-transparent mb-3">
+                        <div class="card"> <!--Card Create LSR-->
+                            <div class="card-header mb-3">
                                 Search
                             </div>
 
-                            <FORM id="searchForm">
+                            <form id="searchForm">
                                 <div class="row card-body pb-0">
                                     <div class="col-2">
                                         <label for="tanggal" class="form-label col-form-label-sm">Date From</label>
@@ -88,7 +88,7 @@
                                             </div>
                                         </div>
                                     </div>
-                            </FORM>
+                            </form>
                         </div>
                     </div>
 
@@ -299,11 +299,11 @@
                     <div class="row">
                         <div class="col">
 
-                            <div class="col card bg-transparent pt-3">
-                                <div class="card-header bg-transparent mb-3">
+                            <div class="col card pt-3">
+                                <div class="card-header mb-3">
                                     Data Table
                                 </div>
-                                <div class="row card-body bg-transparent pb-0">
+                                <div class="row card-body pb-0">
                                     <table id="tabelData"
                                         class="display nowrap table-sm table-bordered text-center table-striped"
                                         style="width: 100%;">
@@ -315,7 +315,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="card-footer bg-transparent mt-4"></div>
+                                <div class="card-footer mt-4"></div>
                             </div>
                         </div>
                     </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2024 at 11:41 PM
+-- Generation Time: May 06, 2024 at 11:41 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -57,124 +57,33 @@ CREATE TABLE `data_lsr` (
 --
 
 INSERT INTO `data_lsr` (`id`, `no_lsr`, `part_number`, `part_name`, `uniqe_no`, `qty`, `reason`, `condition`, `repair`, `source_type`, `remarks`, `material`, `tanggal`, `waktu`, `line_lsr`, `shift`, `user_lsr`, `line_code`, `cost_center`, `status_lsr`, `price`, `total_price`) VALUES
-(3, '', '13512-0Y050-00', 'CAMSHAFT NO. 2', 'D011', 3, 'P', 'P', 'P', 1, 'tes2', 'Camshaft', '2024-01-10', '11:03:00', 'Camshaft', 'Red', 'sujarwo.ca', 'MCA', 'AQM400', '1', 0.00, 0.00),
-(8, '', '13511-0Y050-00', 'CAMSHAFT NO. 1', 'D010', 3, 'D', '1', '1', 1, 'dfgdfgh', 'Camshaft', '2024-01-13', '21:31:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', '1', 0.00, 0.00),
-(16, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'G', '1', '0', 1, 'gfhghfdh', 'Die Casting', '2024-01-16', '17:37:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'approved', 0.00, 0.00),
-(28, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 2, 'Z', '-', '0', 1, 'dfdf', 'Die Casting', '2024-01-19', '03:43:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'approved', 0.00, 0.00),
-(29, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'B', '-', '0', 1, 'sdfsf', 'Die Casting', '2024-01-19', '03:48:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'approved', 0.00, 0.00),
-(30, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 34, 'Z', '-', '0', 1, 'dfdf', 'Die Casting', '2024-01-19', '03:52:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'approved', 0.00, 0.00),
-(33, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'B. Wrong ( Shortage )', '- Unknow', '0. Unrepairable', 1, 'rgdgfg', 'Die Casting', '2024-01-20', '00:41:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(34, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'A. Shortage / Missing', '- Unknow', '0. Unrepairable', 1, 'sdfsdfsdf', 'Die Casting', '2024-01-20', '00:42:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(38, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 24, 'A. Shortage / Missing', '- Unknow', '0. Unrepairable', 1, 'dfghfdgf', 'Die Casting', '2024-01-20', '22:39:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(39, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'G. Rusted', '2. Damage', '1. Plant Repair', 1, 'yyyu', 'Die Casting', '2024-01-20', '23:26:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(40, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'F. Damage Handling', '2. Damage', '0. Unrepairable', 1, 'hrhrh', 'Die Casting', '2024-01-20', '23:28:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(43, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'E. Wrong ( Surplus )', '3. From TMMIN Unpacking', '6. Unrepairable caused by other parts', 1, 'yyy', 'Die Casting', '2024-01-21', '00:37:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'approved', 0.00, 0.00),
-(44, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 24, 'C. Surplus', '2. Damage', '6. Unrepairable caused by other parts', 1, 'sfsfs', 'Die Casting', '2024-01-21', '16:20:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'approved', 0.00, 0.00),
-(45, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 24, 'F. Damage Handling', '1. Good', '1. Plant Repair', 1, 'hhh', 'Die Casting', '2024-01-21', '19:22:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'approved', 0.00, 0.00),
-(46, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 3, 'C. Surplus', '1. Good', '0. Unrepairable', 1, 'xvffsddf', 'Die Casting', '2024-01-22', '15:41:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(47, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 2, 'D. Damage Origin', '1. Good', '0. Unrepairable', 1, 'dfgfgdf', 'Die Casting', '2024-01-22', '15:41:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(48, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 4, 'C. Surplus', '1. Good', '0. Unrepairable', 1, 'dfgdf', 'Die Casting', '2024-01-22', '15:42:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(49, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 45, 'B. Wrong ( Shortage )', '1. Good', '1. Plant Repair', 1, 'fbgnhn', 'Die Casting', '2024-01-22', '15:44:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(50, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 3, 'B. Wrong ( Shortage )', '- Unknow', '1. Plant Repair', 1, 'dsfgsdgsd', 'Die Casting', '2024-01-22', '15:44:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(51, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 4, 'H. Dented', '- Unknow', '1. Plant Repair', 1, 'asdsad', 'Die Casting', '2024-01-22', '15:48:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(52, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 0, 'A. Shortage / Missing', '1. Good', '0. Unrepairable', 1, 'dfdsfgd', 'Die Casting', '2024-01-22', '15:48:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(53, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 23, 'A. Shortage / Missing', '1. Good', '0. Unrepairable', 1, 'dfdsfgd', 'Die Casting', '2024-01-22', '15:48:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(54, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'A. Shortage / Missing', '1. Good', '1. Plant Repair', 1, 'fsf', 'Die Casting', '2024-01-22', '15:48:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(55, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 3, 'A. Shortage / Missing', '1. Good', '1. Plant Repair', 1, 'rgreg', 'Die Casting', '2024-01-22', '15:49:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(56, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 23, 'F. Damage Handling', '1. Good', '0. Unrepairable', 1, 'dfgfdg', 'Die Casting', '2024-01-22', '15:53:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(57, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 23, 'B. Wrong ( Shortage )', '1. Good', '1. Plant Repair', 1, 'dffdf', 'Die Casting', '2024-01-22', '15:54:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(58, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'G. Rusted', '- Unknow', '0. Unrepairable', 1, 'dxvffdsf', 'Die Casting', '2024-01-22', '15:56:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(59, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'A. Shortage / Missing', '1. Good', '0. Unrepairable', 1, 'dfsdf', 'Die Casting', '2024-01-22', '16:02:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(60, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'Z. Other', '- Unknow', '1. Plant Repair', 1, 'dsfsdf', 'Die Casting', '2024-01-22', '16:03:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(61, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'Z. Other', '- Unknow', '1. Plant Repair', 1, 'sdfdsfs', 'Die Casting', '2024-01-22', '16:04:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(62, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'I. Wet', '- Unknow', '0. Unrepairable', 1, 'sdfsdf', 'Die Casting', '2024-01-22', '16:05:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(63, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'H. Dented', '- Unknow', '0. Unrepairable', 1, 'dsfds', 'Die Casting', '2024-01-22', '16:14:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(64, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 2, 'D. Damage Origin', '2. Damage', '6. Unrepairable caused by other parts', 1, 'dsg', 'Die Casting', '2024-01-22', '16:14:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(65, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 34, 'B. Wrong ( Shortage )', '1. Good', '1. Plant Repair', 1, 'nmbmnm', 'Die Casting', '2024-01-22', '16:14:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(66, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'G. Rusted', '1. Good', '0. Unrepairable', 1, 'sdsds', 'Die Casting', '2024-01-22', '17:05:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(67, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 1, 'B. Wrong ( Shortage )', '1. Good', '1. Plant Repair', 1, 'eerr', 'Die Casting', '2024-01-22', '17:06:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(68, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 11, 'A. Shortage / Missing', '1. Good', '1. Plant Repair', 1, 'SDFSD', 'Die Casting', '2024-01-22', '17:21:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(69, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'B. Wrong ( Shortage )', '2. Damage', '1. Plant Repair', 1, 'sxdsf', 'Die Casting', '2024-01-25', '10:30:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(71, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 23, 'B. Wrong ( Shortage )', '- Unknow', '1. Plant Repair', 1, 'sdfsdfs', 'Die Casting', '2024-01-28', '14:52:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(87, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 23, 'I. Wet', '- Unknow', '0. Unrepairable', 1, 'edsf', 'Die Casting', '2024-01-30', '03:51:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 0.00, 0.00),
-(103, '', '13511-0Y050-00', 'CAMSHAFT NO. 1', 'D010', 0, '', '', '', 1, '', 'Camshaft', '2024-01-31', '05:22:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 0.00, 0.00),
-(104, '', '13511-0Y050-00', 'CAMSHAFT NO. 1', 'D010', 0, '', '', '', 1, '', 'Camshaft', '2024-01-31', '05:23:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 0.00, 0.00),
-(105, '', '13511-0Y050-00', 'CAMSHAFT NO. 1', 'D010', 0, '', '', '', 1, '', 'Camshaft', '2024-01-31', '05:23:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 0.00, 0.00),
-(106, '', '13511-0Y050-00', 'CAMSHAFT NO. 1', 'D010', 23, 'B. Wrong ( Shortage )', '1. Good', '1. Plant Repair', 1, 'sfsfs', 'Camshaft', '2024-01-31', '18:37:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 0.00, 0.00),
-(107, '', '13511-0Y050-00', 'CAMSHAFT NO. 1', 'D010', 23, 'B. Wrong ( Shortage )', '1. Good', '1. Plant Repair', 1, 'sfsfs', 'Camshaft', '2024-01-31', '18:37:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 0.00, 0.00),
-(108, '', '13511-0Y050-00', 'CAMSHAFT NO. 1', 'D010', 12, 'A. Shortage / Missing', '- Unknow', '0. Unrepairable', 1, 'sdsds', 'Camshaft', '2024-01-31', '22:57:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 0.00, 0.00),
-(109, '', '13502-0Y050-00', 'CAMSHAFT SUB-ASSY. NO.2 (Finish NR EX)', 'CAEX', 22, 'C. Surplus', '1. Good', '0. Unrepairable', 3, 'sdfs', 'Camshaft', '2024-01-31', '22:57:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 0.00, 0.00),
-(110, '', '13511-0Y050-00', 'CAMSHAFT NO. 1', 'D010', 22, 'B. Wrong ( Shortage )', '1. Good', '0. Unrepairable', 1, 'sddfsf', 'Camshaft', '2024-02-01', '01:00:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 300000.00, 0.00),
-(111, '', '13511-0Y050-00', 'CAMSHAFT NO. 1', 'D010', 23, 'C. Surplus', '2. Damage', '1. Plant Repair', 1, 'sfsf', 'Camshaft', '2024-02-01', '01:07:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 300000.00, 6900000.00),
-(112, '', '13540-0Y010-00', 'TENSIONER ASSY, CHAIN', 'S102', 32, 'B. Wrong ( Shortage )', '3. From TMMIN Unpacking', '1. Plant Repair', 4, 'sfsfs', 'Assembly', '2024-02-01', '23:47:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 70887.00, 2268384.00),
-(113, '', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 12, 'D. Damage Origin', '2. Damage', '6. Unrepairable caused by other parts', 4, 'xcvcxv', 'Assembly', '2024-02-02', '04:59:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 5383.00, 64596.00),
-(114, '', '15301-0Y010-00', 'GAGE SUB-ASSY, OIL LEVEL                ', 'D189', 22, 'C. Surplus', '1. Good', '0. Unrepairable', 1, 'sfsdf', 'Assembly', '2024-02-02', '05:33:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 8600.00, 189200.00),
-(115, '', '15678-0Y010-00', 'FILTER, OIL CONTROL VALVE', 'S108', 60, 'C. Surplus', '1. Good', '0. Unrepairable', 4, 'jbgjhgj', 'Assembly', '2024-02-02', '05:33:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 8822.00, 529320.00),
-(116, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'B. Wrong ( Shortage )', '1. Good', '1. Plant Repair', 1, 'sadfsa', 'Die Casting', '2024-02-03', '00:40:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 35740.00, 428880.00),
-(117, '', '13506-0Y040-00', 'CHAIN SUB-ASSY', 'S101', 46, 'B. Wrong ( Shortage )', '- Unknow', '1. Plant Repair', 4, 'sdsdsd', 'Assembly', '2024-02-03', '03:02:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 117248.00, 5393408.00),
-(118, '', '13566-0Y010-00', 'GUIDE, TIMING CHAIN', 'S104', 23, 'I. Wet', '- Unknow', '0. Unrepairable', 4, 'edfesf', 'Assembly', '2024-02-07', '11:29:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 28116.00, 646668.00),
-(120, '', '90406-T0009-00', 'TUBE, UNION', 'S506', 22, 'C. Surplus', '2. Damage', '1. Plant Repair', 4, 'dfdf', 'Assembly', '2024-02-12', '23:34:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'approved', 7778.00, 171116.00),
-(126, '', '13562-0Y020-00', 'DAMPER, CHAIN VIBRATION, NO.2', 'S103', 33, 'C. Surplus', '1. Good', '0. Unrepairable', 4, 'dgdg', 'Assembly', '2024-02-12', '04:40:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 14656.00, 483648.00),
-(127, '', '13566-0Y010-00', 'GUIDE, TIMING CHAIN', 'S104', 44, 'C. Surplus', '2. Damage', '0. Unrepairable', 4, 'fdgdfg', 'Assembly', '2024-02-13', '04:45:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 28116.00, 1237104.00),
-(129, '', '16031-0Y030-00', 'INLET SUB-ASSY, WATER W/THERMOSTAT', 'U400', 24, 'B. Wrong ( Shortage )', '- Unknow', '0. Unrepairable', 4, 'xgfg', 'Assembly', '2024-02-14', '00:50:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 91826.00, 2203824.00),
-(130, '', '82715-5C360-00', 'BRACKET, WIRING HARNESS CLAMP           ', 'T110', 34, 'A. Shortage / Missing', '1. Good', '1. Plant Repair', 2, 'dfgfdg', 'Assembly', '2024-02-17', '00:37:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'approved', 26607.00, 904638.00),
-(131, '', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 22, 'F. Damage Handling', '- Unknow', '0. Unrepairable', 4, 'sdsf', 'Assembly', '2024-02-17', '00:57:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 5383.00, 118426.00),
-(132, '', '16325-BZ050-00', 'GASKET, WATER INLET HOUSING', 'S503', 24, 'C. Surplus', '1. Good', '1. Plant Repair', 4, 'sdsdsd', 'Assembly', '2024-02-17', '01:20:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 5981.00, 143544.00),
-(133, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 33, 'B. Wrong ( Shortage )', '1. Good', '0. Unrepairable', 1, 'ssfdf', 'Die Casting', '2024-02-17', '04:54:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 35740.00, 1179420.00),
-(134, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 33, 'A. Shortage / Missing', '1. Good', '1. Plant Repair', 1, 'sdsd', 'Die Casting', '2024-02-17', '04:55:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 35740.00, 1179420.00),
-(136, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 22, 'B. Wrong ( Shortage )', '2. Damage', '6. Unrepairable caused by other parts', 1, 'dssdf', 'Die Casting', '2024-02-18', '16:31:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 35740.00, 786280.00),
-(137, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 23, 'F. Damage Handling', '- Unknow', '1. Plant Repair', 1, 'sdsd', 'Die Casting', '2024-02-18', '16:48:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 35740.00, 822020.00),
-(138, '', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 24, 'C. Surplus', '1. Good', '1. Plant Repair', 4, 'dfd', 'Assembly', '2024-02-18', '17:05:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 5383.00, 129192.00),
-(139, '', '90253-11004-00', 'PIN, RING', 'T123', 44, 'B. Wrong ( Shortage )', '1. Good', '6. Unrepairable caused by other parts', 2, 'dfd', 'Assembly', '2024-02-18', '17:06:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 1345.00, 59180.00),
-(140, '', '13511-0Y050-00', 'CAMSHAFT NO. 1', 'D010', 24, 'G. Rusted', '1. Good', '0. Unrepairable', 1, 'xcxc', 'Camshaft', '2024-02-18', '17:10:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 81220.00, 1949280.00),
-(141, '', '13511-0Y050-00', 'CAMSHAFT NO. 1', 'D010', 33, 'C. Surplus', '3. From TMMIN Unpacking', '6. Unrepairable caused by other parts', 1, 'dfdf', 'Camshaft', '2024-02-18', '17:21:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 81220.00, 2680260.00),
-(142, '', '13511-0Y050-00', 'CAMSHAFT NO. 1', 'D010', 2, 'B. Wrong ( Shortage )', '2. Damage', '0. Unrepairable', 1, 'vfdf', 'Camshaft', '2024-02-18', '17:22:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 81220.00, 162440.00),
-(143, '', '13511-0Y050-00', 'CAMSHAFT NO. 1', 'D010', 2, 'B. Wrong ( Shortage )', '2. Damage', '1. Plant Repair', 1, 'dad', 'Camshaft', '2024-02-18', '17:31:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 81220.00, 162440.00),
-(144, '', '13511-0Y050-00', 'CAMSHAFT NO. 1', 'D010', 33, 'C. Surplus', '- Unknow', '1. Plant Repair', 1, 'ss', 'Camshaft', '2024-02-18', '17:31:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 81220.00, 2680260.00),
-(145, '', '13511-0Y050-00', 'CAMSHAFT NO. 1', 'D010', 6, 'C. Surplus', '2. Damage', '1. Plant Repair', 1, 'safs', 'Camshaft', '2024-02-18', '17:37:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 81220.00, 487320.00),
-(146, '', '13511-0Y050-00', 'CAMSHAFT NO. 1', 'D010', 2, 'H. Dented', '- Unknow', '0. Unrepairable', 1, 'sdsd', 'Camshaft', '2024-02-18', '17:38:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 81220.00, 162440.00),
-(147, '', '13502-0Y050-00', 'CAMSHAFT SUB-ASSY, NO.2 (Finish NR EX)', 'CAEX', 4, 'C. Surplus', '1. Good', '1. Plant Repair', 3, 'dfdf', 'Camshaft', '2024-02-18', '17:51:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 83206.00, 332824.00),
-(148, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 22, 'H. Dented', '- Unknow', '0. Unrepairable', 1, 'sfsf', 'Die Casting', '2024-02-18', '17:53:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 35740.00, 786280.00),
-(149, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'A. Shortage / Missing', '- Unknow', '0. Unrepairable', 1, 'sdsd', 'Die Casting', '2024-02-18', '18:01:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 35740.00, 428880.00),
-(150, '', '13566-0Y010-00', 'GUIDE, TIMING CHAIN', 'S104', 6, 'D. Damage Origin', '1. Good', '1. Plant Repair', 4, 'feddf', 'Assembly', '2024-02-18', '18:02:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 28116.00, 168696.00),
-(151, '', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 8, 'B. Wrong ( Shortage )', '2. Damage', '1. Plant Repair', 1, 'sds', 'Die Casting', '2024-02-18', '18:04:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 35740.00, 285920.00),
-(152, '', '11411-BZ180-00', 'BLOCK, CYLINDER (Finish Casting NH)', 'CBNH', 44, 'H. Dented', '- Unknow', '0. Unrepairable', 3, 'dfd', 'Die Casting', '2024-02-18', '18:25:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 142960.00, 6290240.00),
-(153, '', '11411-BZ180-00', 'BLOCK, CYLINDER (Finish Casting NH)', 'CBNH', 3, 'B. Wrong ( Shortage )', '1. Good', '0. Unrepairable', 3, 'dfdf', 'Die Casting', '2024-02-18', '18:25:00', 'Die Casting', 'Red', 'Die Casting', 'CDC', 'AQC100', 'pending', 142960.00, 428880.00),
-(154, '', '16303-BZ040-00', 'HOUSING SUB-ASSY, WATER OUTLET', 'S502', 5, 'B. Wrong ( Shortage )', '1. Good', '6. Unrepairable caused by other parts', 4, 'cvcv', 'Assembly', '2024-02-18', '18:28:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 75972.00, 379860.00),
-(155, '', '90126-T0019-00', 'STUD, HEXALOBULAR', 'S123', 4, 'C. Surplus', '2. Damage', '1. Plant Repair', 4, 'scxc', 'Assembly', '2024-02-18', '18:38:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 1496.00, 5984.00),
-(156, '', '90915-TA001-00', 'FILTER, OIL', 'S119', 3, 'G. Rusted', '- Unknow', '0. Unrepairable', 4, 'sdsd', 'Assembly', '2024-02-18', '18:39:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 27218.00, 81654.00),
-(157, '', '16581-47020-00', 'CLAMP, HOSE', 'T103', 4, 'C. Surplus', '2. Damage', '1. Plant Repair', 2, 'xccx', 'Assembly', '2024-02-18', '18:43:00', 'Sub Line', 'Red', 'CCR & Oredering', 'KSL', 'AQK100', 'pending', 2980.00, 11920.00),
-(158, '', '83530-60020-00', 'SWITCH ASSY, OIL PRESSURE               ', 'T112', 3, 'D. Damage Origin', '1. Good', '1. Plant Repair', 2, 'dfdf', 'Assembly', '2024-02-18', '18:46:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 44395.00, 133185.00),
-(159, '', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 3, 'C. Surplus', '1. Good', '0. Unrepairable', 4, 'sfs', 'Assembly', '2024-02-18', '18:47:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 5383.00, 16149.00),
-(160, '', '13562-0Y020-00', 'DAMPER, CHAIN VIBRATION, NO.2', 'S103', 4, 'C. Surplus', '1. Good', '1. Plant Repair', 4, 'fsfds', 'Assembly', '2024-02-18', '18:49:00', 'Sub Line', 'Red', 'CCR & Oredering', 'KSL', 'AQK100', 'pending', 14656.00, 58624.00),
-(161, '', '13591-0Y010-00', 'ARM, TIMING CHAIN TENSION', 'S105', 3, 'B. Wrong ( Shortage )', '1. Good', '0. Unrepairable', 4, 'zxxz', 'Assembly', '2024-02-18', '18:49:00', 'Sub Line', 'Red', 'CCR & Oredering', 'KSL', 'AQK100', 'pending', 37538.00, 112614.00),
-(162, '', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 5, 'C. Surplus', '2. Damage', '1. Plant Repair', 4, 'cxc', 'Assembly', '2024-02-18', '18:50:00', 'Sub Line', 'Red', 'CCR & Oredering', 'KSL', 'AQK100', 'pending', 5383.00, 26915.00),
-(163, '', '90126-T0019-00', 'STUD, HEXALOBULAR', 'S123', 10, 'G. Rusted', '1. Good', '0. Unrepairable', 4, 'dfdf', 'Assembly', '2024-02-21', '12:36:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 1496.00, 14960.00),
-(164, '', '90919-01290-00', 'PLUG, SPARK', 'T131', 6, 'F. Damage Handling', '1. Good', '0. Unrepairable', 2, 'sdsds', 'Assembly', '2024-02-21', '16:42:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 9117.00, 54702.00),
-(165, '', '83530-60020-00', 'SWITCH ASSY, OIL PRESSURE               ', 'T112', 22, 'A. Shortage / Missing', '- Unknow', '0. Unrepairable', 2, 'sfsdf', 'Assembly', '2024-03-15', '01:56:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 44395.00, 976690.00),
-(166, '', '16031-0Y010-00', 'INLET SUB-ASSY, WATER W/THERMOSTAT', 'U100', 10, 'C. Surplus', '1. Good', '0. Unrepairable', 4, 'zczcz', 'Assembly', '2024-03-21', '14:15:00', 'Main Line', 'Red', 'CCR & Oredering', 'KML', 'AQK200', 'pending', 89582.00, 895820.00),
-(167, 'M000002', '13502-0Y050-00', 'CAMSHAFT SUB-ASSY, NO.2 (Finish NR EX)', 'CAEX', 5, 'C. Surplus', '1. Good', '1. Plant Repair', 3, 'zxzx', 'Camshaft', '2024-03-22', '15:35:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 83206.00, 416030.00),
-(168, 'M000002', '13511-0Y050-00', 'CAMSHAFT NO. 1', 'D010', 23, 'C. Surplus', '1. Good', '0. Unrepairable', 1, 'sdsd', 'Camshaft', '2024-03-22', '15:43:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 81220.00, 1868060.00),
-(169, 'M000002', '13511-0Y050-00', 'CAMSHAFT NO. 1', 'D010', 33, 'B. Wrong ( Shortage )', '2. Damage', '1. Plant Repair', 1, 'xcxc', 'Camshaft', '2024-03-22', '15:43:00', 'Camshaft', 'Red', 'Camshaft', 'MCA', 'AQM400', 'pending', 81220.00, 2680260.00),
-(177, 'K000001', '90344-53008-00', 'PLUG, TAPER SCREW', 'T126', 22, 'I. Wet', '- Unknow', '0. Unrepairable', 2, 'sdsd', 'Assembly', '2024-03-26', '02:48:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 2989.00, 65758.00),
-(182, 'K000001', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 7, 'G. Rusted', '2. Damage', '0. Unrepairable', 4, 'sdsd', 'Assembly', '2024-03-26', '05:22:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 5383.00, 37681.00),
-(183, 'K000001', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 2, 'D. Damage Origin', '- Unknow', '0. Unrepairable', 4, 'adadaad', 'Assembly', '2024-03-26', '05:44:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 5383.00, 10766.00),
-(184, 'K000001', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 2, 'C. Surplus', '- Unknow', '1. Plant Repair', 4, 'dfdf', 'Assembly', '2024-03-26', '05:45:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 5383.00, 10766.00),
-(185, 'K000001', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 2, 'B. Wrong ( Shortage )', '2. Damage', '1. Plant Repair', 4, 'ssss', 'Assembly', '2024-03-26', '05:47:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 5383.00, 10766.00),
-(186, 'K000001', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 2, 'F. Damage Handling', '1. Good', '6. Unrepairable caused by other parts', 4, 'xx', 'Assembly', '2024-03-26', '05:49:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 5383.00, 10766.00),
-(187, 'K000001', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 2, 'H. Dented', '- Unknow', '0. Unrepairable', 4, 'ff', 'Assembly', '2024-03-26', '05:52:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 5383.00, 10766.00),
-(188, 'K000001', '89615-20090-00', 'SENSOR, KNOCK CONTROL                   ', 'T115', 22, 'C. Surplus', '3. From TMMIN Unpacking', '1. Plant Repair', 2, 'sdsds', 'Assembly', '2024-03-26', '06:06:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 54710.00, 1203620.00),
-(189, 'K000001', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 23, 'B. Wrong ( Shortage )', '- Unknow', '0. Unrepairable', 4, 'sdsd', 'Assembly', '2024-03-27', '02:13:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 5383.00, 123809.00),
-(190, 'M000001', '13411-0Y180-00', 'CRANKSHAFT,1NR', 'D009', 22, 'F. Damage Handling', '1. Good', '0. Unrepairable', 1, 'dsfsdf', 'Crankshaft', '2024-03-27', '02:21:00', 'Crankshaft', 'Red', 'bagus', 'MCR', 'AQM400', 'pending', 331410.00, 7291020.00),
-(191, 'C000001', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 33, 'B. Wrong ( Shortage )', '- Unknow', '0. Unrepairable', 1, 'dfdf', 'Die Casting', '2024-03-27', '02:22:00', 'Die Casting', 'Red', 'bagus', 'CDC', 'AQC100', 'pending', 35740.00, 1179420.00),
-(192, 'K000002', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 23, 'B. Wrong ( Shortage )', '- Unknow', '0. Unrepairable', 4, 'dfdf', 'Assembly', '2024-03-27', '03:31:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 5383.00, 123809.00),
-(193, 'K000002', '90126-T0012-00', 'STUD, HEXALOBULAR', 'S122', 23, 'C. Surplus', '- Unknow', '0. Unrepairable', 4, 'dfdf', 'Assembly', '2024-03-27', '03:33:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 448.00, 10304.00),
-(194, 'C000002', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 24, 'G. Rusted', '- Unknow', '0. Unrepairable', 1, 'dfdf', 'Die Casting', '2024-03-27', '03:34:00', 'Die Casting', 'Red', 'bagus', 'CDC', 'AQC100', 'pending', 35740.00, 857760.00),
-(195, 'K000003', '90919-T5002-00', 'SENSOR, CRANK POSITION', 'U102', 3, 'C. Surplus', '1. Good', '0. Unrepairable', 4, 'tt', 'Assembly', '2024-03-27', '03:42:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 42472.00, 127416.00),
-(196, 'M000002', '11411-0Y060-00', 'BLOCK, CYLINDER (Casting NR)', 'CBDC', 4, 'F. Damage Handling', '3. From TMMIN Unpacking', '6. Unrepairable caused by other parts', 3, 'sdsd', 'Cylinder Block', '2024-03-27', '03:51:00', 'Cylinder Block', 'Red', 'bagus', 'MCB', 'AQM100', 'pending', 788787.00, 3155148.00),
-(197, 'M000003', '11111-0Y050-00', 'HEAD, CYLINDER (Casting LP)', 'CHLP', 4, 'G. Rusted', '- Unknow', '0. Unrepairable', 3, 'ssss', 'Cylinder Head', '2024-03-27', '03:57:00', 'Cylinder Head', 'Red', 'bagus', 'MCH', 'AQM200', 'pending', 458958.00, 1835832.00),
-(198, 'X000001', '82715-12P80-00', 'BRACKET, WIRING HARNESS CLAMP           ', 'T109', 5, 'B. Wrong ( Shortage )', '- Unknow', '0. Unrepairable', 2, 'ffgfgf', 'Assembly', '2024-03-27', '05:07:00', 'Quality', 'Red', 'bagus', 'QC', 'AWM300', 'pending', 3737.00, 18685.00),
-(199, 'C000003', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 5, 'C. Surplus', '1. Good', '0. Unrepairable', 1, 'aaaa', 'Die Casting', '2024-03-27', '05:08:00', 'Die Casting', 'Red', 'murtala', 'CDC', 'AQC100', 'pending', 35740.00, 178700.00);
+(1, 'K000001', '90201-06047-00', 'WASHER, PLATE', 'T120', 12, 'C. Surplus', '1. Good', '0. Unrepairable', 2, 'ccc', 'Assembly', '2024-03-28', '23:30:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 1943.00, 23316.00),
+(2, 'K000001', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 2, 'B. Wrong ( Shortage )', '1. Good', '0. Unrepairable', 4, 'ddd', 'Assembly', '2024-03-28', '23:54:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 5383.00, 10766.00),
+(3, 'K000001', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 2, 'I. Wet', '- Unknow', '0. Unrepairable', 4, 'sss', 'Assembly', '2024-03-28', '23:54:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 5383.00, 10766.00),
+(4, 'K000001', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 2, 'C. Surplus', '2. Damage', '0. Unrepairable', 4, 'ww', 'Assembly', '2024-03-28', '00:32:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 5383.00, 10766.00),
+(5, 'K000001', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 1, 'G. Rusted', '- Unknow', '0. Unrepairable', 4, 'ddd', 'Assembly', '2024-03-29', '00:38:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 5383.00, 5383.00),
+(6, 'K000001', '90250-T0018-00', 'PIN, STRAIGHT', 'S114', 2, 'H. Dented', '1. Good', '0. Unrepairable', 4, 'xxx', 'Assembly', '2024-03-29', '00:38:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 597.00, 1194.00),
+(7, 'K000001', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 2, 'H. Dented', '- Unknow', '0. Unrepairable', 4, 'ddd', 'Assembly', '2024-03-29', '00:47:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 5383.00, 10766.00),
+(8, 'K000001', '90250-T0019-00', 'PIN, STRAIGHT', 'S115', 3, 'G. Rusted', '- Unknow', '0. Unrepairable', 4, 'ddd', 'Assembly', '2024-03-29', '00:47:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 1645.00, 4935.00),
+(9, 'K000002', '83530-60020-00', 'SWITCH ASSY, OIL PRESSURE               ', 'T112', 3, 'H. Dented', '- Unknow', '0. Unrepairable', 2, 'ddd', 'Assembly', '2024-03-29', '00:50:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 44395.00, 133185.00),
+(10, 'C000001', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 23, 'H. Dented', '2. Damage', '1. Plant Repair', 1, 'ddd', 'Die Casting', '2024-03-29', '00:50:00', 'Die Casting', 'Red', 'murtala', 'CDC', 'AQC100', 'pending', 35740.00, 822020.00),
+(11, 'C000002', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 24, 'G. Rusted', '1. Good', '0. Unrepairable', 1, 'dd', 'Die Casting', '2024-03-29', '00:51:00', 'Die Casting', 'Red', 'murtala', 'CDC', 'AQC100', 'pending', 35740.00, 857760.00),
+(12, 'C000003', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 2, 'D. Damage Origin', '1. Good', '1. Plant Repair', 1, 'eee', 'Die Casting', '2024-03-29', '00:53:00', 'Die Casting', 'Red', 'murtala', 'CDC', 'AQC100', 'pending', 35740.00, 71480.00),
+(13, 'C000004', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 3, 'F. Damage Handling', '- Unknow', '0. Unrepairable', 1, 'dd', 'Die Casting', '2024-03-29', '00:53:00', 'Die Casting', 'Red', 'murtala', 'CDC', 'AQC100', 'pending', 35740.00, 107220.00),
+(14, 'C000005', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 2, 'C. Surplus', '1. Good', '1. Plant Repair', 1, 'ss', 'Die Casting', '2024-03-29', '00:55:00', 'Die Casting', 'Red', 'murtala', 'CDC', 'AQC100', 'pending', 35740.00, 71480.00),
+(15, 'C000006', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 2, 'B. Wrong ( Shortage )', '- Unknow', '0. Unrepairable', 1, 'fff', 'Die Casting', '2024-03-29', '02:06:00', 'Die Casting', 'Red', 'murtala', 'CDC', 'AQC100', 'pending', 35740.00, 71480.00),
+(16, 'C000007', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 3, 'D. Damage Origin', '1. Good', '1. Plant Repair', 1, 'vvv', 'Die Casting', '2024-03-29', '02:08:00', 'Die Casting', 'Red', 'murtala', 'CDC', 'AQC100', 'pending', 35740.00, 107220.00),
+(17, 'X000001', '13411-0Y180-00', 'CRANKSHAFT,1NR', 'D009', 3, 'C. Surplus', '- Unknow', '1. Plant Repair', 1, 'ff', 'Crankshaft', '2024-03-29', '02:09:00', 'Crankshaft', 'Red', 'bagus', 'MCR', 'AQM400', 'pending', 331410.00, 994230.00),
+(18, 'X000001', '12180-0H020-00', 'CAP ASSY, OIL FILLER', 'S100', 3, 'B. Wrong ( Shortage )', '1. Good', '1. Plant Repair', 4, 'fff', 'Assembly', '2024-03-29', '02:14:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 5383.00, 16149.00),
+(19, 'C000008', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 3, 'C. Surplus', '2. Damage', '1. Plant Repair', 1, 'fff', 'Die Casting', '2024-03-29', '02:15:00', 'Die Casting', 'Red', 'murtala', 'CDC', 'AQC100', 'pending', 35740.00, 107220.00),
+(20, 'C000009', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 3, 'B. Wrong ( Shortage )', '1. Good', '6. Unrepairable caused by other parts', 1, 'ff', 'Die Casting', '2024-03-28', '02:20:00', 'Die Casting', 'Red', 'murtala', 'CDC', 'AQC100', 'pending', 35740.00, 107220.00),
+(21, 'X000001', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'G. Rusted', '3. From TMMIN Unpacking', '6. Unrepairable caused by other parts', 1, 'fff', 'Die Casting', '2023-12-20', '01:50:00', 'Die Casting', 'Red', 'bagus', 'CDC', 'AQC100', 'pending', 35740.00, 428880.00),
+(22, 'X000001', '11461-0Y040-00', 'LINER, CYLINDER', 'D001', 12, 'C. Surplus', '- Unknow', '0. Unrepairable', 1, 'vvv', 'Die Casting', '2024-04-20', '02:22:00', 'Die Casting', 'Red', 'bagus', 'CDC', 'AQC100', 'pending', 35740.00, 428880.00),
+(23, 'X000001', '13566-0Y010-00', 'GUIDE, TIMING CHAIN', 'S104', 23, 'B. Wrong ( Shortage )', '2. Damage', '1. Plant Repair', 4, 'ddd', 'Assembly', '2024-04-20', '05:26:00', 'CCR & Ordering', 'Red', 'bagus', 'CCR', 'ADA403', 'pending', 28116.00, 646668.00),
+(24, 'X000002', '90105-10095-00', 'BOLT, WASHER BASED HEAD HEXAGON         ', 'T116', 22, 'G. Rusted', '- Unknow', '0. Unrepairable', 2, 'dddd', 'Assembly', '2022-04-01', '13:40:00', 'CCR & Ordering', 'Red', 'bagus', 'CCR', 'ADA403', 'pending', 4036.00, 88792.00),
+(25, 'K000002', '16031-0Y010-00', 'INLET SUB-ASSY, WATER W/THERMOSTAT', 'U100', 34, 'C. Surplus', '1. Good', '0. Unrepairable', 4, 'yyyyyy', 'Assembly', '2024-05-01', '04:00:00', 'Sub Line', 'Red', 'bagus', 'KSL', 'AQK100', 'pending', 89582.00, 3045788.00),
+(26, 'K000002', '83530-60020-00', 'SWITCH ASSY, OIL PRESSURE               ', 'T112', 45, 'H. Dented', '- Unknow', '0. Unrepairable', 2, 'vgg', 'Assembly', '2024-05-04', '06:34:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 44395.00, 1997775.00),
+(27, 'K000002', '11103-0Y040-00', 'HOUSING SUB-ASSY, CAMSHAFT              ', 'D185', 36, 'A. Shortage / Missing', '2. Damage', '0. Unrepairable', 1, 'dddd', 'Assembly', '2024-05-06', '15:12:00', 'Main Line', 'Red', 'bagus', 'KML', 'AQK200', 'pending', 386480.00, 13913280.00);
 
 -- --------------------------------------------------------
 
@@ -208,7 +117,8 @@ INSERT INTO `master_line` (`id`, `nama_line`, `line_code`, `cost_center`, `mater
 (11, 'Engser', 'ES', 'AWM200', 'Assembly'),
 (12, 'Technical Support', 'TS', 'ADN406', 'Assembly'),
 (13, 'Engser Casting', 'ESC', 'AWC200', 'Die Casting'),
-(14, 'Maintenance DC', 'MDC', 'AWM100', 'Die Casting');
+(14, 'Maintenance DC', 'MDC', 'AWM100', 'Die Casting'),
+(15, 'CCR & Ordering', 'CCR', 'ADA403', 'Assembly');
 
 -- --------------------------------------------------------
 
@@ -558,9 +468,16 @@ CREATE TABLE `report_c` (
 --
 
 INSERT INTO `report_c` (`id`, `no_lsr`, `line`, `pic`, `tanggal`, `waktu`) VALUES
-(1, 'C000001', 'Die Casting', 'bagus', '2024-03-27', '02:22:00'),
-(2, 'C000002', 'Die Casting', 'bagus', '2024-03-27', '03:34:00'),
-(3, 'C000003', 'Die Casting', 'murtala', '2024-03-27', '05:08:00');
+(1, 'C000001', 'Die Casting', 'murtala', '2024-03-29', '00:50:00'),
+(2, 'C000002', 'Die Casting', 'murtala', '2024-03-29', '00:51:00'),
+(3, 'C000003', 'Die Casting', 'murtala', '2024-03-29', '00:53:00'),
+(4, 'C000004', 'Die Casting', 'murtala', '2024-03-29', '00:53:00'),
+(5, 'C000005', 'Die Casting', 'murtala', '2024-03-29', '00:55:00'),
+(6, 'C000006', 'Die Casting', 'murtala', '2024-03-29', '02:06:00'),
+(7, 'C000007', 'Die Casting', 'murtala', '2024-03-29', '02:08:00'),
+(8, 'C000008', 'Die Casting', 'murtala', '2024-03-29', '02:15:00'),
+(9, 'C000009', 'Die Casting', 'murtala', '2024-03-28', '02:20:00'),
+(10, 'X000001', 'Die Casting', 'bagus', '2023-12-20', '01:50:00');
 
 -- --------------------------------------------------------
 
@@ -582,9 +499,9 @@ CREATE TABLE `report_k` (
 --
 
 INSERT INTO `report_k` (`id`, `no_lsr`, `line`, `pic`, `tanggal`, `waktu`) VALUES
-(1, 'K000001', 'Main Line', 'bagus', '2024-03-27', '02:21:00'),
-(2, 'K000002', 'Main Line', 'bagus', '2024-03-27', '03:33:00'),
-(3, 'K000003', 'Main Line', 'bagus', '2024-03-27', '03:42:00');
+(1, 'K000001', 'Main Line', 'bagus', '2024-03-29', '00:47:00'),
+(2, 'K000002', 'Main Line', 'bagus', '2024-03-29', '00:50:00'),
+(3, 'X000001', 'Main Line', 'bagus', '2024-03-29', '02:14:00');
 
 -- --------------------------------------------------------
 
@@ -606,9 +523,7 @@ CREATE TABLE `report_m` (
 --
 
 INSERT INTO `report_m` (`id`, `no_lsr`, `line`, `pic`, `tanggal`, `waktu`) VALUES
-(1, 'M000001', 'Crankshaft', 'bagus', '2024-03-27', '02:21:00'),
-(2, 'M000002', 'Cylinder Block', 'bagus', '2024-03-27', '03:51:00'),
-(3, 'M000003', 'Cylinder Head', 'bagus', '2024-03-27', '03:57:00');
+(1, 'X000001', 'Crankshaft', 'bagus', '2024-03-29', '02:09:00');
 
 -- --------------------------------------------------------
 
@@ -630,7 +545,8 @@ CREATE TABLE `report_x` (
 --
 
 INSERT INTO `report_x` (`id`, `no_lsr`, `line`, `pic`, `tanggal`, `waktu`) VALUES
-(1, 'X000001', 'Quality', 'bagus', '2024-03-27', '05:07:00');
+(1, 'X000001', 'CCR & Ordering', 'bagus', '2024-04-20', '05:26:00'),
+(2, 'X000002', 'CCR & Ordering', 'bagus', '2022-04-01', '13:40:00');
 
 -- --------------------------------------------------------
 
@@ -656,7 +572,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `password`, `nama`, `line_user`, `shift_user`, `position`, `role`) VALUES
 (1, 'murtala', '$2y$10$i4yXskjtABWgGU4IbfUoyuZ3zwFjlhQ55UQfQvx82K3KHglBKSwya', 'Murtala', 'Die Casting', 'Red', 'Line Head', 'public'),
 (2, 'sujarwo.ca', '$2y$10$LO3TEEwBVYjKzEapZ3TBuOQ3YKOA/QYWvpuD9PLVl4FWfPXKxU74m', 'Sujarwo', 'Camshaft', 'Red', 'Line Head', 'public'),
-(3, 'bagus', '$2y$10$FZZeHmM.Q3VJAyfTOIqgee1owAqaW2RCVJ6XKMePao6/L.TtnCDMi', 'Bagus Uswanto', 'CCR & Oredering', 'Red', 'Team Member', 'dev'),
+(3, 'bagus', '$2y$10$FZZeHmM.Q3VJAyfTOIqgee1owAqaW2RCVJ6XKMePao6/L.TtnCDMi', 'Bagus Uswanto', 'CCR & Ordering', 'Red', 'Team Member', 'dev'),
 (4, 'hendro', '$2y$10$.z/UsSbhGj0HLY8NMrX6Su0g3xxFoKZHkeBuTb0plVeZGIUhZ9dQ.', 'Hendro Sujatmiko', 'CCR & Oredering', 'Red', 'Line Head', 'admin'),
 (5, 'rasty', '$2y$10$JyEUSzjROkdLE8KXyu8H0.nXQ0x6mwsyIR7VYDRX5ErizrQHaRy/q', 'Dayudya Luthfiarasty', 'CCR & Oredering', 'Non Shift', 'Team Member', 'admin'),
 (6, 'alex', '$2y$10$B8Elt4/WXJbXVL.CLjwZp.jqFOHJh/y7e0DNqOg01KfT2VRehSUNa', 'Alex Kurniawan', 'CCR & Oredering', 'Non Shift', 'Section Head', 'admin');
@@ -721,13 +637,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `data_lsr`
 --
 ALTER TABLE `data_lsr`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=200;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `master_line`
 --
 ALTER TABLE `master_line`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `master_material`
@@ -739,7 +655,7 @@ ALTER TABLE `master_material`
 -- AUTO_INCREMENT for table `report_c`
 --
 ALTER TABLE `report_c`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `report_k`
@@ -751,13 +667,13 @@ ALTER TABLE `report_k`
 -- AUTO_INCREMENT for table `report_m`
 --
 ALTER TABLE `report_m`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `report_x`
 --
 ALTER TABLE `report_x`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`

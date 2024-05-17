@@ -9,7 +9,6 @@ $(function () {
       },
       dataType: "json",
       success: function (response) {
-        console.log(response);
         var qtyK = 0;
         var costK = 0;
         var qtyM = 0;
@@ -306,7 +305,6 @@ $(function () {
           });
         });
 
-        console.log(reponseData2);
         var title, imageSource, cardClass;
 
         switch (getCardType()) {
@@ -358,7 +356,6 @@ $(function () {
             console.log("Card type not recognized.");
             return;
         }
-        console.log(reponseData);
 
         var cardContainer = $(".card-container");
         cardContainer.empty(); // Menghapus konten sebelumnya (jika ada)

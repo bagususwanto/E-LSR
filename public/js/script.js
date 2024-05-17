@@ -418,7 +418,6 @@ $(function () {
       method: "post",
       dataType: "json",
       success: function (data) {
-        console.log(data);
         // Membersihkan dan menambahkan opsi baru ke dalam elemen select
         $("#partNumber, #partName, #uniqeNo, #sourceType, #price").empty();
 
@@ -804,10 +803,8 @@ $(function () {
       $("body").loadingModal({
         text: "Loading...",
       });
-      // Menghentikan perilaku default formulir
       event.preventDefault();
 
-      // panggil untuk hasiil dari datatables
       RefreshDataTables();
       $("body").loadingModal("hide");
     });
@@ -853,7 +850,7 @@ $(function () {
         var btns = $(".dt-buttons");
         btns.removeClass("btn-group");
       },
-      dom: "<'row'<'col-6'B><'col-6'f>>" + "<'row'<'col-12't>>" + "<'row'<'col-9'l><'col-3 text-end'i>>" + "<'row'<'col-12 pt-3'p>>",
+      dom: "<'row'<'col-6'B><'col-6'f>>" + "<'row'<'col-12't>>" + "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" + "<'row'<'col-12 pt-3'p>>",
       lengthMenu: [
         [10, 25, 50, 100, 500, -1],
         [10, 25, 50, 100, 500, "All"],
@@ -912,23 +909,18 @@ $(function () {
     function deleteSelectRows(selectedData) {
       try {
         if (selectedData.length === 0) {
-          // alert("Pilih setidaknya satu baris untuk dihapus.");
           setModal("Alert", "Pilih setidaknya satu baris untuk dihapus.");
           $("#alertModal").modal("show");
           return;
         }
 
-        // Tampilkan modal konfirmasi
         $("#confirmationModal").modal("show");
 
-        // Tangkap kejadian ketika tombol "Hapus" pada modal diklik
         $("#confirmDeleteBtn")
           .off("click")
           .on("click", function () {
-            // Sembunyikan modal konfirmasi
             $("#confirmationModal").modal("hide");
 
-            // Mengirim data terpilih ke server menggunakan AJAX
             sendSelectedDataToServer(selectedData);
           });
       } catch (error) {
@@ -937,17 +929,14 @@ $(function () {
     }
 
     function sendSelectedDataToServer(selectedData) {
-      // Mengirim data terpilih ke server menggunakan AJAX
       $.ajax({
         url: BASEURL + "/data/getDataDelete",
         method: "POST",
         contentType: "application/json",
         data: JSON.stringify({ selectedData: selectedData }),
         success: function (data) {
-          // panggil untuk hasiil dari datatables
           RefreshDataTables();
 
-          // Menampilkan notifikasi modal Bootstrap setelah berhasil menghapus
           $("#alertModal").modal("show");
         },
         error: function (error) {
@@ -959,22 +948,18 @@ $(function () {
 
     //========FITUR EDIT DATA=======//
     $("#editSelected").on("click", function () {
-      // Mendapatkan nilai checkbox yang terpilih
       var selectedRows = $(".checkbox-single:checked");
 
-      // Mendapatkan nilai dari setiap checkbox yang terpilih
       var selectedData = [];
       selectedRows.each(function () {
         selectedData.push($(this).val());
       });
-      // Menjalankan fungsi editSelectRows
       editSelectRows(selectedData);
     });
 
     function editSelectRows(selectedData) {
       try {
         if (selectedData.length === 0) {
-          // alert("Pilih setidaknya satu baris untuk dihapus.");
           setModal("Alert", "Pilih setidaknya satu baris untuk diubah.");
           $("#alertModal").modal("show");
           return;
@@ -985,28 +970,21 @@ $(function () {
           $("#alertModal").modal("show");
           return;
         }
-        // Mengirim data terpilih ke server menggunakan AJAX
         sendEditDataToServer(selectedData);
 
-        // Tangkap kejadian ketika tombol "Save" pada modal diklik
         $("#saveBtn")
           .off("click")
           .on("click", function () {
-            // Mengambil data formulir
             var formData = $("#editForm").serialize();
-            // Mengirim data ke server menggunakan AJAX
             $.ajax({
               url: BASEURL + "/data/ubah",
               method: "POST",
               data: formData,
               success: function (response) {
-                // panggil untuk hasiil dari datatables
                 RefreshDataTables();
 
-                // Sembunyikan modal konfirmasi
                 $("#editModal").modal("hide");
 
-                // Menampilkan notifikasi modal Bootstrap setelah berhasil
                 setModal("Sukses!", "Data berhasil diubah.");
                 $("#alertModal").modal("show");
               },
@@ -1014,7 +992,6 @@ $(function () {
                 $("#editModal").modal("hide");
                 setModal("Gagal!", "Data gagal diubah.");
                 $("#alertModal").modal("show");
-                // Handle kesalahan jika diperlukan
               },
             });
           });
@@ -1024,13 +1001,11 @@ $(function () {
     }
 
     function setModal(sukses, caption) {
-      // Set modal content sesuai dengan parameter content
       $("#alertModalLabel").text(sukses);
       $("#modalAlertContent").text(caption);
     }
 
     function sendEditDataToServer(selectedData) {
-      // Mengirim data terpilih ke server menggunakan AJAX
       $.ajax({
         url: BASEURL + "/data/getDataEdit",
         method: "POST",
@@ -1049,7 +1024,6 @@ $(function () {
           $("#status").val(data.success.status_lsr);
           $("#id").val(data.success.id);
 
-          // Tampilkan modal edit
           $("#editModal").modal("show");
         },
         error: function (error) {
@@ -1060,53 +1034,38 @@ $(function () {
 
     //========FITUR APPROVE DATA=======//
     $("#approveSelected").on("click", function () {
-      // Mendapatkan nilai checkbox yang terpilih
       var selectedRows = $(".checkbox-single:checked");
 
-      // Mendapatkan nilai dari setiap checkbox yang terpilih
       var selectedData = [];
       selectedRows.each(function () {
         selectedData.push($(this).val());
       });
 
-      // Memastikan ada setidaknya satu item yang dipilih
       if (selectedData.length === 0) {
         setModal("Alert", "Pilih setidaknya satu baris untuk approve.");
         $("#alertModal").modal("show");
         return;
       }
 
-      // Tampilkan modal konfirmasi
       $("#confirmationModalApprove").modal("show");
 
-      // Menanggapi klik tombol konfirmasi
       $("#confirmationModalApprove")
         .off("click", "#confirmApproveBtn")
         .on("click", "#confirmApproveBtn", function () {
-          // Sembunyikan modal konfirmasi
           $("#confirmationModalApprove").modal("hide");
 
-          // Kirim data terpilih ke server menggunakan AJAX
           $.ajax({
             url: BASEURL + "/data/getDataApprove",
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({ selectedData: selectedData }),
             success: function (data) {
-              // Sembunyikan indikator loading atau pesan
-              // ...
-
-              // panggil untuk hasil dari datatables
               RefreshDataTables();
 
-              // Menampilkan notifikasi modal Bootstrap setelah berhasil menghapus
               setModal("Sukses!", "Data Approved.");
               $("#alertModal").modal("show");
             },
             error: function (error) {
-              // Sembunyikan indikator loading atau pesan
-              // ...
-
               console.error("Error in AJAX request:", error);
               setModal("Gagal!", "Data gagal approved.");
               $("#alertModal").modal("show");
@@ -1128,7 +1087,7 @@ $(function () {
       scrollY: "50vh",
       autoWidth: true,
       responsive: true,
-      dom: "<'row'<'col-12't>>" + "<'row'<'col-9'l><'col-3 text-end'i>>" + "<'row'<'col-12 pt-3'p>>",
+      dom: "<'row'<'col-12't>>" + "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" + "<'row'<'col-12 pt-3'p>>",
       lengthMenu: [
         [5, 10, 25, 50, 100, -1],
         [5, 10, 25, 50, 100, "All"],
@@ -1154,7 +1113,6 @@ $(function () {
       ],
     });
 
-    // Mengatur tombol container ke posisi yang sesuai
     table2.buttons().container().appendTo("#tabelData2_wrapper .col-md-6:eq(0)");
   });
 
@@ -1213,4 +1171,199 @@ $(function () {
     // Initialize Select2 on both elements
     $("#partNumber, #partName, #uniqeNo").select2();
   });
+
+  //======= TABLE PAGE MASTER======//
+  var typeMaster = $("#typeMaster").text();
+  var tableMasterMaterial = $("#tabelMasterMaterial").DataTable({
+    // ordering: false,
+    fixedColumns: {
+      left: 1,
+    },
+    scrollCollapse: true,
+    fixedHeader: true,
+    scrollX: true,
+    scrollY: "50vh",
+    autoWidth: true,
+    responsive: true,
+    buttons: [
+      {
+        text: '<i class="bi bi-plus-circle-dotted"></i> Add New',
+        className: "btn-sm btn-primary",
+        attr: { id: "addMasterMaterial" },
+      },
+      {
+        extend: "excelHtml5",
+        text: '<i class="bi bi-download"></i> Excel',
+        className: "btn-sm btn-success",
+        title: "Master Data " + typeMaster,
+      },
+    ],
+    initComplete: function () {
+      var btns = $(".dt-buttons");
+      var btnsAdd = $("#addMasterMaterial");
+      btns.removeClass("btn-group");
+      btnsAdd.removeClass("btn-secondary");
+    },
+    dom: "<'row'<'col-6'B><'col-6'f>>" + "<'row'<'col-12't>>" + "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" + "<'row'<'col-12 pt-3'p>>",
+    lengthMenu: [
+      [10, 25, 50, 100, 500, -1],
+      [10, 25, 50, 100, 500, "All"],
+    ],
+    columns: [
+      { title: "Action" },
+      { title: "Part Number" },
+      { title: "Part Name" },
+      { title: "Unique No" },
+      { title: "Unit Usage" },
+      { title: "Source Type" },
+      { title: "Material" },
+      { title: "Price" },
+      { title: "Created Date" },
+      { title: "Created By" },
+      { title: "Change Date" },
+      { title: "Change By" },
+    ],
+  });
+  // Mengatur tombol container ke posisi yang sesuai
+  tableMasterMaterial.buttons().container().appendTo("#tabelMasterMaterial_wrapper .col-md-6:eq(0)");
+
+  // ====FUNGSI KLIK TABEL MASTER============//
+  $(document).on("click", "#editMasterMaterial", function () {
+    var id = $(this).data("id");
+    var row = $(this).closest("tr");
+
+    // Tangkap data dari baris
+    var partNumber = row.find("td:eq(1)").text();
+    var partName = row.find("td:eq(2)").text();
+    var uniqueNo = row.find("td:eq(3)").text();
+    var unitUsage = row.find("td:eq(4)").text();
+    var sourceType = row.find("td:eq(5)").text();
+    var material = row.find("td:eq(6)").text();
+    var price = row.find("td:eq(7)").text();
+
+    // Simpan data asli di elemen baris sebagai atribut data
+    row.data("original", {
+      partNumber: partNumber,
+      partName: partName,
+      uniqueNo: uniqueNo,
+      unitUsage: unitUsage,
+      sourceType: sourceType,
+      material: material,
+      price: price,
+    });
+
+    row.addClass("bg-warning");
+
+    // Ganti sel dengan input field
+    row.find("td:eq(1)").html('<input type="text" class="form-control form-control-sm" value="' + partNumber + '">');
+    row.find("td:eq(2)").html('<input type="text" class="form-control form-control-sm" value="' + partName + '">');
+    row.find("td:eq(3)").html('<input type="text" class="form-control form-control-sm" value="' + uniqueNo + '">');
+    row.find("td:eq(4)").html('<input type="number" class="form-control form-control-sm" value="' + unitUsage + '">');
+    row.find("td:eq(5)").html('<input type="number" class="form-control form-control-sm" value="' + sourceType + '">');
+    row.find("td:eq(6)").html('<input type="text" class="form-control form-control-sm" value="' + material + '">');
+    row.find("td:eq(7)").html('<input type="text" class="form-control form-control-sm" value="' + price + '">');
+
+    // Ganti tombol edit dan delete dengan tombol save dan cancel
+    row
+      .find("td:eq(0)")
+      .html(
+        '<button class="save-btn btn btn-success btn-sm" data-id="' +
+          id +
+          '"><i class="bi bi-check2-circle"></i></button> <button class="cancel-btn btn btn-secondary btn-sm" data-id="' +
+          id +
+          '"><i class="bi bi-x-circle"></i></button>'
+      );
+  });
+
+  $(document).on("click", ".save-btn", function () {
+    var id = $(this).data("id");
+    var row = $(this).closest("tr");
+
+    var partNumber = row.find("td:eq(1) input").val();
+    var partName = row.find("td:eq(2) input").val().toUpperCase();;
+    var uniqueNo = row.find("td:eq(3) input").val().toUpperCase();;
+    var unitUsage = row.find("td:eq(4) input").val();
+    var sourceType = row.find("td:eq(5) input").val();
+    var material = row.find("td:eq(6) input").val().toUpperCase();;
+    var price = row.find("td:eq(7) input").val();
+
+    $.ajax({
+      url: BASEURL + "/master/updateDataMaterial",
+      method: "POST",
+      data: {
+        id: id,
+        partNumber: partNumber,
+        partName: partName,
+        uniqueNo: uniqueNo,
+        unitUsage: unitUsage,
+        sourceType: sourceType,
+        material: material,
+        price: price,
+      },
+      success: function (data) {
+        // Kembali ke mode tampilan setelah berhasil simpan
+        row.find("td:eq(1)").text(partNumber);
+        row.find("td:eq(2)").text(partName);
+        row.find("td:eq(3)").text(uniqueNo);
+        row.find("td:eq(4)").text(unitUsage);
+        row.find("td:eq(5)").text(sourceType);
+        row.find("td:eq(6)").text(material);
+        row.find("td:eq(7)").text(price);
+        row
+          .find("td:eq(0)")
+          .html(
+            '<button id="editMasterMaterial" data-id="' +
+              id +
+              '" class="btn btn-warning btn-sm edit-btn"><i class="bi bi-pencil-square"></i></button> <button id="deleteMasterMaterial" data-id="' +
+              id +
+              '" class="btn btn-danger btn-sm delete-btn" onclick="deleteEntry(' +
+              id +
+              ')"><i class="bi bi-trash-fill"></i></button>'
+          );
+      },
+      error: function (error) {
+        console.log("Error:", error);
+      },
+    });
+  });
+
+  $(document).on("click", ".cancel-btn", function () {
+    var row = $(this).closest("tr");
+    var originalData = row.data("original");
+
+    // Kembali ke mode tampilan tanpa menyimpan perubahan
+    row.find("td:eq(1)").text(originalData.partNumber);
+    row.find("td:eq(2)").text(originalData.partName);
+    row.find("td:eq(3)").text(originalData.uniqueNo);
+    row.find("td:eq(4)").text(originalData.unitUsage);
+    row.find("td:eq(5)").text(originalData.sourceType);
+    row.find("td:eq(6)").text(originalData.material);
+    row.find("td:eq(7)").text(originalData.price);
+    row
+      .find("td:eq(0)")
+      .html(
+        '<button id="editMasterMaterial" data-id="' +
+          row.data("id") +
+          '" class="btn btn-warning btn-sm edit-btn"><i class="bi bi-pencil-square"></i></button> <button id="deleteMasterMaterial" data-id="' +
+          row.data("id") +
+          '" class="btn btn-danger btn-sm delete-btn" onclick="deleteEntry(' +
+          row.data("id") +
+          ')"><i class="bi bi-trash-fill"></i></button>'
+      );
+    row.removeClass("bg-warning");
+  });
+
+  // untuk toggle sidebar menggunakan browser type lama
+  $(document).ready(function () {
+    $("#expand").click(function () {
+      $("#forms-nav").toggleClass("show");
+    });
+  });
+
+  // $.toast({
+  //   title: "Pesan",
+  //   message: "Berhasil menghapus data.",
+  //   type: "success",
+  //   duration: 5000,
+  // });
 });

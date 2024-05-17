@@ -39,7 +39,6 @@
     <link href="<?php echo BASEURL ?>/vendor/datatables/fixedcolumns-4.3.0/css/fixedColumns.dataTables.min.css"
         rel="stylesheet">
 
-
     <!-- Template Main CSS File -->
     <link href="<?php echo BASEURL ?>/css/style.css" rel="stylesheet">
 
@@ -153,7 +152,7 @@
 
                 <li class="nav-item dropdown nav-item-sm pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <a id="profileToggle" class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="<?php echo BASEURL ?>/img/profile/<?php echo isset($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>.jpg"
                             alt="Profile" class="rounded-circle">
                         <span id="userLog" class="d-none d-md-block dropdown-toggle ps-2"

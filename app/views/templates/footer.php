@@ -33,6 +33,62 @@
 <script src="<?php echo BASEURL ?>/vendor/datatables/Buttons-2.4.2/js/buttons.colVis.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/datatables/fixedcolumns-4.3.0/js/dataTables.fixedColumns.min.js"></script>
 
+
+
+<script>
+    function formatCurrency(amount) {
+        if (isNaN(amount)) {
+            return "RP. 0.00";
+        }
+        return "RP. " + parseFloat(amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+    }
+
+    function RefreshDataMasterMaterial() {
+        $.ajax({
+            url: BASEURL + "/master/getMasterMaterial",
+            method: "POST",
+            data: {},
+            dataType: "json",
+            success: function (data) {
+                $("#tabelMasterMaterial").DataTable().clear().draw();
+
+                for (var i = 0; i < data.length; i++) {
+                    var price = parseFloat(data[i].price);
+                    var formattedPrice = formatCurrency(price);
+
+                    $("#tabelMasterMaterial")
+                        .DataTable()
+                        .row.add([
+                            `<button id="editMasterMaterial" class="btn btn-warning btn-sm edit-btn" type="button" data-id="${data[i].id}">
+              <i class="bi bi-pencil-square"></i>
+              </button>
+              <button id="deleteMasterMaterial" class="btn btn-danger btn-sm delete-btn" type="button" onclick="deleteEntry(${data[i].id})">
+              <i class="bi bi-trash-fill"></i>
+              </button>`,
+                            data[i].part_number,
+                            data[i].part_name,
+                            data[i].uniqe_no,
+                            data[i].unit_usage,
+                            data[i].source_type,
+                            data[i].material,
+                            formattedPrice,
+                            data[i].created_date,
+                            data[i].created_by,
+                            data[i].change_date,
+                            data[i].change_by,
+                        ])
+                        .nodes()
+                        .to$(); // Dapatkan elemen HTML tr (baris)
+                }
+                $("#tabelMasterMaterial").DataTable().draw();
+            },
+            error: function (error) {
+                console.log("Error:", error);
+            },
+        });
+    }
+</script>
+
 <!-- Main JS File -->
 <script src="<?php echo BASEURL ?>/js/main.js"></script>
 <script src="<?php echo BASEURL ?>/js/script.js"></script>

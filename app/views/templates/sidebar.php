@@ -22,11 +22,29 @@
             </a>
         </li><!-- End Data Center Nav -->
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="">
+        <!-- <li class="nav-item">
+            <a class="nav-link collapsed" id="master" href="<?php echo BASEURL ?>/master">
                 <i class="bi bi-layout-text-window-reverse"></i><span>Master</span>
             </a>
-        </li><!-- End Master Data Nav -->
+        </li>End Master Data Nav -->
+
+        <li class="nav-item">
+            <a id="expand" class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-journal-text"></i><span>Master</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a class="nav-link collapsed" id="master" href="<?php echo BASEURL ?>/master/material">
+                        <i class="bi bi-circle"></i><span>Material</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="forms-layouts.html">
+                        <i class="bi bi-circle"></i><span>Line</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Forms Nav -->
 
 
         <li class="nav-heading">User</li>

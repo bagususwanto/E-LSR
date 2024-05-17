@@ -146,7 +146,7 @@
                         <div class="card">
 
                             <div class="card-body">
-                                <h5 class="card-title">Qty Amount <!--<span>| This Year</span>--></h5>
+                                <h5 class="card-title">Qty<span> | Amount</span></h5>
 
                                 <!-- Line Chart -->
                                 <div id="chartBar" style="height:400px;"></div>
@@ -165,7 +165,7 @@
                         <div class="card">
 
                             <div class="card-body pb-0">
-                                <h5 class="card-title">Cost Amount <!--<span>| This Year</span>--></h5>
+                                <h5 class="card-title">Cost<span> | Amount</h5>
 
                                 <div id="chartPie" class="echart" style="height:420px;"></div>
 
