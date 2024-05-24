@@ -809,9 +809,38 @@ $(function () {
       $("body").loadingModal("hide");
     });
 
-    // konfigurasi DataTbales untuk halaman Data
-    var tanggalValue = $("#tanggal").val();
-    var tanggalToValue = $("#tanggalTo").val();
+    // ambil nilai tanggal dan tanggalTo
+    const tanggalPicker = flatpickr("#tanggal", {
+      dateFormat: "Y-m-d", // Format tanggal
+      onChange: function (selectedDates, dateStr, instance) {
+        console.log("Tanggal dipilih: ", dateStr);
+      },
+    });
+
+    const tanggalToPicker = flatpickr("#tanggalTo", {
+      dateFormat: "Y-m-d", // Format tanggal
+      onChange: function (selectedDates, dateStr, instance) {
+        dateStr;
+      },
+    });
+
+    function getTanggalValue() {
+      return tanggalPicker.input.value;
+    }
+
+    function getTanggalToValue() {
+      return tanggalToPicker.input.value;
+    }
+
+    $("#tanggal").on("change", function () {
+      getTanggalValue();
+    });
+
+    $("#tanggalTo").on("change", function () {
+      getTanggalToValue();
+    });
+    // end
+
     var table = $("#tabelData").DataTable({
       // ordering: false,
       fixedColumns: {
@@ -828,7 +857,11 @@ $(function () {
           extend: "excelHtml5",
           text: '<i class="bi bi-download"></i> Excel',
           className: "btn-sm btn-success",
-          title: "Data LSR " + tanggalValue + " - " + tanggalToValue,
+          title: function () {
+            var tanggalValue = getTanggalValue();
+            var tanggalToValue = getTanggalToValue();
+            return "Data LSR " + tanggalValue + " - " + tanggalToValue;
+          },
         },
         {
           text: '<i class="bi bi-pencil-square"></i> Edit',
@@ -1227,7 +1260,7 @@ $(function () {
   // Mengatur tombol container ke posisi yang sesuai
   tableMasterMaterial.buttons().container().appendTo("#tabelMasterMaterial_wrapper .col-md-6:eq(0)");
 
-  // ====FUNGSI KLIK TABEL MASTER============//
+  // ====FUNGSI EDIT TABEL MASTER============//
   $(document).on("click", "#editMasterMaterial", function () {
     var id = $(this).data("id");
     var row = $(this).closest("tr");
@@ -1240,6 +1273,8 @@ $(function () {
     var sourceType = row.find("td:eq(5)").text();
     var material = row.find("td:eq(6)").text();
     var price = row.find("td:eq(7)").text();
+
+    var numericPrice = price.replace("RP. ", "").replace(/\./g, "").replace(",", ".").replace(".", "").replace(/00$/, "");
 
     // Simpan data asli di elemen baris sebagai atribut data
     row.data("original", {
@@ -1261,7 +1296,7 @@ $(function () {
     row.find("td:eq(4)").html('<input type="number" class="form-control form-control-sm" value="' + unitUsage + '">');
     row.find("td:eq(5)").html('<input type="number" class="form-control form-control-sm" value="' + sourceType + '">');
     row.find("td:eq(6)").html('<input type="text" class="form-control form-control-sm" value="' + material + '">');
-    row.find("td:eq(7)").html('<input type="text" class="form-control form-control-sm" value="' + price + '">');
+    row.find("td:eq(7)").html('<input type="number" class="form-control form-control-sm" value="' + numericPrice + '">');
 
     // Ganti tombol edit dan delete dengan tombol save dan cancel
     row
@@ -1280,13 +1315,13 @@ $(function () {
     var row = $(this).closest("tr");
 
     var partNumber = row.find("td:eq(1) input").val();
-    var partName = row.find("td:eq(2) input").val().toUpperCase();;
-    var uniqueNo = row.find("td:eq(3) input").val().toUpperCase();;
+    var partName = row.find("td:eq(2) input").val().toUpperCase();
+    var uniqueNo = row.find("td:eq(3) input").val().toUpperCase();
     var unitUsage = row.find("td:eq(4) input").val();
     var sourceType = row.find("td:eq(5) input").val();
-    var material = row.find("td:eq(6) input").val().toUpperCase();;
+    var material = row.find("td:eq(6) input").val().toUpperCase();
     var price = row.find("td:eq(7) input").val();
-
+    var user = $("#userLog").text().trim();
     $.ajax({
       url: BASEURL + "/master/updateDataMaterial",
       method: "POST",
@@ -1299,27 +1334,23 @@ $(function () {
         sourceType: sourceType,
         material: material,
         price: price,
+        user: user,
       },
       success: function (data) {
         // Kembali ke mode tampilan setelah berhasil simpan
-        row.find("td:eq(1)").text(partNumber);
-        row.find("td:eq(2)").text(partName);
-        row.find("td:eq(3)").text(uniqueNo);
-        row.find("td:eq(4)").text(unitUsage);
-        row.find("td:eq(5)").text(sourceType);
-        row.find("td:eq(6)").text(material);
-        row.find("td:eq(7)").text(price);
+        RefreshDataMasterMaterial();
         row
           .find("td:eq(0)")
           .html(
             '<button id="editMasterMaterial" data-id="' +
-              id +
+              row.data("id") +
               '" class="btn btn-warning btn-sm edit-btn"><i class="bi bi-pencil-square"></i></button> <button id="deleteMasterMaterial" data-id="' +
-              id +
+              row.data("id") +
               '" class="btn btn-danger btn-sm delete-btn" onclick="deleteEntry(' +
-              id +
+              row.data("id") +
               ')"><i class="bi bi-trash-fill"></i></button>'
           );
+        row.removeClass("bg-warning");
       },
       error: function (error) {
         console.log("Error:", error);
@@ -1351,6 +1382,87 @@ $(function () {
           ')"><i class="bi bi-trash-fill"></i></button>'
       );
     row.removeClass("bg-warning");
+  });
+
+  //======FUNGSI ADD DATA TABEL MASTER=======//
+  $(document).on("click", "#addMasterMaterial", function () {
+    var newRow = tableMasterMaterial.row
+      .add([
+        '<button class="save-new-btn btn btn-success btn-sm"><i class="bi bi-check2-circle"></i></button> <button class="cancel-new-btn btn btn-secondary btn-sm"><i class="bi bi-x-circle"></i></button>',
+        '<input type="text" class="form-control form-control-sm">',
+        '<input type="text" class="form-control form-control-sm">',
+        '<input type="text" class="form-control form-control-sm">',
+        '<input type="number" class="form-control form-control-sm">',
+        '<input type="number" class="form-control form-control-sm">',
+        '<input type="text" class="form-control form-control-sm">',
+        '<input type="text" class="form-control form-control-sm">',
+        "", // Created Date (empty, will be filled automatically)
+        "", // Created By (empty, will be filled automatically)
+        "", // Change Date (empty, will be filled automatically)
+        "", // Change By (empty, will be filled automatically)
+      ])
+      .draw()
+      .node();
+
+    $(newRow).addClass("bg-info");
+  });
+
+  // Event listener untuk tombol save baru
+  $(document).on("click", ".save-new-btn", function () {
+    var row = $(this).closest("tr");
+
+    var partNumber = row.find("td:eq(1) input").val();
+    var partName = row.find("td:eq(2) input").val().toUpperCase();
+    var uniqueNo = row.find("td:eq(3) input").val().toUpperCase();
+    var unitUsage = row.find("td:eq(4) input").val();
+    var sourceType = row.find("td:eq(5) input").val();
+    var material = row.find("td:eq(6) input").val().toUpperCase();
+    var price = row.find("td:eq(7) input").val();
+
+    $.ajax({
+      url: BASEURL + "/master/addDataMaterial",
+      method: "POST",
+      data: {
+        partNumber: partNumber,
+        partName: partName,
+        uniqueNo: uniqueNo,
+        unitUsage: unitUsage,
+        sourceType: sourceType,
+        material: material,
+        price: price,
+      },
+      success: function (data) {
+        // Update baris dengan data yang dimasukkan setelah berhasil disimpan
+        row.find("td:eq(1)").text(partNumber);
+        row.find("td:eq(2)").text(partName);
+        row.find("td:eq(3)").text(uniqueNo);
+        row.find("td:eq(4)").text(unitUsage);
+        row.find("td:eq(5)").text(sourceType);
+        row.find("td:eq(6)").text(material);
+        row.find("td:eq(7)").text(price);
+        row
+          .find("td:eq(0)")
+          .html(
+            '<button id="editMasterMaterial" data-id="' +
+              data.id +
+              '" class="btn btn-warning btn-sm edit-btn"><i class="bi bi-pencil-square"></i></button> <button id="deleteMasterMaterial" data-id="' +
+              data.id +
+              '" class="btn btn-danger btn-sm delete-btn" onclick="deleteEntry(' +
+              data.id +
+              ')"><i class="bi bi-trash-fill"></i></button>'
+          );
+        row.removeClass("bg-info");
+      },
+      error: function (error) {
+        console.log("Error:", error);
+      },
+    });
+  });
+
+  // Event listener untuk tombol cancel baru
+  $(document).on("click", ".cancel-new-btn", function () {
+    var row = $(this).closest("tr");
+    tableMasterMaterial.row(row).remove().draw();
   });
 
   // untuk toggle sidebar menggunakan browser type lama
