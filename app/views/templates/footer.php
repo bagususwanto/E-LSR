@@ -62,7 +62,7 @@
                             `<button id="editMasterMaterial" class="btn btn-warning btn-sm edit-btn" type="button" data-id="${data[i].id}">
               <i class="bi bi-pencil-square"></i>
               </button>
-              <button id="deleteMasterMaterial" class="btn btn-danger btn-sm delete-btn" type="button" onclick="deleteEntry(${data[i].id})">
+              <button id="deleteMasterMaterial" class="btn btn-danger btn-sm delete-btn" type="button" data-id="${data[i].id}">
               <i class="bi bi-trash-fill"></i>
               </button>`,
                             data[i].part_number,
@@ -87,6 +87,19 @@
             },
         });
     }
+
+    //===========UNTUK NOTIFIKASI TOAST DI BACKEND============//
+    $(document).ready(function () {
+        <?php if (isset($_SESSION['message'])): ?>
+            $.toast({
+                title: "Pesan",
+                message: "<?php echo $_SESSION['message']['content']; ?>",
+                type: "<?php echo $_SESSION['message']['type']; ?>",
+                duration: 8000,
+            });
+            <?php unset($_SESSION['message']); ?> // Hapus pesan setelah ditampilkan
+        <?php endif; ?>
+    });
 </script>
 
 <!-- Main JS File -->

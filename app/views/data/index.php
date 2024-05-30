@@ -189,7 +189,7 @@
                                         <div class="row">
                                             <div class="col-4">
                                                 <div class="mb-3">
-                                                    <label for="uniqe_no" class="form-label col-form-label-sm">Uniqe
+                                                    <label for="uniqe_no" class="form-label col-form-label-sm">Unique
                                                         No</label>
                                                     <input class="form-control form-control-sm" id="uniqeNoModal"
                                                         name="uniqe_no" aria-label="Disabled input example" disabled
@@ -285,9 +285,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="modal-footer">
+                                    <div class="modal-footer row-6 justify-content-center">
                                         <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Batal</button>
+                                            data-bs-dismiss="modal">Cancel</button>
                                         <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
                                     </div>
                                 </form>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2024 at 03:02 PM
+-- Generation Time: May 27, 2024 at 07:35 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -45,10 +45,11 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `password`, `nama`, `line_user`, `shift_user`, `position`, `role`) VALUES
 (1, 'murtala', '$2y$10$i4yXskjtABWgGU4IbfUoyuZ3zwFjlhQ55UQfQvx82K3KHglBKSwya', 'Murtala', 'Die Casting', 'Red', 'Line Head', 'public'),
 (2, 'sujarwo.ca', '$2y$10$LO3TEEwBVYjKzEapZ3TBuOQ3YKOA/QYWvpuD9PLVl4FWfPXKxU74m', 'Sujarwo', 'Camshaft', 'Red', 'Line Head', 'public'),
-(3, 'bagus', '$2y$10$FZZeHmM.Q3VJAyfTOIqgee1owAqaW2RCVJ6XKMePao6/L.TtnCDMi', 'Bagus Uswanto', 'CCR & Oredering', 'Red', 'Team Member', 'dev'),
+(3, 'bagus', '$2y$10$FZZeHmM.Q3VJAyfTOIqgee1owAqaW2RCVJ6XKMePao6/L.TtnCDMi', 'Bagus Uswanto', 'CCR & Ordering', 'Red', 'Team Member', 'dev'),
 (4, 'hendro', '$2y$10$.z/UsSbhGj0HLY8NMrX6Su0g3xxFoKZHkeBuTb0plVeZGIUhZ9dQ.', 'Hendro Sujatmiko', 'CCR & Oredering', 'Red', 'Line Head', 'admin'),
 (5, 'rasty', '$2y$10$JyEUSzjROkdLE8KXyu8H0.nXQ0x6mwsyIR7VYDRX5ErizrQHaRy/q', 'Dayudya Luthfiarasty', 'CCR & Oredering', 'Non Shift', 'Team Member', 'admin'),
-(6, 'alex', '$2y$10$B8Elt4/WXJbXVL.CLjwZp.jqFOHJh/y7e0DNqOg01KfT2VRehSUNa', 'Alex Kurniawan', 'CCR & Oredering', 'Non Shift', 'Section Head', 'admin');
+(6, 'alex', '$2y$10$B8Elt4/WXJbXVL.CLjwZp.jqFOHJh/y7e0DNqOg01KfT2VRehSUNa', 'Alex Kurniawan', 'CCR & Oredering', 'Non Shift', 'Section Head', 'admin'),
+(7, 'nurrohman', '$2y$10$H2jz/AY7bMqcJxZoTILxve2qCNJ9h3DKKsE4f5rMMU0k9JBO4SwR6', 'nurrohman', 'Die Casting', 'White', 'Line Head', 'public');
 
 --
 -- Indexes for dumped tables
@@ -68,7 +69,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

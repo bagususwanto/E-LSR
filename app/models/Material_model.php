@@ -76,7 +76,10 @@ class Material_model
         $total_price = $data['qty'] * $data['price'];
 
         $query = 'INSERT INTO ' . $this->table .
-            ' VALUES (null, :no_lsr, :part_number, :part_name, :uniqe_no, :qty, :reason, :condition, :repair, :source_type, :remarks, :material, :tanggal, :waktu, :line_lsr, :shift, :user_lsr, :line_code, :cost_center, :status_lsr, :price, :total_price)';
+            ' VALUES (null, :no_lsr, :part_number, :part_name, :uniqe_no, :qty, 
+            :reason, :condition, :repair, :source_type, :remarks, :material, :tanggal, 
+            :waktu, :line_lsr, :shift, :user_lsr, :line_code, :cost_center, :status_lsr, 
+            :price, :total_price, CURRENT_TIMESTAMP, :user_lsr)';
 
         $this->db->query($query);
         $this->db->bind('no_lsr', $data['no_lsr']);
@@ -100,6 +103,7 @@ class Material_model
         $this->db->bind('status_lsr', 'pending');
         $this->db->bind('price', $data['price']);
         $this->db->bind('total_price', $total_price);
+
 
         $this->db->execute();
         $rowCount = $this->db->rowCount();

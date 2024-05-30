@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>E-LSR - Line Supply Request</title>
+    <title>E-SCRAP</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -60,7 +60,7 @@
         <div class="d-flex align-items-center justify-content-between">
             <a href="<?php echo BASEURL ?>" class="logo d-flex align-items-center">
                 <img src="<?php echo BASEURL ?>/img/logo.png" alt="LSR">
-                <span class="d-none d-lg-block">E-LSR</span>
+                <span class="d-none d-lg-block">E-SCRAP</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
             <input type="hidden" id="roleUser"
@@ -68,7 +68,7 @@
         </div><!-- End Logo -->
 
         <div class="logo">
-            <span class="ms-3 d-none d-lg-block">Line Supply Request</span>
+            <span class="ms-3 d-none d-lg-block"></span>
         </div>
 
         <nav class="header-nav ms-auto">
@@ -152,7 +152,8 @@
 
                 <li class="nav-item dropdown nav-item-sm pe-3">
 
-                    <a id="profileToggle" class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <a id="profileToggle" class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+                        data-bs-toggle="dropdown">
                         <img src="<?php echo BASEURL ?>/img/profile/<?php echo isset($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>.jpg"
                             alt="Profile" class="rounded-circle">
                         <span id="userLog" class="d-none d-md-block dropdown-toggle ps-2"
