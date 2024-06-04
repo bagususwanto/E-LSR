@@ -89,7 +89,7 @@ $(function () {
     getIDnoLsr(validLineValue);
 
     //==== ISI NILAI DARI PART NUMBER , PART NAME, UNIQE NO, DAN SOURCE TYPE======//
-    const validLineValue2 = $("#validLine").text().trim();
+    const validLineValue2 = $("#validMaterial").val();
     // Konfigurasi objek AJAX
     const ajaxOptions = {
       url: BASEURL + "/create/getMasterPart",
@@ -127,7 +127,7 @@ $(function () {
 
     //==== ISI TABEL DATA SUBMIT======//
     // Ambil nilai
-    const material = $("#lineUser").val();
+    const material = $("#validMaterial").val();
     const shiftUser = $("#shiftUser").val();
     const lineUser = $("#lineUser").val();
     const tanggalValue = formattedDate;
@@ -576,7 +576,6 @@ $(function () {
 
   //============INPUT FORM WITH JQUERY==================//
   $(document).ready(function () {
-    // checkTablePageCreate();
     $("#formInput").validate({
       rules: {
         remarks: "required",
@@ -613,65 +612,93 @@ $(function () {
         $("#costCenter").prop("disabled", false);
         $("#noLsr").prop("disabled", false);
 
-        var formData = $(form).serialize();
+        const noLsr = $("#noLsr").val();
+        const lineLsr = $("#line").val();
+
         $.ajax({
-          url: BASEURL + "/create/tambah",
+          url: BASEURL + "/create/checkNoLsr",
           method: "POST",
-          data: formData,
+          data: { noLsr: noLsr },
           success: function (response) {
-            $("body").loadingModal("hide");
+            if (noLsr == response.no_lsr && lineLsr != response.line_lsr) {
+              $("#material").prop("disabled", true);
+              $("#shift").prop("disabled", true);
+              $("#line").prop("disabled", true);
+              $("#lineCode").prop("disabled", true);
+              $("#costCenter").prop("disabled", true);
+              $("#noLsr").prop("disabled", true);
 
-            // $("#alertWarning").empty();
+              $.toast({
+                title: "Pesan",
+                message: "Gagal menambahkan data.",
+                type: "error",
+                duration: 8000,
+              });
+              $.toast({
+                title: "Pesan",
+                message: "No LSR: " + noLsr + " sudah digunakan line lain, harap refresh browser dan input ulang.",
+                type: "warning",
+                duration: 15000,
+              });
+              $("body").loadingModal("hide");
+              return;
+            } else {
+              // Continue only if the validation passed
+              var formData = $(form).serialize();
+              $.ajax({
+                url: BASEURL + "/create/tambah",
+                method: "POST",
+                data: formData,
+                success: function (response) {
+                  $("body").loadingModal("hide");
 
-            // // Buat elemen alert baru
-            // var alertElement = $(
-            //   '<div class="col-8 text-center mt-3 alert alert-warning alert-dismissible fade show" role="alert">' +
-            //     '<span style="font-weight: bold;">Jangan lupa klik tombol submit!</span> jika semua data sudah ditambahkan.' +
-            //     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
-            //     "</div>"
-            // );
+                  if (response.status === "success") {
+                    $.toast({
+                      title: "Pesan",
+                      message: response.message,
+                      type: "success",
+                      duration: 8000,
+                    });
+                    setTimeout(function () {
+                      $("#dataTable")[0].scrollIntoView();
+                    }, 100); // Tunda 100 milidetik sebelum menggulir
 
-            // $("#alertWarning").append(alertElement);
+                    const material = $("#material").val();
+                    const shiftUser = $("#shift").val();
+                    const lineUser = $("#line").val();
+                    const tanggalValue = $("#tanggal").val();
+                    RefreshDataSubmit(material, tanggalValue, shiftUser, lineUser);
+                    roleValidtionPageCreate();
+                    // checkTablePageCreate();
 
-            setTimeout(function () {
-              $("#dataTable")[0].scrollIntoView();
-            }, 100); // Tunda 100 milidetik sebelum menggulir
-
-            const material = $("#material").val();
-            const shiftUser = $("#shift").val();
-            const lineUser = $("#line").val();
-            const tanggalValue = $("#tanggal").val();
-            RefreshDataSubmit(material, tanggalValue, shiftUser, lineUser);
-            roleValidtionPageCreate();
-            // checkTablePageCreate();
-
-            $("#remarks").val("");
-            $("#qty").val("");
-            $("#reason").val("");
-            $("#condition").val("");
-            $("#repair").val("");
-            $("#lineCode").prop("disabled", true);
-            $("#costCenter").prop("disabled", true);
-            $("#noLsr").prop("disabled", true);
-            $.toast({
-              title: "Pesan sukses",
-              message: "Berhasil menambahkan data dengan No LSR " + $("#noLsr").val(),
-              type: "success",
-              duration: 8000,
-            });
-            // setModalSubmit("Sukses!", "Data berhasil dikirim.");
-            // $("#alertModalSubmit").modal("show");
-          },
-          error: function (error) {
-            console.log(error);
-            $.toast({
-              title: "Pesan gagal",
-              message: "Gagal menambahkan data.",
-              type: "warning",
-              duration: 8000,
-            });
-            // setModalSubmit("Gagal!", "Data gagal terkirim.");
-            // $("#alertModalSubmit").modal("show");
+                    $("#remarks").val("");
+                    $("#qty").val("");
+                    $("#reason").val("");
+                    $("#condition").val("");
+                    $("#repair").val("");
+                    $("#lineCode").prop("disabled", true);
+                    $("#costCenter").prop("disabled", true);
+                    $("#noLsr").prop("disabled", true);
+                  } else {
+                    $.toast({
+                      title: "Pesan",
+                      message: response.message,
+                      type: "error",
+                      duration: 8000,
+                    });
+                  }
+                },
+                error: function (error) {
+                  console.log(error);
+                  $.toast({
+                    title: "Pesan",
+                    message: "Gagal menambahkan data terjadi kesalahan.",
+                    type: "error",
+                    duration: 8000,
+                  });
+                },
+              });
+            }
           },
         });
       },

@@ -65,6 +65,9 @@
             <i class="bi bi-list toggle-sidebar-btn"></i>
             <input type="hidden" id="roleUser"
                 value="<?php echo isset($data['user']['role']) ? $data['user']['role'] : 'public'; ?>" name="roleUser">
+            <input type="hidden" id="validMaterial"
+                value="<?php echo isset($data['userMat']['material']) ? $data['userMat']['material'] : 'Assembly'; ?>"
+                name="">
         </div><!-- End Logo -->
 
         <div class="logo">

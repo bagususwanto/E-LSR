@@ -23,6 +23,7 @@ class Login extends Controller
 
             // Simpan ID pengguna dalam session
             $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_line'] = $user['line_user'];
             $_SESSION['login'] = true;
 
             // Redirect ke halaman utama atau melakukan tindakan selanjutnya

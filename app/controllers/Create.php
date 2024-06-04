@@ -5,6 +5,7 @@ class Create extends Controller
     {
         // Mendapatkan ID pengguna dari session
         $id = $_SESSION['user_id'];
+        $namaLine = $_SESSION['user_line'];
 
 
         // Mendapatkan data material dan user berdasarkan ID
@@ -12,6 +13,7 @@ class Create extends Controller
         $data['mat'] = $this->model('Material_model')->getAllMaterial();
         $data['lineMaster'] = $this->model('Line_model')->getAllLine();
         $data['user'] = $this->model('User_model')->getAllUserById($id);
+        $data['userMat'] = $this->model('Line_model')->getMatByLine($namaLine);
 
         // Tampilkan view
         $this->view('templates/header', $data);
@@ -26,17 +28,31 @@ class Create extends Controller
 
     public function tambah()
     {
-        // print_r($_POST);
-        if ($this->model('Material_model')->AddDataMaterial($_POST) > 0) {
-            // Flasher::setFlash('data', 'berhasil', 'ditambahkan', 'success');
-            // header('location:' . BASEURL . '/create#tabelData2');
-            exit;
-        } else {
-            // Flasher::setFlash('data', 'gagal', 'ditambahkan', 'danger');
-            // header('location:' . BASEURL . '/create#tabelData2');
-            exit;
+        header('Content-Type: application/json');
+
+        try {
+            $result = $this->model('Material_model')->AddDataMaterial($_POST);
+            $this->model('Material_model')->addReport($_POST);
+
+            if ($result > 0) {
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => 'Berhasil menambahkan data dengan No LSR: ' . $_POST['no_lsr']
+                ]);
+            } else {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'Gagal menambahkan data, terjadi kesalahan.'
+                ]);
+            }
+        } catch (Exception $e) {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ]);
         }
     }
+
 
     // public function submitReport()
     // {
@@ -201,6 +217,19 @@ class Create extends Controller
 
         echo json_encode(array("no_lsr" => $id));
     }
+
+    public function checkNoLsr()
+    {
+        header('Content-Type: application/json');
+
+        $noLsr = $_POST['noLsr'];
+
+        $material_model = $this->model('Material_model');
+        $matData = $material_model->getMatData($noLsr);
+
+        echo json_encode($matData);
+    }
+
 
 
 }

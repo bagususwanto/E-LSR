@@ -5,9 +5,11 @@ class Master extends Controller
     {
         // Mendapatkan ID pengguna dari session
         $id = $_SESSION['user_id'];
+        $namaLine = $_SESSION['user_line'];
 
         $data['user'] = $this->model('User_model')->getAllUserById($id);
         $data['lineMaster'] = $this->model('Line_model')->getAllLine();
+        $data['userMat'] = $this->model('Line_model')->getMatByLine($namaLine);
 
         // Tampilkan view
         $this->view('templates/header', $data);

@@ -104,32 +104,36 @@ class Material_model
         $this->db->bind('price', $data['price']);
         $this->db->bind('total_price', $total_price);
 
-
         $this->db->execute();
         $rowCount = $this->db->rowCount();
 
+        return $rowCount;
+    }
+
+    public function addReport($data)
+    {
         // query 2 untuk table report
         $line = $data['line_lsr'];
         switch ($line) {
             case 'Main Line':
             case 'Sub Line':
-                $table = 'report_k';
+                $tableValid = 'report_k';
                 break;
             case 'Crankshaft':
             case 'Cylinder Block':
             case 'Cylinder Head':
             case 'Camshaft':
-                $table = 'report_m';
+                $tableValid = 'report_m';
                 break;
             case 'Die Casting':
-                $table = 'report_c';
+                $tableValid = 'report_c';
                 break;
             default:
-                $table = 'report_x';
+                $tableValid = 'report_x';
         }
 
         // Query untuk memeriksa apakah no_lsr sudah ada dalam tabel
-        $checkQuery = "SELECT COUNT(*) as count FROM $table WHERE no_lsr = :no_lsr";
+        $checkQuery = "SELECT COUNT(*) as count FROM $tableValid WHERE no_lsr = :no_lsr";
         $this->db->query($checkQuery);
         $this->db->bind(':no_lsr', $data['no_lsr']);
         $this->db->execute();
@@ -140,7 +144,7 @@ class Material_model
             return 0;
         }
 
-        $query2 = 'INSERT INTO ' . $table .
+        $query2 = 'INSERT INTO ' . $tableValid .
             ' VALUES (null, :no_lsr, :line, :pic, :tanggal, :waktu)';
 
         $this->db->query($query2);
@@ -151,8 +155,7 @@ class Material_model
         $this->db->bind('waktu', $data['waktu']);
 
         $this->db->execute();
-        $rowCount += $this->db->rowCount();
-
+        $rowCount = $this->db->rowCount();
         return $rowCount;
     }
 
@@ -449,6 +452,13 @@ class Material_model
         return $this->db->resultSet();
     }
 
+
+    public function getMatData($noLsr)
+    {
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE no_lsr=:noLsr');
+        $this->db->bind('noLsr', $noLsr);
+        return $this->db->single();
+    }
 
 
 

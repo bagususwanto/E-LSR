@@ -39,8 +39,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="forms-layouts.html">
-                        <i class="bi bi-circle"></i><span>Line</span>
+                    <a href="<?php echo BASEURL ?>">
+                        <i class="bi bi-circle"></i><span>Cost Center</span>
                     </a>
                 </li>
             </ul>

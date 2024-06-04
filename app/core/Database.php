@@ -9,12 +9,12 @@ class Database
     private $pass = DB_PASS;
     private $dbname = DB_NAME;
 
-    private $dbh; //db handler
-    private $stmn;
+    private $dbh; // Database handler
+    private $stmn; // Statement
 
     public function __construct()
     {
-        //data source name
+        // Data source name
         $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
 
         $option = [
@@ -33,7 +33,6 @@ class Database
     {
         $this->stmn = $this->dbh->prepare($query);
     }
-    
 
     public function bind($param, $value, $type = null)
     {
@@ -78,9 +77,10 @@ class Database
         return $this->stmn->rowCount();
     }
 
-
-    
-    
-    
+    public function reset()
+    {
+        $this->stmn = null;
+    }
 }
+
 ?>
