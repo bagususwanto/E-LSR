@@ -21,7 +21,7 @@ class Master extends Controller
         echo "<script>document.getElementById('expand').classList.remove('collapsed');</script>";
         echo "<script>document.getElementById('forms-nav').classList.add('show');</script>";
         echo "<script>document.getElementById('expand').setAttribute('area-expanded', 'true');</script>";
-        echo "<script>document.addEventListener('DOMContentLoaded', function() {
+        echo "<script>$(document).ready(function () {
             RefreshDataMasterMaterial();
         })</script>";
     }

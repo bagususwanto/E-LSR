@@ -57,6 +57,7 @@
                                             <option value="All">All</option>
                                             <option value="Red">Red</option>
                                             <option value="White">White</option>
+                                            <option value="NonShift">NonShift</option>
                                         </select>
                                     </div>
 

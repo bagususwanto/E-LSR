@@ -28,7 +28,7 @@
             </a>
         </li>End Master Data Nav -->
 
-        <li class="nav-item">
+        <li class="nav-item master-data">
             <a id="expand" class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-journal-text"></i><span>Master</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>

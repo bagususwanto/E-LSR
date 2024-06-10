@@ -31,6 +31,7 @@ $(function () {
     flatpickr("#tanggal", {
       maxDate: "today",
       dateFormat: "Y-m-d",
+      allowInput: true,
       onChange: function (selectedDates, dateStr, instance) {
         getIDnoLsr();
       },
@@ -39,6 +40,7 @@ $(function () {
     flatpickr("#tanggalTo", {
       maxDate: "today",
       dateFormat: "Y-m-d",
+      allowInput: true,
     });
 
     flatpickr("#waktu", {
@@ -838,14 +840,18 @@ $(function () {
 
     // ambil nilai tanggal dan tanggalTo
     const tanggalPicker = flatpickr("#tanggal", {
-      dateFormat: "Y-m-d", // Format tanggal
+      maxDate: "today",
+      dateFormat: "Y-m-d",
+      allowInput: true,
       onChange: function (selectedDates, dateStr, instance) {
-        console.log("Tanggal dipilih: ", dateStr);
+        dateStr;
       },
     });
 
     const tanggalToPicker = flatpickr("#tanggalTo", {
-      dateFormat: "Y-m-d", // Format tanggal
+      maxDate: "today",
+      dateFormat: "Y-m-d",
+      allowInput: true,
       onChange: function (selectedDates, dateStr, instance) {
         dateStr;
       },
@@ -1183,12 +1189,12 @@ $(function () {
     // halaman master validasi
     if (userRoleElement.length > 0) {
       const userRole = userRoleElement.val();
-
       const restrictedPage = BASEURL + "/master";
 
-      if (userRole.toLowerCase() === "public" && window.location.href.includes(restrictedPage)) {
-        alert("Anda tidak diizinkan mengakses halaman master data.");
-        window.location.href = BASEURL; // Redirect jika diakses dari halaman terlarang
+      if (userRole.toLowerCase() === "public" || userRole.toLowerCase() === "common") {
+        if ($(".master-data").length > 0) {
+          $(".master-data").empty();
+        }
       }
     }
 
@@ -1230,6 +1236,7 @@ $(function () {
   $(document).ready(function () {
     // Initialize Select2 on both elements
     $("#partNumber, #partName, #uniqeNo").select2();
+    // $("#line, #shift, #material").select2();
   });
 
   //======= TABLE PAGE MASTER======//

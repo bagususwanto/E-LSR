@@ -63,6 +63,7 @@
                                             aria-label="Default select example">
                                             <option value="Red">Red</option>
                                             <option value="White">White</option>
+                                            <option value="NonShift">NonShift</option>
                                         </select>
                                     </div>
                                 </div>
