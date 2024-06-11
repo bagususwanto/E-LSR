@@ -18,7 +18,7 @@ class Line_model
 
     public function getMatByLine($namaLine)
     {
-        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE material=:namaLine');
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE nama_line=:namaLine');
         $this->db->bind('namaLine', $namaLine);
         return $this->db->single();
     }

@@ -367,10 +367,12 @@ $(function () {
 
         // Iterasi melalui data dan tambahkan baris ke dalam tabel
         for (var i = 0; i < data.length; i++) {
-          if (data[i].status_lsr === "pending") {
+          if (data[i].status_lsr === "Waiting Approved") {
             statusClass = "";
-          } else if (data[i].status_lsr === "approved") {
-            statusClass = "bg-info";
+          } else if (data[i].status_lsr === "Approved By Section") {
+            statusClass = "bg-warning text-white";
+          } else if (data[i].status_lsr === "Uploaded To Ifast") {
+            statusClass = "bg-success text-white";
           } else if (data[i].status_lsr === "rejected") {
             statusClass = "bg-danger";
           }
@@ -482,10 +484,12 @@ $(function () {
 
         // Iterasi melalui data dan tambahkan baris ke dalam tabel
         for (var i = 0; i < data.length; i++) {
-          if (data[i].status_lsr === "pending") {
+          if (data[i].status_lsr === "Waiting Approved") {
             statusClass = "";
-          } else if (data[i].status_lsr === "approved") {
-            statusClass = "bg-info";
+          } else if (data[i].status_lsr === "Approved By Section") {
+            statusClass = "bg-warning text-white";
+          } else if (data[i].status_lsr === "Uploaded To Ifast") {
+            statusClass = "bg-success text-white";
           } else if (data[i].status_lsr === "rejected") {
             statusClass = "bg-danger";
           }
@@ -535,7 +539,7 @@ $(function () {
         var status_lsr = data[data.length - 2]; // Ambil status dari data terakhir (sebelum kolom tombol)
         var btnDelete = $(this.node()).find(".btn-delete");
 
-        if (status_lsr === "approved") {
+        if (status_lsr === "Approved By Section") {
           // Jika status sudah disetujui, nonaktifkan tombol hapus
           btnDelete.prop("disabled", true);
         } else {
@@ -759,6 +763,7 @@ $(function () {
       const line = $("#line").val();
       const shift = $("#shift").val();
       const material = $("#material").val();
+      const status = $("#status").val();
 
       // Mengirim permintaan AJAX
       $.ajax({
@@ -770,6 +775,7 @@ $(function () {
           line: line,
           shift: shift,
           material: material,
+          status: status,
         },
         dataType: "json",
         success: function (data) {
@@ -782,13 +788,21 @@ $(function () {
             let statusClass = "";
 
             // Tentukan kelas berdasarkan nilai status_lsr
-            if (data[i].status_lsr === "pending") {
+            if (data[i].status_lsr === "Waiting Approved") {
               statusClass = "";
-            } else if (data[i].status_lsr === "approved") {
-              statusClass = "bg-info";
+            } else if (data[i].status_lsr === "Approved By Section") {
+              statusClass = "bg-warning text-white";
+            } else if (data[i].status_lsr === "Uploaded To Ifast") {
+              statusClass = "bg-success text-white";
             } else if (data[i].status_lsr === "rejected") {
               statusClass = "bg-danger";
             }
+
+            // Tentukan elemen checkbox
+            //  let checkboxElement = `<input class="form-check-input checkbox-single" type="checkbox" id="checkboxNoLabel${i}" aria-label="" value="${data[i].id}">`;
+            //  if (data[i].status_lsr === "Waiting Approved") {
+            //    checkboxElement = ""; // Hilangkan checkbox jika status adalah "Waiting Approved"
+            //  }
 
             $("#tabelData")
               .DataTable()
@@ -818,6 +832,8 @@ $(function () {
               .nodes()
               .to$() // Dapatkan elemen HTML tr (baris)
               .addClass(statusClass); // Tambahkan kelas status
+            if (data[i].status_lsr === "Waiting Approved") {
+            }
           }
           $("#tabelData").DataTable().draw();
         },
@@ -907,8 +923,8 @@ $(function () {
           attr: { id: "deleteSelected" },
         },
         {
-          text: '<i class="bi bi-check-circle-fill"></i> Approve',
-          className: "btn-sm btn-info",
+          text: '<i class="bi bi-check-circle-fill"></i> Accept',
+          className: "btn-sm btn-success",
           attr: { id: "approveSelected" },
         },
       ],
@@ -1103,12 +1119,25 @@ $(function () {
       var selectedRows = $(".checkbox-single:checked");
 
       var selectedData = [];
+      var invalidData = false;
+
       selectedRows.each(function () {
+        var row = $(this).closest("tr");
+        var status = row.find("td:last").text().trim(); // Mengambil nilai status dari kolom terakhir
+        if (status === "Waiting Approved") {
+          invalidData = true; // Set flag jika ada status "Waiting Approved"
+        }
         selectedData.push($(this).val());
       });
 
       if (selectedData.length === 0) {
-        setModal("Alert", "Pilih setidaknya satu baris untuk approve.");
+        setModal("Alert", "Pilih setidaknya satu baris untuk accept.");
+        $("#alertModal").modal("show");
+        return;
+      }
+
+      if (invalidData) {
+        setModal("Alert", "Tidak dapat Accept baris dengan status 'Waiting Approved'.");
         $("#alertModal").modal("show");
         return;
       }
@@ -1128,12 +1157,12 @@ $(function () {
             success: function (data) {
               RefreshDataTables();
 
-              setModal("Sukses!", "Data Approved.");
+              setModal("Sukses!", "Data Accepted.");
               $("#alertModal").modal("show");
             },
             error: function (error) {
               console.error("Error in AJAX request:", error);
-              setModal("Gagal!", "Data gagal approved.");
+              setModal("Gagal!", "Data gagal Accepted.");
               $("#alertModal").modal("show");
             },
           });

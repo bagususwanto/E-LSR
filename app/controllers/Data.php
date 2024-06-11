@@ -1,7 +1,7 @@
 <?php
 class Data extends Controller
 {
-    public function index()
+    public function tracebility()
     {
         // Mendapatkan ID pengguna dari session
         $id = $_SESSION['user_id'];
@@ -14,12 +14,13 @@ class Data extends Controller
         // Tampilkan view
         $this->view('templates/header', $data);
         $this->view('templates/sidebar');
-        $this->view('data/index', $data);
+        $this->view('data/tracebility/index', $data);
         $this->view('templates/footer');
 
         // Pindahkan pemanggilan JavaScript ke bagian bawah halaman atau setelah semua elemen HTML
-        echo "<script>document.getElementById('data').classList.remove('collapsed');</script>";
-
+        echo "<script>document.getElementById('tracebility').classList.remove('collapsed');</script>";
+        echo "<script>document.getElementById('trace').classList.remove('collapsed');</script>";
+        echo "<script>document.getElementById('forms-nav-data').classList.add('show');</script>";
     }
 
     public function getDataTable()
@@ -30,9 +31,10 @@ class Data extends Controller
         $line = $_POST['line'];
         $shift = $_POST['shift'];
         $material = $_POST['material'];
+        $status = $_POST['status'];
 
         // Mendapatkan data dari model
-        $data = $this->model('Material_model')->getFilteredData($tanggalFrom, $tanggalTo, $line, $shift, $material);
+        $data = $this->model('Material_model')->getFilteredData($tanggalFrom, $tanggalTo, $line, $shift, $material, $status);
 
         // Mengembalikan data dalam format JSON
         echo json_encode($data);

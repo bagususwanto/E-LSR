@@ -28,6 +28,7 @@ class Report_model
                 $table = 'report_m';
                 break;
             case 'Die Casting':
+            case 'Low Pressure':
                 $prefix = 'C';
                 $table = 'report_c';
                 break;

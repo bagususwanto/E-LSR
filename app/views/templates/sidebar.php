@@ -16,10 +16,29 @@
             </a>
         </li><!-- End Create LSR Nav -->
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link collapsed" id="data" href="<?php echo BASEURL ?>/data">
                 <i class="bi bi-journal-text"></i><span>Data</span>
             </a>
+        </li>End Data Center Nav -->
+
+        <li class="nav-item">
+            <a id="trace" class="nav-link collapsed" data-bs-target="#forms-nav-data" data-bs-toggle="collapse"
+                href="#">
+                <i class="bi bi-journal-text"></i><span>Data</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="forms-nav-data" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="<?php echo BASEURL ?>">
+                        <i class="bi bi-circle"></i><span>Report</span>
+                    </a>
+                </li>
+                <li>
+                    <a id="tracebility" class="nav-link collapsed" href="<?php echo BASEURL ?>/data/tracebility">
+                        <i class="bi bi-circle"></i><span>Tracebility</span>
+                    </a>
+                </li>
+            </ul>
         </li><!-- End Data Center Nav -->
 
         <!-- <li class="nav-item">
@@ -30,7 +49,7 @@
 
         <li class="nav-item master-data">
             <a id="expand" class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-journal-text"></i><span>Master</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-database-fill"></i><span>Master</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>

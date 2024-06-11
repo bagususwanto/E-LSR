@@ -197,7 +197,7 @@ class Material_model
             // Mengubah nilai kolom 'status_lsr' menjadi 'approved' berdasarkan ID
             $placeholders = implode(',', array_fill(0, count($selectedData), '?'));
 
-            $query = "UPDATE $this->table SET status_lsr = 'approved' WHERE id IN ($placeholders)";
+            $query = "UPDATE $this->table SET status_lsr = 'Uploaded To Ifast' WHERE id IN ($placeholders)";
 
             $this->db->query($query);
 
@@ -342,7 +342,7 @@ class Material_model
 
 
 
-    public function getFilteredData($tanggalFrom, $tanggalTo, $line, $shift, $material)
+    public function getFilteredData($tanggalFrom, $tanggalTo, $line, $shift, $material, $status)
     {
         // Jika tanggalTo kosong, atur nilai tanggalTo ke tanggalFrom
         if (empty($tanggalTo)) {
@@ -367,6 +367,11 @@ class Material_model
         if ($material !== 'All') {
             $query .= (empty($params) ? ' WHERE' : ' AND') . ' material = :material';
             $params[':material'] = $material;
+        }
+
+        if ($status !== 'All') {
+            $query .= (empty($params) ? ' WHERE' : ' AND') . ' status_lsr = :status';
+            $params[':status'] = $status;
         }
 
         // Tambahkan kondisi tanggal

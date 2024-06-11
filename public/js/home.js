@@ -325,8 +325,8 @@ $(function () {
             break;
 
           case "castingCard":
-            title = ["Die Casting"];
-            imageSource = [BASEURL + "/img/casting.gif"];
+            title = ["Die Casting", "Low Pressure"];
+            imageSource = [BASEURL + "/img/casting.gif", BASEURL + "/img/Cylinder Head.gif"];
             cardClass = "customers-card";
             break;
           case "othersCard":

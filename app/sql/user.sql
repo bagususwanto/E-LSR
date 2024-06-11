@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 05, 2024 at 11:40 AM
+-- Generation Time: Jun 10, 2024 at 06:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -69,7 +69,10 @@ INSERT INTO `user` (`id`, `username`, `password`, `nama`, `line_user`, `shift_us
 (24, 'purwanto', '$2y$10$okhdsvQcx6kVjGCtKKYgv.N.ypdUarJeDglGBKsA9L2GDeZRwaE4a', 'Purwanto', 'Sub Line', 'White', 'Line Head', 'common'),
 (25, 'bambang', '$2y$10$1wjrklxh20QtemGw5DTRAOjtnAsTIesUHcQA8d0lA9n/vVVLDqfra', 'Bambang Supriyono', 'Main Line', 'White', 'Line Head', 'common'),
 (26, 'yunizar', '$2y$10$vt/Hv08xl5rh5suYdMMPOuK3OKSXsMJUdtT02exf14kfTfRj1fqMS', 'Yunizar', 'Main Line', 'Red', 'Line Head', 'common'),
-(27, 'waryo', '$2y$10$NITwce8kLLqs02kGlVUTZeiKI57D2v1.Mvwx8zZbiS7pYmi4vKQc.', 'Waryo Sutoto', 'Sub Line', 'Red', 'Line Head', 'common');
+(27, 'waryo', '$2y$10$NITwce8kLLqs02kGlVUTZeiKI57D2v1.Mvwx8zZbiS7pYmi4vKQc.', 'Waryo Sutoto', 'Sub Line', 'Red', 'Line Head', 'common'),
+(28, 'prima', '$2y$10$i7c/9ombLo3E6mIPMIS5TeuS2DxNAGbylDElL05RgbDfOUDymclFi', 'Primaantara Rezky D.A', 'Technical Support', 'NonShift', 'Line Head', 'common'),
+(29, 'triyanto', '$2y$10$OnANkZEo.WdFqwen6JOvau/decD4FT1suVIH5uNWYuFsXYQu0/n9i', 'Triyanto', 'Low Pressure', 'Red', 'Line Head', 'public'),
+(30, 'buset', '$2y$10$t1hjv1RbaM.I3aK0XcsJqew2u32q68nutEqyJR270P38OgCPaMy7O', 'Budi Setiya', 'Low Pressure', 'White', 'Line Head', 'public');
 
 --
 -- Indexes for dumped tables
@@ -89,7 +92,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
