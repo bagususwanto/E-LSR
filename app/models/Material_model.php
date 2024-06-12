@@ -218,7 +218,25 @@ class Material_model
     }
 
 
+    public function updateStatus($selectedData)
+    {
+        $placeholders = implode(',', array_fill(0, count($selectedData), '?'));
+        $query = "UPDATE $this->table SET status_lsr = 'Approved By Section' WHERE no_lsr IN ($placeholders)";
+        $this->db->query($query);
 
+        foreach ($selectedData as $index => $itemId) {
+            $this->db->bind($index + 1, $itemId);
+        }
+
+        try {
+            $this->db->execute();
+            return $this->db->rowCount();
+        } catch (Exception $e) {
+            // Handle and log error
+            error_log($e->getMessage());
+            return 0;
+        }
+    }
 
     public function getAllMaterialMaster()
     {
@@ -388,6 +406,60 @@ class Material_model
 
         return $result;
     }
+
+    public function FilteredReport($tanggalFrom, $tanggalTo, $line, $shift, $lsrCode, $status)
+    {
+        // Jika tanggalTo kosong, atur nilai tanggalTo ke tanggalFrom
+        if (empty($tanggalTo)) {
+            $tanggalTo = $tanggalFrom;
+        }
+
+        // Tentukan kolom yang ingin ditampilkan
+        $query = 'SELECT no_lsr, MAX(tanggal) as tanggal, MAX(line_lsr) as line_lsr, MAX(cost_center) as cost_center, 
+                  MAX(shift) as shift, MAX(user_lsr) as user_lsr, MAX(waktu) as waktu, MAX(status_lsr) as status_lsr 
+                  FROM ' . $this->table;
+
+        $params = [];
+
+        // Tambahkan kondisi jika nilai bukan "All"
+        if ($line !== 'All') {
+            $query .= ' WHERE line_lsr = :line_lsr';
+            $params[':line_lsr'] = $line;
+        }
+
+        if ($shift !== 'All') {
+            $query .= (empty($params) ? ' WHERE' : ' AND') . ' shift = :shift';
+            $params[':shift'] = $shift;
+        }
+
+        if ($lsrCode !== 'All') {
+            $query .= (empty($params) ? ' WHERE' : ' AND') . ' no_lsr LIKE :lsrCode';
+            $params[':lsrCode'] = $lsrCode . '%';
+        }
+
+        if ($status !== 'All') {
+            $query .= (empty($params) ? ' WHERE' : ' AND') . ' status_lsr = :status';
+            $params[':status'] = $status;
+        }
+
+        // Tambahkan kondisi tanggal
+        $query .= (empty($params) ? ' WHERE' : ' AND') . ' tanggal BETWEEN :tanggalFrom AND :tanggalTo';
+        $params[':tanggalFrom'] = $tanggalFrom;
+        $params[':tanggalTo'] = $tanggalTo;
+
+        // Tambahkan GROUP BY untuk no_lsr
+        $query .= ' GROUP BY no_lsr';
+
+        $this->db->query($query);
+        foreach ($params as $paramName => $paramValue) {
+            $this->db->bind($paramName, $paramValue);
+        }
+
+        $result = $this->db->resultSet();
+
+        return $result;
+    }
+
 
     public function deleteData($selectedData)
     {

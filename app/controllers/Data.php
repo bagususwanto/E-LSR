@@ -23,6 +23,28 @@ class Data extends Controller
         echo "<script>document.getElementById('forms-nav-data').classList.add('show');</script>";
     }
 
+    public function report()
+    {
+        // Mendapatkan ID pengguna dari session
+        $id = $_SESSION['user_id'];
+        $namaLine = $_SESSION['user_line'];
+
+        $data['lineMaster'] = $this->model('Line_model')->getAllLine();
+        $data['user'] = $this->model('User_model')->getAllUserById($id);
+        $data['userMat'] = $this->model('Line_model')->getMatByLine($namaLine);
+
+        // Tampilkan view
+        $this->view('templates/header', $data);
+        $this->view('templates/sidebar');
+        $this->view('data/report/index', $data);
+        $this->view('templates/footer');
+
+        // Pindahkan pemanggilan JavaScript ke bagian bawah halaman atau setelah semua elemen HTML
+        echo "<script>document.getElementById('report').classList.remove('collapsed');</script>";
+        echo "<script>document.getElementById('trace').classList.remove('collapsed');</script>";
+        echo "<script>document.getElementById('forms-nav-data').classList.add('show');</script>";
+    }
+
     public function getDataTable()
     {
         // Mendapatkan parameter dari request POST
@@ -35,6 +57,23 @@ class Data extends Controller
 
         // Mendapatkan data dari model
         $data = $this->model('Material_model')->getFilteredData($tanggalFrom, $tanggalTo, $line, $shift, $material, $status);
+
+        // Mengembalikan data dalam format JSON
+        echo json_encode($data);
+    }
+
+    public function getTableReport()
+    {
+        // Mendapatkan parameter dari request POST
+        $tanggalFrom = $_POST['tanggalFrom'];
+        $tanggalTo = $_POST['tanggalTo'];
+        $line = $_POST['line'];
+        $shift = $_POST['shift'];
+        $lsrCode = $_POST['lsrCode'];
+        $status = $_POST['status'];
+
+        // Mendapatkan data dari model
+        $data = $this->model('Material_model')->FilteredReport($tanggalFrom, $tanggalTo, $line, $shift, $lsrCode, $status);
 
         // Mengembalikan data dalam format JSON
         echo json_encode($data);
@@ -173,6 +212,26 @@ class Data extends Controller
     }
 
 
+    public function approveReport()
+    {
+        header('Content-Type: application/json');
+
+        $requestData = json_decode(file_get_contents("php://input"), true);
+        $selectedData = $requestData['selectedData'];
+        $result = $this->model('Material_model')->updateStatus($selectedData);
+
+        if ($result > 0) {
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Berhasil approve data dengan No LSR: '
+            ]);
+        } else {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Gagal approve data terjadi kesalahan.'
+            ]);
+        }
+    }
 
 
 

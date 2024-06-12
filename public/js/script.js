@@ -373,7 +373,7 @@ $(function () {
             statusClass = "bg-warning text-white";
           } else if (data[i].status_lsr === "Uploaded To Ifast") {
             statusClass = "bg-success text-white";
-          } else if (data[i].status_lsr === "rejected") {
+          } else if (data[i].status_lsr === "Rejected") {
             statusClass = "bg-danger";
           }
 
@@ -490,7 +490,7 @@ $(function () {
             statusClass = "bg-warning text-white";
           } else if (data[i].status_lsr === "Uploaded To Ifast") {
             statusClass = "bg-success text-white";
-          } else if (data[i].status_lsr === "rejected") {
+          } else if (data[i].status_lsr === "Rejected") {
             statusClass = "bg-danger";
           }
 
@@ -539,7 +539,7 @@ $(function () {
         var status_lsr = data[data.length - 2]; // Ambil status dari data terakhir (sebelum kolom tombol)
         var btnDelete = $(this.node()).find(".btn-delete");
 
-        if (status_lsr === "Approved By Section") {
+        if (status_lsr != "Waiting Approved") {
           // Jika status sudah disetujui, nonaktifkan tombol hapus
           btnDelete.prop("disabled", true);
         } else {
@@ -794,7 +794,7 @@ $(function () {
               statusClass = "bg-warning text-white";
             } else if (data[i].status_lsr === "Uploaded To Ifast") {
               statusClass = "bg-success text-white";
-            } else if (data[i].status_lsr === "rejected") {
+            } else if (data[i].status_lsr === "Rejected") {
               statusClass = "bg-danger";
             }
 
@@ -832,8 +832,6 @@ $(function () {
               .nodes()
               .to$() // Dapatkan elemen HTML tr (baris)
               .addClass(statusClass); // Tambahkan kelas status
-            if (data[i].status_lsr === "Waiting Approved") {
-            }
           }
           $("#tabelData").DataTable().draw();
         },
@@ -843,7 +841,76 @@ $(function () {
       });
     }
 
-    // Event handler untuk form submission
+    function RefreshTableReport() {
+      // Mendapatkan nilai dari input
+      const tanggalFrom = $("#tanggal").val();
+      const tanggalTo = $("#tanggalTo").val();
+      const line = $("#line").val();
+      const shift = $("#shift").val();
+      const lsrCode = $("#lsrCode").val();
+      const status = $("#status").val();
+
+      // Mengirim permintaan AJAX
+      $.ajax({
+        url: BASEURL + "/data/getTableReport",
+        method: "POST",
+        data: {
+          tanggalFrom: tanggalFrom,
+          tanggalTo: tanggalTo,
+          line: line,
+          shift: shift,
+          lsrCode: lsrCode,
+          status: status,
+        },
+        dataType: "json",
+        success: function (data) {
+          // Hapus semua baris sebelum menambahkan data baru
+          $("#tabelReport").DataTable().clear().draw();
+
+          // Iterasi melalui data dan tambahkan baris ke dalam tabel
+          for (var i = 0; i < data.length; i++) {
+            tabelReport;
+            let statusClass = "";
+
+            // Tentukan kelas berdasarkan nilai status_lsr
+            if (data[i].status_lsr === "Waiting Approved") {
+              statusClass = "";
+            } else if (data[i].status_lsr === "Approved By Section") {
+              statusClass = "bg-warning text-white";
+            } else if (data[i].status_lsr === "Uploaded To Ifast") {
+              statusClass = "bg-success text-white";
+            } else if (data[i].status_lsr === "Rejected") {
+              statusClass = "bg-danger";
+            }
+
+            $("#tabelReport")
+              .DataTable()
+              .row.add([
+                `<input class="form-check-input checkbox-single" type="checkbox" id="checkboxNoLabel${i}" 
+        aria-label="" value="${data[i].no_lsr}">`,
+                data[i].no_lsr,
+                `<a href="report?noLsr=${data[i].no_lsr}" class="link-dark" data-id="${data[i].id}"><button type="button" class="btn btn-outline-dark fw-bold">View</button></a>`,
+                data[i].line_lsr,
+                data[i].cost_center,
+                data[i].shift,
+                data[i].user_lsr,
+                data[i].tanggal,
+                data[i].waktu,
+                data[i].status_lsr,
+              ])
+              .nodes()
+              .to$() // Dapatkan elemen HTML tr (baris)
+              .addClass(statusClass); // Tambahkan kelas status
+          }
+          $("#tabelReport").DataTable().draw();
+        },
+        error: function (error) {
+          console.log("Error:", error);
+        },
+      });
+    }
+
+    //========EVENT SEARCH DATA===========//
     $("#searchForm").submit(function (event) {
       $("body").loadingModal({
         text: "Loading...",
@@ -853,6 +920,75 @@ $(function () {
       RefreshDataTables();
       $("body").loadingModal("hide");
     });
+
+    $("#searchReport").submit(function (event) {
+      $("body").loadingModal({
+        text: "Loading...",
+      });
+      event.preventDefault();
+
+      RefreshTableReport();
+      $("body").loadingModal("hide");
+    });
+
+    var tableReport = $("#tabelReport").DataTable({
+      // ordering: false,
+      fixedColumns: {
+        left: 1,
+      },
+      scrollCollapse: true,
+      fixedHeader: true,
+      scrollX: true,
+      scrollY: "50vh",
+      autoWidth: true,
+      responsive: true,
+      buttons: [
+        {
+          text: '<i class="bi bi-x-lg"></i> Reject',
+          className: "btn-sm btn-danger",
+          attr: { id: "rejectReport" },
+        },
+        {
+          text: '<i class="bi bi-check-circle-fill"></i> Approve',
+          className: "btn-sm btn-warning",
+          attr: { id: "approveReport" },
+        },
+      ],
+      initComplete: function () {
+        var btns = $(".dt-buttons");
+        btns.removeClass("btn-group");
+      },
+      dom: "<'row'<'col-6'B><'col-6'f>>" + "<'row'<'col-12't>>" + "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" + "<'row'<'col-12 pt-3'p>>",
+      lengthMenu: [
+        [10, 25, 50, 100, 500, -1],
+        [10, 25, 50, 100, 500, "All"],
+      ],
+      columnDefs: [
+        {
+          targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+          className: "text-center",
+        },
+      ],
+      columns: [
+        {
+          title: `<label>
+            <input class="form-check-input" type="checkbox" id="checkboxAll" value="" aria-label="">
+            </label>`,
+          orderable: false,
+        },
+        { title: "No LSR" },
+        { title: "E-Form" },
+        { title: "Line" },
+        { title: "Cost Center" },
+        { title: "Shift" },
+        { title: "Pic" },
+        { title: "Date" },
+        { title: "Time" },
+        { title: "Status" },
+      ],
+    });
+    // Mengatur tombol container ke posisi yang sesuai
+    tableReport.buttons().container().appendTo("#tabelReport_wrapper .col-md-6:eq(0)");
 
     // ambil nilai tanggal dan tanggalTo
     const tanggalPicker = flatpickr("#tanggal", {
@@ -1103,7 +1239,7 @@ $(function () {
           $("#condition").val(data.success.condition);
           $("#repair").val(data.success.repair);
           $("#remarks").val(data.success.remarks);
-          $("#status").val(data.success.status_lsr);
+          $("#statusModal").val(data.success.status_lsr);
           $("#id").val(data.success.id);
 
           $("#editModal").modal("show");
@@ -1155,6 +1291,7 @@ $(function () {
             contentType: "application/json",
             data: JSON.stringify({ selectedData: selectedData }),
             success: function (data) {
+              $("#status").val("All");
               RefreshDataTables();
 
               setModal("Sukses!", "Data Accepted.");
@@ -1164,6 +1301,84 @@ $(function () {
               console.error("Error in AJAX request:", error);
               setModal("Gagal!", "Data gagal Accepted.");
               $("#alertModal").modal("show");
+            },
+          });
+        });
+    });
+
+    // approve report
+    $("#approveReport").on("click", function () {
+      var selectedRows = $(".checkbox-single:checked");
+
+      var selectedData = [];
+      var invalidData = false;
+
+      selectedRows.each(function () {
+        var row = $(this).closest("tr");
+        var status = row.find("td:last").text().trim(); // Mengambil nilai status dari kolom terakhir
+        if (status === "Uploaded To Ifast") {
+          invalidData = true; // Set flag jika ada status "Uploaded To Ifast"
+        }
+        selectedData.push($(this).val());
+      });
+      if (selectedData.length === 0) {
+        $.toast({
+          title: "Pesan",
+          message: "Pilih setidaknya satu baris untuk approve.",
+          type: "warning",
+          duration: 8000,
+        });
+        return;
+      }
+
+      if (invalidData) {
+        $.toast({
+          title: "Pesan",
+          message: "Tidak dapat approve baris dengan status 'Uploaded To Ifast'.",
+          type: "warning",
+          duration: 8000,
+        });
+        return;
+      }
+
+      $("#confirmApproveReport").modal("show");
+
+      $("#confirmApproveReport")
+        .off("click", "#approveReportbtn")
+        .on("click", "#approveReportbtn", function () {
+          $("#confirmApproveReport").modal("hide");
+
+          $.ajax({
+            url: BASEURL + "/data/approveReport",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ selectedData: selectedData }),
+            success: function (response) {
+              if (response.status === "success") {
+                $.toast({
+                  title: "Pesan",
+                  message: response.message + selectedData,
+                  type: "success",
+                  duration: 8000,
+                });
+                RefreshTableReport();
+              } else {
+                $.toast({
+                  title: "Pesan",
+                  message: response.message,
+                  type: "error",
+                  duration: 8000,
+                });
+              }
+            },
+            error: function (error) {
+              console.log(error);
+              $.toast({
+                title: "Pesan",
+                message: "Gagal approve data error.",
+                type: "error",
+                duration: 8000,
+              });
             },
           });
         });

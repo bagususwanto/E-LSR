@@ -89,6 +89,7 @@
                                             <select class="form-select form-select-sm" id="status" name="status"
                                                 aria-label="Default select example">
                                                 <option value="All">All</option>
+                                                <option value="Rejected">Rejected</option>
                                                 <option value="Waiting Approved">Waiting Approved</option>
                                                 <option value="Approved By Section">Approved By Section</option>
                                                 <option value="Uploaded To Ifast">Uploaded To Ifast</option>
@@ -290,8 +291,9 @@
                                                 <div class="mb-3">
                                                     <label for="status"
                                                         class="form-label col-form-label-sm">Status</label>
-                                                    <select required class="form-select form-select-sm" id="status"
+                                                    <select required class="form-select form-select-sm" id="statusModal"
                                                         name="status" aria-label="Default select example">
+                                                        <option value="Rejected">Rejected</option>
                                                         <option value="Waiting Approved">Waiting Approved</option>
                                                         <option value="Approved By Section">Approved By Section</option>
                                                         <option value="Uploaded To Ifast">Uploaded To Ifast</option>
