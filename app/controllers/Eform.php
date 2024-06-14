@@ -1,5 +1,5 @@
 <?php
-class Report extends Controller
+class Eform extends Controller
 {
     public function index()
     {
@@ -13,8 +13,8 @@ class Report extends Controller
 
         // Tampilkan view
         $this->view('templates/header', $data);
-        $this->view('templates/sidebar');
-        $this->view('report/index');
+        // $this->view('templates/sidebar');
+        $this->view('eform/index');
         $this->view('templates/footer');
 
     }

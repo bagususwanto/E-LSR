@@ -1,7 +1,7 @@
 <?php
 class Data extends Controller
 {
-    public function tracebility()
+    public function traceability()
     {
         // Mendapatkan ID pengguna dari session
         $id = $_SESSION['user_id'];
@@ -14,11 +14,11 @@ class Data extends Controller
         // Tampilkan view
         $this->view('templates/header', $data);
         $this->view('templates/sidebar');
-        $this->view('data/tracebility/index', $data);
+        $this->view('data/traceability/index', $data);
         $this->view('templates/footer');
 
         // Pindahkan pemanggilan JavaScript ke bagian bawah halaman atau setelah semua elemen HTML
-        echo "<script>document.getElementById('tracebility').classList.remove('collapsed');</script>";
+        echo "<script>document.getElementById('traceability').classList.remove('collapsed');</script>";
         echo "<script>document.getElementById('trace').classList.remove('collapsed');</script>";
         echo "<script>document.getElementById('forms-nav-data').classList.add('show');</script>";
     }
@@ -216,23 +216,78 @@ class Data extends Controller
     {
         header('Content-Type: application/json');
 
-        $requestData = json_decode(file_get_contents("php://input"), true);
-        $selectedData = $requestData['selectedData'];
-        $result = $this->model('Material_model')->updateStatus($selectedData);
+        // Pastikan untuk mengambil data dengan metode POST
+        $selectedData = json_decode(file_get_contents("php://input"), true);
+
+        // Lakukan validasi data yang diterima sesuai kebutuhan aplikasi
+        if (!isset($selectedData['selectedData']) || !is_array($selectedData['selectedData'])) {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Data yang dikirim tidak valid.'
+            ]);
+            return;
+        }
+
+        $result = $this->model('Material_model')->updateStatus($selectedData['selectedData']);
 
         if ($result > 0) {
             echo json_encode([
                 'status' => 'success',
-                'message' => 'Berhasil approve data dengan No LSR: '
+                'message' => 'Berhasil approve data dengan No LSR: ' . implode(', ', array_column($selectedData['selectedData'], 'noLsr'))
             ]);
         } else {
             echo json_encode([
                 'status' => 'error',
-                'message' => 'Gagal approve data terjadi kesalahan.'
+                'message' => 'Gagal approve data, terjadi kesalahan.'
             ]);
         }
     }
 
+    public function rejectReport()
+    {
+        header('Content-Type: application/json');
+
+        // Pastikan untuk mengambil data dengan metode POST
+        $selectedData = json_decode(file_get_contents("php://input"), true);
+
+        // Lakukan validasi data yang diterima sesuai kebutuhan aplikasi
+        if (!isset($selectedData['selectedData']) || !is_array($selectedData['selectedData'])) {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Data yang dikirim tidak valid.'
+            ]);
+            return;
+        }
+
+        $result = $this->model('Material_model')->updateStatus($selectedData['selectedData']);
+
+        if ($result > 0) {
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Berhasil reject data dengan No LSR: ' . implode(', ', array_column($selectedData['selectedData'], 'noLsr'))
+            ]);
+        } else {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Gagal reject data, terjadi kesalahan.'
+            ]);
+        }
+    }
+
+    public function getDataReport()
+    {
+        // Mendapatkan parameter dari request POST
+        $shift = $_POST['shift'];
+        $lsrCode = $_POST['lsrCode'];
+        $status = $_POST['status'];
+        $line = $_POST['line'];
+
+        // Mendapatkan data dari model
+        $data = $this->model('Material_model')->FilteredDataReport($shift, $lsrCode, $status, $line);
+
+        // Mengembalikan data dalam format JSON
+        echo json_encode($data);
+    }
 
 
 

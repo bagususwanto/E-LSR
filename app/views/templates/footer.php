@@ -100,6 +100,69 @@
             <?php unset($_SESSION['message']); ?> // Hapus pesan setelah ditampilkan
         <?php endif; ?>
     });
+
+    // FUNGSI UNTUK HALAMAN DATA REPORT
+    function RefreshTableReport(tanggalFrom, tanggalTo, line, shift, lsrCode, status) {
+        // Mengirim permintaan AJAX
+        $.ajax({
+            url: BASEURL + "/data/getDataReport",
+            method: "POST",
+            data: {
+                tanggalFrom: tanggalFrom,
+                tanggalTo: tanggalTo,
+                line: line,
+                shift: shift,
+                lsrCode: lsrCode,
+                status: status,
+            },
+            dataType: "json",
+            success: function (data) {
+                // Hapus semua baris sebelum menambahkan data baru
+                $("#tabelReport").DataTable().clear().draw();
+
+                // Iterasi melalui data dan tambahkan baris ke dalam tabel
+                for (var i = 0; i < data.length; i++) {
+                    tabelReport;
+                    let statusClass = "";
+
+                    // Tentukan kelas berdasarkan nilai status_lsr
+                    if (data[i].status_lsr === "Waiting Approved") {
+                        statusClass = "";
+                    } else if (data[i].status_lsr === "Approved By Section") {
+                        statusClass = "bg-warning text-white";
+                    } else if (data[i].status_lsr === "Uploaded To Ifast") {
+                        statusClass = "bg-success text-white";
+                    } else if (data[i].status_lsr === "Rejected By Section") {
+                        statusClass = "bg-danger";
+                    }
+
+                    $("#tabelReport")
+                        .DataTable()
+                        .row.add([
+                            `<input class="form-check-input checkbox-single" type="checkbox" id="checkboxNoLabel${i}" 
+        aria-label="" value="${data[i].no_lsr}">`,
+                            data[i].no_lsr,
+                            `<a href="${BASEURL}/eform" target="_blank" class="link-dark" data-id="${data[i].id}">
+                <button type="button" class="btn btn-outline-dark fw-bold">View</button></a>`,
+                            data[i].line_lsr,
+                            data[i].cost_center,
+                            data[i].shift,
+                            data[i].user_lsr,
+                            data[i].tanggal,
+                            data[i].waktu,
+                            data[i].status_lsr,
+                        ])
+                        .nodes()
+                        .to$() // Dapatkan elemen HTML tr (baris)
+                        .addClass(statusClass); // Tambahkan kelas status
+                }
+                $("#tabelReport").DataTable().draw();
+            },
+            error: function (error) {
+                console.log("Error:", error);
+            },
+        });
+    }
 </script>
 
 <!-- Main JS File -->

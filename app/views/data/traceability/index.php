@@ -1,12 +1,12 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Data Tracebility</h1>
+        <h1>Data Traceability</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?php echo BASEURL; ?>">Home</a></li>
                 <li class="breadcrumb-item active">Data</li>
-                <li class="breadcrumb-item active">Tracebility</li>
+                <li class="breadcrumb-item active">Traceability</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -89,7 +89,7 @@
                                             <select class="form-select form-select-sm" id="status" name="status"
                                                 aria-label="Default select example">
                                                 <option value="All">All</option>
-                                                <option value="Rejected">Rejected</option>
+                                                <option value="Rejected By Section">Rejected By Section</option>
                                                 <option value="Waiting Approved">Waiting Approved</option>
                                                 <option value="Approved By Section">Approved By Section</option>
                                                 <option value="Uploaded To Ifast">Uploaded To Ifast</option>
@@ -293,7 +293,7 @@
                                                         class="form-label col-form-label-sm">Status</label>
                                                     <select required class="form-select form-select-sm" id="statusModal"
                                                         name="status" aria-label="Default select example">
-                                                        <option value="Rejected">Rejected</option>
+                                                        <option value="Rejected By Section">Rejected By Section</option>
                                                         <option value="Waiting Approved">Waiting Approved</option>
                                                         <option value="Approved By Section">Approved By Section</option>
                                                         <option value="Uploaded To Ifast">Uploaded To Ifast</option>

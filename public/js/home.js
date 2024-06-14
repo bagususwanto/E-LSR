@@ -353,7 +353,7 @@ $(function () {
             cardClass = "others-card";
             break;
           default:
-            console.log("Card type not recognized.");
+            // console.log("Card type not recognized.");
             return;
         }
 

@@ -10,7 +10,7 @@
             </a>
         </li><!-- End Dashboard Nav -->
 
-        <li class="nav-item">
+        <li class="nav-item create">
             <a class="nav-link collapsed" id="create" href="<?php echo BASEURL ?>/create">
                 <i class="bi bi-menu-button-wide"></i><span>Create</span>
             </a>
@@ -34,8 +34,8 @@
                     </a>
                 </li>
                 <li>
-                    <a id="tracebility" class="nav-link collapsed" href="<?php echo BASEURL ?>/data/tracebility">
-                        <i class="bi bi-circle"></i><span>Tracebility</span>
+                    <a id="traceability" class="nav-link collapsed" href="<?php echo BASEURL ?>/data/traceability">
+                        <i class="bi bi-circle"></i><span>Traceability</span>
                     </a>
                 </li>
             </ul>

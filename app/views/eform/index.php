@@ -1,11 +1,11 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Report</h1>
+        <h1>Eform</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?php echo BASEURL; ?>">Home</a></li>
-                <li class="breadcrumb-item active">Report</li>
+                <li class="breadcrumb-item active">Eform</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->

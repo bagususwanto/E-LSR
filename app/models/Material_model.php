@@ -100,7 +100,7 @@ class Material_model
         $this->db->bind('user_lsr', $data['userName']);
         $this->db->bind('line_code', $data['line_code']);
         $this->db->bind('cost_center', $data['cost_center']);
-        $this->db->bind('status_lsr', 'pending');
+        $this->db->bind('status_lsr', 'Waiting Approved');
         $this->db->bind('price', $data['price']);
         $this->db->bind('total_price', $total_price);
 
@@ -126,6 +126,7 @@ class Material_model
                 $tableValid = 'report_m';
                 break;
             case 'Die Casting':
+            case 'Low Pressure':
                 $tableValid = 'report_c';
                 break;
             default:
@@ -217,19 +218,19 @@ class Material_model
         }
     }
 
-
     public function updateStatus($selectedData)
     {
-        $placeholders = implode(',', array_fill(0, count($selectedData), '?'));
-        $query = "UPDATE $this->table SET status_lsr = 'Approved By Section' WHERE no_lsr IN ($placeholders)";
+        $query = "UPDATE $this->table SET status_lsr = :statusVal WHERE no_lsr = :noLsr";
         $this->db->query($query);
 
-        foreach ($selectedData as $index => $itemId) {
-            $this->db->bind($index + 1, $itemId);
-        }
-
         try {
-            $this->db->execute();
+            foreach ($selectedData as $index) {
+                $this->db->bind(':noLsr', $index['noLsr']);
+                $this->db->bind(':statusVal', $index['statusVal']);
+                $this->db->execute(); // Eksekusi query untuk setiap data yang dipilih
+            }
+
+
             return $this->db->rowCount();
         } catch (Exception $e) {
             // Handle and log error
@@ -362,40 +363,50 @@ class Material_model
 
     public function getFilteredData($tanggalFrom, $tanggalTo, $line, $shift, $material, $status)
     {
-        // Jika tanggalTo kosong, atur nilai tanggalTo ke tanggalFrom
-        if (empty($tanggalTo)) {
-            $tanggalTo = $tanggalFrom;
-        }
-
         $query = 'SELECT * FROM ' . $this->table;
 
         $params = [];
+        $conditions = [];
 
         // Tambahkan kondisi jika nilai bukan "All"
         if ($line !== 'All') {
-            $query .= ' WHERE line_lsr = :line_lsr';
+            $conditions[] = 'line_lsr = :line_lsr';
             $params[':line_lsr'] = $line;
         }
 
         if ($shift !== 'All') {
-            $query .= (empty($params) ? ' WHERE' : ' AND') . ' shift = :shift';
+            $conditions[] = 'shift = :shift';
             $params[':shift'] = $shift;
         }
 
         if ($material !== 'All') {
-            $query .= (empty($params) ? ' WHERE' : ' AND') . ' material = :material';
+            $conditions[] = 'material = :material';
             $params[':material'] = $material;
         }
 
         if ($status !== 'All') {
-            $query .= (empty($params) ? ' WHERE' : ' AND') . ' status_lsr = :status';
+            $conditions[] = 'status_lsr = :status';
             $params[':status'] = $status;
         }
 
-        // Tambahkan kondisi tanggal
-        $query .= (empty($params) ? ' WHERE' : ' AND') . ' tanggal BETWEEN :tanggalFrom AND :tanggalTo';
-        $params[':tanggalFrom'] = $tanggalFrom;
-        $params[':tanggalTo'] = $tanggalTo;
+        // Tambahkan kondisi tanggal jika salah satu atau keduanya tidak kosong
+        if (!empty($tanggalFrom) || !empty($tanggalTo)) {
+            // Jika tanggalTo kosong, atur nilai tanggalTo ke tanggalFrom
+            if (empty($tanggalTo)) {
+                $tanggalTo = $tanggalFrom;
+            }
+
+            if (!empty($tanggalFrom)) {
+                $conditions[] = 'tanggal BETWEEN :tanggalFrom AND :tanggalTo';
+                $params[':tanggalFrom'] = $tanggalFrom;
+                $params[':tanggalTo'] = $tanggalTo;
+            }
+        }
+
+        // Gabungkan kondisi ke dalam query
+        if (!empty($conditions)) {
+            $query .= ' WHERE ' . implode(' AND ', $conditions);
+        }
 
         $this->db->query($query);
         foreach ($params as $paramName => $paramValue) {
@@ -407,45 +418,56 @@ class Material_model
         return $result;
     }
 
+
     public function FilteredReport($tanggalFrom, $tanggalTo, $line, $shift, $lsrCode, $status)
     {
-        // Jika tanggalTo kosong, atur nilai tanggalTo ke tanggalFrom
-        if (empty($tanggalTo)) {
-            $tanggalTo = $tanggalFrom;
-        }
-
         // Tentukan kolom yang ingin ditampilkan
         $query = 'SELECT no_lsr, MAX(tanggal) as tanggal, MAX(line_lsr) as line_lsr, MAX(cost_center) as cost_center, 
                   MAX(shift) as shift, MAX(user_lsr) as user_lsr, MAX(waktu) as waktu, MAX(status_lsr) as status_lsr 
                   FROM ' . $this->table;
 
         $params = [];
+        $conditions = [];
 
         // Tambahkan kondisi jika nilai bukan "All"
         if ($line !== 'All') {
-            $query .= ' WHERE line_lsr = :line_lsr';
+            $conditions[] = 'line_lsr = :line_lsr';
             $params[':line_lsr'] = $line;
         }
 
         if ($shift !== 'All') {
-            $query .= (empty($params) ? ' WHERE' : ' AND') . ' shift = :shift';
+            $conditions[] = 'shift = :shift';
             $params[':shift'] = $shift;
         }
 
         if ($lsrCode !== 'All') {
-            $query .= (empty($params) ? ' WHERE' : ' AND') . ' no_lsr LIKE :lsrCode';
+            $conditions[] = 'no_lsr LIKE :lsrCode';
             $params[':lsrCode'] = $lsrCode . '%';
         }
 
         if ($status !== 'All') {
-            $query .= (empty($params) ? ' WHERE' : ' AND') . ' status_lsr = :status';
+            $conditions[] = 'status_lsr = :status';
             $params[':status'] = $status;
         }
 
-        // Tambahkan kondisi tanggal
-        $query .= (empty($params) ? ' WHERE' : ' AND') . ' tanggal BETWEEN :tanggalFrom AND :tanggalTo';
-        $params[':tanggalFrom'] = $tanggalFrom;
-        $params[':tanggalTo'] = $tanggalTo;
+        // Tambahkan kondisi tanggal jika salah satu atau keduanya tidak kosong
+        if (!empty($tanggalFrom) || !empty($tanggalTo)) {
+            // Jika tanggalTo kosong, atur nilai tanggalTo ke tanggalFrom
+            if (empty($tanggalTo)) {
+                $tanggalTo = $tanggalFrom;
+            }
+
+            if (!empty($tanggalFrom)) {
+                $conditions[] = 'tanggal BETWEEN :tanggalFrom AND :tanggalTo';
+                $params[':tanggalFrom'] = $tanggalFrom;
+                $params[':tanggalTo'] = $tanggalTo;
+            }
+        }
+
+        // Gabungkan kondisi ke dalam query
+        if (!empty($conditions)) {
+            $query .= ' WHERE ' . implode(' AND ', $conditions);
+        }
 
         // Tambahkan GROUP BY untuk no_lsr
         $query .= ' GROUP BY no_lsr';
@@ -459,6 +481,7 @@ class Material_model
 
         return $result;
     }
+
 
 
     public function deleteData($selectedData)
@@ -535,6 +558,59 @@ class Material_model
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE no_lsr=:noLsr');
         $this->db->bind('noLsr', $noLsr);
         return $this->db->single();
+    }
+
+    public function FilteredDataReport($shift, $lsrCode, $status, $line)
+    {
+        // cek apakah ada data dengan variabel $line di kolom line_lsr
+        $lineExistsQuery = 'SELECT COUNT(*) as count FROM ' . $this->table . ' WHERE line_lsr = :line';
+        $this->db->query($lineExistsQuery);
+        $this->db->bind(':line', $line);
+        $lineCountResult = $this->db->single();
+
+        // Tentukan kolom yang ingin ditampilkan
+        $query = 'SELECT no_lsr, MAX(tanggal) as tanggal, MAX(line_lsr) as line_lsr, MAX(cost_center) as cost_center, 
+                  MAX(shift) as shift, MAX(user_lsr) as user_lsr, MAX(waktu) as waktu, MAX(status_lsr) as status_lsr 
+                  FROM ' . $this->table . ' WHERE 1=1 ';
+
+        // Tambahkan kondisi berdasarkan parameter
+        if (!empty($shift)) {
+            $query .= ' AND shift = :shift';
+        }
+        if (!empty($lsrCode)) {
+            $query .= ' AND no_lsr LIKE :lsrCode';
+        }
+        if (!empty($status)) {
+            $query .= ' AND status_lsr = :status';
+        }
+        // Tambahkan kondisi line jika data dengan variabel $line ada di kolom line_lsr
+        if ($lineCountResult['count'] > 0 && !empty($line)) {
+            $query .= ' AND line_lsr = :line';
+        }
+
+        // Kelompokkan hasil berdasarkan kolom no_lsr
+        $query .= ' GROUP BY no_lsr';
+
+        $this->db->query($query);
+
+        // Bind parameter jika tidak kosong
+        if (!empty($shift)) {
+            $this->db->bind(':shift', $shift);
+        }
+        if (!empty($lsrCode)) {
+            $this->db->bind(':lsrCode', $lsrCode . '%');
+        }
+        if (!empty($status)) {
+            $this->db->bind(':status', $status);
+        }
+        if ($lineCountResult['count'] > 0 && !empty($line)) {
+            $this->db->bind(':line', $line);
+        }
+
+        // Eksekusi query dan ambil hasil
+        $result = $this->db->resultSet();
+
+        return $result;
     }
 
 

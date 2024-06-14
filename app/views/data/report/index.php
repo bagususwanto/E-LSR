@@ -79,7 +79,7 @@
                                         <select class="form-select form-select-sm" id="status" name="status"
                                             aria-label="Default select example">
                                             <option value="All">All</option>
-                                            <option value="Rejected">Rejected</option>
+                                            <option value="Rejected By Section">Rejected By Section</option>
                                             <option value="Waiting Approved">Waiting Approved</option>
                                             <option value="Approved By Section">Approved By Section</option>
                                             <option value="Uploaded To Ifast">Uploaded To Ifast</option>
@@ -137,6 +137,28 @@
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Batal</button>
                                     <button type="button" class="btn btn-primary" id="approveReportbtn">Approve</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Bootstrap untuk konfirmasi Reject-->
+                    <div class="modal fade" id="confirmRejectReport" tabindex="-1"
+                        aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmationModalLabel">Konfirmasi Reject</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" id="modalContent">
+                                    Apakah Anda yakin ingin reject baris yang dipilih?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Batal</button>
+                                    <button type="button" class="btn btn-primary" id="RejectReportbtn">Reject</button>
                                 </div>
                             </div>
                         </div>
