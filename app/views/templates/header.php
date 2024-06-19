@@ -86,8 +86,11 @@
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                         <li class="dropdown-header">
-                            <span id="notifText"></span>
-                            <a id="viewAllLink"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                            <span id="notifNumber" class="text-primary fw-bold"></span><span id="notifText"></span>
+                            <a
+                                href="<?php echo BASEURL; ?>/data/report?tanggalFrom=&tanggalTo=&line=<?php echo $data['user']['line_user']; ?>&shift=<?php echo $data['user']['shift_user']; ?>&lsrCode=<?php echo $data['user']['category']; ?>&status=Waiting%20Approved"><span
+                                    class="badge rounded-pill bg-primary p-2 ms-2">View
+                                    all</span></a>
                         </li>
                         <!-- <li>
                             <hr class="dropdown-divider">

@@ -141,16 +141,17 @@
                                                 <td colspan="5" rowspan="3">
                                                     <p class="text-center text-decoration-underline text-nowrap">
                                                         KELENGKAPAN PERSETUJUAN (TANDA TANGAN FORMAT LSR)</p>
-                                                    <p class="p-3">1. Form sudah approved : Tanda tangan ordering</p>
-                                                    <p class="p-3">2. Form belum approved : Tanpa tanda tangan ordering
+                                                    <p class="p-3">1. Reason LSR F-0 & F-6: Tanpa tanda tangan Quality
+                                                    </p>
+                                                    <p class="p-3">2. Reason LSR DO : Wajib tanda tangan Quality
                                                     </p>
                                                 </td>
                                                 <td colspan="8">REQUESTED BY</td>
                                                 <td>RECEIVED BY - ORDERING</td>
                                             <tr>
-                                                <td colspan="2">hhhhh</td>
-                                                <td colspan="3">hhhhh</td>
-                                                <td colspan="2">hhhhh</td>
+                                                <td colspan="2" width="100px" height="110px">hhhhh</td>
+                                                <td colspan="3" width="100px" height="110px">hhhhh</td>
+                                                <td colspan="2" width="100px" height="110px">hhhhh</td>
                                             </tr>
                                             </tr>
                                         </tfoot>
