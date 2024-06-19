@@ -149,7 +149,9 @@
                                                 <td colspan="8">REQUESTED BY</td>
                                                 <td>RECEIVED BY - ORDERING</td>
                                             <tr>
-                                                <td colspan="2" width="100px" height="110px">hhhhh</td>
+                                                <td class="text-center" colspan="2" width="100px" height="110px">
+                                                    <?php echo $data['imgTag']; ?>
+                                                </td>
                                                 <td colspan="3" width="100px" height="110px">hhhhh</td>
                                                 <td colspan="2" width="100px" height="110px">hhhhh</td>
                                             </tr>

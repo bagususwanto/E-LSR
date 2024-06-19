@@ -48,7 +48,7 @@
               <h4>Upload Tanda Tangan</h4>
             </div>
             <div class="card-body">
-              <form action="<?php echo BASEURL ?>/signUpload" method="post" enctype="multipart/form-data">
+              <form action="<?php echo BASEURL ?>/sign/signUpload" method="post" enctype="multipart/form-data">
                 <div class="mb-3 mt-3">
                   <label for="signatureUpload" class="form-label">Pilih Tanda Tangan</label>
                   <input type="file" name="signFile" class="form-control" id="signatureUpload" accept="image/*">
@@ -61,7 +61,7 @@
                     <span class="text-muted">Tidak ada pratinjau tersedia</span>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Upload</button>
               </form>
             </div>
           </div>
@@ -75,7 +75,9 @@
       class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
+  <script src="<?php echo BASEURL ?>/vendor/jquery/jquery-3.7.1.min.js"></script>
   <script src="<?php echo BASEURL ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="<?php echo BASEURL ?>/vendor/toast/toast-plugin.js"></script>
 
   <!-- Template Main JS File -->
   <script src="<?php echo BASEURL ?>/js/main.js"></script>
@@ -96,6 +98,18 @@
       } else {
         previewContainer.innerHTML = '<span class="text-muted">Tidak ada pratinjau tersedia</span>';
       }
+    });
+
+    $(document).ready(function () {
+      <?php if (isset($_SESSION['message'])): ?>
+        $.toast({
+          title: "Pesan",
+          message: "<?php echo $_SESSION['message']['content']; ?>",
+          type: "<?php echo $_SESSION['message']['type']; ?>",
+          duration: 8000,
+        });
+        <?php unset($_SESSION['message']); ?> // Hapus pesan setelah ditampilkan
+      <?php endif; ?>
     });
   </script>
 </body>

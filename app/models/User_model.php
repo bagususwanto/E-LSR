@@ -50,32 +50,34 @@ class User_model
 
 
 
-    public function doUploadSign($file, $username) {
-        $targetDir = "../uploads/";
-        $fileName = $username . '_' . basename($file["name"]);
+    public function doUploadSign($file, $username)
+    {
+        $targetDir = realpath(__DIR__ . '/../../public/img/sign') . '/';
+        $fileInfo = pathinfo($file["name"]);
+        $fileExtension = strtolower($fileInfo['extension']);
+        $fileName = $username . '.' . $fileExtension;
         $targetFile = $targetDir . $fileName;
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
-        // Check if file already exists
-        if (file_exists($targetFile)) {
-            return "File sudah ada.";
-        }
+        // Cek apakah file sudah ada
+        // if (file_exists($targetFile)) {
+        //     return "File sudah ada.";
+        // }
 
-        // Check file size
+        // Cek ukuran file
         if ($file["size"] > 500000) {
             return "File terlalu besar.";
         }
 
-        // Allow certain file formats
-        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif" ) {
+        // Perbolehkan hanya format file tertentu
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
             return "Hanya file JPG, JPEG, PNG & GIF yang diperbolehkan.";
         }
 
-        // Upload file
+        // Unggah file
         if (move_uploaded_file($file["tmp_name"], $targetFile)) {
-            return "File ". htmlspecialchars($fileName). " berhasil diunggah.";
+            return "File tanda tangan berhasil diunggah.";
         } else {
             return "Terjadi kesalahan saat mengunggah file.";
         }

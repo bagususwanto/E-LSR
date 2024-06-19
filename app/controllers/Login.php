@@ -20,18 +20,26 @@ class Login extends Controller
 
         // Handle hasil pemeriksaan kredensial
         if ($user) {
-
             // Simpan ID pengguna dalam session
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_line'] = $user['line_user'];
             $_SESSION['login'] = true;
 
-            // Redirect ke halaman utama atau melakukan tindakan selanjutnya
-            header('Location:' . BASEURL);
-            exit;
+            $dir = realpath(__DIR__ . '/../../public/img/sign/');
+
+            // Pencarian file gambar dengan ekstensi apapun
+            $files = glob($dir . '/' . $user['username'] . '.*');
+
+            //check file tanda tangan ada atau ga
+            if (!empty($files)) {
+                header('Location:' . BASEURL);
+                exit;
+            } else {
+                header('Location:' . BASEURL . '/sign');
+                exit;
+            }
         } else {
             header('Location:' . BASEURL . '/login');
-            // Tampilkan pesan error jika kredensial tidak cocok
             Flasher::setFlash('username atau password tidak sesuai,', 'gagal', 'login', 'danger');
             // echo 'Invalid credentials. Please try again.';
         }
