@@ -1757,7 +1757,7 @@ $(function () {
 
   //==== FUNGSI NOTIFICATION======//
   function refreshNotif() {
-    $("#viewAllLink").attr("href", BASEURL + "/data/report");
+    // $("#viewAllLink").attr("href", BASEURL + "/data/report");
     const id = $("#userLog").data("id");
     $.ajax({
       url: BASEURL + "/create/getUbahSelectedLine",
@@ -1785,9 +1785,17 @@ $(function () {
           dataType: "json",
           success: function (data) {
             const unapprovedReports = data.length;
-            $("#notifCount").text(unapprovedReports);
-            $("#notifNumber").text(unapprovedReports);
-            $("#notifText").text(" report belum approve section head");
+            if (unapprovedReports != 0) {
+              $("#viewAllLink").show();
+              $("#notifCount").text(unapprovedReports);
+              $("#notifNumber").text(unapprovedReports);
+              $("#notifText").text(" report belum approve section head");
+            } else {
+              $("#viewAllLink").hide();
+              $("#notifText").text("Tidak ada notifikasi");
+              $("#notifCount").text("");
+              $("#notifNumber").text("");
+            }
           },
         });
       },
