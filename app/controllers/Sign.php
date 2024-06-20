@@ -12,6 +12,7 @@ class Sign extends Controller
 
     public function signUpload()
     {
+        $_SESSION['sign'] = true;
         $file = $_FILES["signFile"];
         $username = $_POST["signUser"];
 

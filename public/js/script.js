@@ -75,6 +75,10 @@ $(function () {
         $("#lineSub").val(data.line_user);
         $("#shift").val(data.shift_user);
         $("#lsrCode").val(data.category); // untuk halaman report
+
+        if ($("#shift").val() === "NonShift") {
+          $("#shift").val("All");
+        }
       },
       error: function (error) {
         console.log("Error:", error);
@@ -1550,7 +1554,7 @@ $(function () {
         }
       }
 
-      if (userRole.toLowerCase() === "approver") {
+      if (userRole.toLowerCase() === "approver" || userRole.toLowerCase() === "approveqc") {
         if ($(".create").length > 0) {
           $(".create").empty();
         }
@@ -1572,7 +1576,7 @@ $(function () {
       if (userRole.toLowerCase() === "admin") {
         $("#approveReport").prop("disabled", true);
         $("#rejectReport").prop("disabled", true);
-      } else if (userRole.toLowerCase() === "approver") {
+      } else if (userRole.toLowerCase() === "approve" || userRole.toLowerCase() === "approveqc") {
         $("#approveReport").prop("disabled", false);
         $("#rejectReport").prop("disabled", false);
         $("#editSelected").prop("disabled", true);
@@ -1762,9 +1766,13 @@ $(function () {
       dataType: "json",
       success: function (response) {
         const line = response.line_user;
-        const shift = response.shift_user;
+        let shift = response.shift_user;
         const lsrCode = response.category;
         const status = "Waiting Approved";
+
+        if (shift === "NonShift") {
+          shift = "All";
+        }
         $.ajax({
           url: BASEURL + "/data/getDataReport",
           method: "POST",
@@ -1779,7 +1787,7 @@ $(function () {
             const unapprovedReports = data.length;
             $("#notifCount").text(unapprovedReports);
             $("#notifNumber").text(unapprovedReports);
-            $("#notifText").text(" report belum di approve");
+            $("#notifText").text(" report belum approve section head");
           },
         });
       },
@@ -1854,6 +1862,7 @@ $(function () {
     });
   }
 
+  // get data by url untuk report
   $(document).ready(function () {
     // Mendapatkan nilai dari query string URL
     const urlParams = new URLSearchParams(window.location.search);

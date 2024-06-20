@@ -6,6 +6,8 @@ class Material_model
 
     private $table2 = 'master_material';
 
+    private $table3 = 'master_line';
+
     public function __construct()
     {
         $this->db = new Database;
@@ -563,7 +565,7 @@ class Material_model
     public function FilteredDataReport($shift, $lsrCode, $status, $line)
     {
         // cek apakah ada data dengan variabel $line di kolom line_lsr
-        $lineExistsQuery = 'SELECT COUNT(*) as count FROM ' . $this->table . ' WHERE line_lsr = :line';
+        $lineExistsQuery = 'SELECT COUNT(*) as count FROM ' . $this->table3 . ' WHERE nama_line = :line';
         $this->db->query($lineExistsQuery);
         $this->db->bind(':line', $line);
         $lineCountResult = $this->db->single();
@@ -574,18 +576,24 @@ class Material_model
                   FROM ' . $this->table . ' WHERE 1=1 ';
 
         // Tambahkan kondisi berdasarkan parameter
-        if (!empty($shift)) {
+        $bindParams = [];
+
+        if (!empty($shift) && $shift !== "All") {
             $query .= ' AND shift = :shift';
+            $bindParams[':shift'] = $shift;
         }
         if (!empty($lsrCode)) {
             $query .= ' AND no_lsr LIKE :lsrCode';
+            $bindParams[':lsrCode'] = $lsrCode . '%';
         }
         if (!empty($status)) {
             $query .= ' AND status_lsr = :status';
+            $bindParams[':status'] = $status;
         }
         // Tambahkan kondisi line jika data dengan variabel $line ada di kolom line_lsr
         if ($lineCountResult['count'] > 0 && !empty($line)) {
             $query .= ' AND line_lsr = :line';
+            $bindParams[':line'] = $line;
         }
 
         // Kelompokkan hasil berdasarkan kolom no_lsr
@@ -594,17 +602,8 @@ class Material_model
         $this->db->query($query);
 
         // Bind parameter jika tidak kosong
-        if (!empty($shift)) {
-            $this->db->bind(':shift', $shift);
-        }
-        if (!empty($lsrCode)) {
-            $this->db->bind(':lsrCode', $lsrCode . '%');
-        }
-        if (!empty($status)) {
-            $this->db->bind(':status', $status);
-        }
-        if ($lineCountResult['count'] > 0 && !empty($line)) {
-            $this->db->bind(':line', $line);
+        foreach ($bindParams as $param => $value) {
+            $this->db->bind($param, $value);
         }
 
         // Eksekusi query dan ambil hasil
@@ -612,6 +611,7 @@ class Material_model
 
         return $result;
     }
+
 
 
 
