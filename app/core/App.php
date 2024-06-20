@@ -10,6 +10,7 @@ class App
         $url = $this->parseURL();
 
         $this->checkLoginSession();
+        $this->checkSign();
 
         // controler
         if (isset($url[0])) {
@@ -58,6 +59,20 @@ class App
 
         if (!isset($_SESSION['login']) && !in_array($url[0], $publicPages)) {
             header('location:' . BASEURL . '/login');
+            exit;
+        }
+        // ...
+    }
+
+    public function checkSign()
+    {
+        $publicPages = ['sign'];
+        $loginPages = ['login'];
+        $logoutPages = ['logout'];
+        $url = $this->parseURL();
+
+        if (!isset($_SESSION['sign']) && !in_array($url[0], $publicPages) && !in_array($url[0], $loginPages) && !in_array($url[0], $logoutPages)) {
+            header('location:' . BASEURL . '/sign');
             exit;
         }
         // ...

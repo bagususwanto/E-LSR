@@ -32,6 +32,7 @@ class Login extends Controller
 
             //check file tanda tangan ada atau ga
             if (!empty($files)) {
+                $_SESSION['sign'] = true;
                 header('Location:' . BASEURL);
                 exit;
             } else {
