@@ -30,15 +30,21 @@ class Login extends Controller
             // Pencarian file gambar dengan ekstensi apapun
             $files = glob($dir . '/' . $user['username'] . '.*');
 
-            //check file tanda tangan ada atau ga
-            if (!empty($files)) {
-                $_SESSION['sign'] = true;
-                header('Location:' . BASEURL);
-                exit;
+            if ($user['role'] === "public" || $user['role'] === "common" || $user['role'] === "approver") {
+                // Check if signature file exists or not
+                if (!empty($files)) {
+                    $_SESSION['sign'] = true;
+                    header('Location: ' . BASEURL);
+                    exit;
+                } else {
+                    header('Location: ' . BASEURL . '/sign');
+                    exit;
+                }
             } else {
-                header('Location:' . BASEURL . '/sign');
-                exit;
+                $_SESSION['sign'] = true;
+                header('Location: ' . BASEURL);
             }
+
         } else {
             header('Location:' . BASEURL . '/login');
             Flasher::setFlash('username atau password tidak sesuai,', 'gagal', 'login', 'danger');
