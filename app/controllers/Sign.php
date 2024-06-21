@@ -12,7 +12,6 @@ class Sign extends Controller
 
     public function signUpload()
     {
-        $_SESSION['sign'] = true;
         $file = $_FILES["signFile"];
         $username = $_POST["signUser"];
 
@@ -20,6 +19,7 @@ class Sign extends Controller
         $result = $uploadModel->doUploadSign($file, $username);
 
         if ($result === "File tanda tangan berhasil diunggah.") {
+            $_SESSION['sign'] = true;
             $_SESSION['message'] = [
                 'type' => 'success',
                 'content' => $result

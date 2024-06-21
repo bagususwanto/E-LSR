@@ -1308,3 +1308,11 @@ h6 {
   max-width: 100%;
   max-height: 100%;
 }
+
+@media print {
+  #eFormReport {
+    width: 100%;
+    /* Atur lebar elemen saat mencetak */
+    margin: 0 auto;
+  }
+}

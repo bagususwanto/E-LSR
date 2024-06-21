@@ -30,7 +30,7 @@
             <ul id="forms-nav-data" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a id="report" class="nav-link collapsed" href="<?php echo BASEURL ?>/data/report">
-                        <i class="bi bi-circle"></i><span>Report</span>
+                        <i class="bi bi-circle"></i><span>Inquiry</span>
                     </a>
                 </li>
                 <li>

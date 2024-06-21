@@ -18,7 +18,7 @@
 <script src="<?php echo BASEURL ?>/vendor/select2/js/select2.min.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/toast/toast-plugin.js"></script>
 <script src="<?php echo BASEURL ?>/vendor/flatpickr/js/flatpickr.js"></script>
-
+<script src="<?php echo BASEURL ?>/vendor/jquery/printThis.min.js"></script>
 
 <!-- DataTables -->
 <script src="<?php echo BASEURL ?>/vendor/datatables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
@@ -101,7 +101,16 @@
         <?php endif; ?>
     });
 
-    
+    // FUNGSI PRINT EFORM
+    $(document).ready(function () {
+        $('#printButton').click(function () {
+            $('#eFormReport').printThis({
+                importCSS: true,
+                loadCSS: "<?php echo BASEURL ?>/vendor/bootstrap/css/bootstrap.min.css",
+                pageTitle: "Eform",
+            });
+        });
+    });
 </script>
 
 <!-- Main JS File -->

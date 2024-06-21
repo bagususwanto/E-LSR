@@ -1,3 +1,8 @@
+<aside id="sidebar" class="sidebar">
+    <button id="printButton" type="button" class="btn btn-secondary" style="width: 100%;"><i
+            class="bi bi-printer-fill"></i>
+        PRINT</button>
+</aside>
 <main id="main" class="main">
 
     <div class="pagetitle">
@@ -20,7 +25,7 @@
                                 LSR Report
                             </div>
                             <div class="row card-body">
-                                <div class="col-12">
+                                <div class="col-12" id="eFormReport">
                                     <table class="table table-bordered border-dark table-responsive table-sm">
                                         <thead>
                                             <tr class="text-center fw-bold fs-6">
@@ -38,10 +43,11 @@
                                                 <th class="align-middle text-center">LINE NO.</th>
                                                 <th class="align-middle text-center" colspan="2">SHIPING REQUEST NO.
                                                 </th>
-                                                <th class="align-middle text-center">MODEL</th>
-                                                <th class="align-middle text-center">MODULE NO.</th>
-                                                <th class="align-middle text-center">CASE</th>
-                                                <th class="align-middle text-center" colspan="4">COST CENTER</th>
+                                                <th class="align-middle text-center" width="6%">MODEL</th>
+                                                <th class="align-middle text-center" width="6%">MODULE NO.</th>
+                                                <th class="align-middle text-center" width="6%">CASE</th>
+                                                <th class="align-middle text-center" colspan="4">COST CENTER
+                                                </th>
                                                 <td class="text-start" rowspan="2" colspan="5">
                                                     <p class="text-center text-decoration-underline">REPAIR CODE</p>
                                                     <p>0: Unrepairable</p>
@@ -143,17 +149,22 @@
                                                         KELENGKAPAN PERSETUJUAN (TANDA TANGAN FORMAT LSR)</p>
                                                     <p class="p-3">1. Reason LSR F-0 & F-6: Tanpa tanda tangan Quality
                                                     </p>
-                                                    <p class="p-3">2. Reason LSR DO : Wajib tanda tangan Quality
+                                                    <p class="p-3">2. Reason LSR D0 : Wajib tanda tangan Quality
                                                     </p>
                                                 </td>
-                                                <td colspan="8">REQUESTED BY</td>
+                                                <td class="mx-auto p-2" colspan="5">REQUESTED BY
+                                                </td>
+                                                <td colspan="2">APPROVED BY - QUALITY</td>
                                                 <td>RECEIVED BY - ORDERING</td>
+                                                <td class="mx-auto p-2">NO LSR</td>
                                             <tr>
-                                                <td class="text-center" colspan="2" width="100px" height="110px">
+                                                <td class="text-center" colspan="2" height="100px">
                                                     <?php echo $data['imgTag']; ?>
                                                 </td>
-                                                <td colspan="3" width="100px" height="110px">hhhhh</td>
-                                                <td colspan="2" width="100px" height="110px">hhhhh</td>
+                                                <td colspan="3" height="100px"></td>
+                                                <td colspan="2" height="100px"></td>
+                                                <td colspan="1" height="100px"></td>
+                                                <td colspan="1" height="100px"></td>
                                             </tr>
                                             </tr>
                                         </tfoot>

@@ -6,7 +6,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?php echo BASEURL; ?>">Home</a></li>
                 <li class="breadcrumb-item active">Data</li>
-                <li class="breadcrumb-item active">Report</li>
+                <li class="breadcrumb-item active">Inquiry</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
