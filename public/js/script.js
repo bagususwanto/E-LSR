@@ -1797,7 +1797,7 @@ $(function () {
               $("#viewAllLink").show();
               $("#notifCount").text(unapprovedReports);
               $("#notifNumber").text(unapprovedReports);
-              $("#notifText").text(" report belum approve section head");
+              $("#notifText").text(" report belum approve");
             } else {
               $("#viewAllLink").hide();
               $("#notifText").text("Tidak ada notifikasi");
@@ -1857,7 +1857,7 @@ $(function () {
               `<input class="form-check-input checkbox-single" type="checkbox" id="checkboxNoLabel${i}" 
     aria-label="" value="${data[i].no_lsr}">`,
               data[i].no_lsr,
-              `<a href="${BASEURL}/eform" target="_blank" class="link-dark" data-id="${data[i].id}">
+              `<a href="${BASEURL}/eform?no_lsr=${data[i].no_lsr}" target="_blank" class="link-dark" data-id="${data[i].id}">
             <button type="button" class="btn btn-outline-dark fw-bold">View</button></a>`,
               data[i].line_lsr,
               data[i].cost_center,
@@ -1920,7 +1920,7 @@ $(function () {
               `<input class="form-check-input checkbox-single" type="checkbox" id="checkboxNoLabel${i}" 
     aria-label="" value="${data[i].no_lsr}">`,
               data[i].no_lsr,
-              `<a href="${BASEURL}/eform" target="_blank" class="link-dark" data-id="${data[i].id}">
+              `<a href="${BASEURL}/eform?no_lsr=${data[i].no_lsr}" target="_blank" class="link-dark" data-id="${data[i].id}">
             <button type="button" class="btn btn-outline-dark fw-bold">View</button></a>`,
               data[i].line_lsr,
               data[i].cost_center,

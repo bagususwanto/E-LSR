@@ -24,7 +24,12 @@ class User_model
         return $this->db->single();
     }
 
-
+    public function getAllUserByRole($roleQc)
+    {
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE role=:roleQc');
+        $this->db->bind('roleQc', $roleQc);
+        return $this->db->single();
+    }
 
     // Metode untuk memeriksa kredensial pengguna
     public function checkCredentials($username, $password)

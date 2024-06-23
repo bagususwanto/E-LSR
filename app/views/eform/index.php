@@ -33,7 +33,8 @@
                                                     <br> NEW ENGINE
                                                     PLANT KARAWANG
                                                 </td>
-                                                <td colspan="7">LINE SUPPLY REQUEST <br> CASTING CYLINDER BLOCK</td>
+                                                <td colspan="7">LINE SUPPLY REQUEST <br>
+                                                    <?php echo strtoupper($data['dataLsr']['line_lsr']); ?></td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -58,12 +59,16 @@
                                             <tr class="align-middle text-center">
                                                 <td class="align-middle text-center"></td>
                                                 <td class="align-middle text-center"></td>
-                                                <td class="align-middle text-center">CDC</td>
+                                                <td class="align-middle text-center">
+                                                    <?php echo $data['dataLsr']['line_code']; ?>
+                                                </td>
                                                 <td class="align-middle text-center" colspan="2"></td>
                                                 <td class="align-middle text-center"></td>
                                                 <td class="align-middle text-center"></td>
                                                 <td class="align-middle text-center"></td>
-                                                <td class="align-middle text-center" colspan="4">AQC100</td>
+                                                <td class="align-middle text-center" colspan="4">
+                                                    <?php echo $data['dataLsr']['cost_center']; ?>
+                                                </td>
                                             </tr>
                                             <tr class="text-center fw-semibold">
                                                 <th class="align-middle text-center" rowspan="2">RUN NO.</th>
@@ -82,38 +87,72 @@
                                                 <th>CONDITION</th>
                                             </tr>
                                             </tr>
-                                            <tr class="align-middle text-center text-nowrap">
-                                                <td class="align-middle text-center">1</td>
-                                                <td class="align-middle text-center">A</td>
-                                                <td class="align-middle text-center">2</td>
-                                                <td class="align-middle text-center">0</td>
-                                                <td class="align-middle text-center">1</td>
-                                                <td class="align-middle text-center" colspan="4">11461-0Y040-00</td>
-                                                <td class="align-middle text-center">0</td>
-                                                <td class="align-middle text-center">D001</td>
-                                                <td class="align-middle text-center">12</td>
-                                                <td class="align-middle text-center" colspan="5">LINER, CYLINDER</td>
-                                            </tr>
-                                            <tr class="align-middle text-center text-nowrap">
-                                                <td class="align-middle text-center">2</td>
-                                                <td class="align-middle text-center">A</td>
-                                                <td class="align-middle text-center">2</td>
-                                                <td class="align-middle text-center">0</td>
-                                                <td class="align-middle text-center">1</td>
-                                                <td class="align-middle text-center" colspan="4">11411-BZ180-00</td>
-                                                <td class="align-middle text-center">0</td>
-                                                <td class="align-middle text-center">CBNH</td>
-                                                <td class="align-middle text-center">24</td>
-                                                <td class="align-middle text-center text-wrap" colspan="5">BLOCK,
-                                                    CYLINDER (Finish
-                                                    Casting NH)</td>
-                                            </tr>
+                                            <?php
+                                            if (!empty($data['dataLsrResult'])):
+                                                foreach ($data['dataLsrResult'] as $index => $dataLsr): ?>
+                                                    <tr class="align-middle text-center text-nowrap">
+                                                        <td class="align-middle text-center"><?php echo (int) $index + 1; ?>
+                                                        </td>
+                                                        <td class="align-middle text-center">
+                                                            <?php echo htmlspecialchars(substr($dataLsr['reason'], 0, 1)); ?>
+                                                        </td>
+                                                        <td class="align-middle text-center">
+                                                            <?php echo htmlspecialchars(substr($dataLsr['condition'], 0, 1)); ?>
+                                                        </td>
+                                                        <td class="align-middle text-center">
+                                                            <?php echo htmlspecialchars(substr($dataLsr['repair'], 0, 1)); ?>
+                                                        </td>
+                                                        <td class="align-middle text-center">
+                                                            <?php echo htmlspecialchars($dataLsr['source_type']); ?>
+                                                        </td>
+                                                        <td colspan="4" class="align-middle text-center">
+                                                            <?php echo htmlspecialchars($dataLsr['part_number']); ?>
+                                                        </td>
+                                                        <td class="align-middle text-center">0</td>
+                                                        <td class="align-middle text-center">
+                                                            <?php echo htmlspecialchars($dataLsr['uniqe_no']); ?>
+                                                        </td>
+                                                        <td class="align-middle text-center">
+                                                            <?php echo htmlspecialchars($dataLsr['qty']); ?>
+                                                        </td>
+                                                        <td colspan="2" class="align-middle text-center">
+                                                            <?php echo htmlspecialchars($dataLsr['part_name']); ?>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach;
+                                            else: ?>
+                                                <tr>
+                                                    <td colspan="14" class="align-middle text-center">Tidak ada data
+                                                        tersedia.</td>
+                                                </tr>
+                                            <?php endif; ?>
+
+                                            <?php
+                                            // Buat dataLsrResult menjadi array dengan menghapus duplikat berdasarkan remarks
+                                            $dataLsrResult = [];
+                                            if (!empty($data['dataLsrResult'])) {
+                                                foreach ($data['dataLsrResult'] as $dataLsr) {
+                                                    $dataLsrResult[$dataLsr['remarks']] = $dataLsr['remarks'];
+                                                }
+                                                $dataLsrResult = array_values($dataLsrResult); // Reset keys array
+                                            } else {
+                                                $dataLsrResult = []; // Jika kosong, inisialisasi sebagai array kosong
+                                            }
+                                            ?>
                                             <tr class="text-center">
-                                                <td colspan="5" rowspan="3">
+                                                <td colspan="5" rowspan="6">
                                                     <p class="text-start fw-semibold">REMARKS:</p>
-                                                    <p class="text-start">Seteuchi NG</p>
-                                                </td>
-                                                <td class="text-center fw-semibold" colspan="9">FACTOR CODE</td>
+                                                    <?php if (!empty($dataLsrResult)): ?>
+                                                        <textarea rows="6" readonly
+                                                            class="form-control"><?php echo implode(', ', $dataLsrResult); ?></textarea>
+                                                    <?php else: ?>
+                                                <tr>
+                                                    <td colspan="14" class="align-middle text-center">Tidak ada data
+                                                        tersedia.</td>
+                                                </tr>
+                                            <?php endif; ?>
+                                            </td>
+                                            <td class="text-center fw-semibold" colspan="9">FACTOR CODE</td>
                                             <tr class="text-center fw-semibold">
                                                 <td colspan="8">REASON</td>
                                                 <td>BOX CONDITION</td>
@@ -152,19 +191,39 @@
                                                     <p class="p-3">2. Reason LSR D0 : Wajib tanda tangan Quality
                                                     </p>
                                                 </td>
-                                                <td class="mx-auto p-2" colspan="5">REQUESTED BY
+                                                <td class="text-center align-middle" colspan="5">REQUESTED BY
                                                 </td>
-                                                <td colspan="2">APPROVED BY - QUALITY</td>
-                                                <td>RECEIVED BY - ORDERING</td>
-                                                <td class="mx-auto p-2">NO LSR</td>
+                                                <td class="text-center align-middle" colspan="2">APPROVED BY - QUALITY
+                                                </td>
+                                                <td class="text-center align-middle">RECEIVED BY - ORDERING</td>
+                                                <td class="text-center align-middle">NO LSR</td>
                                             <tr>
                                                 <td class="text-center" colspan="2" height="100px">
-                                                    <?php echo $data['imgTag']; ?>
+                                                    <?php echo $data['imgLH']; ?>
                                                 </td>
-                                                <td colspan="3" height="100px"></td>
-                                                <td colspan="2" height="100px"></td>
-                                                <td colspan="1" height="100px"></td>
-                                                <td colspan="1" height="100px"></td>
+                                                <td colspan="3" height="100px"><?php echo $data['imgSH']; ?></td>
+                                                <td class="text-center align-middle" colspan="2" rowspan="2"
+                                                    height="100px">
+                                                    <?php echo $data['imgQc']; ?>
+                                                </td>
+                                                <td colspan="1" rowspan="2" height="100px"
+                                                    class="text-center align-middle">
+                                                    <?php echo $data['imgOrdering']; ?>
+                                                </td>
+                                                <td colspan="1" rowspan="2" height="100px"
+                                                    class="text-center align-middle">
+                                                    <span class="fs-4"><?php echo $_GET['no_lsr']; ?></span>
+                                                </td>
+                                            <tr>
+                                                <td class="text-center fw-semibold" colspan="2">LH</td>
+                                                <td class="text-center fw-semibold" colspan="3">SH</td>
+                                            </tr>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-semibold" colspan="14">Date created:
+                                                    <span
+                                                        style="margin-right: 6px;"><?php echo $data['dataLsr']['tanggal']; ?></span>
+                                                    <span><?php echo $data['dataLsr']['waktu']; ?></span>
                                             </tr>
                                             </tr>
                                         </tfoot>

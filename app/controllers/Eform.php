@@ -3,7 +3,7 @@ class Eform extends Controller
 {
     public function index()
     {
-        // Mendapatkan ID pengguna dari session
+        // Mendapatkan ID pengguna dari sesi
         $id = $_SESSION['user_id'];
         $namaLine = $_SESSION['user_line'];
 
@@ -11,27 +11,63 @@ class Eform extends Controller
         $data['user'] = $this->model('User_model')->getAllUserById($id);
         $data['userMat'] = $this->model('Line_model')->getMatByLine($namaLine);
 
-        $dir = realpath(__DIR__ . '/../../public/img/sign/');
+        // FUNGSI EFORM
+        $noLsr = $_GET['no_lsr'];
+        $roleQc = "approveqc";
+        $data['dataLsr'] = $this->model('Material_model')->getMatData($noLsr);
+        $data['dataLsrResult'] = $this->model('Material_model')->getMatDataResultSet($noLsr);
+        $data['userQcApprove'] = $this->model('User_model')->getAllUserByRole($roleQc);
 
         // Pencarian file gambar dengan ekstensi apapun
-        $files = glob($dir . '/' . $data['user']['username'] . '.*');
+        $dir = realpath(__DIR__ . '/../../public/img/sign/');
 
-        if (!empty($files)) {
-            // Ambil path dari file pertama yang ditemukan
-            $imgFilePath = $files[0];
-            $imgUrl = BASEURL . '/img/sign/' . basename($imgFilePath);
-            $data['imgTag'] = "<img src='$imgUrl' width='100%' height='100%' alt='Signature'>";
+        // Cek apakah direktori gambar valid
+        if ($dir !== false) {
+            $filesLH = glob($dir . '/' . $data['dataLsr']['user_lsr'] . '.*');
+            $filesSH = !empty($data['dataLsr']['approved_by']) ? glob($dir . '/' . $data['dataLsr']['approved_by'] . '.*') : [];
+            $filesOrdering = !empty($data['dataLsr']['received_by']) ? glob($dir . '/' . $data['dataLsr']['received_by'] . '.*') : [];
         } else {
-            // Jika tidak ada gambar yang ditemukan
-            $data['imgTag'] = "Tidak ada gambar.";
+            $filesLH = $filesSH = $filesOrdering = [];
         }
+
+        // Validasi untuk setiap tanda tangan
+        $reason = substr($data['dataLsr']['reason'], 0, 1);
+        $repair = substr($data['dataLsr']['repair'], 0, 1);
+
+        // Fungsi untuk menghasilkan tag img atau pesan "Tidak ada gambar."
+        function getImageHtml($files)
+        {
+            if (!empty($files)) {
+                $imgPath = $files[0];
+                $imgUrl = BASEURL . '/img/sign/' . basename($imgPath);
+                return "<img src='$imgUrl' width='100%' height='100%' alt='Signature'>";
+            } else {
+                return "";
+            }
+        }
+
+        $data['imgLH'] = getImageHtml($filesLH);
+
+        // Hanya menampilkan gambar jika reason === "D" dan repair === "0"
+        if ($reason === "D" && $repair === "0") {
+            $filesQc = glob($dir . '/' . $data['userQcApprove']['username'] . '.*');
+            $data['imgQc'] = !empty($filesQc) ? "<img src='" . BASEURL . "/img/sign/" . basename($filesQc[0]) . "' width='100%' height='100%' alt='Signature'>" : "Tidak ada signature.";
+        } else {
+            $data['imgQc'] = "";
+        }
+
+        // Set gambar SH
+        $data['imgSH'] = getImageHtml($filesSH);
+
+        // Set gambar Ordering
+        $data['imgOrdering'] = getImageHtml($filesOrdering);
+
+
+
         // Tampilkan view
         $this->view('templates/header', $data);
-        // $this->view('templates/sidebar');
         $this->view('eform/index', $data);
         $this->view('templates/footer');
-
     }
-
 }
 ?>
