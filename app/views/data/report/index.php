@@ -6,7 +6,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?php echo BASEURL; ?>">Home</a></li>
                 <li class="breadcrumb-item active">Data</li>
-                <li class="breadcrumb-item active">Inquiry</li>
+                <li class="breadcrumb-item active">Report</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -24,19 +24,19 @@
 
                             <form id="searchReport">
                                 <div class="row card-body pb-0">
-                                    <div class="col-md-2">
+                                    <div class="col-xxl-2 col-md-4 pb-2">
                                         <label for="tanggal" class="form-label col-form-label-sm">Date From</label>
                                         <input type="" id="tanggal" name="tanggal" value=""
                                             class="form-control form-control-sm" />
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <div class="col-xxl-2 col-md-4 pb-2">
                                         <label for="tanggalTo" class="form-label col-form-label-sm">Date To</label>
                                         <input type="" id="tanggalTo" name="tanggalTo" value=""
                                             class="form-control form-control-sm" />
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <div class="col-xxl-2 col-md-4 pb-2">
                                         <label for="line" class="form-label col-form-label-sm">Line</label>
                                         <select class="form-select form-select-sm" id="line" name="line_lsr"
                                             aria-label="Default select example">
@@ -51,7 +51,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <div class="col-xxl-2 col-md-4 pb-2">
                                         <label for="shift" class="form-label col-form-label-sm">Shift</label>
                                         <select class="form-select form-select-sm" id="shift" name="shift"
                                             aria-label="Default select example">
@@ -62,7 +62,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-md-1">
+                                    <div class="col-xxl-1 col-md-4 pb-2">
                                         <label for="lsrCode" class="form-label col-form-label-sm">LSR Code</label>
                                         <select class="form-select form-select-sm" id="lsrCode" name="lsrCode"
                                             aria-label="Default select example">
@@ -74,7 +74,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-xxl-3 col-md-4 pb-2">
                                         <label for="status" class="form-label col-form-label-sm">Status</label>
                                         <select class="form-select form-select-sm" id="status" name="status"
                                             aria-label="Default select example">

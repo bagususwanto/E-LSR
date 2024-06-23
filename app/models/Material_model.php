@@ -80,7 +80,8 @@ class Material_model
         $query = 'INSERT INTO ' . $this->table .
             ' VALUES (null, :no_lsr, :part_number, :part_name, :uniqe_no, :qty, 
             :reason, :condition, :repair, :source_type, :remarks, :material, :tanggal, 
-            :waktu, :line_lsr, :shift, :user_lsr, :line_code, :cost_center, :status_lsr, 
+            :waktu, :line_lsr, :shift, :user_lsr, :line_code, :cost_center, :status_lsr,
+            "", "",  
             :price, :total_price, CURRENT_TIMESTAMP, :user_lsr)';
 
         $this->db->query($query);
@@ -171,7 +172,8 @@ class Material_model
                     `condition` = :condition,
                     repair = :repair,
                     remarks = :remarks,
-                    status_lsr = :status
+                    status_lsr = :status,
+                    change_by = :change
                     WHERE id = :id';
 
         $this->db->query($query);
@@ -181,6 +183,7 @@ class Material_model
         $this->db->bind('repair', $data['repair']);
         $this->db->bind('remarks', $data['remarks']);
         $this->db->bind('status', $data['status']);
+        $this->db->bind('change', $data['userEdit']);
         $this->db->bind('id', $data['id']);
 
         // Eksekusi query dan tangani kesalahan jika ada
@@ -188,32 +191,23 @@ class Material_model
             $this->db->execute();
             return $this->db->rowCount();
         } catch (PDOException $e) {
-            // Tampilkan pesan kesalahan atau log untuk debugging
             echo "Error: " . $e->getMessage();
-            return -1; // Atau nilai lain yang menunjukkan kesalahan
+            return -1;
         }
     }
 
     public function approveDataMaterial($selectedData)
     {
         try {
-            // Mengubah nilai kolom 'status_lsr' menjadi 'approved' berdasarkan ID
-            $placeholders = implode(',', array_fill(0, count($selectedData), '?'));
-
-            $query = "UPDATE $this->table SET status_lsr = 'Uploaded To Ifast' WHERE id IN ($placeholders)";
-
+            $query = "UPDATE $this->table SET status_lsr = 'Uploaded To Ifast', received_by = :user WHERE id = :id";
             $this->db->query($query);
 
-            // Bind parameter sesuai dengan jumlah placeholder
-            foreach ($selectedData as $index => $itemId) {
-                $this->db->bind($index + 1, $itemId);
+            foreach ($selectedData as $index) {
+                $this->db->bind(':id', $index['id']);
+                $this->db->bind(':user', $index['user']);
+                $this->db->execute(); // Eksekusi query untuk setiap data yang dipilih
             }
-
-            // Eksekusi query sekali saja setelah semua parameter di-bind
-            $this->db->execute();
-
-            // Mengembalikan pesan atau nilai sesuai kebutuhan
-            return "Items approved successfully.";
+            return $this->db->rowCount();
         } catch (Exception $e) {
             // Tangkap dan lemparkan kembali pesan kesalahan
             throw new Exception("Error in approveDataMaterial: " . $e->getMessage());
@@ -222,16 +216,16 @@ class Material_model
 
     public function updateStatus($selectedData)
     {
-        $query = "UPDATE $this->table SET status_lsr = :statusVal WHERE no_lsr = :noLsr";
+        $query = "UPDATE $this->table SET status_lsr = :statusVal, approved_by = :user WHERE no_lsr = :noLsr";
         $this->db->query($query);
 
         try {
             foreach ($selectedData as $index) {
                 $this->db->bind(':noLsr', $index['noLsr']);
                 $this->db->bind(':statusVal', $index['statusVal']);
+                $this->db->bind(':user', $index['user']);
                 $this->db->execute(); // Eksekusi query untuk setiap data yang dipilih
             }
-
 
             return $this->db->rowCount();
         } catch (Exception $e) {
@@ -425,7 +419,8 @@ class Material_model
     {
         // Tentukan kolom yang ingin ditampilkan
         $query = 'SELECT no_lsr, MAX(tanggal) as tanggal, MAX(line_lsr) as line_lsr, MAX(cost_center) as cost_center, 
-                  MAX(shift) as shift, MAX(user_lsr) as user_lsr, MAX(waktu) as waktu, MAX(status_lsr) as status_lsr 
+                  MAX(shift) as shift, MAX(user_lsr) as user_lsr, MAX(waktu) as waktu, MAX(approved_by) as approved_by,
+                  MAX(received_by) as received_by, MAX(status_lsr) as status_lsr 
                   FROM ' . $this->table;
 
         $params = [];
@@ -497,7 +492,8 @@ class Material_model
             $this->db->bind($index + 1, $value);
         }
 
-        return $this->db->execute();
+        $this->db->execute();
+        return $this->db->rowCount();
     }
 
     public function deleteDataCreate($data)
@@ -572,7 +568,8 @@ class Material_model
 
         // Tentukan kolom yang ingin ditampilkan
         $query = 'SELECT no_lsr, MAX(tanggal) as tanggal, MAX(line_lsr) as line_lsr, MAX(cost_center) as cost_center, 
-                  MAX(shift) as shift, MAX(user_lsr) as user_lsr, MAX(waktu) as waktu, MAX(status_lsr) as status_lsr 
+                  MAX(shift) as shift, MAX(user_lsr) as user_lsr, MAX(waktu) as waktu, MAX(approved_by) as approved_by,
+                  MAX(received_by) as received_by, MAX(status_lsr) as status_lsr 
                   FROM ' . $this->table . ' WHERE 1=1 ';
 
         // Tambahkan kondisi berdasarkan parameter

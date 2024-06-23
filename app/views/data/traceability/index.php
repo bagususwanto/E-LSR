@@ -24,19 +24,19 @@
 
                             <form id="searchForm">
                                 <div class="row card-body pb-0">
-                                    <div class="col-md-4">
+                                    <div class="col-xxl-2 col-md-4 pb-2">
                                         <label for="tanggal" class="form-label col-form-label-sm">Date From</label>
                                         <input type="" id="tanggal" name="tanggal" value=""
                                             class="form-control form-control-sm" />
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-xxl-2 col-md-4 pb-2">
                                         <label for="tanggalTo" class="form-label col-form-label-sm">Date To</label>
                                         <input type="" id="tanggalTo" name="tanggalTo" value=""
                                             class="form-control form-control-sm" />
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-xxl-2 col-md-4 pb-2">
                                         <label for="line" class="form-label col-form-label-sm">Line</label>
                                         <select class="form-select form-select-sm" id="line" name="line_lsr"
                                             aria-label="Default select example">
@@ -51,50 +51,48 @@
                                         </select>
                                     </div>
 
-                                    <div class="row mt-3">
-                                        <div class="col-md-4">
-                                            <label for="shift" class="form-label col-form-label-sm">Shift</label>
-                                            <select class="form-select form-select-sm" id="shift" name="shift"
-                                                aria-label="Default select example">
-                                                <option value="All">All</option>
-                                                <option value="Red">Red</option>
-                                                <option value="White">White</option>
-                                                <option value="NonShift">NonShift</option>
-                                            </select>
-                                        </div>
+                                    <div class="col-xxl-2 col-md-4 pb-2">
+                                        <label for="shift" class="form-label col-form-label-sm">Shift</label>
+                                        <select class="form-select form-select-sm" id="shift" name="shift"
+                                            aria-label="Default select example">
+                                            <option value="All">All</option>
+                                            <option value="Red">Red</option>
+                                            <option value="White">White</option>
+                                            <option value="NonShift">NonShift</option>
+                                        </select>
+                                    </div>
 
-                                        <div class="col-md-4">
-                                            <label for="material" class="form-label col-form-label-sm">Material</label>
-                                            <select class="form-select form-select-sm" id="material" name="material"
-                                                aria-label="Default select example">
-                                                <option data-id="0" value="All">All</option>
-                                                <?php
-                                                $uniqueMaterials = array_unique(array_column($data['lineMaster'], 'material'));
-                                                foreach ($uniqueMaterials as $material):
-                                                    if (!empty($material)):
-                                                        ?>
-                                                        <option data-id="<?php echo $lineMaster['id']; ?>"
-                                                            value="<?php echo $material; ?>">
-                                                            <?php echo $material; ?>
-                                                        </option>
-                                                        <?php
-                                                    endif;
-                                                endforeach;
-                                                ?>
-                                            </select>
-                                        </div>
+                                    <div class="col-xxl-2 col-md-4 pb-2">
+                                        <label for="material" class="form-label col-form-label-sm">Material</label>
+                                        <select class="form-select form-select-sm" id="material" name="material"
+                                            aria-label="Default select example">
+                                            <option data-id="0" value="All">All</option>
+                                            <?php
+                                            $uniqueMaterials = array_unique(array_column($data['lineMaster'], 'material'));
+                                            foreach ($uniqueMaterials as $material):
+                                                if (!empty($material)):
+                                                    ?>
+                                                    <option data-id="<?php echo $lineMaster['id']; ?>"
+                                                        value="<?php echo $material; ?>">
+                                                        <?php echo $material; ?>
+                                                    </option>
+                                                    <?php
+                                                endif;
+                                            endforeach;
+                                            ?>
+                                        </select>
+                                    </div>
 
-                                        <div class="col-md-4">
-                                            <label for="status" class="form-label col-form-label-sm">Status</label>
-                                            <select class="form-select form-select-sm" id="status" name="status"
-                                                aria-label="Default select example">
-                                                <option value="All">All</option>
-                                                <option value="Rejected By Section">Rejected By Section</option>
-                                                <option value="Waiting Approved">Waiting Approved</option>
-                                                <option value="Approved By Section">Approved By Section</option>
-                                                <option value="Uploaded To Ifast">Uploaded To Ifast</option>
-                                            </select>
-                                        </div>
+                                    <div class="col-xxl-2 col-md-4 pb-2">
+                                        <label for="status" class="form-label col-form-label-sm">Status</label>
+                                        <select class="form-select form-select-sm" id="status" name="status"
+                                            aria-label="Default select example">
+                                            <option value="All">All</option>
+                                            <option value="Rejected By Section">Rejected By Section</option>
+                                            <option value="Waiting Approved">Waiting Approved</option>
+                                            <option value="Approved By Section">Approved By Section</option>
+                                            <option value="Uploaded To Ifast">Uploaded To Ifast</option>
+                                        </select>
                                     </div>
 
                                     <div class="card-footer bg-transparent mt-4">
@@ -187,6 +185,8 @@
                                 <form id="editForm" method="POST" action="">
                                     <div class="modal-body" id="modalContent">
                                         <input type="hidden" name="id" id="id">
+                                        <input type="text" name="userEdit"
+                                            value="<?php echo isset($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>">
                                         <div class="mb-3">
                                             <label for="part_number" class="form-label col-form-label-sm">Part
                                                 Number</label>
