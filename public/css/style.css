@@ -1311,8 +1311,9 @@ h6 {
 
 @media print {
   #eFormReport {
-    width: 100%;
+    /* width: 100%; */
     /* Atur lebar elemen saat mencetak */
     margin: 0 auto;
+    transform: scale(0.98);
   }
 }

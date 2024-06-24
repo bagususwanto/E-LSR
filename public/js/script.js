@@ -1957,7 +1957,7 @@ $(function () {
     const shift = urlParams.get("shift");
     const lsrCode = urlParams.get("lsrCode");
     const status = urlParams.get("status");
-
+    console.log(line);
     // Periksa apakah setidaknya satu nilai dari query string URL ada
     if (tanggalFrom || tanggalTo || line || shift || lsrCode || status) {
       RefreshTableReportByUrl(tanggalFrom, tanggalTo, line, shift, lsrCode, status);

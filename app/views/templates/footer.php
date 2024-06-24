@@ -106,7 +106,9 @@
         $('#printButton').click(function () {
             $('#eFormReport').printThis({
                 importCSS: true,
-                loadCSS: "<?php echo BASEURL ?>/vendor/bootstrap/css/bootstrap.min.css",
+                loadCSS: ["<?php echo BASEURL ?>/vendor/bootstrap/css/bootstrap.min.css",
+                    "<?php echo BASEURL ?>/css/style.css",
+                ],
                 pageTitle: "Eform",
             });
         });

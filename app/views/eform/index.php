@@ -29,7 +29,7 @@
                                     <table class="table table-bordered border-dark table-responsive table-sm">
                                         <thead>
                                             <tr class="text-center fw-bold fs-6">
-                                                <td rowspan="2" colspan="7">PT. TOYOTA MOTOR MANUFACTURING INDONESIA
+                                                <td colspan="7">PT. TOYOTA MOTOR MANUFACTURING INDONESIA
                                                     <br> NEW ENGINE
                                                     PLANT KARAWANG
                                                 </td>
@@ -140,7 +140,7 @@
                                             }
                                             ?>
                                             <tr class="text-center">
-                                                <td colspan="5" rowspan="6">
+                                                <td colspan="5" rowspan="3">
                                                     <p class="text-start fw-semibold">REMARKS:</p>
                                                     <?php if (!empty($dataLsrResult)): ?>
                                                         <textarea rows="6" readonly
