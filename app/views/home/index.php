@@ -168,7 +168,7 @@
                                 <h5 class="card-title">Cost<span> | Amount</h5>
 
                                 <div id="chartPie" class="echart" style="height:346px;"></div>
-                                <span id="costAmount" class="text-success small pt-1 fw-bold fs-4"></span>
+                                <span id="costAmount" class="text-success small pt-1 fw-bold fs-5"></span>
                             </div>
                         </div><!-- End Cost Amount -->
 
