@@ -1565,7 +1565,7 @@ $(function () {
         }
       }
 
-      if (userRole.toLowerCase() === "approver" || userRole.toLowerCase() === "approveqc") {
+      if (userRole.toLowerCase() === "approver" || userRole.toLowerCase() === "approveqc" || userRole.toLowerCase() === "sight") {
         if ($(".create").length > 0) {
           $(".create").empty();
         }
