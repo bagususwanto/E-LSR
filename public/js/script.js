@@ -7,6 +7,9 @@ $(function () {
     var hours = currentDate.getHours();
     var minutes = currentDate.getMinutes();
 
+    // Mengurangi 7 jam
+    currentDate.setHours(currentDate.getHours() - 7);
+
     // Mendapatkan tanggal, bulan, dan tahun
     var day = currentDate.getDate();
     var month = currentDate.getMonth() + 1; // Ingat: bulan dimulai dari 0
