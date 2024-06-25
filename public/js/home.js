@@ -200,7 +200,7 @@ $(function () {
             },
           },
           legend: {
-            top: "5%",
+            top: "1%",
             left: "center",
           },
           series: [

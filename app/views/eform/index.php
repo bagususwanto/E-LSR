@@ -198,7 +198,7 @@
                                                 <td class="text-center align-middle">RECEIVED BY - ORDERING</td>
                                                 <td class="text-center align-middle">NO LSR</td>
                                             <tr>
-                                                <td class="text-center" colspan="2" height="100px">
+                                                <td class="text-center align-middle" colspan="2" height="100px">
                                                     <?php echo $data['imgLH']; ?>
                                                 </td>
                                                 <td colspan="3" height="100px"><?php echo $data['imgSH']; ?></td>
