@@ -1270,7 +1270,7 @@ $(function () {
 
       selectedRows.each(function () {
         var row = $(this).closest("tr");
-        var status = row.find("td:last").text().trim(); // Mengambil nilai status dari kolom terakhir
+        var status = row.find("td:eq(19)").text().trim(); // Mengambil nilai status dari kolom terakhir
         if (status != "Approved By Section") {
           invalidData = true;
         }
@@ -1350,7 +1350,7 @@ $(function () {
 
       selectedRows.each(function () {
         var row = $(this).closest("tr");
-        var status = row.find("td:last").text().trim(); // Ambil nilai status dari kolom terakhir
+        var status = row.find("td:eq(11)").text().trim(); // Ambil nilai status dari kolom terakhir
         if (status === "Uploaded To Ifast") {
           invalidData = true; // Setel flag jika ada status "Uploaded To Ifast"
         }
@@ -1436,7 +1436,7 @@ $(function () {
 
       selectedRows.each(function () {
         var row = $(this).closest("tr");
-        var status = row.find("td:last").text().trim(); // Mengambil nilai status dari kolom terakhir
+        var status = row.find("td:eq(11)").text().trim(); // Mengambil nilai status dari kolom terakhir
         if (status === "Uploaded To Ifast") {
           invalidData = true; // Set flag jika ada status "Uploaded To Ifast"
         }
