@@ -1,5 +1,6 @@
 <?php
-require_once 'vendor/autoload.php';
+
+require_once realpath(__DIR__ . '/../composer/phpoffice/vendor/autoload.php');
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class Master_model

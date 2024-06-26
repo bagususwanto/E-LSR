@@ -185,7 +185,7 @@
                                 <form id="editForm" method="POST" action="">
                                     <div class="modal-body" id="modalContent">
                                         <input type="hidden" name="id" id="id">
-                                        <input type="text" name="userEdit"
+                                        <input type="hidden" name="userEdit"
                                             value="<?php echo isset($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>">
                                         <div class="mb-3">
                                             <label for="part_number" class="form-label col-form-label-sm">Part
