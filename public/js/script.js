@@ -58,6 +58,7 @@ $(function () {
     //==== ISI NILAI DARI LINE DAN SHIFT======//
     // Ambil nilai dari data-id
     const id = $("#userLog").data("id");
+    const validLine = $("#validLine").text().trim();
     $.ajax({
       url: BASEURL + "/create/getUbahSelectedLine",
       data: { id: id },
@@ -79,8 +80,14 @@ $(function () {
         $("#shift").val(data.shift_user);
         $("#lsrCode").val(data.category); // untuk halaman report
 
-        if ($("#shift").val() === "NonShift") {
-          $("#shift").val("All");
+        if ($("#search").length > 0) {
+          if ($("#shift").val() === "NonShift") {
+            $("#shift").val("All");
+          }
+
+          if (validLine === "Logistic") {
+            $("#line").val("Logistic Operational");
+          }
         }
       },
       error: function (error) {

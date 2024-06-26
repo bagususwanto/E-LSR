@@ -414,73 +414,6 @@ class Material_model
         return $result;
     }
 
-
-    public function FilteredReport($tanggalFrom, $tanggalTo, $line, $shift, $lsrCode, $status)
-    {
-        // Tentukan kolom yang ingin ditampilkan
-        $query = 'SELECT no_lsr, MAX(tanggal) as tanggal, MAX(line_lsr) as line_lsr, MAX(cost_center) as cost_center, 
-                  MAX(shift) as shift, MAX(user_lsr) as user_lsr, MAX(waktu) as waktu, MAX(approved_by) as approved_by,
-                  MAX(received_by) as received_by, MAX(status_lsr) as status_lsr 
-                  FROM ' . $this->table;
-
-        $params = [];
-        $conditions = [];
-
-        // Tambahkan kondisi jika nilai bukan "All"
-        if ($line !== 'All') {
-            $conditions[] = 'line_lsr = :line_lsr';
-            $params[':line_lsr'] = $line;
-        }
-
-        if ($shift !== 'All') {
-            $conditions[] = 'shift = :shift';
-            $params[':shift'] = $shift;
-        }
-
-        if ($lsrCode !== 'All') {
-            $conditions[] = 'no_lsr LIKE :lsrCode';
-            $params[':lsrCode'] = $lsrCode . '%';
-        }
-
-        if ($status !== 'All') {
-            $conditions[] = 'status_lsr = :status';
-            $params[':status'] = $status;
-        }
-
-        // Tambahkan kondisi tanggal jika salah satu atau keduanya tidak kosong
-        if (!empty($tanggalFrom) || !empty($tanggalTo)) {
-            // Jika tanggalTo kosong, atur nilai tanggalTo ke tanggalFrom
-            if (empty($tanggalTo)) {
-                $tanggalTo = $tanggalFrom;
-            }
-
-            if (!empty($tanggalFrom)) {
-                $conditions[] = 'tanggal BETWEEN :tanggalFrom AND :tanggalTo';
-                $params[':tanggalFrom'] = $tanggalFrom;
-                $params[':tanggalTo'] = $tanggalTo;
-            }
-        }
-
-        // Gabungkan kondisi ke dalam query
-        if (!empty($conditions)) {
-            $query .= ' WHERE ' . implode(' AND ', $conditions);
-        }
-
-        // Tambahkan GROUP BY untuk no_lsr
-        $query .= ' GROUP BY no_lsr';
-
-        $this->db->query($query);
-        foreach ($params as $paramName => $paramValue) {
-            $this->db->bind($paramName, $paramValue);
-        }
-
-        $result = $this->db->resultSet();
-
-        return $result;
-    }
-
-
-
     public function deleteData($selectedData)
     {
         $placeholders = implode(',', array_fill(0, count($selectedData), '?'));
@@ -565,6 +498,76 @@ class Material_model
         return $this->db->resultSet();
     }
 
+    public function FilteredReport($tanggalFrom, $tanggalTo, $line, $shift, $lsrCode, $status)
+    {
+        // Tentukan kolom yang ingin ditampilkan
+        $query = 'SELECT no_lsr, MAX(tanggal) as tanggal, MAX(line_lsr) as line_lsr, MAX(cost_center) as cost_center, 
+                  MAX(shift) as shift, MAX(user_lsr) as user_lsr, MAX(waktu) as waktu, MAX(approved_by) as approved_by,
+                  MAX(received_by) as received_by, MAX(status_lsr) as status_lsr 
+                  FROM ' . $this->table;
+
+        $params = [];
+        $conditions = [];
+
+        // Tambahkan kondisi jika nilai bukan "All"
+        if ($line !== 'All') {
+            if ($line == 'Logistic Operational') {
+                $conditions[] = '(line_lsr = :logistic OR line_lsr = :technical)';
+                $params[':logistic'] = 'Logistic Operational';
+                $params[':technical'] = 'Technical Support';
+            } else {
+                $conditions[] = 'line_lsr = :line_lsr';
+                $params[':line_lsr'] = $line;
+            }
+        }
+
+        if ($shift !== 'All') {
+            $conditions[] = 'shift = :shift';
+            $params[':shift'] = $shift;
+        }
+
+        if ($lsrCode !== 'All') {
+            $conditions[] = 'no_lsr LIKE :lsrCode';
+            $params[':lsrCode'] = $lsrCode . '%';
+        }
+
+        if ($status !== 'All') {
+            $conditions[] = 'status_lsr = :status';
+            $params[':status'] = $status;
+        }
+
+        // Tambahkan kondisi tanggal jika salah satu atau keduanya tidak kosong
+        if (!empty($tanggalFrom) || !empty($tanggalTo)) {
+            // Jika tanggalTo kosong, atur nilai tanggalTo ke tanggalFrom
+            if (empty($tanggalTo)) {
+                $tanggalTo = $tanggalFrom;
+            }
+
+            if (!empty($tanggalFrom)) {
+                $conditions[] = 'tanggal BETWEEN :tanggalFrom AND :tanggalTo';
+                $params[':tanggalFrom'] = $tanggalFrom;
+                $params[':tanggalTo'] = $tanggalTo;
+            }
+        }
+
+        // Gabungkan kondisi ke dalam query
+        if (!empty($conditions)) {
+            $query .= ' WHERE ' . implode(' AND ', $conditions);
+        }
+
+        // Tambahkan GROUP BY untuk no_lsr
+        $query .= ' GROUP BY no_lsr';
+
+        $this->db->query($query);
+        foreach ($params as $paramName => $paramValue) {
+            $this->db->bind($paramName, $paramValue);
+        }
+
+        $result = $this->db->resultSet();
+
+        return $result;
+    }
+
     public function FilteredDataReport($shift, $lsrCode, $status, $line)
     {
         // cek apakah ada data dengan variabel $line di kolom line_lsr
@@ -598,6 +601,12 @@ class Material_model
         if ($lineCountResult['count'] > 0 && !empty($line)) {
             $query .= ' AND line_lsr = :line';
             $bindParams[':line'] = $line;
+        }
+
+        if ($line == 'Logistic') {
+            $query .= ' AND (line_lsr = :logistic OR line_lsr = :technical)';
+            $bindParams[':logistic'] = 'Logistic Operational';
+            $bindParams[':technical'] = 'Technical Support';
         }
 
         // Kelompokkan hasil berdasarkan kolom no_lsr
