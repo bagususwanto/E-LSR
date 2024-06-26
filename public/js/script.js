@@ -848,6 +848,8 @@ $(function () {
                 data[i].line_code,
                 data[i].cost_center,
                 data[i].status_lsr,
+                data[i].change_by,
+                data[i].change_date,
               ])
               .nodes()
               .to$() // Dapatkan elemen HTML tr (baris)
@@ -1060,6 +1062,8 @@ $(function () {
         { title: "Line Code" },
         { title: "Cost Center" },
         { title: "Status" },
+        { title: "Change By" },
+        { title: "Change Date" },
       ],
     });
     // Mengatur tombol container ke posisi yang sesuai
