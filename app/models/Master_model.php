@@ -23,6 +23,13 @@ class Master_model
         return $this->db->resultSet();
     }
 
+    public function getCostCenterData()
+    {
+        $sql = 'SELECT * FROM ' . $this->table2;
+        $this->db->query($sql);
+
+        return $this->db->resultSet();
+    }
 
     public function getMaterialById($id)
     {
@@ -67,7 +74,7 @@ class Master_model
             } else {
                 $_SESSION['message'] = [
                     'type' => 'error',
-                    'content' => 'Gagal menambahkan data.'
+                    'content' => 'Gagal mengubah data.'
                 ];
             }
             return $rowCount;
@@ -77,7 +84,51 @@ class Master_model
             $_SESSION['message'] = [
                 'type' => 'error',
                 // 'content' => 'Terjadi kesalahan saat menambahkan data.'
-                'content' => 'Terjadi kesalahan saat menambahkan data: ' . $e->getMessage()
+                'content' => 'Terjadi kesalahan saat mengubah data: ' . $e->getMessage()
+            ];
+            return 0;
+        }
+    }
+
+    public function UbahDataCostCenter($data)
+    {
+        var_dump($data);
+        $query = 'UPDATE ' . $this->table2 . ' SET 
+                    line_code = :lineCode,
+                    cost_center = :costCenter,
+                    material = :material,
+                    change_by = :user
+                    WHERE id = :id';
+
+        $this->db->query($query);
+        $this->db->bind('lineCode', $data['line_code']);
+        $this->db->bind('costCenter', $data['cost_center']);
+        $this->db->bind('material', $data['material']);
+        $this->db->bind('user', $data['userName']);
+        $this->db->bind('id', $data['id']);
+
+        try {
+            $this->db->execute();
+            $rowCount = $this->db->rowCount();
+            if ($rowCount > 0) {
+                $_SESSION['message'] = [
+                    'type' => 'success',
+                    'content' => 'Berhasil mengubah data.'
+                ];
+            } else {
+                $_SESSION['message'] = [
+                    'type' => 'error',
+                    'content' => 'Gagal mengubah data.'
+                ];
+            }
+            return $rowCount;
+        } catch (Exception $e) {
+            // Menangani error dan mungkin log error atau memberi tahu pengguna
+            error_log($e->getMessage());
+            $_SESSION['message'] = [
+                'type' => 'error',
+                // 'content' => 'Terjadi kesalahan saat menambahkan data.'
+                'content' => 'Terjadi kesalahan saat mengubah data: ' . $e->getMessage()
             ];
             return 0;
         }

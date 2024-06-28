@@ -26,9 +26,41 @@ class Master extends Controller
         })</script>";
     }
 
+    public function cost_center()
+    {
+        // Mendapatkan ID pengguna dari session
+        $id = $_SESSION['user_id'];
+        $namaLine = $_SESSION['user_line'];
+
+        $data['user'] = $this->model('User_model')->getAllUserById($id);
+        $data['lineMaster'] = $this->model('Line_model')->getAllLine();
+        $data['userMat'] = $this->model('Line_model')->getMatByLine($namaLine);
+
+        // Tampilkan view
+        $this->view('templates/header', $data);
+        $this->view('templates/sidebar');
+        $this->view('master/cost_center/index', $data);
+        $this->view('templates/footer');
+
+        echo "<script>document.getElementById('costCenter').classList.remove('collapsed');</script>";
+        echo "<script>document.getElementById('expand').classList.remove('collapsed');</script>";
+        echo "<script>document.getElementById('forms-nav').classList.add('show');</script>";
+        echo "<script>document.getElementById('expand').setAttribute('area-expanded', 'true');</script>";
+        echo "<script>$(document).ready(function () {
+            RefreshDataMasterCostCenter();
+        })</script>";
+    }
+
     public function getMasterMaterial()
     {
         $data = $this->model('Master_model')->getMaterialData();
+
+        echo json_encode($data);
+    }
+
+    public function getMasterCostCenter()
+    {
+        $data = $this->model('Master_model')->getCostCenterData();
 
         echo json_encode($data);
     }
@@ -47,6 +79,11 @@ class Master extends Controller
         header('location:' . BASEURL . '/master/material');
     }
 
+    public function updateDataCostCenter()
+    {
+        $this->model('Master_model')->ubahDataCostCenter($_POST);
+        header('location:' . BASEURL . '/master/cost_center');
+    }
 
     public function AddDataMaterial()
     {

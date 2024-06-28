@@ -58,7 +58,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo BASEURL ?>">
+                    <a class="nav-link collapsed" id="costCenter" href="<?php echo BASEURL ?>/master/cost_center">
                         <i class="bi bi-circle"></i><span>Cost Center</span>
                     </a>
                 </li>

@@ -88,6 +88,40 @@
         });
     }
 
+    function RefreshDataMasterCostCenter() {
+        $.ajax({
+            url: BASEURL + "/master/getMasterCostCenter",
+            method: "POST",
+            data: {},
+            dataType: "json",
+            success: function (data) {
+                $("#tabelMasterCostCenter").DataTable().clear().draw();
+
+                for (var i = 0; i < data.length; i++) {
+                    $("#tabelMasterCostCenter")
+                        .DataTable()
+                        .row.add([
+                            `<button id="editMasterCC" class="btn btn-warning btn-sm edit-btn" type="button" data-id="${data[i].id}">
+              <i class="bi bi-pencil-square"></i>
+              </button>`,
+                            data[i].nama_line,
+                            data[i].line_code,
+                            data[i].cost_center,
+                            data[i].material,
+                            data[i].change_date,
+                            data[i].change_by,
+                        ])
+                        .nodes()
+                        .to$(); // Dapatkan elemen HTML tr (baris)
+                }
+                $("#tabelMasterCostCenter").DataTable().draw();
+            },
+            error: function (error) {
+                console.log("Error:", error);
+            },
+        });
+    }
+
     //===========UNTUK NOTIFIKASI TOAST DI BACKEND============//
     $(document).ready(function () {
         <?php if (isset($_SESSION['message'])): ?>

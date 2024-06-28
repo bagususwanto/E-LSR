@@ -1700,6 +1700,55 @@ $(function () {
   // Mengatur tombol container ke posisi yang sesuai
   tableMasterMaterial.buttons().container().appendTo("#tabelMasterMaterial_wrapper .col-md-6:eq(0)");
 
+  // master cost center
+  var tableMasterCostCenter = $("#tabelMasterCostCenter").DataTable({
+    // ordering: false,
+    fixedColumns: {
+      left: 1,
+    },
+    scrollCollapse: true,
+    fixedHeader: true,
+    scrollX: true,
+    scrollY: "50vh",
+    autoWidth: false,
+    responsive: false,
+    // columns: [null, null, null, null, null, null, null, { width: "20%" }, null, null, null, null],
+    buttons: [
+      {
+        extend: "excelHtml5",
+        text: '<i class="bi bi-download"></i> Excel',
+        className: "btn-sm btn-success",
+        title: "Master Data " + typeMaster,
+      },
+    ],
+    initComplete: function () {
+      var btns = $(".dt-buttons");
+      btns.removeClass("btn-group");
+    },
+    dom: "<'row'<'col-6'B><'col-6'f>>" + "<'row'<'col-12't>>" + "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" + "<'row'<'col-12 pt-3'p>>",
+    lengthMenu: [
+      [10, 25, 50, 100, 500, -1],
+      [10, 25, 50, 100, 500, "All"],
+    ],
+    columns: [
+      { title: "Action", width: "10px" },
+      { title: "Line", width: "100px" },
+      { title: "Line Code", width: "100px" },
+      { title: "Cost Center", width: "100px" },
+      { title: "Material", width: "100px" },
+      { title: "Change Date", width: "100px" },
+      { title: "Change By", width: "100px" },
+    ],
+    columnDefs: [
+      {
+        targets: [0, 1, 2, 3, 4, 5, 6],
+        className: "text-center",
+      },
+    ],
+  });
+  // Mengatur tombol container ke posisi yang sesuai
+  tableMasterCostCenter.buttons().container().appendTo("#tabelMasterCostCenter_wrapper .col-md-6:eq(0)");
+
   // ====FUNGSI EDIT TABEL MASTER============//
   $(document).on("click", "#editMasterMaterial", function () {
     var id = $(this).data("id");
@@ -1729,6 +1778,31 @@ $(function () {
 
     // Tampilkan modal
     $("#editMasterMaterialModal").modal("show");
+  });
+
+  // ==tabel master cost center==//
+  $(document).on("click", "#editMasterCC", function () {
+    var id = $(this).data("id");
+    var row = $(this).closest("tr");
+
+    // Tangkap data dari baris
+    var lineEdit = row.find("td:eq(1)").text();
+    var lineCodeEdit = row.find("td:eq(2)").text();
+    var costCenterEdit = row.find("td:eq(3)").text();
+    var materialEdit = row.find("td:eq(4)").text();
+
+    // Bersihkan harga untuk membuatnya menjadi nilai numerik
+
+    // Isi bidang input modal dengan data yang ditangkap
+    $("#lineEdit").val(lineEdit);
+    $("#lineCodeEdit").val(lineCodeEdit);
+    $("#costCenterEdit").val(costCenterEdit);
+    $("#materialEdit").val(materialEdit);
+    $("#materialEdit").val(materialEdit);
+    $("#idCCMaster").val(id);
+
+    // Tampilkan modal
+    $("#editCostCenterModal").modal("show");
   });
 
   //======FUNGSI ADD DATA TABEL MASTER=======//
