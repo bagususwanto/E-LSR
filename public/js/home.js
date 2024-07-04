@@ -37,26 +37,22 @@ $(function () {
           var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
           var month = monthNames[new Date(dateString).getMonth()];
 
-          var line = item.line_lsr;
+          var noLsr = item.no_lsr.charAt(0);
           var qty = parseInt(item.qty);
           var totalPrice = parseFloat(item.total_price);
 
-          switch (line) {
-            case "Main Line":
-            case "Sub Line":
+          switch (noLsr) {
+            case "K":
               qtyK += qty;
               costK += totalPrice;
               seriesDataBar[month][0] += qty;
               break;
-            case "Cylinder Block":
-            case "Crankshaft":
-            case "Cylinder Head":
-            case "Camshaft":
+            case "M":
               qtyM += qty;
               costM += totalPrice;
               seriesDataBar[month][1] += qty;
               break;
-            case "Die Casting":
+            case "C":
               qtyC += qty;
               costC += totalPrice;
               seriesDataBar[month][2] += qty;
@@ -307,56 +303,21 @@ $(function () {
         });
 
         var title, imageSource, cardClass;
+        title = [];
+        response.forEach(function (item) {
+          var noLsr = item.no_lsr.charAt(0);
+          var lineLsr = item.line_lsr;
 
-        switch (getCardType()) {
-          case "assemblyCard":
-            title = ["Main Line", "Sub Line"];
-            imageSource = [BASEURL + "/img/assembly.gif", BASEURL + "/img/assembly.gif"];
-            cardClass = "sales-card";
-            break;
-          case "machiningCard":
-            title = ["Crankshaft", "Cylinder Block", "Cylinder Head", "Camshaft"];
-            imageSource = [
-              BASEURL + "/img/Crankshaft.gif",
-              BASEURL + "/img/Cylinder Block.gif",
-              BASEURL + "/img/Cylinder Head.gif",
-              BASEURL + "/img/Camshaft.gif",
-            ];
-            cardClass = "revenue-card";
-            break;
+          // Periksa apakah lineLsr sudah ada di dalam title
+          var exists = title.some(function (titleItem) {
+            return titleItem === lineLsr;
+          });
 
-          case "castingCard":
-            title = ["Die Casting", "Low Pressure"];
-            imageSource = [BASEURL + "/img/casting.gif", BASEURL + "/img/Cylinder Head.gif"];
-            cardClass = "customers-card";
-            break;
-          case "othersCard":
-            title = [
-              "Quality",
-              "Logistic Operational",
-              "Maintenance",
-              "Engser",
-              "Technical Support",
-              "Engser Casting",
-              "Maintenance DC",
-              "CCR & Ordering",
-            ];
-            imageSource = [
-              BASEURL + "/img/others.png",
-              BASEURL + "/img/others.png",
-              BASEURL + "/img/others.png",
-              BASEURL + "/img/others.png",
-              BASEURL + "/img/others.png",
-              BASEURL + "/img/others.png",
-              BASEURL + "/img/others.png",
-              BASEURL + "/img/others.png",
-            ];
-            cardClass = "others-card";
-            break;
-          default:
-            // console.log("Card type not recognized.");
-            return;
-        }
+          // Jika lineLsr belum ada di dalam title dan noLsr sesuai, tambahkan ke title
+          if (!exists && noLsr === getCardDataId()) {
+            title.push(lineLsr);
+          }
+        });
 
         var cardContainer = $(".card-container");
         cardContainer.empty(); // Menghapus konten sebelumnya (jika ada)
@@ -365,18 +326,18 @@ $(function () {
           if (reponseData2[title[i]] && reponseData2[title[i]].length > 0) {
             var cardHTML = `
               <div class="col-xxl-12 col-md-12" id="cardBottom">
-                  <div class="card amount-card ${cardClass}">
+                  <div class="card amount-card ${getCardDataId()}-card">
                       <div class="card-body row">
                           <div class="col-lg-3">
                               <h5 class="card-title">${title[i]} <span>| Amount </span></h5>
                               <div class="d-flex align-items-center">
                                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                      <img src="${imageSource[i]}" alt="${title[i]}" width="50px" height="auto">
+                                      <img src="${BASEURL + "/img/line/" + title[i] + ".gif"}" alt="${title[i]}" width="50px" height="auto">
                                   </div>
                                   <div class="ps-3">
                                       <h6 id="qty${i}">${reponseData[title[i]] ? reponseData[title[i]].qty : 0}</h6>
                                       <span id="cost${i}" class="text-success small pt-1 fw-bold">${
-              reponseData[title[i]] ? formatCurrency(reponseData[title[i]].totalCost) : "RP. 0.00"
+              reponseData[title[i]] ? formatCurrency(reponseData[title[i]].totalCost) : "Rp. 0.00"
             }</span>
                                   </div>
                               </div>
@@ -435,7 +396,7 @@ $(function () {
   }
 
   function formatCurrency(amount) {
-    return "RP. " + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+    return "Rp. " + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
   }
 
   $(document).ready(function () {
@@ -521,18 +482,18 @@ $(function () {
       .get();
   }
 
-  function getCardType() {
-    return clickedCardID;
+  function getCardDataId() {
+    return clickedCardDataId;
   }
 
   setInterval(function () {
     fetchData(getActiveYears(), getActiveMonths());
   }, 60000);
 
-  var clickedCardID = "";
+  var clickedCardDataId = "";
 
   $(".info-card").click(function () {
-    clickedCardID = $(this).attr("id");
+    clickedCardDataId = this.getAttribute("data-id");
     fetchData(getActiveYears(), getActiveMonths());
     var cardContainer = $(".card-container");
     cardContainer.show(function () {

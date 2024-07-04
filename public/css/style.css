@@ -819,22 +819,22 @@ h6 {
   flex-grow: 0;
 }
 
-.dashboard .sales-card .card-icon {
+.dashboard .K-card .card-icon {
   color: #4154f1;
   background: #f6f6fe;
 }
 
-.dashboard .revenue-card .card-icon {
+.dashboard .M-card .card-icon {
   color: #2eca6a;
   background: #e0f8e9;
 }
 
-.dashboard .customers-card .card-icon {
+.dashboard .C-card .card-icon {
   color: #ff771d;
   background: #ffecdf;
 }
 
-.dashboard .others-card .card-icon {
+.dashboard .X-card .card-icon {
   color: #ff1d1d;
   background: #ffdfdf;
 }
@@ -1315,4 +1315,8 @@ h6 {
     /* Atur lebar elemen saat mencetak */
     margin: 0 auto;
   }
+}
+
+.hidden {
+  display: none;
 }

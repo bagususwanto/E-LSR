@@ -8,33 +8,23 @@ class Report_model
         $this->db = new Database;
     }
 
-    public function generateUniqueID($validLineValue)
+    public function generateUniqueID($categoryVal)
     {
         // Pemisahan kata kunci
-        $keywords = explode(",", $validLineValue);
+        $keywords = explode(",", $categoryVal);
         $first_keyword = trim($keywords[0]);
 
         switch ($first_keyword) {
-            case 'Main Line':
-            case 'Sub Line':
-                $prefix = 'K';
+            case 'K':
                 $table = 'report_k';
                 break;
-            case 'Crankshaft':
-            case 'Cylinder Block':
-            case 'Cylinder Head':
-            case 'Camshaft':
-                $prefix = 'M';
+            case 'M':
                 $table = 'report_m';
                 break;
-            case 'Die Casting':
-            case 'Low Pressure':
-                $prefix = 'C';
+            case 'C':
                 $table = 'report_c';
                 break;
-
             default:
-                $prefix = 'X';
                 $table = 'report_x';
         }
 
@@ -44,7 +34,7 @@ class Report_model
         $result = $this->db->single();
         $max_id = $result['max_id'];
 
-        $new_id = $prefix . str_pad((intval(substr($max_id, 1)) + 1), 6, '0', STR_PAD_LEFT);
+        $new_id = $categoryVal . str_pad((intval(substr($max_id, 1)) + 1), 6, '0', STR_PAD_LEFT);
 
         return $new_id;
     }

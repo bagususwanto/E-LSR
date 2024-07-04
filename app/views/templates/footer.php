@@ -38,9 +38,9 @@
 <script>
     function formatCurrency(amount) {
         if (isNaN(amount)) {
-            return "RP. 0.00";
+            return "Rp. 0.00";
         }
-        return "RP. " + parseFloat(amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+        return "Rp. " + parseFloat(amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
     }
 
     function RefreshDataMasterMaterial() {
@@ -115,6 +115,43 @@
                         .to$(); // Dapatkan elemen HTML tr (baris)
                 }
                 $("#tabelMasterCostCenter").DataTable().draw();
+            },
+            error: function (error) {
+                console.log("Error:", error);
+            },
+        });
+    }
+
+    function RefreshDataMasterUser() {
+        $.ajax({
+            url: BASEURL + "/master/getMasterUser",
+            method: "POST",
+            data: {},
+            dataType: "json",
+            success: function (data) {
+                $("#tabelMasterUser").DataTable().clear().draw();
+
+                for (var i = 0; i < data.length; i++) {
+                    $("#tabelMasterUser")
+                        .DataTable()
+                        .row.add([
+                            `<button id="editMasterUser" class="btn btn-warning btn-sm edit-btn" type="button" data-id="${data[i].id}">
+              <i class="bi bi-pencil-square"></i>
+              </button>
+              <button id="deleteMasterUser" class="btn btn-danger btn-sm delete-btn" type="button" data-id="${data[i].id}">
+              <i class="bi bi-trash-fill"></i>
+              </button>`,
+                            data[i].nama_line,
+                            data[i].line_code,
+                            data[i].cost_center,
+                            data[i].material,
+                            data[i].change_date,
+                            data[i].change_by,
+                        ])
+                        .nodes()
+                        .to$(); // Dapatkan elemen HTML tr (baris)
+                }
+                $("#tabelMasterUser").DataTable().draw();
             },
             error: function (error) {
                 console.log("Error:", error);

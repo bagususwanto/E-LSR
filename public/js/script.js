@@ -37,7 +37,8 @@ $(function () {
       dateFormat: "Y-m-d",
       allowInput: true,
       onChange: function (selectedDates, dateStr, instance) {
-        getIDnoLsr();
+        const categoryVal = $("#category").val();
+        getIDnoLsr(categoryVal);
       },
     });
 
@@ -79,14 +80,11 @@ $(function () {
         $("#lineSub").val(data.line_user);
         $("#shift").val(data.shift_user);
         $("#lsrCode").val(data.category); // untuk halaman report
+        $("#department").val(data.department); // untuk halaman report
 
         if ($("#search").length > 0) {
           if ($("#shift").val() === "NonShift") {
             $("#shift").val("All");
-          }
-
-          if (validLine === "Logistic") {
-            $("#line").val("Logistic Operational");
           }
         }
       },
@@ -95,7 +93,7 @@ $(function () {
       },
     });
 
-    //==== ISI NILAI DARI MATERIAL, LINE CODE DAN COST CENTER======//
+    //==== ISI NILAI DARI MATERIAL, LINE CODE, COST CENTER, CATEGORY======//
     // Ambil nilai
     const validLineValue = $("#validLine").text().trim();
     $.ajax({
@@ -107,6 +105,7 @@ $(function () {
         $("#material").val(data.material);
         $("#lineCode").val(data.line_code);
         $("#costCenter").val(data.cost_center);
+        $("#category").val(data.category);
       },
       error: function (error) {
         console.log("Error:", error);
@@ -114,7 +113,8 @@ $(function () {
     });
 
     //==== ISI NILAI DARI NO LSR======//
-    getIDnoLsr(validLineValue);
+    const categoryVal = $("#validCategory").val();
+    getIDnoLsr(categoryVal);
 
     //==== ISI NILAI DARI PART NUMBER , PART NAME, UNIQE NO, DAN SOURCE TYPE======//
     const validLineValue2 = $("#validMaterial").val();
@@ -159,7 +159,7 @@ $(function () {
     const shiftUser = $("#shiftUser").val();
     const lineUser = $("#lineUser").val();
     const tanggalValue = formattedDate;
-    RefreshDataSubmit(material, tanggalValue, shiftUser, lineUser);
+    RefreshDataSubmit(tanggalValue, shiftUser, lineUser);
   });
 
   //=================EVENT CHANGE===================//
@@ -186,15 +186,6 @@ $(function () {
     });
   });
 
-  $("#tanggal").on("change", function () {
-    // const tanggal = $(this).val();
-    // $("#tanggalSub").val(tanggal);
-  });
-  $("#waktu").on("change", function () {
-    // const waktu = $(this).val();
-    // $("#waktuSub").val(waktu);
-  });
-
   $("#lineCode").on("change", function () {
     $("body").loadingModal({
       text: "Loading...",
@@ -217,6 +208,8 @@ $(function () {
           $("#material").val(data.material);
           $("#line").val(data.nama_line);
           $("#costCenter").val(data.cost_center);
+          $("#category").val(data.category);
+          $("#department").val(data.department);
         }
         //ISI DATATABLE//
         const shiftUser = $("#shift").val();
@@ -224,7 +217,7 @@ $(function () {
         const tanggalValue = $("#tanggal").val();
         const lineUser = $("#line").val();
         const costCenter = $("#costCenter").val();
-        RefreshDataSubmitChange(material, tanggalValue, shiftUser, lineUser, lineCode, costCenter);
+        RefreshDataSubmitChange(tanggalValue, shiftUser, lineUser, lineCode, costCenter);
 
         addMasterMaterial();
         $("body").loadingModal("hide");
@@ -255,6 +248,8 @@ $(function () {
           $("#material").val(data.material);
           $("#line").val(data.nama_line);
           $("#lineCode").val(data.line_code);
+          $("#category").val(data.category);
+          $("#department").val(data.department);
         }
 
         //ISI DATATABLE//
@@ -263,7 +258,7 @@ $(function () {
         const tanggalValue = $("#tanggal").val();
         const lineUser = $("#line").val();
         const lineCode = $("#lineCode").val();
-        RefreshDataSubmitChange(material, tanggalValue, shiftUser, lineUser, lineCode, costCenter);
+        RefreshDataSubmitChange(tanggalValue, shiftUser, lineUser, lineCode, costCenter);
 
         addMasterMaterial();
         $("body").loadingModal("hide");
@@ -295,6 +290,8 @@ $(function () {
           $("#material").val(data.material);
           $("#costCenter").val(data.cost_center);
           $("#lineCode").val(data.line_code);
+          $("#category").val(data.category);
+          $("#department").val(data.department);
         }
 
         $("#lineSub").val(lineUser);
@@ -305,9 +302,10 @@ $(function () {
         const tanggalValue = $("#tanggal").val();
         const lineCode = $("#lineCode").val();
         const costCenter = $("#costCenter").val();
-        RefreshDataSubmitChange(material, tanggalValue, shiftUser, lineUser, lineCode, costCenter);
+        RefreshDataSubmitChange(tanggalValue, shiftUser, lineUser, lineCode, costCenter);
 
-        getIDnoLsr(validLineValue);
+        const categoryVal = data.category;
+        getIDnoLsr(categoryVal);
 
         addMasterMaterial();
         $("body").loadingModal("hide");
@@ -325,7 +323,7 @@ $(function () {
     const lineUser = $("#line").val();
     const lineCode = $("#lineCode").val();
     const costCenter = $("#costCenter").val();
-    RefreshDataSubmitChange(material, tanggalValue, shiftUser, lineUser, lineCode, costCenter);
+    RefreshDataSubmitChange(tanggalValue, shiftUser, lineUser, lineCode, costCenter);
     addMasterMaterial();
     $("body").loadingModal("hide");
   });
@@ -341,7 +339,7 @@ $(function () {
     const lineUser = $("#line").val();
     const lineCode = $("#lineCode").val();
     const costCenter = $("#costCenter").val();
-    RefreshDataSubmitChange(material, tanggalValue, shiftUser, lineUser, lineCode, costCenter);
+    RefreshDataSubmitChange(tanggalValue, shiftUser, lineUser, lineCode, costCenter);
     $("body").loadingModal("hide");
   });
 
@@ -356,7 +354,7 @@ $(function () {
     const lineUser = $("#line").val();
     const lineCode = $("#lineCode").val();
     const costCenter = $("#costCenter").val();
-    RefreshDataSubmitChange(material, tanggalValue, shiftUser, lineUser, lineCode, costCenter);
+    RefreshDataSubmitChange(tanggalValue, shiftUser, lineUser, lineCode, costCenter);
     $("body").loadingModal("hide");
   });
 
@@ -370,15 +368,14 @@ $(function () {
     const lineUser = $("#line").val();
     const lineCode = $("#lineCode").val();
     const costCenter = $("#costCenter").val();
-    RefreshDataSubmitChange(material, tanggalValue, shiftUser, lineUser, lineCode, costCenter);
+    RefreshDataSubmitChange(tanggalValue, shiftUser, lineUser, lineCode, costCenter);
     $("body").loadingModal("hide");
   });
 
-  function RefreshDataSubmitChange(material, tanggalValue, shiftUser, lineUser, lineCode, costCenter) {
+  function RefreshDataSubmitChange(tanggalValue, shiftUser, lineUser, lineCode, costCenter) {
     $.ajax({
       url: BASEURL + "/create/getDataTableChange",
       data: {
-        material: material,
         tanggalValue: tanggalValue,
         shiftUser: shiftUser,
         lineUser: lineUser,
@@ -475,16 +472,15 @@ $(function () {
   }
 
   //==== ISI NILAI DARI NO LSR======//
-  function getIDnoLsr(validLineValue) {
-    // const validLineValue = $("#validLine").text().trim();
+  function getIDnoLsr(categoryVal) {
     $.ajax({
       url: BASEURL + "/create/getIdReport",
-      data: { validLineValue: validLineValue },
+      data: { categoryVal: categoryVal },
       method: "post",
       dataType: "json",
       success: function (data) {
         $("#noLsr").val(data.no_lsr);
-        $("#noLSRSub").val(data.no_lsr);
+        // $("#noLSRSub").val(data.no_lsr);
       },
       error: function (error) {
         console.log("Error:", error);
@@ -493,11 +489,10 @@ $(function () {
   }
 
   //=====UNTUK REFRESH TABLE SUBMIT=====//
-  function RefreshDataSubmit(material, tanggalValue, shiftUser, lineUser) {
+  function RefreshDataSubmit(tanggalValue, shiftUser, lineUser) {
     $.ajax({
       url: BASEURL + "/create/getDataTable",
       data: {
-        material: material,
         tanggalValue: tanggalValue,
         shiftUser: shiftUser,
         lineUser: lineUser,
@@ -700,7 +695,7 @@ $(function () {
                     const shiftUser = $("#shift").val();
                     const lineUser = $("#line").val();
                     const tanggalValue = $("#tanggal").val();
-                    RefreshDataSubmit(material, tanggalValue, shiftUser, lineUser);
+                    RefreshDataSubmit(tanggalValue, shiftUser, lineUser);
                     roleValidtionPageCreate();
                     // checkTablePageCreate();
 
@@ -767,7 +762,7 @@ $(function () {
         const shiftUser = $("#shift").val();
         const lineUser = $("#line").val();
         const tanggalValue = $("#tanggal").val();
-        RefreshDataSubmit(material, tanggalValue, shiftUser, lineUser);
+        RefreshDataSubmit(tanggalValue, shiftUser, lineUser);
         $.toast({
           title: "Pesan",
           message: "Berhasil menghapus data.",
@@ -885,6 +880,7 @@ $(function () {
       // Mendapatkan nilai dari input
       const tanggalFrom = $("#tanggal").val();
       const tanggalTo = $("#tanggalTo").val();
+      const department = $("#department").val();
       const line = $("#line").val();
       const shift = $("#shift").val();
       const lsrCode = $("#lsrCode").val();
@@ -895,7 +891,7 @@ $(function () {
       });
       event.preventDefault();
 
-      RefreshTableReport(tanggalFrom, tanggalTo, line, shift, lsrCode, status);
+      RefreshTableReport(tanggalFrom, tanggalTo, department, line, shift, lsrCode, status);
       $("body").loadingModal("hide");
     });
 
@@ -933,7 +929,7 @@ $(function () {
       ],
       columnDefs: [
         {
-          targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           className: "text-center",
         },
       ],
@@ -946,6 +942,7 @@ $(function () {
         },
         { title: "No LSR" },
         { title: "E-Form" },
+        { title: "Department" },
         { title: "Line" },
         { title: "Cost Center" },
         { title: "Shift" },
@@ -966,6 +963,8 @@ $(function () {
       dateFormat: "Y-m-d",
       allowInput: true,
       onChange: function (selectedDates, dateStr, instance) {
+        const categoryVal = $("#category").val();
+        getIDnoLsr(categoryVal);
         dateStr;
       },
     });
@@ -1406,11 +1405,12 @@ $(function () {
 
                 const tanggalFrom = $("#tanggal").val();
                 const tanggalTo = $("#tanggalTo").val();
+                const department = $("#department").val();
                 const line = $("#line").val();
                 const shift = $("#shift").val();
                 const lsrCode = $("#lsrCode").val();
                 const status = $("#status").val();
-                RefreshTableReport(tanggalFrom, tanggalTo, line, shift, lsrCode, status);
+                RefreshTableReport(tanggalFrom, tanggalTo, department, line, shift, lsrCode, status);
               } else {
                 $.toast({
                   title: "Pesan",
@@ -1492,11 +1492,12 @@ $(function () {
 
                 const tanggalFrom = $("#tanggal").val();
                 const tanggalTo = $("#tanggalTo").val();
+                const department = $("#department").val();
                 const line = $("#line").val();
                 const shift = $("#shift").val();
                 const lsrCode = $("#lsrCode").val();
                 const status = $("#status").val();
-                RefreshTableReport(tanggalFrom, tanggalTo, line, shift, lsrCode, status);
+                RefreshTableReport(tanggalFrom, tanggalTo, department, line, shift, lsrCode, status);
               } else {
                 $.toast({
                   title: "Pesan",
@@ -1589,6 +1590,7 @@ $(function () {
         $("#shift").prop("disabled", true);
         $("#line").prop("disabled", true);
         $("#lsrCode").prop("disabled", true);
+        $("#department").prop("disabled", true);
       }
     }
 
@@ -1749,6 +1751,55 @@ $(function () {
   // Mengatur tombol container ke posisi yang sesuai
   tableMasterCostCenter.buttons().container().appendTo("#tabelMasterCostCenter_wrapper .col-md-6:eq(0)");
 
+  // master cost center
+  var tableMasterUser = $("#tabelMasterUser").DataTable({
+    // ordering: false,
+    fixedColumns: {
+      left: 1,
+    },
+    scrollCollapse: true,
+    fixedHeader: true,
+    scrollX: true,
+    scrollY: "50vh",
+    autoWidth: false,
+    responsive: false,
+    // columns: [null, null, null, null, null, null, null, { width: "20%" }, null, null, null, null],
+    buttons: [
+      {
+        extend: "excelHtml5",
+        text: '<i class="bi bi-download"></i> Excel',
+        className: "btn-sm btn-success",
+        title: "Master Data " + typeMaster,
+      },
+    ],
+    initComplete: function () {
+      var btns = $(".dt-buttons");
+      btns.removeClass("btn-group");
+    },
+    dom: "<'row'<'col-6'B><'col-6'f>>" + "<'row'<'col-12't>>" + "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" + "<'row'<'col-12 pt-3'p>>",
+    lengthMenu: [
+      [10, 25, 50, 100, 500, -1],
+      [10, 25, 50, 100, 500, "All"],
+    ],
+    columns: [
+      { title: "Action", width: "100px" },
+      { title: "Line", width: "100px" },
+      { title: "Line Code", width: "100px" },
+      { title: "Cost Center", width: "100px" },
+      { title: "Material", width: "100px" },
+      { title: "Change Date", width: "100px" },
+      { title: "Change By", width: "100px" },
+    ],
+    columnDefs: [
+      {
+        targets: [0, 1, 2, 3, 4, 5, 6],
+        className: "text-center",
+      },
+    ],
+  });
+  // Mengatur tombol container ke posisi yang sesuai
+  tableMasterUser.buttons().container().appendTo("#tabelMasterUser_wrapper .col-md-6:eq(0)");
+
   // ====FUNGSI EDIT TABEL MASTER============//
   $(document).on("click", "#editMasterMaterial", function () {
     var id = $(this).data("id");
@@ -1864,6 +1915,7 @@ $(function () {
         const line = response.line_user;
         let shift = response.shift_user;
         const lsrCode = response.category;
+        const department = response.department;
         const status = "Waiting Approved";
 
         if (shift === "NonShift") {
@@ -1877,6 +1929,7 @@ $(function () {
             lsrCode: lsrCode,
             status: status,
             line: line,
+            department: department,
           },
           dataType: "json",
           success: function (data) {
@@ -1905,7 +1958,7 @@ $(function () {
   }, 3000);
 
   // FUNGSI UNTUK HALAMAN DATA REPORT
-  function RefreshTableReport(tanggalFrom, tanggalTo, line, shift, lsrCode, status) {
+  function RefreshTableReport(tanggalFrom, tanggalTo, department, line, shift, lsrCode, status) {
     // Mengirim permintaan AJAX
     $.ajax({
       url: BASEURL + "/data/getTableReport",
@@ -1913,6 +1966,7 @@ $(function () {
       data: {
         tanggalFrom: tanggalFrom,
         tanggalTo: tanggalTo,
+        department: department,
         line: line,
         shift: shift,
         lsrCode: lsrCode,
@@ -1947,6 +2001,7 @@ $(function () {
               data[i].no_lsr,
               `<a href="${BASEURL}/eform?no_lsr=${data[i].no_lsr}" target="_blank" class="link-dark" data-id="${data[i].id}">
             <button type="button" class="btn btn-outline-dark fw-bold">View</button></a>`,
+              data[i].department,
               data[i].line_lsr,
               data[i].cost_center,
               data[i].shift,
@@ -1969,13 +2024,14 @@ $(function () {
     });
   }
 
-  function RefreshTableReportByUrl(tanggalFrom, tanggalTo, line, shift, lsrCode, status) {
+  function RefreshTableReportByUrl(tanggalFrom, tanggalTo, department, line, shift, lsrCode, status) {
     $.ajax({
       url: BASEURL + "/data/getDataReport",
       method: "POST",
       data: {
         tanggalFrom: tanggalFrom,
         tanggalTo: tanggalTo,
+        department: department,
         line: line,
         shift: shift,
         lsrCode: lsrCode,
@@ -2010,6 +2066,7 @@ $(function () {
               data[i].no_lsr,
               `<a href="${BASEURL}/eform?no_lsr=${data[i].no_lsr}" target="_blank" class="link-dark" data-id="${data[i].id}">
             <button type="button" class="btn btn-outline-dark fw-bold">View</button></a>`,
+              data[i].department,
               data[i].line_lsr,
               data[i].cost_center,
               data[i].shift,
@@ -2038,15 +2095,17 @@ $(function () {
     const urlParams = new URLSearchParams(window.location.search);
     const tanggalFrom = urlParams.get("tanggalFrom");
     const tanggalTo = urlParams.get("tanggalTo");
+    const department = urlParams.get("department");
     const line = urlParams.get("line");
     const shift = urlParams.get("shift");
     const lsrCode = urlParams.get("lsrCode");
     const status = urlParams.get("status");
     // Periksa apakah setidaknya satu nilai dari query string URL ada
-    if (tanggalFrom || tanggalTo || line || shift || lsrCode || status) {
-      RefreshTableReportByUrl(tanggalFrom, tanggalTo, line, shift, lsrCode, status);
+    if (tanggalFrom || tanggalTo || department || line || shift || lsrCode || status) {
+      RefreshTableReportByUrl(tanggalFrom, tanggalTo, department, line, shift, lsrCode, status);
       $("#tanggal").val(tanggalFrom);
       $("#tanggalTo").val(tanggalTo);
+      $("#department").val(department);
       $("#line").val(line);
       $("#shift").val(shift);
       $("#lsrCode").val(lsrCode);

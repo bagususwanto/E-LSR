@@ -67,13 +67,14 @@ class Data extends Controller
         // Mendapatkan parameter dari request POST
         $tanggalFrom = $_POST['tanggalFrom'];
         $tanggalTo = $_POST['tanggalTo'];
+        $department = $_POST['department'];
         $line = $_POST['line'];
         $shift = $_POST['shift'];
         $lsrCode = $_POST['lsrCode'];
         $status = $_POST['status'];
 
         // Mendapatkan data dari model
-        $data = $this->model('Material_model')->FilteredReport($tanggalFrom, $tanggalTo, $line, $shift, $lsrCode, $status);
+        $data = $this->model('Material_model')->FilteredReport($tanggalFrom, $tanggalTo, $department, $line, $shift, $lsrCode, $status);
 
         // Mengembalikan data dalam format JSON
         echo json_encode($data);
@@ -277,9 +278,10 @@ class Data extends Controller
         $lsrCode = $_POST['lsrCode'];
         $status = $_POST['status'];
         $line = $_POST['line'];
+        $department = $_POST['department'];
 
         // Mendapatkan data dari model
-        $data = $this->model('Material_model')->FilteredDataReport($shift, $lsrCode, $status, $line);
+        $data = $this->model('Material_model')->FilteredDataReport($shift, $lsrCode, $status, $line, $department);
 
         // Mengembalikan data dalam format JSON
         echo json_encode($data);

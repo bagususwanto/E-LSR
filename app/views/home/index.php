@@ -44,7 +44,7 @@
 
                     <!-- Assembly Card -->
                     <div class="col-xxl-3 col-md-6">
-                        <div class="card info-card sales-card" id="assemblyCard">
+                        <div class="card info-card K-card" data-id="K" id="assemblyCard">
 
                             <div class="card-body">
                                 <h5 class="card-title">Assembly <span>| Amount</span></h5>
@@ -67,7 +67,7 @@
 
                     <!-- Machining Card -->
                     <div class="col-xxl-3 col-md-6">
-                        <div class="card info-card revenue-card" id="machiningCard">
+                        <div class="card info-card M-card" data-id="M" id="machiningCard">
 
                             <div class="card-body">
                                 <h5 class="card-title">Machining <span>| Amount</span></h5>
@@ -92,7 +92,7 @@
                     <!-- Casting Card -->
                     <div class="col-xxl-3 col-xl-12">
 
-                        <div class="card info-card customers-card" id="castingCard">
+                        <div class="card info-card C-card" data-id="C" id="castingCard">
 
                             <div class="card-body">
                                 <h5 class="card-title">Casting <span>| Amount</span></h5>
@@ -118,7 +118,7 @@
                     <!-- others Card -->
                     <div class="col-xxl-3 col-xl-12">
 
-                        <div class="card info-card others-card" id="othersCard">
+                        <div class="card info-card X-card" data-id="X" id="othersCard">
 
                             <div class="card-body">
                                 <h5 class="card-title">Others <span>| Amount</span></h5>
@@ -126,7 +126,7 @@
                                 <div class="d-flex align-items-center">
                                     <div
                                         class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <img src="<?php echo BASEURL; ?>/img/others.png" alt="others.png" width="50px"
+                                        <img src="<?php echo BASEURL; ?>/img/others.gif" alt="others.gif" width="50px"
                                             height="auto">
                                     </div>
                                     <div class="ps-3">

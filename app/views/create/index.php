@@ -123,6 +123,28 @@
                                         </input>
                                     </div>
 
+                                    <select class="hidden form-select form-select-sm" id="category" name="category"
+                                        aria-label="Default select example">
+                                        <!-- <option selected></option> -->
+                                        <?php foreach ($data['lineMaster'] as $lineMaster): ?>
+                                            <option value="<?php echo $lineMaster['category']; ?>"
+                                                data-id="<?php echo $lineMaster['id']; ?>">
+                                                <?php echo $lineMaster['category']; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+
+                                    <select class="hidden form-select form-select-sm" id="department" name="department"
+                                        aria-label="Default select example">
+                                        <!-- <option selected></option> -->
+                                        <?php foreach ($data['lineMaster'] as $lineMaster): ?>
+                                            <option value="<?php echo $lineMaster['department']; ?>"
+                                                data-id="<?php echo $lineMaster['id']; ?>">
+                                                <?php echo $lineMaster['department']; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+
                                 </div>
                                 <div class="card-footer"></div>
                             </div> <!--Card Create LSR End-->

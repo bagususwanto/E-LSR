@@ -36,6 +36,27 @@
                                             class="form-control form-control-sm" />
                                     </div>
 
+                                    <div class="col-xxl-3 col-md-4 pb-2">
+                                        <label for="department" class="form-label col-form-label-sm">Department</label>
+                                        <select class="form-select form-select-sm" id="department" name="department"
+                                            aria-label="Default select example">
+                                            <option data-id="0" value="All">All</option>
+                                            <?php
+                                            $uniqueDepartment = array_unique(array_column($data['lineMaster'], 'department'));
+                                            foreach ($uniqueDepartment as $department):
+                                                if (!empty($department)):
+                                                    ?>
+                                                    <option data-id="<?php echo $lineMaster['id']; ?>"
+                                                        value="<?php echo $department; ?>">
+                                                        <?php echo $department; ?>
+                                                    </option>
+                                                    <?php
+                                                endif;
+                                            endforeach;
+                                            ?>
+                                        </select>
+                                    </div>
+
                                     <div class="col-xxl-2 col-md-4 pb-2">
                                         <label for="line" class="form-label col-form-label-sm">Line</label>
                                         <select class="form-select form-select-sm" id="line" name="line_lsr"

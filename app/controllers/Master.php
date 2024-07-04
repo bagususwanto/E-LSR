@@ -42,12 +42,37 @@ class Master extends Controller
         $this->view('master/cost_center/index', $data);
         $this->view('templates/footer');
 
-        echo "<script>document.getElementById('costCenter').classList.remove('collapsed');</script>";
+        echo "<script>document.getElementById('costCenterNav').classList.remove('collapsed');</script>";
         echo "<script>document.getElementById('expand').classList.remove('collapsed');</script>";
         echo "<script>document.getElementById('forms-nav').classList.add('show');</script>";
         echo "<script>document.getElementById('expand').setAttribute('area-expanded', 'true');</script>";
         echo "<script>$(document).ready(function () {
             RefreshDataMasterCostCenter();
+        })</script>";
+    }
+
+    public function user()
+    {
+        // Mendapatkan ID pengguna dari session
+        $id = $_SESSION['user_id'];
+        $namaLine = $_SESSION['user_line'];
+
+        $data['user'] = $this->model('User_model')->getAllUserById($id);
+        $data['lineMaster'] = $this->model('Line_model')->getAllLine();
+        $data['userMat'] = $this->model('Line_model')->getMatByLine($namaLine);
+
+        // Tampilkan view
+        $this->view('templates/header', $data);
+        $this->view('templates/sidebar');
+        $this->view('master/user/index', $data);
+        $this->view('templates/footer');
+
+        echo "<script>document.getElementById('user').classList.remove('collapsed');</script>";
+        echo "<script>document.getElementById('expand').classList.remove('collapsed');</script>";
+        echo "<script>document.getElementById('forms-nav').classList.add('show');</script>";
+        echo "<script>document.getElementById('expand').setAttribute('area-expanded', 'true');</script>";
+        echo "<script>$(document).ready(function () {
+            RefreshDataMasterUser();
         })</script>";
     }
 

@@ -42,21 +42,19 @@ class Material_model
     }
 
 
-    public function getAllMaterialCrieteria($material, $tanggal, $shiftUser, $lineUser)
+    public function getAllMaterialCrieteria($tanggal, $shiftUser, $lineUser)
     {
-        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE material=:material AND tanggal=:tanggal AND shift=:shift AND line_lsr=:line_lsr');
-        $this->db->bind('material', $material);
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE tanggal=:tanggal AND shift=:shift AND line_lsr=:line_lsr');
         $this->db->bind('tanggal', $tanggal);
         $this->db->bind('shift', $shiftUser);
         $this->db->bind('line_lsr', $lineUser);
         return $this->db->resultSet();
     }
 
-    public function getAllMaterialCrieteriaChange($material, $tanggal, $shiftUser, $lineUser, $lineCode, $costCenter)
+    public function getAllMaterialCrieteriaChange($tanggal, $shiftUser, $lineUser, $lineCode, $costCenter)
     {
         $this->db->query('SELECT * FROM ' . $this->table .
-            ' WHERE material=:material AND tanggal=:tanggal AND shift=:shift AND line_lsr=:line_lsr AND line_code=:line_code AND cost_center=:cost_center');
-        $this->db->bind('material', $material);
+            ' WHERE tanggal=:tanggal AND shift=:shift AND line_lsr=:line_lsr AND line_code=:line_code AND cost_center=:cost_center');
         $this->db->bind('tanggal', $tanggal);
         $this->db->bind('shift', $shiftUser);
         $this->db->bind('line_lsr', $lineUser);
@@ -80,8 +78,8 @@ class Material_model
         $query = 'INSERT INTO ' . $this->table .
             ' VALUES (null, :no_lsr, :part_number, :part_name, :uniqe_no, :qty, 
             :reason, :condition, :repair, :source_type, :remarks, :material, :tanggal, 
-            :waktu, :line_lsr, :shift, :user_lsr, :line_code, :cost_center, :status_lsr,
-            "", "",  
+            :waktu, :department, :line_lsr, :shift, :user_lsr, :line_code, :cost_center, :status_lsr,
+            "", "", 
             :price, :total_price, CURRENT_TIMESTAMP, :user_lsr)';
 
         $this->db->query($query);
@@ -98,6 +96,7 @@ class Material_model
         $this->db->bind('material', $data['material']);
         $this->db->bind('tanggal', $data['tanggal']);
         $this->db->bind('waktu', $data['waktu']);
+        $this->db->bind('department', $data['department']);
         $this->db->bind('line_lsr', $data['line_lsr']);
         $this->db->bind('shift', $data['shift']);
         $this->db->bind('user_lsr', $data['userName']);
@@ -116,20 +115,15 @@ class Material_model
     public function addReport($data)
     {
         // query 2 untuk table report
-        $line = $data['line_lsr'];
-        switch ($line) {
-            case 'Main Line':
-            case 'Sub Line':
+        $category = $data['category'];
+        switch ($category) {
+            case 'K':
                 $tableValid = 'report_k';
                 break;
-            case 'Crankshaft':
-            case 'Cylinder Block':
-            case 'Cylinder Head':
-            case 'Camshaft':
+            case 'M':
                 $tableValid = 'report_m';
                 break;
-            case 'Die Casting':
-            case 'Low Pressure':
+            case 'C':
                 $tableValid = 'report_c';
                 break;
             default:
@@ -498,10 +492,10 @@ class Material_model
         return $this->db->resultSet();
     }
 
-    public function FilteredReport($tanggalFrom, $tanggalTo, $line, $shift, $lsrCode, $status)
+    public function FilteredReport($tanggalFrom, $tanggalTo, $department, $line, $shift, $lsrCode, $status)
     {
         // Tentukan kolom yang ingin ditampilkan
-        $query = 'SELECT no_lsr, MAX(tanggal) as tanggal, MAX(line_lsr) as line_lsr, MAX(cost_center) as cost_center, 
+        $query = 'SELECT no_lsr, MAX(tanggal) as tanggal, MAX(department) as department, MAX(line_lsr) as line_lsr, MAX(cost_center) as cost_center, 
                   MAX(shift) as shift, MAX(user_lsr) as user_lsr, MAX(waktu) as waktu, MAX(approved_by) as approved_by,
                   MAX(received_by) as received_by, MAX(status_lsr) as status_lsr 
                   FROM ' . $this->table;
@@ -510,15 +504,14 @@ class Material_model
         $conditions = [];
 
         // Tambahkan kondisi jika nilai bukan "All"
+        if ($department !== 'All') {
+            $conditions[] = 'department = :department';
+            $params[':department'] = $department;
+        }
+
         if ($line !== 'All') {
-            if ($line == 'Logistic Operational') {
-                $conditions[] = '(line_lsr = :logistic OR line_lsr = :technical)';
-                $params[':logistic'] = 'Logistic Operational';
-                $params[':technical'] = 'Technical Support';
-            } else {
-                $conditions[] = 'line_lsr = :line_lsr';
-                $params[':line_lsr'] = $line;
-            }
+            $conditions[] = 'line_lsr = :line_lsr';
+            $params[':line_lsr'] = $line;
         }
 
         if ($shift !== 'All') {
@@ -568,7 +561,7 @@ class Material_model
         return $result;
     }
 
-    public function FilteredDataReport($shift, $lsrCode, $status, $line)
+    public function FilteredDataReport($shift, $lsrCode, $status, $line, $department)
     {
         // cek apakah ada data dengan variabel $line di kolom line_lsr
         $lineExistsQuery = 'SELECT COUNT(*) as count FROM ' . $this->table3 . ' WHERE nama_line = :line';
@@ -577,7 +570,7 @@ class Material_model
         $lineCountResult = $this->db->single();
 
         // Tentukan kolom yang ingin ditampilkan
-        $query = 'SELECT no_lsr, MAX(tanggal) as tanggal, MAX(line_lsr) as line_lsr, MAX(cost_center) as cost_center, 
+        $query = 'SELECT no_lsr, MAX(tanggal) as tanggal, MAX(department) as department, MAX(line_lsr) as line_lsr, MAX(cost_center) as cost_center, 
                   MAX(shift) as shift, MAX(user_lsr) as user_lsr, MAX(waktu) as waktu, MAX(approved_by) as approved_by,
                   MAX(received_by) as received_by, MAX(status_lsr) as status_lsr 
                   FROM ' . $this->table . ' WHERE 1=1 ';
@@ -585,6 +578,10 @@ class Material_model
         // Tambahkan kondisi berdasarkan parameter
         $bindParams = [];
 
+        if (!empty($department) && $department !== "All") {
+            $query .= ' AND department = :department';
+            $bindParams[':department'] = $department;
+        }
         if (!empty($shift) && $shift !== "All") {
             $query .= ' AND shift = :shift';
             $bindParams[':shift'] = $shift;
@@ -601,12 +598,6 @@ class Material_model
         if ($lineCountResult['count'] > 0 && !empty($line)) {
             $query .= ' AND line_lsr = :line';
             $bindParams[':line'] = $line;
-        }
-
-        if ($line == 'Logistic') {
-            $query .= ' AND (line_lsr = :logistic OR line_lsr = :technical)';
-            $bindParams[':logistic'] = 'Logistic Operational';
-            $bindParams[':technical'] = 'Technical Support';
         }
 
         // Kelompokkan hasil berdasarkan kolom no_lsr

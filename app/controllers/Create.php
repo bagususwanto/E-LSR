@@ -141,19 +141,18 @@ class Create extends Controller
         header('Content-Type: application/json');
 
         // Validasi dan bersihkan input
-        $material = isset($_POST['material']) ? $_POST['material'] : null;
         $tanggalValue = isset($_POST['tanggalValue']) ? $_POST['tanggalValue'] : null;
         $shiftUser = isset($_POST['shiftUser']) ? $_POST['shiftUser'] : null;
         $lineUser = isset($_POST['lineUser']) ? $_POST['lineUser'] : null;
 
-        if ($material === null || $tanggalValue === null || $shiftUser === null || $lineUser === null) {
+        if ($tanggalValue === null || $shiftUser === null || $lineUser === null) {
             echo json_encode(['error' => 'Invalid input']);
             return;
         }
 
         // Panggil fungsi dari model dengan parameter yang sesuai
         $materialModel = $this->model('Material_model');
-        $materialData = $materialModel->getAllMaterialCrieteria($material, $tanggalValue, $shiftUser, $lineUser);
+        $materialData = $materialModel->getAllMaterialCrieteria($tanggalValue, $shiftUser, $lineUser);
 
         if ($materialData !== false) {
             // Jika pengambilan data berhasil, encode dan echo respons JSON
@@ -170,21 +169,20 @@ class Create extends Controller
         header('Content-Type: application/json');
 
         // Validasi dan bersihkan input
-        $material = isset($_POST['material']) ? $_POST['material'] : null;
         $tanggalValue = isset($_POST['tanggalValue']) ? $_POST['tanggalValue'] : null;
         $shiftUser = isset($_POST['shiftUser']) ? $_POST['shiftUser'] : null;
         $lineUser = isset($_POST['lineUser']) ? $_POST['lineUser'] : null;
         $lineCode = isset($_POST['lineCode']) ? $_POST['lineCode'] : null;
         $costCenter = isset($_POST['costCenter']) ? $_POST['costCenter'] : null;
 
-        if ($material === null || $tanggalValue === null || $shiftUser === null || $lineUser === null || $lineCode === null || $costCenter === null) {
+        if ($tanggalValue === null || $shiftUser === null || $lineUser === null || $lineCode === null || $costCenter === null) {
             echo json_encode(['error' => 'Invalid input']);
             return;
         }
 
         // Panggil fungsi dari model dengan parameter yang sesuai
         $materialModel = $this->model('Material_model');
-        $materialData = $materialModel->getAllMaterialCrieteriaChange($material, $tanggalValue, $shiftUser, $lineUser, $lineCode, $costCenter);
+        $materialData = $materialModel->getAllMaterialCrieteriaChange($tanggalValue, $shiftUser, $lineUser, $lineCode, $costCenter);
 
         if ($materialData !== false) {
             // Jika pengambilan data berhasil, encode dan echo respons JSON
@@ -210,10 +208,10 @@ class Create extends Controller
     {
         header('Content-Type: application/json');
 
-        $validLineValue = $_POST['validLineValue'];
+        $categoryVal = $_POST['categoryVal'];
 
         $report_model = $this->model('Report_model');
-        $id = $report_model->generateUniqueID($validLineValue);
+        $id = $report_model->generateUniqueID($categoryVal);
 
         echo json_encode(array("no_lsr" => $id));
     }

@@ -58,10 +58,15 @@
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link collapsed" id="costCenter" href="<?php echo BASEURL ?>/master/cost_center">
+                    <a class="nav-link collapsed" id="costCenterNav" href="<?php echo BASEURL ?>/master/cost_center">
                         <i class="bi bi-circle"></i><span>Cost Center</span>
                     </a>
                 </li>
+                <!-- <li>
+                    <a class="nav-link collapsed" id="user" href="<?php echo BASEURL ?>/master/user">
+                        <i class="bi bi-circle"></i><span>User</span>
+                    </a>
+                </li> -->
             </ul>
         </li><!-- End Forms Nav -->
 
