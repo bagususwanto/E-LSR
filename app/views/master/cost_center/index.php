@@ -168,16 +168,51 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <form id="formMasterCostCenter" method="POST"
-                                    action="<?php echo BASEURL ?>/master/updateDataCostCenter">
+                                    action="<?php echo BASEURL ?>/master/updateDataCostCenter"
+                                    enctype="multipart/form-data">
                                     <div class="modal-body" id="modalContent">
-                                        <div class="mb-3">
-                                            <label for="nama_line" class="form-label col-form-label-sm">Line</label>
-                                            <input required type="text" class="form-control form-control-sm"
-                                                id="lineEdit" name="nama_line" disabled>
+
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="department"
+                                                        class="form-label col-form-label-sm">Department</label>
+                                                    <select class="form-select form-select-sm" id="departmentEdit"
+                                                        name="department" aria-label="Default select example">
+                                                        <?php
+                                                        $uniqueDepartment = array_unique(array_column($data['lineMaster'], 'department'));
+                                                        foreach ($uniqueDepartment as $department):
+                                                            if (!empty($department)):
+                                                                ?>
+                                                                <option value="<?php echo $department; ?>">
+                                                                    <?php echo $department; ?>
+                                                                </option>
+                                                                <?php
+                                                            endif;
+                                                        endforeach;
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="nama_line"
+                                                        class="form-label col-form-label-sm">Line</label>
+                                                    <select required class="form-select form-select-sm" id="lineEdit"
+                                                        name="nama_line" aria-label="Default select example">
+                                                        <?php foreach ($data['lineMaster'] as $lineMaster): ?>
+                                                            <option value="<?php echo $lineMaster['nama_line']; ?>">
+                                                                <?php echo $lineMaster['nama_line']; ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-4">
+                                            <div class="col-3">
                                                 <div class="mb-3">
                                                     <label for="line_code" class="form-label col-form-label-sm">Line
                                                         Code</label>
@@ -186,7 +221,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-4">
+                                            <div class="col-3">
                                                 <div class="mb-3">
                                                     <label for="cost_center" class="form-label col-form-label-sm">Cost
                                                         Center</label>
@@ -217,6 +252,32 @@
                                                     </select>
                                                 </div>
                                             </div>
+
+                                            <div class="col-2">
+                                                <div class="mb-3">
+                                                    <label for="category"
+                                                        class="form-label col-form-label-sm">Category</label>
+                                                    <select required class="form-select form-select-sm"
+                                                        id="categoryEdit" name="category"
+                                                        aria-label="Default select example">
+                                                        <option value="K">K</option>
+                                                        <option value="M">M</option>
+                                                        <option value="C">C</option>
+                                                        <option value="X">X</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center mb-3">
+                                            <label for="pictureLine" class="form-label">Change Picture</label>
+                                            <input class="form-control form-control-sm" id="pictureLine"
+                                                name="pictureLine" type="file" accept="image/gif">
+                                        </div>
+                                        <div class="text-center mb-3">
+                                            <img id="lineImagePreview" src="" alt="Line Image" width="100px"
+                                                height="auto">
+                                            <p>Preview</p>
                                         </div>
                                     </div>
 

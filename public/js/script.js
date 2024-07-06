@@ -1734,16 +1734,19 @@ $(function () {
     ],
     columns: [
       { title: "Action", width: "10px" },
+      { title: "Department", width: "100px" },
       { title: "Line", width: "100px" },
       { title: "Line Code", width: "100px" },
       { title: "Cost Center", width: "100px" },
       { title: "Material", width: "100px" },
+      { title: "Picture", width: "100px" },
+      { title: "Category", width: "100px" },
       { title: "Change Date", width: "100px" },
       { title: "Change By", width: "100px" },
     ],
     columnDefs: [
       {
-        targets: [0, 1, 2, 3, 4, 5, 6],
+        targets: [0, 1, 2, 3, 4, 5, 6, 7],
         className: "text-center",
       },
     ],
@@ -1837,23 +1840,39 @@ $(function () {
     var row = $(this).closest("tr");
 
     // Tangkap data dari baris
-    var lineEdit = row.find("td:eq(1)").text();
-    var lineCodeEdit = row.find("td:eq(2)").text();
-    var costCenterEdit = row.find("td:eq(3)").text();
-    var materialEdit = row.find("td:eq(4)").text();
-
-    // Bersihkan harga untuk membuatnya menjadi nilai numerik
+    var departmentEdit = row.find("td:eq(1)").text();
+    var lineEdit = row.find("td:eq(2)").text();
+    var lineCodeEdit = row.find("td:eq(3)").text();
+    var costCenterEdit = row.find("td:eq(4)").text();
+    var materialEdit = row.find("td:eq(5)").text();
+    var imageSrc = row.find("td:eq(6) img").attr("src");
+    var categoryEdit = row.find("td:eq(7)").text();
 
     // Isi bidang input modal dengan data yang ditangkap
+    $("#departmentEdit").val(departmentEdit);
     $("#lineEdit").val(lineEdit);
     $("#lineCodeEdit").val(lineCodeEdit);
     $("#costCenterEdit").val(costCenterEdit);
     $("#materialEdit").val(materialEdit);
     $("#materialEdit").val(materialEdit);
+    $("#categoryEdit").val(categoryEdit);
+    $("#lineImagePreview").attr("src", imageSrc);
     $("#idCCMaster").val(id);
 
     // Tampilkan modal
     $("#editCostCenterModal").modal("show");
+  });
+
+  // preview picture line
+  $("#pictureLine").on("change", function () {
+    var input = this;
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $("#lineImagePreview").attr("src", e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
   });
 
   //======FUNGSI ADD DATA TABEL MASTER=======//

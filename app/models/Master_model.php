@@ -92,8 +92,11 @@ class Master_model
 
     public function UbahDataCostCenter($data)
     {
-        var_dump($data);
+        // var_dump($data); // Hapus atau komentari perintah ini
+
         $query = 'UPDATE ' . $this->table2 . ' SET 
+                    department = :department,
+                    nama_line = :namaLine,
                     line_code = :lineCode,
                     cost_center = :costCenter,
                     material = :material,
@@ -101,6 +104,8 @@ class Master_model
                     WHERE id = :id';
 
         $this->db->query($query);
+        $this->db->bind('department', $data['department']);
+        $this->db->bind('namaLine', $data['nama_line']);
         $this->db->bind('lineCode', $data['line_code']);
         $this->db->bind('costCenter', $data['cost_center']);
         $this->db->bind('material', $data['material']);
@@ -108,26 +113,45 @@ class Master_model
         $this->db->bind('id', $data['id']);
 
         try {
+            // Handle file upload
+            if (!empty($_FILES['pictureLine']['name'])) {
+                $uploadDir = realpath(__DIR__ . '/../../public/img/line') . '/';
+                $fileName = $data['nama_line'] . '.gif';
+                $filePath = $uploadDir . $fileName;
+
+                if (move_uploaded_file($_FILES['pictureLine']['tmp_name'], $filePath)) {
+                    // File upload successful
+                    $_SESSION['message'] = [
+                        'type' => 'success',
+                        'content' => 'Berhasil mengunggah gambar.'
+                    ];
+                } else {
+                    // Handle file upload error
+                    $_SESSION['message'] = [
+                        'type' => 'error',
+                        'content' => 'Terjadi kesalahan saat mengunggah file gambar.'
+                    ];
+                    return 0;
+                }
+            }
+
+            // Eksekusi query untuk mengubah data
             $this->db->execute();
             $rowCount = $this->db->rowCount();
+
             if ($rowCount > 0) {
                 $_SESSION['message'] = [
                     'type' => 'success',
                     'content' => 'Berhasil mengubah data.'
                 ];
-            } else {
-                $_SESSION['message'] = [
-                    'type' => 'error',
-                    'content' => 'Gagal mengubah data.'
-                ];
             }
+
             return $rowCount;
         } catch (Exception $e) {
-            // Menangani error dan mungkin log error atau memberi tahu pengguna
-            error_log($e->getMessage());
+            // Handle error and possibly log error
+            error_log("Error updating data: " . $e->getMessage());
             $_SESSION['message'] = [
                 'type' => 'error',
-                // 'content' => 'Terjadi kesalahan saat menambahkan data.'
                 'content' => 'Terjadi kesalahan saat mengubah data: ' . $e->getMessage()
             ];
             return 0;

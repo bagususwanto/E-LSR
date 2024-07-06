@@ -1288,6 +1288,14 @@ h6 {
   display: none;
 }
 
+.hidden {
+  display: none;
+}
+
+table.dataTable>tbody>tr>td {
+  vertical-align: middle;
+}
+
 /* STYLE UNTUK HALAMAN SIGN */
 .signature-upload-container {
   margin-top: 100px;
@@ -1315,8 +1323,4 @@ h6 {
     /* Atur lebar elemen saat mencetak */
     margin: 0 auto;
   }
-}
-
-.hidden {
-  display: none;
 }

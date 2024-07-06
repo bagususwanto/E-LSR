@@ -95,7 +95,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-xxl-3 col-md-4 pb-2">
+                                    <div class="col-xxl-2 col-md-4 pb-2">
                                         <label for="status" class="form-label col-form-label-sm">Status</label>
                                         <select class="form-select form-select-sm" id="status" name="status"
                                             aria-label="Default select example">

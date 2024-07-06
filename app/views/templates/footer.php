@@ -104,10 +104,13 @@
                             `<button id="editMasterCC" class="btn btn-warning btn-sm edit-btn" type="button" data-id="${data[i].id}">
               <i class="bi bi-pencil-square"></i>
               </button>`,
+                            data[i].department,
                             data[i].nama_line,
                             data[i].line_code,
                             data[i].cost_center,
                             data[i].material,
+                            `<img src="${BASEURL + "/img/line/" + data[i].nama_line + ".gif"}?t=${new Date().getTime()}" alt="${data[i].nama_line}" width="30px" height="auto">`,
+                            data[i].category,
                             data[i].change_date,
                             data[i].change_by,
                         ])
