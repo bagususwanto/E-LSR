@@ -129,6 +129,12 @@ class Master extends Controller
         header('location:' . BASEURL . '/master/material');
     }
 
+    public function AddDataCC()
+    {
+        $this->model('Master_model')->addMasterCC($_POST);
+        header('location:' . BASEURL . '/master/cost_center');
+    }
+
     public function uploadMasterMaterial()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['excelFile'])) {
@@ -192,6 +198,33 @@ class Master extends Controller
             echo json_encode([
                 'status' => 'success',
                 'message' => 'Berhasil menghapus data dengan Part Number: ' . $_POST['partNumber']
+            ]);
+        } else {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Gagal menghapus data.'
+            ]);
+        }
+    }
+
+    public function masterCCDelete()
+    {
+        header('Content-Type: application/json');
+
+        $result = $this->model('Master_model')->deleteMasterCC($_POST);
+
+        if ($result <= -1) {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'File gambar tidak ditemukan terjadi kesalahan.'
+            ]);
+            exit;
+        }
+
+        if ($result > 0) {
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Berhasil menghapus data dengan Line: ' . $_POST['lineCC']
             ]);
         } else {
             echo json_encode([

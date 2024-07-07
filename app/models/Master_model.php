@@ -142,7 +142,7 @@ class Master_model
             if ($rowCount > 0) {
                 $_SESSION['message'] = [
                     'type' => 'success',
-                    'content' => 'Berhasil mengubah data.'
+                    'content' => 'Berhasil mengubah data dengan Line: ' . $data['nama_line']
                 ];
             }
 
@@ -188,6 +188,67 @@ class Master_model
             return $this->db->rowCount();
         } catch (Exception $e) {
             // Handle and log error
+            error_log($e->getMessage());
+            return 0;
+        }
+    }
+
+    public function addMasterCC($data)
+    {
+        $query = 'INSERT INTO ' . $this->table2 .
+            ' (id, department, nama_line, line_code, cost_center, material, category, created_date, created_by, change_date, change_by) 
+            VALUES (null, :department, :nama_line, :line_code, :cost_center, :material, :category, CURRENT_TIMESTAMP, :created_by, CURRENT_TIMESTAMP, :change_by)';
+
+        $this->db->query($query);
+        $this->db->bind('department', $data['department']);
+        $this->db->bind('nama_line', $data['nama_line']);
+        $this->db->bind('line_code', $data['line_code']);
+        $this->db->bind('cost_center', $data['cost_center']);
+        $this->db->bind('material', $data['material']);
+        $this->db->bind('category', $data['category']);
+        $this->db->bind('created_by', $data['userName']);
+        $this->db->bind('change_by', $data['userName']);
+
+        try {
+            // Handle file upload
+            if (!empty($_FILES['pictureLine']['name'])) {
+                $uploadDir = realpath(__DIR__ . '/../../public/img/line') . '/';
+                $fileName = $data['nama_line'] . '.gif';
+                $filePath = $uploadDir . $fileName;
+
+                if (move_uploaded_file($_FILES['pictureLine']['tmp_name'], $filePath)) {
+                    // File upload successful
+                    $_SESSION['message'] = [
+                        'type' => 'success',
+                        'content' => 'Berhasil mengunggah gambar.'
+                    ];
+                } else {
+                    // Handle file upload error
+                    $_SESSION['message'] = [
+                        'type' => 'error',
+                        'content' => 'Terjadi kesalahan saat mengunggah file gambar.'
+                    ];
+                    return 0;
+                }
+            }
+
+            $this->db->execute();
+            $rowCount = $this->db->rowCount();
+
+            if ($rowCount > 0) {
+                $_SESSION['message'] = [
+                    'type' => 'success',
+                    'content' => 'Berhasil menambahkan data dengan Line: ' . $_POST['nama_line']
+                ];
+            }
+
+            return $rowCount;
+        } catch (Exception $e) {
+            // Handle and log error
+            $_SESSION['message'] = [
+                'type' => 'error',
+                'content' => 'Terjadi kesalahan error' . $e->getMessage()
+            ];
             error_log($e->getMessage());
             return 0;
         }
@@ -269,6 +330,47 @@ class Master_model
         $this->db->bind('id', $data['id']);
 
         try {
+            $this->db->execute();
+            return $this->db->rowCount();
+        } catch (Exception $e) {
+            // Handle and log error
+            error_log($e->getMessage());
+            return 0;
+        }
+    }
+
+    public function deleteMasterCC($data)
+    {
+        $query = 'DELETE FROM ' . $this->table2 . ' WHERE id = :id';
+
+        $this->db->query($query);
+        $this->db->bind('id', $data['id']);
+
+        try {
+            $uploadDir = realpath(__DIR__ . '/../../public/img/line') . '/';
+            $fileName = $data['lineCC'] . '.gif';
+            $filePath = $uploadDir . $fileName;
+
+            if (file_exists($filePath)) {
+                if (unlink($filePath)) {
+                    // File deletion successful
+                } else {
+                    // Handle file deletion error
+                    $_SESSION['message'] = [
+                        'type' => 'error',
+                        'content' => 'Terjadi kesalahan saat menghapus file gambar.'
+                    ];
+                    return 0;
+                }
+            } else {
+                // File does not exist
+                $_SESSION['message'] = [
+                    'type' => 'error',
+                    'content' => 'File gambar tidak ditemukan terjadi kesalahan.'
+                ];
+                return -1;
+            }
+
             $this->db->execute();
             return $this->db->rowCount();
         } catch (Exception $e) {

@@ -57,7 +57,7 @@
                     </div>
 
                     <!-- Modal Bootstrap untuk Add -->
-                    <div class="modal fade" id="addMasterMaterialModal" tabindex="-1" aria-labelledby="editModalLabel"
+                    <div class="modal fade" id="addMasterCCModal" tabindex="-1" aria-labelledby="editModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -66,80 +66,85 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <form id="formMasterMaterial" method="POST"
-                                    action="<?php echo BASEURL ?>/master/addDataMaterial">
+                                <form id="formAddCC" method="POST" action="<?php echo BASEURL ?>/master/addDataCC"
+                                    enctype="multipart/form-data">
                                     <div class="modal-body" id="modalContent">
-                                        <div class="mb-3">
-                                            <label for="part_number" class="form-label col-form-label-sm">Part
-                                                Number</label>
-                                            <input required type="text" class="form-control form-control-sm"
-                                                id="partNumberModal" name="part_number">
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="part_name" class="form-label col-form-label-sm">Part
-                                                Name</label>
-                                            <input required type="text" class="form-control form-control-sm"
-                                                id="partNameModal" name="part_name">
-                                        </div>
 
                                         <div class="row">
-                                            <div class="col-4">
+                                            <div class="col-6">
                                                 <div class="mb-3">
-                                                    <label for="uniqe_no" class="form-label col-form-label-sm">Unique
-                                                        No</label>
+                                                    <label for="department"
+                                                        class="form-label col-form-label-sm">Department</label>
                                                     <input required type="text" class="form-control form-control-sm"
-                                                        id="uniqeNoModal" name="uniqe_no">
+                                                        id="departmentCCModal" name="department">
                                                 </div>
                                             </div>
 
-                                            <div class="col-4">
+                                            <div class="col-6">
                                                 <div class="mb-3">
-                                                    <label for="unit_usage" class="form-label col-form-label-sm">Unit
-                                                        Usage</label>
-                                                    <input required type="number"
-                                                        class="form-control form-control-sm text-center" id="unit_usage"
-                                                        name="unit_usage" aria-label="Default input example">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-4">
-                                                <div class="mb-3">
-                                                    <label for="source_type" class="form-label col-form-label-sm">Source
-                                                        Type</label>
-                                                    <input required type="number"
-                                                        class="form-control form-control-sm text-center"
-                                                        id="sourceTypeModal" name="source_type">
+                                                    <label for="nama_line"
+                                                        class="form-label col-form-label-sm">Line</label>
+                                                    <input required type="text" class="form-control form-control-sm"
+                                                        id="LineCCModal" name="nama_line">
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-6">
-                                                <label for="material"
-                                                    class="form-label col-form-label-sm">Material</label>
-                                                <select required class="form-select form-select-sm" id="materialModal"
-                                                    name="material" aria-label="Default select example">
-                                                    <option value=""> Pilih Material</option>
-                                                    <?php
-                                                    $uniqueMaterials = array_unique(array_column($data['lineMaster'], 'material'));
-                                                    foreach ($uniqueMaterials as $material):
-                                                        if (!empty($material)): ?>
-                                                            <option value="<?php echo strtoupper($material); ?>">
-                                                                <?php echo strtoupper($material); ?>
-                                                            </option>
-                                                            <?php
-                                                        endif;
-                                                    endforeach;
-                                                    ?>
-                                                </select>
+                                            <div class="col-3">
+                                                <div class="mb-3">
+                                                    <label for="line_code" class="form-label col-form-label-sm">Line
+                                                        Code</label>
+                                                    <input required type="text" class="form-control form-control-sm"
+                                                        id="lineCodeCCModal" name="line_code">
+                                                </div>
                                             </div>
 
-                                            <div class="col-6">
-                                                <label for="price" class="form-label col-form-label-sm">Price</label>
-                                                <input required type="number" class="form-control form-control-sm"
-                                                    id="addPrice" name="price">
+                                            <div class="col-3">
+                                                <div class="mb-3">
+                                                    <label for="cost_center" class="form-label col-form-label-sm">Cost
+                                                        Center</label>
+                                                    <input required type="text" class="form-control form-control-sm"
+                                                        id="CCModal" name="cost_center"
+                                                        aria-label="Default input example">
+                                                </div>
                                             </div>
+
+                                            <div class="col-4">
+                                                <div class="mb-3">
+                                                    <label for="material"
+                                                        class="form-label col-form-label-sm">Material</label>
+                                                    <input required type="text" class="form-control form-control-sm"
+                                                        id="materialCCModal" name="material">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <div class="mb-3">
+                                                    <label for="category"
+                                                        class="form-label col-form-label-sm">Category</label>
+                                                    <select required class="form-select form-select-sm"
+                                                        id="categoryCCModal" name="category"
+                                                        aria-label="Default select example">
+                                                        <option value=""></option>
+                                                        <option value="K">K</option>
+                                                        <option value="M">M</option>
+                                                        <option value="C">C</option>
+                                                        <option value="X">X</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center mb-3">
+                                            <label for="pictureLine" class="form-label">Add Picture</label>
+                                            <input class="form-control form-control-sm" id="pictureLineCC"
+                                                name="pictureLine" type="file" accept="image/gif">
+                                        </div>
+                                        <div class="text-center mb-3">
+                                            <img id="lineImagePreviewCC" src="" alt="Line Image" width="100px"
+                                                height="auto">
+                                            <p>Preview</p>
                                         </div>
                                     </div>
 
@@ -149,7 +154,8 @@
                                         <button type="submit" class="btn btn-primary" id="addBtn">Add</button>
                                     </div>
 
-                                    <input type="hidden" id="userName"
+                                    <input type="hidden" id="idAddCC" value="" name="id">
+                                    <input type="hidden" id="userNameCC"
                                         value="<?php echo isset($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>"
                                         name="userName">
                                 </form>
@@ -217,7 +223,7 @@
                                                     <label for="line_code" class="form-label col-form-label-sm">Line
                                                         Code</label>
                                                     <input required type="text" class="form-control form-control-sm"
-                                                        id="lineCodeEdit" name="line_code" maxlength="3">
+                                                        id="lineCodeEdit" name="line_code">
                                                 </div>
                                             </div>
 
@@ -227,7 +233,7 @@
                                                         Center</label>
                                                     <input required type="text" class="form-control form-control-sm"
                                                         id="costCenterEdit" name="cost_center"
-                                                        aria-label="Default input example" maxlength="6">
+                                                        aria-label="Default input example">
                                                 </div>
                                             </div>
 

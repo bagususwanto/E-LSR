@@ -1717,6 +1717,11 @@ $(function () {
     // columns: [null, null, null, null, null, null, null, { width: "20%" }, null, null, null, null],
     buttons: [
       {
+        text: '<i class="bi bi-plus-circle-dotted"></i> Add New',
+        className: "btn-sm btn-primary",
+        attr: { id: "addMasterCC", "data-toggle": "modal", "data-target": "#addMasterCCModal" },
+      },
+      {
         extend: "excelHtml5",
         text: '<i class="bi bi-download"></i> Excel',
         className: "btn-sm btn-success",
@@ -1725,7 +1730,9 @@ $(function () {
     ],
     initComplete: function () {
       var btns = $(".dt-buttons");
+      var btnsAdd = $("#addMasterCC");
       btns.removeClass("btn-group");
+      btnsAdd.removeClass("btn-secondary");
     },
     dom: "<'row'<'col-6'B><'col-6'f>>" + "<'row'<'col-12't>>" + "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" + "<'row'<'col-12 pt-3'p>>",
     lengthMenu: [
@@ -1733,7 +1740,7 @@ $(function () {
       [10, 25, 50, 100, 500, "All"],
     ],
     columns: [
-      { title: "Action", width: "10px" },
+      { title: "Action", width: "100px" },
       { title: "Department", width: "100px" },
       { title: "Line", width: "100px" },
       { title: "Line Code", width: "100px" },
@@ -1741,6 +1748,8 @@ $(function () {
       { title: "Material", width: "100px" },
       { title: "Picture", width: "100px" },
       { title: "Category", width: "100px" },
+      { title: "Created Date", width: "100px" },
+      { title: "Created By", width: "100px" },
       { title: "Change Date", width: "100px" },
       { title: "Change By", width: "100px" },
     ],
@@ -1875,9 +1884,24 @@ $(function () {
     }
   });
 
+  $("#pictureLineCC").on("change", function () {
+    var input = this;
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $("#lineImagePreviewCC").attr("src", e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  });
+
   //======FUNGSI ADD DATA TABEL MASTER=======//
   $(document).on("click", "#addMasterMaterial", function () {
     $("#addMasterMaterialModal").modal("show");
+  });
+
+  $(document).on("click", "#addMasterCC", function () {
+    $("#addMasterCCModal").modal("show");
   });
 
   //======FUNGSI DELETE DATA TABEL MASTER=======//
@@ -1900,6 +1924,46 @@ $(function () {
             duration: 8000,
           });
           RefreshDataMasterMaterial();
+        } else {
+          $.toast({
+            title: "Pesan",
+            message: response.message,
+            type: "error",
+            duration: 8000,
+          });
+        }
+      },
+      error: function (error) {
+        $.toast({
+          title: "Pesan",
+          message: "Gagal menghapus data.",
+          type: "error",
+          duration: 8000,
+        });
+        console.log("Error:", error);
+      },
+    });
+  });
+
+  $(document).on("click", "#deleteMasterCC", function () {
+    const id = $(this).data("id");
+    const row = $(this).closest("tr");
+    const lineCC = row.find("td:eq(2)").text();
+
+    $.ajax({
+      url: BASEURL + "/master/masterCCDelete",
+      method: "POST",
+      data: { id: id, lineCC: lineCC },
+      dataType: "json",
+      success: function (response) {
+        if (response.status === "success") {
+          $.toast({
+            title: "Pesan",
+            message: response.message,
+            type: "success",
+            duration: 8000,
+          });
+          RefreshDataMasterCostCenter();
         } else {
           $.toast({
             title: "Pesan",
