@@ -30,16 +30,19 @@ class Login extends Controller
             // Pencarian file gambar dengan ekstensi apapun
             $files = glob($dir . '/' . $user['username'] . '.*');
 
+            header('Location: ' . BASEURL); // tambahan karena validasi sign dihilangkan
+
             // if ($user['role'] === "public" || $user['role'] === "common" || $user['role'] === "approver") {
             // Check if signature file exists or not
-            if (!empty($files)) {
-                $_SESSION['sign'] = true;
-                header('Location: ' . BASEURL);
-                exit;
-            } else {
-                header('Location: ' . BASEURL . '/sign');
-                exit;
-            }
+            // if (!empty($files)) {
+            //     $_SESSION['sign'] = true;
+            //     header('Location: ' . BASEURL);
+            //     exit;
+            // } else {
+            //     header('Location: ' . BASEURL . '/sign');
+            //     exit;
+            // }
+
             // } else {
             //     $_SESSION['sign'] = true;
             //     header('Location: ' . BASEURL);

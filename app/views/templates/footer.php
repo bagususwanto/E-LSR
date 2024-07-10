@@ -149,10 +149,19 @@
               <button id="deleteMasterUser" class="btn btn-danger btn-sm delete-btn" type="button" data-id="${data[i].id}">
               <i class="bi bi-trash-fill"></i>
               </button>`,
-                            data[i].nama_line,
-                            data[i].line_code,
-                            data[i].cost_center,
-                            data[i].material,
+                            `<img src="${BASEURL + "/img/profile/" + data[i].username + ".jpg"}?t=${new Date().getTime()}" width="30px" height="auto">`,
+                            `<img src="${BASEURL + "/img/sign/" + data[i].username + ".png"}?t=${new Date().getTime()}" width="30px" height="auto">`,
+                            data[i].username,
+                            data[i].password,
+                            data[i].nama,
+                            data[i].department,
+                            data[i].line_user,
+                            data[i].shift_user,
+                            data[i].position,
+                            data[i].role,
+                            data[i].category,
+                            data[i].created_date,
+                            data[i].created_by,
                             data[i].change_date,
                             data[i].change_by,
                         ])

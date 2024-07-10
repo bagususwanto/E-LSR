@@ -612,6 +612,7 @@ $(function () {
         condition: "required",
         repair: "required",
         line_lsr: "required",
+        tanggal: "required",
       },
       messages: {
         remarks: "<span class='error'>Harap isi field ini.</span>",
@@ -620,6 +621,7 @@ $(function () {
         condition: "<span class='error'>Harap isi field ini.</span>",
         repair: "<span class='error'>Harap isi field ini.</span>",
         line_lsr: "<span class='error'>Harap isi field ini.</span>",
+        tanggal: "<span class='error'>Harap isi field ini.</span>",
       },
       errorPlacement: function (error, element) {
         if (element.is("input") || element.is("select") || element.is("textarea")) {
@@ -1778,6 +1780,11 @@ $(function () {
     // columns: [null, null, null, null, null, null, null, { width: "20%" }, null, null, null, null],
     buttons: [
       {
+        text: '<i class="bi bi-plus-circle-dotted"></i> Add New',
+        className: "btn-sm btn-primary",
+        attr: { id: "addMasterUser", "data-toggle": "modal", "data-target": "#addMasterUserModal" },
+      },
+      {
         extend: "excelHtml5",
         text: '<i class="bi bi-download"></i> Excel',
         className: "btn-sm btn-success",
@@ -1786,7 +1793,9 @@ $(function () {
     ],
     initComplete: function () {
       var btns = $(".dt-buttons");
+      var btnsAdd = $("#addMasterUser");
       btns.removeClass("btn-group");
+      btnsAdd.removeClass("btn-secondary");
     },
     dom: "<'row'<'col-6'B><'col-6'f>>" + "<'row'<'col-12't>>" + "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" + "<'row'<'col-12 pt-3'p>>",
     lengthMenu: [
@@ -1795,16 +1804,25 @@ $(function () {
     ],
     columns: [
       { title: "Action", width: "100px" },
+      { title: "Profile", width: "100px" },
+      { title: "Signature", width: "100px" },
+      { title: "Username", width: "100px" },
+      { title: "Password", width: "100px" },
+      { title: "Nama", width: "100px" },
+      { title: "Department", width: "100px" },
       { title: "Line", width: "100px" },
-      { title: "Line Code", width: "100px" },
-      { title: "Cost Center", width: "100px" },
-      { title: "Material", width: "100px" },
+      { title: "Shift", width: "100px" },
+      { title: "Position", width: "100px" },
+      { title: "Role", width: "100px" },
+      { title: "Category", width: "100px" },
+      { title: "Created Date", width: "100px" },
+      { title: "Created By", width: "100px" },
       { title: "Change Date", width: "100px" },
       { title: "Change By", width: "100px" },
     ],
     columnDefs: [
       {
-        targets: [0, 1, 2, 3, 4, 5, 6],
+        targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
         className: "text-center",
       },
     ],
@@ -1872,28 +1890,59 @@ $(function () {
     $("#editCostCenterModal").modal("show");
   });
 
-  // preview picture line
-  $("#pictureLine").on("change", function () {
-    var input = this;
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        $("#lineImagePreview").attr("src", e.target.result);
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
+  $(document).on("click", "#editMasterUser", function () {
+    var row = $(this).closest("tr");
+
+    // Tangkap data dari baris
+    var profileSrc = row.find("td:eq(1) img").attr("src");
+    var signSrc = row.find("td:eq(2) img").attr("src");
+    var username = row.find("td:eq(3)").text();
+    var password = row.find("td:eq(4)").text();
+    var nama = row.find("td:eq(5)").text();
+    var department = row.find("td:eq(6)").text();
+    var line = row.find("td:eq(7)").text();
+    var shift = row.find("td:eq(8)").text();
+    var position = row.find("td:eq(9)").text();
+    var role = row.find("td:eq(10)").text();
+    var category = row.find("td:eq(11)").text();
+
+    // Isi bidang input modal dengan data yang ditangkap
+    $("#profilePreviewEdit").attr("src", profileSrc);
+    $("#signPreviewEdit").attr("src", signSrc);
+    $("#usernameEdit").val(username);
+    $("#passwordEdit").val(password);
+    $("#namaEdit").val(nama);
+    $("#departmentEdit").val(department);
+    $("#lineUserEdit").val(line);
+    $("#shiftEdit").val(shift);
+    $("#positionEdit").val(position);
+    $("#roleEdit").val(role);
+    $("#categoryUserEdit").val(category);
+
+    // Tampilkan modal
+    $("#editCostCenterModal").modal("show");
   });
 
-  $("#pictureLineCC").on("change", function () {
-    var input = this;
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        $("#lineImagePreviewCC").attr("src", e.target.result);
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
-  });
+  //fungsi preview picture line
+  function handleImagePreview(inputSelector, imgSelector) {
+    $(inputSelector).on("change", function () {
+      var input = this;
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $(imgSelector).attr("src", e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    });
+  }
+
+  handleImagePreview("#pictureLine", "#lineImagePreview");
+  handleImagePreview("#pictureLineCC", "#lineImagePreviewCC");
+  handleImagePreview("#profilePicture", "#profilePreview");
+  handleImagePreview("#signPicture", "#signPreview");
+  handleImagePreview("#profilePictureEdit", "#profilePreviewEdit");
+  handleImagePreview("#signPictureEdit", "#signPreviewEdit");
 
   //======FUNGSI ADD DATA TABEL MASTER=======//
   $(document).on("click", "#addMasterMaterial", function () {
@@ -1904,56 +1953,43 @@ $(function () {
     $("#addMasterCCModal").modal("show");
   });
 
-  //======FUNGSI DELETE DATA TABEL MASTER=======//
-  $(document).on("click", "#deleteMasterMaterial", function () {
-    const id = $(this).data("id");
-    const row = $(this).closest("tr");
-    const partNumber = row.find("td:eq(1)").text();
-
-    $.ajax({
-      url: BASEURL + "/master/masterMaterialDelete",
-      method: "POST",
-      data: { id: id, partNumber: partNumber },
-      dataType: "json",
-      success: function (response) {
-        if (response.status === "success") {
-          $.toast({
-            title: "Pesan",
-            message: response.message,
-            type: "success",
-            duration: 8000,
-          });
-          RefreshDataMasterMaterial();
-        } else {
-          $.toast({
-            title: "Pesan",
-            message: response.message,
-            type: "error",
-            duration: 8000,
-          });
-        }
-      },
-      error: function (error) {
-        $.toast({
-          title: "Pesan",
-          message: "Gagal menghapus data.",
-          type: "error",
-          duration: 8000,
-        });
-        console.log("Error:", error);
-      },
-    });
+  $(document).on("click", "#addMasterUser", function () {
+    $("#addMasterUserModal").modal("show");
   });
 
-  $(document).on("click", "#deleteMasterCC", function () {
+  //======FUNGSI DELETE DATA TABEL MASTER=======//
+  $(document).on("click", "[id^=deleteMaster]", function () {
     const id = $(this).data("id");
     const row = $(this).closest("tr");
-    const lineCC = row.find("td:eq(2)").text();
+    let data = { id: id };
+    let url = "";
+    let refreshFunction = null;
+
+    switch (this.id) {
+      case "deleteMasterMaterial":
+        data.partNumber = row.find("td:eq(1)").text();
+        url = BASEURL + "/master/masterMaterialDelete";
+        refreshFunction = RefreshDataMasterMaterial;
+        break;
+      case "deleteMasterCC":
+        data.lineCC = row.find("td:eq(2)").text();
+        url = BASEURL + "/master/masterCCDelete";
+        refreshFunction = RefreshDataMasterCostCenter;
+        break;
+      case "deleteMasterUser":
+        data.username = row.find("td:eq(3)").text();
+        url = BASEURL + "/master/masterUserDelete";
+        refreshFunction = RefreshDataMasterUser;
+        break;
+      default:
+        console.log("Unrecognized delete action");
+        return;
+    }
 
     $.ajax({
-      url: BASEURL + "/master/masterCCDelete",
+      url: url,
       method: "POST",
-      data: { id: id, lineCC: lineCC },
+      data: data,
       dataType: "json",
       success: function (response) {
         if (response.status === "success") {
@@ -1963,7 +1999,7 @@ $(function () {
             type: "success",
             duration: 8000,
           });
-          RefreshDataMasterCostCenter();
+          if (refreshFunction) refreshFunction();
         } else {
           $.toast({
             title: "Pesan",

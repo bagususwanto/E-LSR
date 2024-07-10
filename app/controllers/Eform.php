@@ -15,6 +15,7 @@ class Eform extends Controller
         $noLsr = $_GET['no_lsr'];
         $roleQc = "approveqc";
         $data['dataLsr'] = $this->model('Material_model')->getMatData($noLsr);
+        $data['dataLsrResult'] = $this->model('Material_model')->getMatDataResult($noLsr);
         $data['dataLsrResult'] = $this->model('Material_model')->getMatDataResultSet($noLsr);
         $data['userQcApprove'] = $this->model('User_model')->getAllUserByRole($roleQc);
 
@@ -49,11 +50,24 @@ class Eform extends Controller
         $data['imgLH'] = getImageHtml($filesLH);
 
         // Hanya menampilkan gambar jika reason === "D" dan repair === "0"
-        if ($reason === "D" && $repair === "0") {
-            $filesQc = glob($dir . '/' . $data['userQcApprove']['username'] . '.*');
-            $data['imgQc'] = !empty($filesQc) ? "<img src='" . BASEURL . "/img/sign/" . basename($filesQc[0]) . "' width='100%' height='100%' alt='Signature'>" : "Tidak ada signature.";
+        if (is_array($data['dataLsrResult'])) {
+            foreach ($data['dataLsrResult'] as &$row) {
+                if (is_array($row)) {
+                    $reason = substr($row['reason'], 0, 1);
+                    $repair = substr($row['repair'], 0, 1);
+
+                    if ($reason === "D" && $repair === "0") {
+                        $filesQc = glob($dir . '/' . $data['userQcApprove']['username'] . '.*');
+                        $data['imgQc'] = !empty($filesQc) ? "<img src='" . BASEURL . "/img/sign/" . basename($filesQc[0]) . "' width='100%' height='100%' alt='Signature'>" : "Tidak ada signature.";
+                    } else {
+                        $data['imgQc'] = "";
+                    }
+                } else {
+                    error_log('Expected array, got: ' . gettype($row));
+                }
+            }
         } else {
-            $data['imgQc'] = "";
+            error_log('Expected array, got: ' . gettype($data['dataLsrResult']));
         }
 
         // Set gambar SH

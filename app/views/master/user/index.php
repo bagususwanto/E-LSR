@@ -57,88 +57,175 @@
                     </div>
 
                     <!-- Modal Bootstrap untuk Add -->
-                    <div class="modal fade" id="addMasterMaterialModal" tabindex="-1" aria-labelledby="editModalLabel"
+                    <div class="modal fade" id="addMasterUserModal" tabindex="-1" aria-labelledby="addModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalLabel">Form Add</h5>
+                                    <h5 class="modal-title" id="addModalLabel">Form Add</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <form id="formMasterMaterial" method="POST"
-                                    action="<?php echo BASEURL ?>/master/addDataMaterial">
+                                <form id="formAddUser" method="POST" action="<?php echo BASEURL ?>/master/addDataUser"
+                                    enctype="multipart/form-data">
                                     <div class="modal-body" id="modalContent">
-                                        <div class="mb-3">
-                                            <label for="part_number" class="form-label col-form-label-sm">Part
-                                                Number</label>
-                                            <input required type="text" class="form-control form-control-sm"
-                                                id="partNumberModal" name="part_number">
-                                        </div>
 
                                         <div class="mb-3">
-                                            <label for="part_name" class="form-label col-form-label-sm">Part
-                                                Name</label>
+                                            <label for="nama" class="form-label col-form-label-sm">Nama</label>
                                             <input required type="text" class="form-control form-control-sm"
-                                                id="partNameModal" name="part_name">
+                                                id="namaModal" name="nama">
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-4">
+                                            <div class="col-6">
                                                 <div class="mb-3">
-                                                    <label for="uniqe_no" class="form-label col-form-label-sm">Unique
-                                                        No</label>
+                                                    <label for="username"
+                                                        class="form-label col-form-label-sm">Username</label>
                                                     <input required type="text" class="form-control form-control-sm"
-                                                        id="uniqeNoModal" name="uniqe_no">
+                                                        id="usernameModal" name="username">
                                                 </div>
                                             </div>
 
-                                            <div class="col-4">
+                                            <div class="col-6">
                                                 <div class="mb-3">
-                                                    <label for="unit_usage" class="form-label col-form-label-sm">Unit
-                                                        Usage</label>
-                                                    <input required type="number"
-                                                        class="form-control form-control-sm text-center" id="unit_usage"
-                                                        name="unit_usage" aria-label="Default input example">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-4">
-                                                <div class="mb-3">
-                                                    <label for="source_type" class="form-label col-form-label-sm">Source
-                                                        Type</label>
-                                                    <input required type="number"
-                                                        class="form-control form-control-sm text-center"
-                                                        id="sourceTypeModal" name="source_type">
+                                                    <label for="password"
+                                                        class="form-label col-form-label-sm">Password</label>
+                                                    <input required type="text" class="form-control form-control-sm"
+                                                        id="passwordModal" name="password">
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-6">
-                                                <label for="material"
-                                                    class="form-label col-form-label-sm">Material</label>
-                                                <select required class="form-select form-select-sm" id="materialModal"
-                                                    name="material" aria-label="Default select example">
-                                                    <option value=""> Pilih Material</option>
-                                                    <?php
-                                                    $uniqueMaterials = array_unique(array_column($data['lineMaster'], 'material'));
-                                                    foreach ($uniqueMaterials as $material):
-                                                        if (!empty($material)): ?>
-                                                            <option value="<?php echo strtoupper($material); ?>">
-                                                                <?php echo strtoupper($material); ?>
-                                                            </option>
-                                                            <?php
-                                                        endif;
-                                                    endforeach;
-                                                    ?>
-                                                </select>
+                                                <div class="mb-3">
+                                                    <label for="department"
+                                                        class="form-label col-form-label-sm">Department</label>
+                                                    <select required class="form-select form-select-sm"
+                                                        id="departmentModal" name="department"
+                                                        aria-label="Default select example">
+                                                        <option value=""></option>
+                                                        <?php
+                                                        $uniqueDepartment = array_unique(array_column($data['lineMaster'], 'department'));
+                                                        foreach ($uniqueDepartment as $department):
+                                                            if (!empty($department)):
+                                                                ?>
+                                                                <option value="<?php echo $department; ?>">
+                                                                    <?php echo $department; ?>
+                                                                </option>
+                                                                <?php
+                                                            endif;
+                                                        endforeach;
+                                                        ?>
+                                                    </select>
+                                                </div>
                                             </div>
 
                                             <div class="col-6">
-                                                <label for="price" class="form-label col-form-label-sm">Price</label>
-                                                <input required type="number" class="form-control form-control-sm"
-                                                    id="addPrice" name="price">
+                                                <div class="mb-3">
+                                                    <label for="line_user"
+                                                        class="form-label col-form-label-sm">Line</label>
+                                                    <select required class="form-select form-select-sm"
+                                                        id="lineUserModal" name="line_user"
+                                                        aria-label="Default select example">
+                                                        <option value=""></option>
+                                                        <option value="All">All</option>
+                                                        <?php foreach ($data['lineMaster'] as $lineMaster): ?>
+                                                            <option value="<?php echo $lineMaster['nama_line']; ?>">
+                                                                <?php echo $lineMaster['nama_line']; ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <div class="mb-3">
+                                                    <label for="shift_user"
+                                                        class="form-label col-form-label-sm">Shift</label>
+                                                    <select required class="form-select form-select-sm" id="shiftUser"
+                                                        name="shift_user" aria-label="Default select example">
+                                                        <option value=""></option>
+                                                        <option value="Red">Red</option>
+                                                        <option value="White">White</option>
+                                                        <option value="NonShift">NonShift</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-5">
+                                                <div class="mb-3">
+                                                    <label for="position"
+                                                        class="form-label col-form-label-sm">Position</label>
+                                                    <input required type="text" class="form-control form-control-sm"
+                                                        id="positionModal" name="position">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-4">
+                                                <div class="mb-3">
+                                                    <label for="role" class="form-label col-form-label-sm">Role</label>
+                                                    <select required class="form-select form-select-sm"
+                                                        id="categoryCCModal" name="role"
+                                                        aria-label="Default select example">
+                                                        <option value=""></option>
+                                                        <option value="admin">admin</option>
+                                                        <option value="common">common</option>
+                                                        <option value="public">public</option>
+                                                        <option value="approver">approver</option>
+                                                        <option value="approveqc">approveqc</option>
+                                                        <option value="sight">sight</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <div class="mb-3">
+                                                    <label for="category"
+                                                        class="form-label col-form-label-sm">Category</label>
+                                                    <select required class="form-select form-select-sm"
+                                                        id="categoryCCModal" name="category"
+                                                        aria-label="Default select example">
+                                                        <option value=""></option>
+                                                        <option value="All">All</option>
+                                                        <option value="K">K</option>
+                                                        <option value="M">M</option>
+                                                        <option value="C">C</option>
+                                                        <option value="X">X</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="text-center mb-3">
+                                                    <label for="profile" class="form-label">Add Profile</label>
+                                                    <input class="form-control form-control-sm" id="profilePicture"
+                                                        name="profile" type="file" accept="image/jpg">
+                                                </div>
+                                                <div class="text-center mb-3">
+                                                    <img id="profilePreview" src="" alt="profile" width="100px"
+                                                        height="auto">
+                                                    <p>Preview</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="text-center mb-3">
+                                                    <label for="signature" class="form-label">Add Signature</label>
+                                                    <input class="form-control form-control-sm" id="signPicture"
+                                                        name="signature" type="file" accept="image/png">
+                                                </div>
+                                                <div class="text-center mb-3">
+                                                    <img id="signPreview" src="" alt="signature" width="100px"
+                                                        height="auto">
+                                                    <p>Preview</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -149,9 +236,10 @@
                                         <button type="submit" class="btn btn-primary" id="addBtn">Add</button>
                                     </div>
 
-                                    <input type="hidden" id="userName"
+                                    <input type="hidden" id="idAddUser" value="" name="id">
+                                    <input type="hidden" id="userLog"
                                         value="<?php echo isset($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>"
-                                        name="userName">
+                                        name="userlog">
                                 </form>
                             </div>
                         </div>
@@ -167,54 +255,159 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <form id="formMasterCostCenter" method="POST"
-                                    action="<?php echo BASEURL ?>/master/updateDataCostCenter">
+                                <form id="formEditUser" method="POST" action="<?php echo BASEURL ?>/master/editDataUser"
+                                    enctype="multipart/form-data">
                                     <div class="modal-body" id="modalContent">
+
                                         <div class="mb-3">
-                                            <label for="nama_line" class="form-label col-form-label-sm">Line</label>
+                                            <label for="nama" class="form-label col-form-label-sm">Nama</label>
                                             <input required type="text" class="form-control form-control-sm"
-                                                id="lineEdit" name="nama_line" disabled>
+                                                id="namaEdit" name="nama">
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-4">
+                                            <div class="col-6">
                                                 <div class="mb-3">
-                                                    <label for="line_code" class="form-label col-form-label-sm">Line
-                                                        Code</label>
+                                                    <label for="username"
+                                                        class="form-label col-form-label-sm">Username</label>
                                                     <input required type="text" class="form-control form-control-sm"
-                                                        id="lineCodeEdit" name="line_code" maxlength="3">
+                                                        id="usernameEdit" name="username">
                                                 </div>
                                             </div>
 
-                                            <div class="col-4">
+                                            <div class="col-6">
                                                 <div class="mb-3">
-                                                    <label for="cost_center" class="form-label col-form-label-sm">Cost
-                                                        Center</label>
+                                                    <label for="password"
+                                                        class="form-label col-form-label-sm">Password</label>
                                                     <input required type="text" class="form-control form-control-sm"
-                                                        id="costCenterEdit" name="cost_center"
-                                                        aria-label="Default input example" maxlength="6">
+                                                        id="passwordEdit" name="password">
                                                 </div>
                                             </div>
+                                        </div>
 
-                                            <div class="col-4">
+                                        <div class="row">
+                                            <div class="col-6">
                                                 <div class="mb-3">
-                                                    <label for="material"
-                                                        class="form-label col-form-label-sm">Material</label>
+                                                    <label for="department"
+                                                        class="form-label col-form-label-sm">Department</label>
                                                     <select required class="form-select form-select-sm"
-                                                        id="materialModal" name="material"
+                                                        id="departmentEdit" name="department"
                                                         aria-label="Default select example">
                                                         <?php
-                                                        $uniqueMaterials = array_unique(array_column($data['lineMaster'], 'material'));
-                                                        foreach ($uniqueMaterials as $material):
-                                                            if (!empty($material)): ?>
-                                                                <option value="<?php echo $material; ?>">
-                                                                    <?php echo $material; ?>
+                                                        $uniqueDepartment = array_unique(array_column($data['lineMaster'], 'department'));
+                                                        foreach ($uniqueDepartment as $department):
+                                                            if (!empty($department)):
+                                                                ?>
+                                                                <option value="<?php echo $department; ?>">
+                                                                    <?php echo $department; ?>
                                                                 </option>
                                                                 <?php
                                                             endif;
                                                         endforeach;
                                                         ?>
                                                     </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="line_user"
+                                                        class="form-label col-form-label-sm">Line</label>
+                                                    <select required class="form-select form-select-sm"
+                                                        id="lineUserEdit" name="line_user"
+                                                        aria-label="Default select example">
+                                                        <option value="All">All</option>
+                                                        <?php foreach ($data['lineMaster'] as $lineMaster): ?>
+                                                            <option value="<?php echo $lineMaster['nama_line']; ?>">
+                                                                <?php echo $lineMaster['nama_line']; ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <div class="mb-3">
+                                                    <label for="shift_user"
+                                                        class="form-label col-form-label-sm">Shift</label>
+                                                    <select required class="form-select form-select-sm" id="shiftEdit"
+                                                        name="shift_user" aria-label="Default select example">
+                                                        <option value="Red">Red</option>
+                                                        <option value="White">White</option>
+                                                        <option value="NonShift">NonShift</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-5">
+                                                <div class="mb-3">
+                                                    <label for="position"
+                                                        class="form-label col-form-label-sm">Position</label>
+                                                    <input required type="text" class="form-control form-control-sm"
+                                                        id="positionEdit" name="position">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-4">
+                                                <div class="mb-3">
+                                                    <label for="role" class="form-label col-form-label-sm">Role</label>
+                                                    <select required class="form-select form-select-sm" id="roleEdit"
+                                                        name="role" aria-label="Default select example">
+                                                        <option value="admin">admin</option>
+                                                        <option value="common">common</option>
+                                                        <option value="public">public</option>
+                                                        <option value="approver">approver</option>
+                                                        <option value="approveqc">approveqc</option>
+                                                        <option value="sight">sight</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <div class="mb-3">
+                                                    <label for="category"
+                                                        class="form-label col-form-label-sm">Category</label>
+                                                    <select required class="form-select form-select-sm"
+                                                        id="categoryUserEdit" name="category"
+                                                        aria-label="Default select example">
+                                                        <option value="All">All</option>
+                                                        <option value="K">K</option>
+                                                        <option value="M">M</option>
+                                                        <option value="C">C</option>
+                                                        <option value="X">X</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="text-center mb-3">
+                                                    <label for="profile" class="form-label">Profile</label>
+                                                    <input class="form-control form-control-sm" id="profilePictureEdit"
+                                                        name="profile" type="file" accept="image/jpg">
+                                                </div>
+                                                <div class="text-center mb-3">
+                                                    <img id="profilePreviewEdit" src="" alt="profile" width="100px"
+                                                        height="auto">
+                                                    <p>Preview</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="text-center mb-3">
+                                                    <label for="signature" class="form-label">Signature</label>
+                                                    <input class="form-control form-control-sm" id="signPictureEdit"
+                                                        name="signature" type="file" accept="image/png">
+                                                </div>
+                                                <div class="text-center mb-3">
+                                                    <img id="signPreviewEdit" src="" alt="signature" width="100px"
+                                                        height="auto">
+                                                    <p>Preview</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -226,10 +419,10 @@
                                         <button type="submit" class="btn btn-primary" id="editBtn">Save</button>
                                     </div>
 
-                                    <input type="hidden" id="idCCMaster" value="" name="id">
-                                    <input type="hidden" id="userName"
+                                    <input type="hidden" id="idAddUser" value="" name="id">
+                                    <input type="hidden" id="userLog"
                                         value="<?php echo isset($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>"
-                                        name="userName">
+                                        name="userlog">
                                 </form>
                             </div>
                         </div>

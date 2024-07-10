@@ -485,6 +485,13 @@ class Material_model
         return $this->db->single();
     }
 
+    public function getMatDataResult($noLsr)
+    {
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE no_lsr=:noLsr');
+        $this->db->bind('noLsr', $noLsr);
+        return $this->db->resultSet();
+    }
+
     public function getMatDataResultSet($noLsr)
     {
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE no_lsr=:noLsr');

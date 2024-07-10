@@ -62,11 +62,11 @@
                         <i class="bi bi-circle"></i><span>Cost Center</span>
                     </a>
                 </li>
-                <!-- <li>
+                <li>
                     <a class="nav-link collapsed" id="user" href="<?php echo BASEURL ?>/master/user">
                         <i class="bi bi-circle"></i><span>User</span>
                     </a>
-                </li> -->
+                </li>
             </ul>
         </li><!-- End Forms Nav -->
 

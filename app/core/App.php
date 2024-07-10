@@ -10,7 +10,7 @@ class App
         $url = $this->parseURL();
 
         $this->checkLoginSession();
-        $this->checkSign();
+        // $this->checkSign(); dihilangkan dulu untuk login tanpa validasi sign
 
         // controler
         if (isset($url[0])) {

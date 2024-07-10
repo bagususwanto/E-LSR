@@ -135,7 +135,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <hr>
                                         <div class="text-center mb-3">
                                             <label for="pictureLine" class="form-label">Add Picture</label>
                                             <input class="form-control form-control-sm" id="pictureLineCC"
@@ -274,7 +274,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <hr>
                                         <div class="text-center mb-3">
                                             <label for="pictureLine" class="form-label">Change Picture</label>
                                             <input class="form-control form-control-sm" id="pictureLine"

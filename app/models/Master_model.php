@@ -7,6 +7,7 @@ class Master_model
 {
     private $table = 'master_material';
     private $table2 = 'master_line';
+    private $table3 = 'user';
     private $db;
 
     public function __construct()
@@ -26,6 +27,14 @@ class Master_model
     public function getCostCenterData()
     {
         $sql = 'SELECT * FROM ' . $this->table2;
+        $this->db->query($sql);
+
+        return $this->db->resultSet();
+    }
+
+    public function getUserData()
+    {
+        $sql = 'SELECT * FROM ' . $this->table3;
         $this->db->query($sql);
 
         return $this->db->resultSet();
@@ -211,25 +220,9 @@ class Master_model
 
         try {
             // Handle file upload
-            if (!empty($_FILES['pictureLine']['name'])) {
-                $uploadDir = realpath(__DIR__ . '/../../public/img/line') . '/';
-                $fileName = $data['nama_line'] . '.gif';
-                $filePath = $uploadDir . $fileName;
-
-                if (move_uploaded_file($_FILES['pictureLine']['tmp_name'], $filePath)) {
-                    // File upload successful
-                    $_SESSION['message'] = [
-                        'type' => 'success',
-                        'content' => 'Berhasil mengunggah gambar.'
-                    ];
-                } else {
-                    // Handle file upload error
-                    $_SESSION['message'] = [
-                        'type' => 'error',
-                        'content' => 'Terjadi kesalahan saat mengunggah file gambar.'
-                    ];
-                    return 0;
-                }
+            $fileUploaded = $this->uploadFile('pictureLine', '/../../public/img/line', $data['nama_line'] . '.gif');
+            if (!$fileUploaded) {
+                return 0;
             }
 
             $this->db->execute();
@@ -252,6 +245,120 @@ class Master_model
             error_log($e->getMessage());
             return 0;
         }
+    }
+
+    public function addMasterUser($data)
+    {
+        // Check if username already exists
+        $checkQuery = 'SELECT COUNT(*) as count FROM ' . $this->table3 . ' WHERE username = :username';
+        $this->db->query($checkQuery);
+        $this->db->bind('username', $data['username']);
+        $this->db->execute();
+        $result = $this->db->single();
+
+        if ($result['count'] > 0) {
+            // Username already exists
+            $_SESSION['message'] = [
+                'type' => 'error',
+                'content' => 'Username sudah terdaftar, Gagal menambahkan data.'
+            ];
+            return 0;
+        }
+
+        // Insert new user
+        $query = 'INSERT INTO ' . $this->table3 .
+            ' (id, username, password, nama, department, line_user, shift_user, position, role, category, created_date, created_by, change_date, change_by) 
+            VALUES (null, :username, :password, :nama, :department, :line_user, :shift_user, :position, :role, :category, CURRENT_TIMESTAMP, :created_by, CURRENT_TIMESTAMP, :change_by)';
+
+        $this->db->query($query);
+        $this->db->bind('username', $data['username']);
+        $this->db->bind('password', password_hash($data['password'], PASSWORD_DEFAULT));
+        $this->db->bind('nama', $data['nama']);
+        $this->db->bind('department', $data['department']);
+        $this->db->bind('line_user', $data['line_user']);
+        $this->db->bind('shift_user', $data['shift_user']);
+        $this->db->bind('position', $data['position']);
+        $this->db->bind('role', $data['role']);
+        $this->db->bind('category', $data['category']);
+        $this->db->bind('created_by', $data['userlog']);
+        $this->db->bind('change_by', $data['userlog']);
+
+        try {
+            // Handle file upload
+            $profileUploaded = $this->uploadFile('profile', '/../../public/img/profile', $data['username'] . '.jpg');
+            $signUploaded = $this->uploadFile('signature', '/../../public/img/sign', $data['username'] . '.png');
+            if (!$profileUploaded || !$signUploaded) {
+                return 0;
+            }
+
+            $this->db->execute();
+            $rowCount = $this->db->rowCount();
+
+            if ($rowCount > 0) {
+                $_SESSION['message'] = [
+                    'type' => 'success',
+                    'content' => 'Berhasil menambahkan data dengan Username: ' . $_POST['username']
+                ];
+            }
+
+            return $rowCount;
+        } catch (Exception $e) {
+            // Handle and log error
+            $_SESSION['message'] = [
+                'type' => 'error',
+                'content' => 'Terjadi kesalahan error' . $e->getMessage()
+            ];
+            error_log($e->getMessage());
+            return 0;
+        }
+    }
+
+
+    public function uploadFile($fileKey, $uploadDir, $fileName, $successMessage = 'Berhasil mengunggah gambar.', $errorMessage = 'Terjadi kesalahan saat mengunggah file gambar.')
+    {
+        if (!empty($_FILES[$fileKey]['name'])) {
+            $uploadDir = realpath(__DIR__ . $uploadDir) . '/';
+            $filePath = $uploadDir . $fileName;
+
+            if (move_uploaded_file($_FILES[$fileKey]['tmp_name'], $filePath)) {
+                // File upload successful
+                $_SESSION['message'] = [
+                    'type' => 'success',
+                    'content' => $successMessage
+                ];
+                return true;
+            } else {
+                // Handle file upload error
+                $_SESSION['message'] = [
+                    'type' => 'error',
+                    'content' => $errorMessage
+                ];
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function deleteFileIfExists($dir, $fileName, $extension)
+    {
+        $uploadDir = realpath(__DIR__ . $dir) . '/';
+        $filePath = $uploadDir . $fileName . '.' . $extension;
+
+        if (file_exists($filePath)) {
+            if (unlink($filePath)) {
+                // File deletion successful
+                return true;
+            } else {
+                // Handle file deletion error
+                $_SESSION['message'] = [
+                    'type' => 'error',
+                    'content' => 'Terjadi kesalahan saat menghapus file gambar.'
+                ];
+                return false;
+            }
+        }
+        // File does not exist, no need to delete
+        return true;
     }
 
     public function truncateTable()
@@ -347,28 +454,9 @@ class Master_model
         $this->db->bind('id', $data['id']);
 
         try {
-            $uploadDir = realpath(__DIR__ . '/../../public/img/line') . '/';
-            $fileName = $data['lineCC'] . '.gif';
-            $filePath = $uploadDir . $fileName;
-
-            if (file_exists($filePath)) {
-                if (unlink($filePath)) {
-                    // File deletion successful
-                } else {
-                    // Handle file deletion error
-                    $_SESSION['message'] = [
-                        'type' => 'error',
-                        'content' => 'Terjadi kesalahan saat menghapus file gambar.'
-                    ];
-                    return 0;
-                }
-            } else {
-                // File does not exist
-                $_SESSION['message'] = [
-                    'type' => 'error',
-                    'content' => 'File gambar tidak ditemukan terjadi kesalahan.'
-                ];
-                return -1;
+            $deleteSucces = $this->deleteFileIfExists('/../../public/img/line', $data['lineCC'], 'gif');
+            if (!$deleteSucces) {
+                return 0;
             }
 
             $this->db->execute();
@@ -381,6 +469,28 @@ class Master_model
     }
 
 
+    public function deleteMasterUser($data)
+    {
+        $query = 'DELETE FROM ' . $this->table3 . ' WHERE id = :id';
+
+        $this->db->query($query);
+        $this->db->bind('id', $data['id']);
+
+        try {
+            $deleteProfile = $this->deleteFileIfExists('/../../public/img/profile', $data['username'], 'jpg');
+            $deleteSignature = $this->deleteFileIfExists('/../../public/img/sign', $data['username'], 'png');
+            if (!$deleteProfile && !$deleteSignature) {
+                return 0;
+            }
+
+            $this->db->execute();
+            return $this->db->rowCount();
+        } catch (Exception $e) {
+            // Handle and log error
+            error_log($e->getMessage());
+            return 0;
+        }
+    }
 
 
 

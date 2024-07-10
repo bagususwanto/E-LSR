@@ -90,6 +90,12 @@ class Master extends Controller
         echo json_encode($data);
     }
 
+    public function getMasterUser()
+    {
+        $data = $this->model('Master_model')->getUserData();
+        echo json_encode($data);
+    }
+
     public function getDataEditMaterial()
     {
         $id = $_POST['id'];
@@ -133,6 +139,12 @@ class Master extends Controller
     {
         $this->model('Master_model')->addMasterCC($_POST);
         header('location:' . BASEURL . '/master/cost_center');
+    }
+
+    public function AddDataUser()
+    {
+        $this->model('Master_model')->addMasterUser($_POST);
+        header('location:' . BASEURL . '/master/user');
     }
 
     public function uploadMasterMaterial()
@@ -234,6 +246,32 @@ class Master extends Controller
         }
     }
 
+    public function masterUserDelete()
+    {
+        header('Content-Type: application/json');
+
+        $result = $this->model('Master_model')->deleteMasterUser($_POST);
+
+        if ($result <= -1) {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'File gambar tidak ditemukan terjadi kesalahan.'
+            ]);
+            exit;
+        }
+
+        if ($result > 0) {
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Berhasil menghapus data dengan Username: ' . $_POST['username']
+            ]);
+        } else {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Gagal menghapus data.'
+            ]);
+        }
+    }
 
 
 
