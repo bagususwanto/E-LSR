@@ -492,13 +492,6 @@ class Material_model
         return $this->db->resultSet();
     }
 
-    public function getMatDataResultSet($noLsr)
-    {
-        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE no_lsr=:noLsr');
-        $this->db->bind('noLsr', $noLsr);
-        return $this->db->resultSet();
-    }
-
     public function FilteredReport($tanggalFrom, $tanggalTo, $department, $line, $shift, $lsrCode, $status)
     {
         // Tentukan kolom yang ingin ditampilkan

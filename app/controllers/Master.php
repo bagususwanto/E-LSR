@@ -116,6 +116,12 @@ class Master extends Controller
         header('location:' . BASEURL . '/master/cost_center');
     }
 
+    public function updateDataUser()
+    {
+        $this->model('Master_model')->ubahDataUser($_POST);
+        header('location:' . BASEURL . '/master/user');
+    }
+
     public function AddDataMaterial()
     {
         $result = $this->model('Master_model')->addMasterMaterial($_POST);

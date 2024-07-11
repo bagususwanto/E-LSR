@@ -246,7 +246,7 @@
                     </div>
 
                     <!-- Modal Bootstrap untuk Edit -->
-                    <div class="modal fade" id="editCostCenterModal" tabindex="-1" aria-labelledby="editModalLabel"
+                    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -255,8 +255,8 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <form id="formEditUser" method="POST" action="<?php echo BASEURL ?>/master/editDataUser"
-                                    enctype="multipart/form-data">
+                                <form id="formEditUser" method="POST"
+                                    action="<?php echo BASEURL ?>/master/updateDataUser" enctype="multipart/form-data">
                                     <div class="modal-body" id="modalContent">
 
                                         <div class="mb-3">
@@ -419,7 +419,7 @@
                                         <button type="submit" class="btn btn-primary" id="editBtn">Save</button>
                                     </div>
 
-                                    <input type="hidden" id="idAddUser" value="" name="id">
+                                    <input type="hidden" id="idEditUser" value="" name="id">
                                     <input type="hidden" id="userLog"
                                         value="<?php echo isset($data['user']['username']) ? $data['user']['username'] : 'Guest'; ?>"
                                         name="userlog">

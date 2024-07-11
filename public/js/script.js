@@ -1892,6 +1892,7 @@ $(function () {
 
   $(document).on("click", "#editMasterUser", function () {
     var row = $(this).closest("tr");
+    var id = $(this).data("id");
 
     // Tangkap data dari baris
     var profileSrc = row.find("td:eq(1) img").attr("src");
@@ -1918,9 +1919,10 @@ $(function () {
     $("#positionEdit").val(position);
     $("#roleEdit").val(role);
     $("#categoryUserEdit").val(category);
+    $("#idEditUser").val(id);
 
     // Tampilkan modal
-    $("#editCostCenterModal").modal("show");
+    $("#editUserModal").modal("show");
   });
 
   //fungsi preview picture line

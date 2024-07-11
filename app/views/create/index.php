@@ -208,13 +208,13 @@
 
 
                                     <div class="col-xxl-2 col-md-3 pb-3">
-                                        <label for="qty" class="form-label col-form-label-sm">Qty</label>
+                                        <label for="qty" class="form-label col-form-label-sm">Qty (Pcs)</label>
                                         <input required class="form-control form-control-sm text-center" id="qty"
                                             name="qty" type="number" placeholder="" aria-label="default input example">
                                     </div>
 
                                     <div class="col-xxl-2 col-md-3 pb-3">
-                                        <label for="source_type" class="form-label col-form-label-sm">Souurce
+                                        <label for="source_type" class="form-label col-form-label-sm">Source
                                             Type</label>
                                         <select class="form-select form-select-sm" id="sourceType" name="source_type"
                                             aria-label="Default select example">

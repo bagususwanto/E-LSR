@@ -16,7 +16,6 @@ class Eform extends Controller
         $roleQc = "approveqc";
         $data['dataLsr'] = $this->model('Material_model')->getMatData($noLsr);
         $data['dataLsrResult'] = $this->model('Material_model')->getMatDataResult($noLsr);
-        $data['dataLsrResult'] = $this->model('Material_model')->getMatDataResultSet($noLsr);
         $data['userQcApprove'] = $this->model('User_model')->getAllUserByRole($roleQc);
 
         // Pencarian file gambar dengan ekstensi apapun
@@ -50,6 +49,8 @@ class Eform extends Controller
         $data['imgLH'] = getImageHtml($filesLH);
 
         // Hanya menampilkan gambar jika reason === "D" dan repair === "0"
+        $data['imgQc'] = "";  // Inisialisasi imgQc
+
         if (is_array($data['dataLsrResult'])) {
             foreach ($data['dataLsrResult'] as &$row) {
                 if (is_array($row)) {
@@ -59,8 +60,7 @@ class Eform extends Controller
                     if ($reason === "D" && $repair === "0") {
                         $filesQc = glob($dir . '/' . $data['userQcApprove']['username'] . '.*');
                         $data['imgQc'] = !empty($filesQc) ? "<img src='" . BASEURL . "/img/sign/" . basename($filesQc[0]) . "' width='100%' height='100%' alt='Signature'>" : "Tidak ada signature.";
-                    } else {
-                        $data['imgQc'] = "";
+                        break;  // Hentikan loop karena kondisi sudah terpenuhi
                     }
                 } else {
                     error_log('Expected array, got: ' . gettype($row));
@@ -69,6 +69,7 @@ class Eform extends Controller
         } else {
             error_log('Expected array, got: ' . gettype($data['dataLsrResult']));
         }
+
 
         // Set gambar SH
         $data['imgSH'] = getImageHtml($filesSH);

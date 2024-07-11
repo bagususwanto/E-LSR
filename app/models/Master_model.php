@@ -167,6 +167,129 @@ class Master_model
         }
     }
 
+    public function UbahDataUser($data)
+    {
+        // Cek apakah username sudah ada
+        $usernameCheckQuery = 'SELECT COUNT(*) AS count FROM ' . $this->table3 . ' WHERE username = :username AND id != :id';
+        $this->db->query($usernameCheckQuery);
+        $this->db->bind('username', $data['username']);
+        $this->db->bind('id', $data['id']);
+        $this->db->execute();
+        $result = $this->db->single();
+
+        if ($result['count'] > 0) {
+            $_SESSION['message'] = [
+                'type' => 'error',
+                'content' => 'Username sudah ada. Silakan gunakan username yang lain.'
+            ];
+            return 0;
+        }
+
+        // Ambil password yang ada dari database
+        $passwordCheckQuery = 'SELECT password FROM ' . $this->table3 . ' WHERE id = :id';
+        $this->db->query($passwordCheckQuery);
+        $this->db->bind('id', $data['id']);
+        $this->db->execute();
+        $existingPassword = $this->db->single()['password'];
+
+        // Buat bagian dari query update tanpa password
+        $query = 'UPDATE ' . $this->table3 . ' SET 
+                    username = :username,
+                    nama = :nama,
+                    department = :department,
+                    line_user = :line_user,
+                    shift_user = :shift_user,
+                    position = :position,
+                    role = :role,
+                    category = :category,
+                    change_by = :change_by
+                    WHERE id = :id';
+
+        $this->db->query($query);
+        $this->db->bind('username', $data['username']);
+        $this->db->bind('nama', $data['nama']);
+        $this->db->bind('department', $data['department']);
+        $this->db->bind('line_user', $data['line_user']);
+        $this->db->bind('shift_user', $data['shift_user']);
+        $this->db->bind('position', $data['position']);
+        $this->db->bind('role', $data['role']);
+        $this->db->bind('category', $data['category']);
+        $this->db->bind('change_by', $data['userlog']);
+        $this->db->bind('id', $data['id']);
+
+        // Eksekusi query tanpa password
+        $this->db->execute();
+
+        // Periksa jika password baru diinputkan dan berbeda dengan password yang ada di database
+        if (!empty($data['password']) && $data['password'] !== $existingPassword) {
+            // Update password jika password baru berbeda dengan yang ada
+            $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
+            $queryPassword = 'UPDATE ' . $this->table3 . ' SET password = :password WHERE id = :id';
+            $this->db->query($queryPassword);
+            $this->db->bind('password', $hashedPassword);
+            $this->db->bind('id', $data['id']);
+            $this->db->execute();
+        }
+
+        try {
+            // Handle file upload
+            if (!empty($_FILES['profile']['name']) || !empty($_FILES['signature']['name'])) {
+                $uploadDir = realpath(__DIR__ . '/../../public/img/profile') . '/';
+                $uploadSign = realpath(__DIR__ . '/../../public/img/sign') . '/';
+                $fileName = $data['username'] . '.jpg';
+                $fileSign = $data['username'] . '.png';
+                $filePath = $uploadDir . $fileName;
+                $filePathSign = $uploadSign . $fileSign;
+
+                $uploadSuccess = true;
+
+                if (!empty($_FILES['profile']['name'])) {
+                    if (!move_uploaded_file($_FILES['profile']['tmp_name'], $filePath)) {
+                        $uploadSuccess = false;
+                    }
+                }
+
+                if (!empty($_FILES['signature']['name'])) {
+                    if (!move_uploaded_file($_FILES['signature']['tmp_name'], $filePathSign)) {
+                        $uploadSuccess = false;
+                    }
+                }
+
+                if ($uploadSuccess) {
+                    $_SESSION['message'] = [
+                        'type' => 'success',
+                        'content' => 'Berhasil mengunggah gambar.'
+                    ];
+                } else {
+                    $_SESSION['message'] = [
+                        'type' => 'error',
+                        'content' => 'Terjadi kesalahan saat mengunggah file gambar.'
+                    ];
+                }
+            }
+
+            // Eksekusi query untuk mengubah data
+            $rowCount = $this->db->rowCount();
+
+            if ($rowCount > 0) {
+                $_SESSION['message'] = [
+                    'type' => 'success',
+                    'content' => 'Berhasil mengubah data dengan Username: ' . $data['username']
+                ];
+            }
+
+            return $rowCount;
+        } catch (Exception $e) {
+            // Handle error and possibly log error
+            error_log("Error updating data: " . $e->getMessage());
+            $_SESSION['message'] = [
+                'type' => 'error',
+                'content' => 'Terjadi kesalahan saat mengubah data: ' . $e->getMessage()
+            ];
+            return 0;
+        }
+    }
+
 
     public function getAllUserById($id)
     {
