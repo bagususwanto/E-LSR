@@ -56,13 +56,21 @@ class App
     {
         $publicPages = ['login']; // Tambahkan halaman publik yang tidak memerlukan login
         $url = $this->parseURL();
+        $apiPages = ['getdata'];
+
+        if (in_array($url[0], $apiPages)) {
+            // Jika halaman adalah bagian dari API, lanjutkan tanpa memeriksa login
+            return;
+        }
 
         if (!isset($_SESSION['login']) && !in_array($url[0], $publicPages)) {
+            // Jika tidak ada sesi login dan halaman bukan halaman publik, arahkan ke halaman login
             header('location:' . BASEURL . '/login');
             exit;
         }
         // ...
     }
+
 
     public function checkSign()
     {
