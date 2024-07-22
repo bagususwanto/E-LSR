@@ -1845,7 +1845,7 @@ $(function () {
     var price = row.find("td:eq(7)").text();
 
     // Bersihkan harga untuk membuatnya menjadi nilai numerik
-    var numericPrice = price.replace("RP. ", "").replace(/\./g, "").replace(",", ".").replace(".", "").replace(/00$/, "");
+    var numericPrice = price.replace("Rp. ", "").replace(/\./g, "").replace(",", ".").replace(".", "").replace(/00$/, "");
 
     // Isi bidang input modal dengan data yang ditangkap
     $("#partNumberModalEdit").val(partNumber);
