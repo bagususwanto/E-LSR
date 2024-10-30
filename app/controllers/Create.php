@@ -228,6 +228,18 @@ class Create extends Controller
         echo json_encode($matData);
     }
 
+    public function checkNoLsrWithLine()
+    {
+        header('Content-Type: application/json');
+
+        $lineName = $_POST['lineName'];
+
+        $material_model = $this->model('Material_model');
+        $lineData = $material_model->getLineDataByLine($lineName);
+
+        echo json_encode($lineData);
+    }
+
 
 
 }

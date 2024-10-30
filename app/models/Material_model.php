@@ -485,6 +485,13 @@ class Material_model
         return $this->db->single();
     }
 
+    public function getLineDataByLine($lineName)
+    {
+        $this->db->query('SELECT * FROM ' . $this->table3 . ' WHERE nama_line=:lineName');
+        $this->db->bind('lineName', $lineName);
+        return $this->db->single();
+    }
+
     public function getMatDataResult($noLsr)
     {
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE no_lsr=:noLsr');

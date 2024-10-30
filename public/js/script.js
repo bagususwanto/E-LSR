@@ -480,6 +480,17 @@ $(function () {
       dataType: "json",
       success: function (data) {
         $("#noLsr").val(data.no_lsr);
+        const leftNoLsr = $("#noLsr").val().slice(0, 1).toUpperCase();
+
+        if (leftNoLsr !== $("#validCategory").val()) {
+          $.toast({
+            title: "Pesan",
+            message: "No LSR tidak valid. Harap cek kembali.",
+            type: "warning",
+            duration: 8000,
+          });
+        }
+
         // $("#noLSRSub").val(data.no_lsr);
       },
       error: function (error) {
@@ -645,90 +656,108 @@ $(function () {
         const noLsr = $("#noLsr").val();
         const lineLsr = $("#line").val();
 
+        // Cek kategori berdasarkan lineName
         $.ajax({
-          url: BASEURL + "/create/checkNoLsr",
+          url: BASEURL + "/create/checkNoLsrWithLine",
           method: "POST",
-          data: { noLsr: noLsr },
+          data: { lineName: lineLsr },
           success: function (response) {
-            if (noLsr == response.no_lsr && lineLsr != response.line_lsr) {
-              $("#material").prop("disabled", true);
-              $("#shift").prop("disabled", true);
-              $("#line").prop("disabled", true);
-              $("#lineCode").prop("disabled", true);
-              $("#costCenter").prop("disabled", true);
-              $("#noLsr").prop("disabled", true);
+            const lineCategory = response.category;
 
+            // Jika huruf pertama noLsr tidak sama dengan lineCategory, hentikan proses
+            if (noLsr.slice(0, 1).toUpperCase() !== lineCategory) {
               $.toast({
                 title: "Pesan",
-                message: "Gagal menambahkan data.",
-                type: "error",
+                message: "No LSR tidak valid. Harap cek kembali.",
+                type: "warning",
                 duration: 8000,
               });
-              $.toast({
-                title: "Pesan",
-                message: "No LSR: " + noLsr + " sudah digunakan line lain, harap refresh browser dan input ulang.",
-                type: "warning",
-                duration: 15000,
-              });
-              $("body").loadingModal("hide");
+              $("body").loadingModal("hide"); // Tutup loading modal jika validasi gagal
               return;
-            } else {
-              // Continue only if the validation passed
-              var formData = $(form).serialize();
-              $.ajax({
-                url: BASEURL + "/create/tambah",
-                method: "POST",
-                data: formData,
-                success: function (response) {
-                  $("body").loadingModal("hide");
+            }
 
-                  if (response.status === "success") {
-                    $.toast({
-                      title: "Pesan",
-                      message: response.message,
-                      type: "success",
-                      duration: 8000,
-                    });
-                    setTimeout(function () {
-                      $("#dataTable")[0].scrollIntoView();
-                    }, 100); // Tunda 100 milidetik sebelum menggulir
+            // Lanjutkan ke pengecekan kedua hanya jika validasi pertama berhasil
+            $.ajax({
+              url: BASEURL + "/create/checkNoLsr",
+              method: "POST",
+              data: { noLsr: noLsr },
+              success: function (response) {
+                if (noLsr == response.no_lsr && lineLsr != response.line_lsr) {
+                  $("#material").prop("disabled", true);
+                  $("#shift").prop("disabled", true);
+                  $("#line").prop("disabled", true);
+                  $("#lineCode").prop("disabled", true);
+                  $("#costCenter").prop("disabled", true);
+                  $("#noLsr").prop("disabled", true);
 
-                    const material = $("#material").val();
-                    const shiftUser = $("#shift").val();
-                    const lineUser = $("#line").val();
-                    const tanggalValue = $("#tanggal").val();
-                    RefreshDataSubmit(tanggalValue, shiftUser, lineUser);
-                    roleValidtionPageCreate();
-                    // checkTablePageCreate();
-
-                    // $("#remarks").val("");
-                    $("#qty").val("");
-                    // $("#reason").val("");
-                    // $("#condition").val("");
-                    // $("#repair").val("");
-                    $("#lineCode").prop("disabled", true);
-                    $("#costCenter").prop("disabled", true);
-                    $("#noLsr").prop("disabled", true);
-                  } else {
-                    $.toast({
-                      title: "Pesan",
-                      message: response.message,
-                      type: "error",
-                      duration: 8000,
-                    });
-                  }
-                },
-                error: function (error) {
-                  console.log(error);
                   $.toast({
                     title: "Pesan",
-                    message: "Gagal menambahkan data terjadi kesalahan.",
+                    message: "Gagal menambahkan data.",
                     type: "error",
                     duration: 8000,
                   });
-                },
-              });
-            }
+                  $.toast({
+                    title: "Pesan",
+                    message: "No LSR: " + noLsr + " sudah digunakan line lain, harap refresh browser dan input ulang.",
+                    type: "warning",
+                    duration: 15000,
+                  });
+                  $("body").loadingModal("hide");
+                  return;
+                } else {
+                  // Proses lanjut jika semua validasi terpenuhi
+                  var formData = $(form).serialize();
+                  $.ajax({
+                    url: BASEURL + "/create/tambah",
+                    method: "POST",
+                    data: formData,
+                    success: function (response) {
+                      $("body").loadingModal("hide");
+
+                      if (response.status === "success") {
+                        $.toast({
+                          title: "Pesan",
+                          message: response.message,
+                          type: "success",
+                          duration: 8000,
+                        });
+                        setTimeout(function () {
+                          $("#dataTable")[0].scrollIntoView();
+                        }, 100);
+
+                        const material = $("#material").val();
+                        const shiftUser = $("#shift").val();
+                        const lineUser = $("#line").val();
+                        const tanggalValue = $("#tanggal").val();
+                        RefreshDataSubmit(tanggalValue, shiftUser, lineUser);
+                        roleValidtionPageCreate();
+
+                        $("#qty").val("");
+                        $("#lineCode").prop("disabled", true);
+                        $("#costCenter").prop("disabled", true);
+                        $("#noLsr").prop("disabled", true);
+                      } else {
+                        $.toast({
+                          title: "Pesan",
+                          message: response.message,
+                          type: "error",
+                          duration: 8000,
+                        });
+                      }
+                    },
+                    error: function (error) {
+                      console.log(error);
+                      $.toast({
+                        title: "Pesan",
+                        message: "Gagal menambahkan data terjadi kesalahan.",
+                        type: "error",
+                        duration: 8000,
+                      });
+                    },
+                  });
+                }
+              },
+            });
           },
         });
       },

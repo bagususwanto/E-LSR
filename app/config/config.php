@@ -1,5 +1,5 @@
 <?php
-define('BASEURL', 'http://localhost/e-lsr/public');
+define('BASEURL', 'http://localhost:8080/e-lsr/public');
 
 // DB
 define('DB_HOST', 'localhost');
