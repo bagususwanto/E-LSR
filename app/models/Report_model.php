@@ -8,45 +8,43 @@ class Report_model
         $this->db = new Database;
     }
 
-    public function generateUniqueID($validLineValue)
-    {
-        // Pemisahan kata kunci
-        $keywords = explode(",", $validLineValue);
-        $first_keyword = trim($keywords[0]);
+  public function generateUniqueID($categoryVal)
+{
+    // Pemisahan kata kunci
+    $keywords = explode(",", $categoryVal);
+    $first_keyword = trim($keywords[0]);
 
-        switch ($first_keyword) {
-            case 'Main Line':
-            case 'Sub Line':
-                $prefix = 'K';
-                $table = 'report_k';
-                break;
-            case 'Crankshaft':
-            case 'Cylinder Block':
-            case 'Cylinder Head':
-            case 'Camshaft':
-                $prefix = 'M';
-                $table = 'report_m';
-                break;
-            case 'Die Casting':
-                $prefix = 'C';
-                $table = 'report_c';
-                break;
-
-            default:
-                $prefix = 'X';
-                $table = 'report_x';
-        }
-
-        $query = "SELECT MAX(no_lsr) AS max_id FROM $table";
-
-        $this->db->query($query);
-        $result = $this->db->single();
-        $max_id = $result['max_id'];
-
-        $new_id = $prefix . str_pad((intval(substr($max_id, 1)) + 1), 6, '0', STR_PAD_LEFT);
-
-        return $new_id;
+    // Menentukan tabel berdasarkan kategori
+    switch ($first_keyword) {
+        case 'K':
+            $table = 'report_k';
+            break;
+        case 'M':
+            $table = 'report_m';
+            break;
+        case 'C':
+            $table = 'report_c';
+            break;
+        default:
+            $table = 'report_x';
     }
+
+    // Menyesuaikan query untuk hanya memilih no_lsr dengan satu huruf di awal
+    $query = "SELECT MAX(no_lsr) AS max_id FROM $table WHERE no_lsr REGEXP '^[KMCX][0-9]{6}$'";
+
+    $this->db->query($query);
+    $result = $this->db->single();
+    $max_id = $result['max_id'];
+
+    // Menghasilkan ID baru berdasarkan no_lsr yang ditemukan
+    $new_id = $categoryVal . str_pad((intval(substr($max_id, 1)) + 1), 6, '0', STR_PAD_LEFT);
+
+    return $new_id;
+}
+
+
+    
+    
 
     public function submitData($lineSub, $data)
     {

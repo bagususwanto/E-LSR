@@ -24,7 +24,12 @@ class User_model
         return $this->db->single();
     }
 
-
+    public function getAllUserByRole($roleQc)
+    {
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE role=:roleQc');
+        $this->db->bind('roleQc', $roleQc);
+        return $this->db->single();
+    }
 
     // Metode untuk memeriksa kredensial pengguna
     public function checkCredentials($username, $password)
@@ -50,7 +55,38 @@ class User_model
 
 
 
+    public function doUploadSign($file, $username)
+    {
+        $targetDir = realpath(__DIR__ . '/../../public/img/sign') . '/';
+        $fileInfo = pathinfo($file["name"]);
+        $fileExtension = strtolower($fileInfo['extension']);
+        $fileName = $username . '.' . $fileExtension;
+        $targetFile = $targetDir . $fileName;
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
+        // Cek apakah file sudah ada
+        // if (file_exists($targetFile)) {
+        //     return "File sudah ada.";
+        // }
+
+        // Cek ukuran file
+        if ($file["size"] > 500000) {
+            return "File terlalu besar.";
+        }
+
+        // Perbolehkan hanya format file tertentu
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+            return "Hanya file JPG, JPEG, PNG & GIF yang diperbolehkan.";
+        }
+
+        // Unggah file
+        if (move_uploaded_file($file["tmp_name"], $targetFile)) {
+            return "File tanda tangan berhasil diunggah.";
+        } else {
+            return "Terjadi kesalahan saat mengunggah file.";
+        }
+    }
 
 
 

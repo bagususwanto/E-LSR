@@ -819,19 +819,24 @@ h6 {
   flex-grow: 0;
 }
 
-.dashboard .sales-card .card-icon {
+.dashboard .K-card .card-icon {
   color: #4154f1;
   background: #f6f6fe;
 }
 
-.dashboard .revenue-card .card-icon {
+.dashboard .M-card .card-icon {
   color: #2eca6a;
   background: #e0f8e9;
 }
 
-.dashboard .customers-card .card-icon {
+.dashboard .C-card .card-icon {
   color: #ff771d;
   background: #ffecdf;
+}
+
+.dashboard .X-card .card-icon {
+  color: #ff1d1d;
+  background: #ffdfdf;
 }
 
 /* Activity */
@@ -1256,35 +1261,66 @@ h6 {
   white-space: nowrap;
 }
 
-@media screen and (min-width: 1024px) {
-  #trafficChart {
-    min-height: 570px;
-    /* Nilai untuk layar setidaknya 1200px atau lebih lebar */
-  }
+.card.info-card {
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
-#trafficChart {
-  min-height: 570px;
-  /* Nilai default untuk layar yang lebih kecil dari 1200px */
+.card.info-card:hover {
+  transform: scale(1.05);
+  outline: 2px solid #007bff;
 }
 
-@media screen and (max-width: 1024px) {
-  #trafficChart {
-    min-height: 890px;
-    /* Nilai untuk layar dalam rentang ukuran tablet */
-  }
+.dashboard .amount-card {
+  padding-bottom: 10px;
 }
 
-@media screen and (max-height: 1280px) {
-  #trafficChart {
-    min-height: 890px;
-    /* Nilai untuk layar dengan max-height 1280px */
-  }
+.dashboard .amount-card h6 {
+  font-size: 28px;
+  color: #012970;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
 }
 
-@media screen and (min-width: 1200px) {
-  #trafficChart {
-    min-height: 570px;
-    /* Nilai untuk layar setidaknya 1200px atau lebih lebar */
+
+.card-container {
+  display: none;
+}
+
+.hidden {
+  display: none;
+}
+
+table.dataTable>tbody>tr>td {
+  vertical-align: middle;
+}
+
+/* STYLE UNTUK HALAMAN SIGN */
+.signature-upload-container {
+  margin-top: 100px;
+}
+
+.signature-preview {
+  width: 100%;
+  max-height: 200px;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.signature-preview img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+@media print {
+  #eFormReport {
+    width: 100%;
+    /* Atur lebar elemen saat mencetak */
+    margin: 0 auto;
   }
 }

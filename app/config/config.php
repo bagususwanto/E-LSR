@@ -1,9 +1,9 @@
 <?php
-define('BASEURL', 'http://localhost/e-lsr/public');
+define('BASEURL', 'http://localhost:8888/e-lsr/public');
 
 // DB
 define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_USER', 'aas');
+define('DB_PASS', 'aas');
 define('DB_NAME', 'lsr');
 ?>

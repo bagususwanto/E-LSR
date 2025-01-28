@@ -49,7 +49,7 @@
               <div class="d-flex justify-content-center py-4">
                 <a href="index.html" class="logo d-flex align-items-center w-auto">
                   <img src="<?php echo BASEURL ?>/img/logo.png" alt="">
-                  <span class="d-none d-lg-block">Line Supply Request</span>
+                  <span class="d-none d-lg-block">E-SCRAP</span>
                 </a>
               </div><!-- End Logo -->
 
@@ -79,10 +79,10 @@
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
 
-                        <div class="col-12 mt-3 text-center">
-                            <?php Flasher::flash(); ?>
-                        </div>
-                   
+                    <div class="col-12 mt-3 text-center">
+                      <?php Flasher::flash(); ?>
+                    </div>
+
                     <!-- <div class="col-12">
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">

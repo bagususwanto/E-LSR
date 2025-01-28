@@ -10,6 +10,7 @@ class App
         $url = $this->parseURL();
 
         $this->checkLoginSession();
+        // $this->checkSign(); dihilangkan dulu untuk login tanpa validasi sign
 
         // controler
         if (isset($url[0])) {
@@ -55,9 +56,31 @@ class App
     {
         $publicPages = ['login']; // Tambahkan halaman publik yang tidak memerlukan login
         $url = $this->parseURL();
+        $apiPages = ['getdata'];
+
+        if (in_array($url[0], $apiPages)) {
+            // Jika halaman adalah bagian dari API, lanjutkan tanpa memeriksa login
+            return;
+        }
 
         if (!isset($_SESSION['login']) && !in_array($url[0], $publicPages)) {
+            // Jika tidak ada sesi login dan halaman bukan halaman publik, arahkan ke halaman login
             header('location:' . BASEURL . '/login');
+            exit;
+        }
+        // ...
+    }
+
+
+    public function checkSign()
+    {
+        $publicPages = ['sign'];
+        $loginPages = ['login'];
+        $logoutPages = ['logout'];
+        $url = $this->parseURL();
+
+        if (!isset($_SESSION['sign']) && !in_array($url[0], $publicPages) && !in_array($url[0], $loginPages) && !in_array($url[0], $logoutPages)) {
+            header('location:' . BASEURL . '/sign');
             exit;
         }
         // ...

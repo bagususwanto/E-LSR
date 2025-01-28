@@ -5,6 +5,7 @@ class Create extends Controller
     {
         // Mendapatkan ID pengguna dari session
         $id = $_SESSION['user_id'];
+        $namaLine = $_SESSION['user_line'];
 
 
         // Mendapatkan data material dan user berdasarkan ID
@@ -12,6 +13,7 @@ class Create extends Controller
         $data['mat'] = $this->model('Material_model')->getAllMaterial();
         $data['lineMaster'] = $this->model('Line_model')->getAllLine();
         $data['user'] = $this->model('User_model')->getAllUserById($id);
+        $data['userMat'] = $this->model('Line_model')->getMatByLine($namaLine);
 
         // Tampilkan view
         $this->view('templates/header', $data);
@@ -26,17 +28,31 @@ class Create extends Controller
 
     public function tambah()
     {
-        // print_r($_POST);
-        if ($this->model('Material_model')->AddDataMaterial($_POST) > 0) {
-            // Flasher::setFlash('data', 'berhasil', 'ditambahkan', 'success');
-            // header('location:' . BASEURL . '/create#tabelData2');
-            exit;
-        } else {
-            // Flasher::setFlash('data', 'gagal', 'ditambahkan', 'danger');
-            // header('location:' . BASEURL . '/create#tabelData2');
-            exit;
+        header('Content-Type: application/json');
+
+        try {
+            $result = $this->model('Material_model')->AddDataMaterial($_POST);
+            $this->model('Material_model')->addReport($_POST);
+
+            if ($result > 0) {
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => 'Berhasil menambahkan data dengan No LSR: ' . $_POST['no_lsr']
+                ]);
+            } else {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'Gagal menambahkan data, terjadi kesalahan.'
+                ]);
+            }
+        } catch (Exception $e) {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ]);
         }
     }
+
 
     // public function submitReport()
     // {
@@ -125,19 +141,18 @@ class Create extends Controller
         header('Content-Type: application/json');
 
         // Validasi dan bersihkan input
-        $material = isset($_POST['material']) ? $_POST['material'] : null;
         $tanggalValue = isset($_POST['tanggalValue']) ? $_POST['tanggalValue'] : null;
         $shiftUser = isset($_POST['shiftUser']) ? $_POST['shiftUser'] : null;
         $lineUser = isset($_POST['lineUser']) ? $_POST['lineUser'] : null;
 
-        if ($material === null || $tanggalValue === null || $shiftUser === null || $lineUser === null) {
+        if ($tanggalValue === null || $shiftUser === null || $lineUser === null) {
             echo json_encode(['error' => 'Invalid input']);
             return;
         }
 
         // Panggil fungsi dari model dengan parameter yang sesuai
         $materialModel = $this->model('Material_model');
-        $materialData = $materialModel->getAllMaterialCrieteria($material, $tanggalValue, $shiftUser, $lineUser);
+        $materialData = $materialModel->getAllMaterialCrieteria($tanggalValue, $shiftUser, $lineUser);
 
         if ($materialData !== false) {
             // Jika pengambilan data berhasil, encode dan echo respons JSON
@@ -154,21 +169,20 @@ class Create extends Controller
         header('Content-Type: application/json');
 
         // Validasi dan bersihkan input
-        $material = isset($_POST['material']) ? $_POST['material'] : null;
         $tanggalValue = isset($_POST['tanggalValue']) ? $_POST['tanggalValue'] : null;
         $shiftUser = isset($_POST['shiftUser']) ? $_POST['shiftUser'] : null;
         $lineUser = isset($_POST['lineUser']) ? $_POST['lineUser'] : null;
         $lineCode = isset($_POST['lineCode']) ? $_POST['lineCode'] : null;
         $costCenter = isset($_POST['costCenter']) ? $_POST['costCenter'] : null;
 
-        if ($material === null || $tanggalValue === null || $shiftUser === null || $lineUser === null || $lineCode === null || $costCenter === null) {
+        if ($tanggalValue === null || $shiftUser === null || $lineUser === null || $lineCode === null || $costCenter === null) {
             echo json_encode(['error' => 'Invalid input']);
             return;
         }
 
         // Panggil fungsi dari model dengan parameter yang sesuai
         $materialModel = $this->model('Material_model');
-        $materialData = $materialModel->getAllMaterialCrieteriaChange($material, $tanggalValue, $shiftUser, $lineUser, $lineCode, $costCenter);
+        $materialData = $materialModel->getAllMaterialCrieteriaChange($tanggalValue, $shiftUser, $lineUser, $lineCode, $costCenter);
 
         if ($materialData !== false) {
             // Jika pengambilan data berhasil, encode dan echo respons JSON
@@ -194,13 +208,38 @@ class Create extends Controller
     {
         header('Content-Type: application/json');
 
-        $validLineValue = $_POST['validLineValue'];
+        $categoryVal = $_POST['categoryVal'];
 
         $report_model = $this->model('Report_model');
-        $id = $report_model->generateUniqueID($validLineValue);
+        $id = $report_model->generateUniqueID($categoryVal);
 
         echo json_encode(array("no_lsr" => $id));
     }
+
+    public function checkNoLsr()
+    {
+        header('Content-Type: application/json');
+
+        $noLsr = $_POST['noLsr'];
+
+        $material_model = $this->model('Material_model');
+        $matData = $material_model->getMatData($noLsr);
+
+        echo json_encode($matData);
+    }
+
+    public function checkNoLsrWithLine()
+    {
+        header('Content-Type: application/json');
+
+        $lineName = $_POST['lineName'];
+
+        $material_model = $this->model('Material_model');
+        $lineData = $material_model->getLineDataByLine($lineName);
+
+        echo json_encode($lineData);
+    }
+
 
 
 }

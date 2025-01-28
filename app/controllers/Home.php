@@ -5,8 +5,10 @@ class Home extends Controller
     {
         // Mendapatkan ID pengguna dari session
         $id = $_SESSION['user_id'];
+        $namaLine = $_SESSION['user_line'];
 
         $data['user'] = $this->model('User_model')->getAllUserById($id);
+        $data['userMat'] = $this->model('Line_model')->getMatByLine($namaLine);
 
         $this->view('templates/header', $data);
         $this->view('templates/sidebar');
@@ -37,39 +39,39 @@ class Home extends Controller
             echo json_encode(['error' => 'Error getting data']);
         }
     }
-    public function getDataCardHome()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            header('Content-Type: application/json');
+    // public function getDataCardHome()
+    // {
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         header('Content-Type: application/json');
 
-            try {
-                $machiningLineValues = isset($_POST['machiningLineValues']) ? explode(',', $_POST['machiningLineValues']) : [];
-                $castingLineValues = isset($_POST['castingLineValues']) ? explode(',', $_POST['castingLineValues']) : [];
-                $assemblyLineValues = isset($_POST['assemblyLineValues']) ? explode(',', $_POST['assemblyLineValues']) : [];
-                $filter = isset($_POST['filter']) ? $_POST['filter'] : '';
+    //         try {
+    //             $machiningLineValues = isset($_POST['machiningLineValues']) ? explode(',', $_POST['machiningLineValues']) : [];
+    //             $castingLineValues = isset($_POST['castingLineValues']) ? explode(',', $_POST['castingLineValues']) : [];
+    //             $assemblyLineValues = isset($_POST['assemblyLineValues']) ? explode(',', $_POST['assemblyLineValues']) : [];
+    //             $filter = isset($_POST['filter']) ? $_POST['filter'] : '';
 
-                $materialModel = $this->model('Material_model');
+    //             $materialModel = $this->model('Material_model');
 
-                // Mendapatkan data dari model
-                $materialData = $materialModel->getMaterialByCriteria($machiningLineValues, $castingLineValues, $assemblyLineValues, $filter);
+    //             // Mendapatkan data dari model
+    //             $materialData = $materialModel->getMaterialByCriteria($machiningLineValues, $castingLineValues, $assemblyLineValues, $filter);
 
-                // Mengubah nilai null menjadi 0
-                $totalQtyMachining = $materialData['total_qty_machining'] ?? 0;
-                $totalQtyCasting = $materialData['total_qty_casting'] ?? 0;
-                $totalQtyAssembly = $materialData['total_qty_assembly'] ?? 0;
+    //             // Mengubah nilai null menjadi 0
+    //             $totalQtyMachining = $materialData['total_qty_machining'] ?? 0;
+    //             $totalQtyCasting = $materialData['total_qty_casting'] ?? 0;
+    //             $totalQtyAssembly = $materialData['total_qty_assembly'] ?? 0;
 
-                echo json_encode([
-                    'qtyM' => $totalQtyMachining,
-                    'qtyC' => $totalQtyCasting,
-                    'qtyK' => $totalQtyAssembly,
-                ]); 
-            } catch (Exception $e) {
-                echo json_encode(['error' => $e->getMessage()]);
-            }
-        } else {
-            echo json_encode(['error' => 'Invalid request method']);
-        }
-    }
+    //             echo json_encode([
+    //                 'qtyM' => $totalQtyMachining,
+    //                 'qtyC' => $totalQtyCasting,
+    //                 'qtyK' => $totalQtyAssembly,
+    //             ]);
+    //         } catch (Exception $e) {
+    //             echo json_encode(['error' => $e->getMessage()]);
+    //         }
+    //     } else {
+    //         echo json_encode(['error' => 'Invalid request method']);
+    //     }
+    // }
 
     public function getMachiningChartData()
     {
@@ -96,7 +98,6 @@ class Home extends Controller
     }
 
 
-
     public function getDataChart()
     {
         // Atur header untuk memberi tahu bahwa respons adalah JSON
@@ -115,6 +116,22 @@ class Home extends Controller
     }
 
 
+    public function getDataHome()
+    {
+        $year = $_POST['year'];
+        $month = isset($_POST['month']) ? $_POST['month'] : null;
+
+        $data = $this->model('Material_model')->getDataByCriteria($year, $month);
+
+        echo json_encode($data);
+    }
+
+    public function getDataYear()
+    {
+        $data = $this->model('Material_model')->getDataTanggal();
+
+        echo json_encode($data);
+    }
 
 
 

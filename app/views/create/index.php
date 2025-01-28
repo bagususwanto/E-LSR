@@ -33,17 +33,17 @@
                                     #1
                                 </div>
                                 <div class="row card-body">
-                                    <div class="col-3">
+                                    <div class="col-xxl-3 col-md-6 pb-3">
                                         <label for="tanggal" class="form-label col-form-label-sm">Date</label>
                                         <input type="text" id="tanggal" name="tanggal" value=""
                                             class="form-control form-control-sm" />
                                     </div>
-                                    <div class="cs-form col-3">
-                                        <label for="waktu" class="form-label col-form-label-sm">Time</label>
+                                    <div class="cs-form col-xxl-3 col-md-6 pb-3">
+                                        <label for=" waktu" class="form-label col-form-label-sm">Time</label>
                                         <input type="" id="waktu" name="waktu" class="form-control form-control-sm"
                                             value="" />
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-xxl-3 col-md-6 pb-3">
                                         <label for="line_lsr" class="form-label col-form-label-sm">Line</label>
                                         <select class="form-select form-select-sm" id="line" name="line_lsr"
                                             aria-label="Default select example">
@@ -57,18 +57,19 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-3">
+                                    <div class="col-xxl-3 col-md-6 pb-3">
                                         <label for="shift" class="form-label col-form-label-sm">Shift</label>
                                         <select class="form-select form-select-sm" id="shift" name="shift"
                                             aria-label="Default select example">
                                             <option value="Red">Red</option>
                                             <option value="White">White</option>
+                                            <option value="NonShift">NonShift</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="row card-body">
-                                    <div class="col-3 pt-3">
+                                    <div class="col-xxl-3 col-md-6 pb-3">
                                         <label for="material" class="form-label col-form-label-sm">Material</label>
                                         <select class="form-select form-select-sm" id="material" name="material"
                                             aria-label="Default select example">
@@ -87,7 +88,7 @@
                                             ?>
                                         </select>
                                     </div>
-                                    <div class="col-3 pt-3">
+                                    <div class="col-xxl-3 col-md-6 pb-3">
                                         <label for="line_code" class="form-label col-form-label-sm">Line Code</label>
                                         <select class="form-select form-select-sm" id="lineCode" name="line_code"
                                             aria-label="Disabled select example" disabled>
@@ -100,7 +101,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-3 pt-3">
+                                    <div class="col-xxl-3 col-md-6 pb-3">
                                         <label for="cost_center" class="form-label col-form-label-sm">Cost
                                             Center</label>
                                         <select class="form-select form-select-sm" id="costCenter" name="cost_center"
@@ -114,13 +115,35 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-3 pt-3">
+                                    <div class="col-xxl-3 col-md-6 pb-3">
                                         <label for="no_lsr" class="form-label col-form-label-sm">No LSR</label>
                                         <input class="form-control form-control-sm" type="text"
                                             aria-label=".form-control-sm example" id="noLsr" name="no_lsr" Disabled
                                             readonly>
                                         </input>
                                     </div>
+
+                                    <select class="hidden form-select form-select-sm" id="category" name="category"
+                                        aria-label="Default select example">
+                                        <!-- <option selected></option> -->
+                                        <?php foreach ($data['lineMaster'] as $lineMaster): ?>
+                                            <option value="<?php echo $lineMaster['category']; ?>"
+                                                data-id="<?php echo $lineMaster['id']; ?>">
+                                                <?php echo $lineMaster['category']; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+
+                                    <select class="hidden form-select form-select-sm" id="department" name="department"
+                                        aria-label="Default select example">
+                                        <!-- <option selected></option> -->
+                                        <?php foreach ($data['lineMaster'] as $lineMaster): ?>
+                                            <option value="<?php echo $lineMaster['department']; ?>"
+                                                data-id="<?php echo $lineMaster['id']; ?>">
+                                                <?php echo $lineMaster['department']; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
 
                                 </div>
                                 <div class="card-footer"></div>
@@ -138,7 +161,7 @@
                                 <div class="row card-body">
 
 
-                                    <div class="col-3">
+                                    <div class="col-xxl-2 col-md-6 pb-3">
                                         <label for="part_number" class="form-label col-form-label-sm">Part
                                             Number</label>
                                         <select class="form-select form-select-sm" id="partNumber" name="part_number"
@@ -147,7 +170,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-4">
+                                    <div class="col-xxl-4 col-md-6 pb-3">
                                         <label for="part_name" class="form-label col-form-label-sm">Part Name</label>
                                         <select class="form-select form-select-sm" id="partName" name="part_name"
                                             aria-label="Default select example">
@@ -155,7 +178,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-2">
+                                    <div class="col-xxl-2 col-md-6 pb-3">
                                         <label for="uniqe_no" class="form-label col-form-label-sm">Uniqe No</label>
                                         <select class="form-select form-select-sm" id="uniqeNo" name="uniqe_no"
                                             aria-label="Default select example">
@@ -184,14 +207,14 @@
                                     </select>
 
 
-                                    <div class="col-1">
-                                        <label for="qty" class="form-label col-form-label-sm">Qty</label>
+                                    <div class="col-xxl-2 col-md-3 pb-3">
+                                        <label for="qty" class="form-label col-form-label-sm">Qty (Pcs)</label>
                                         <input required class="form-control form-control-sm text-center" id="qty"
                                             name="qty" type="number" placeholder="" aria-label="default input example">
                                     </div>
 
-                                    <div class="col-2">
-                                        <label for="source_type" class="form-label col-form-label-sm">Souurce
+                                    <div class="col-xxl-2 col-md-3 pb-3">
+                                        <label for="source_type" class="form-label col-form-label-sm">Source
                                             Type</label>
                                         <select class="form-select form-select-sm" id="sourceType" name="source_type"
                                             aria-label="Default select example">
@@ -215,11 +238,11 @@
                                 </div>
                                 <div class="row card-body">
 
-                                    <div class="col-4">
+                                    <div class="col-xxl-4 col-md-4 pb-3">
                                         <label for="reason" class="form-label col-form-label-sm">Reason</label>
                                         <select required class="form-select form-select-sm" id="reason" name="reason"
                                             aria-label="Default select example">
-                                            <option selected></option>
+                                            <option value="">Select Reason Code</option>
                                             <option value="A. Shortage / Missing">A. Shortage / Missing</option>
                                             <option value="B. Wrong ( Shortage )">B. Wrong ( Shortage )</option>
                                             <option value="C. Surplus">C. Surplus</option>
@@ -233,11 +256,12 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-4">
-                                        <label for="condition" class="form-label col-form-label-sm">Condition</label>
+                                    <div class="col-xxl-4 col-md-4 pb-3">
+                                        <label for="condition" class="form-label col-form-label-sm">Box
+                                            Condition</label>
                                         <select required class="form-select form-select-sm" id="condition"
                                             name="condition" aria-label="Default select example">
-                                            <option selected></option>
+                                            <option value="">Select Box Condition Code</option>
                                             <option value="- Unknow">- Unknow</option>
                                             <option value="1. Good">1. Good</option>
                                             <option value="2. Damage">2. Damage</option>
@@ -245,11 +269,11 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-4">
+                                    <div class="col-xxl-4 col-md-4 pb-3">
                                         <label for="repair" class="form-label col-form-label-sm">Repair</label>
                                         <select required class="form-select form-select-sm" id="repair" name="repair"
                                             aria-label="Default select example">
-                                            <option selected></option>
+                                            <option value="">Select Repair Code</option>
                                             <option value="0. Unrepairable">0. Unrepairable</option>
                                             <option value="1. Plant Repair">1. Plant Repair</option>
                                             <option value="6. Unrepairable caused by other parts">6. Unrepairable caused

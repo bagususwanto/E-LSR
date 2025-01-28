@@ -16,6 +16,13 @@ class Line_model
         return $this->db->resultSet();
     }
 
+    public function getMatByLine($namaLine)
+    {
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE nama_line=:namaLine');
+        $this->db->bind('namaLine', $namaLine);
+        return $this->db->single();
+    }
+
 
     public function getAllLineById($id)
     {
