@@ -91,16 +91,9 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-3">
-                                                <div class="mb-3">
-                                                    <label for="line_code" class="form-label col-form-label-sm">Line
-                                                        Code</label>
-                                                    <input required type="text" class="form-control form-control-sm"
-                                                        id="lineCodeCCModal" name="line_code">
-                                                </div>
-                                            </div>
+                                          
 
-                                            <div class="col-3">
+                                            <div class="col-6">
                                                 <div class="mb-3">
                                                     <label for="cost_center" class="form-label col-form-label-sm">Cost
                                                         Center</label>
@@ -110,16 +103,38 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-4">
+                                            <div class="col-6">
                                                 <div class="mb-3">
-                                                    <label for="material"
-                                                        class="form-label col-form-label-sm">Material</label>
-                                                    <input required type="text" class="form-control form-control-sm"
-                                                        id="materialCCModal" name="material">
+                                                <label for="material"
+                                                    class="form-label col-form-label-sm">Material</label>
+                                                <select required class="form-select form-select-sm" id="materialCCModal"
+                                                    name="material" aria-label="Default select example">
+                                                    <option value=""></option>
+                                                    <?php
+                                                    $uniqueMaterials = array_unique(array_column($data['lineMaster'], 'material'));
+                                                    foreach ($uniqueMaterials as $material):
+                                                        if (!empty($material)): ?>
+                                                            <option value="<?php echo strtoupper($material); ?>">
+                                                                <?php echo strtoupper($material); ?>
+                                                            </option>
+                                                            <?php
+                                                        endif;
+                                                    endforeach;
+                                                    ?>
+                                                </select>
                                                 </div>
                                             </div>
 
-                                            <div class="col-2">
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="line_code" class="form-label col-form-label-sm">Line
+                                                        Code</label>
+                                                    <input required type="text" class="form-control form-control-sm"
+                                                        id="lineCodeCCModal" name="line_code">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
                                                 <div class="mb-3">
                                                     <label for="category"
                                                         class="form-label col-form-label-sm">Category</label>
@@ -127,10 +142,15 @@
                                                         id="categoryCCModal" name="category"
                                                         aria-label="Default select example">
                                                         <option value=""></option>
-                                                        <option value="K">K</option>
-                                                        <option value="M">M</option>
-                                                        <option value="C">C</option>
-                                                        <option value="X">X</option>
+                                                        <option value="KM">KM</option>
+                                                        <option value="KS">KS</option>
+                                                        <option value="MA">MA</option>
+                                                        <option value="MB">MB</option>
+                                                        <option value="MR">MR</option>
+                                                        <option value="MH">MH</option>
+                                                        <option value="CD">CD</option>
+                                                        <option value="CL">CL</option>
+                                                        <option value="XY">XY</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -218,16 +238,9 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-3">
-                                                <div class="mb-3">
-                                                    <label for="line_code" class="form-label col-form-label-sm">Line
-                                                        Code</label>
-                                                    <input required type="text" class="form-control form-control-sm"
-                                                        id="lineCodeEdit" name="line_code">
-                                                </div>
-                                            </div>
+                                         
 
-                                            <div class="col-3">
+                                            <div class="col-6">
                                                 <div class="mb-3">
                                                     <label for="cost_center" class="form-label col-form-label-sm">Cost
                                                         Center</label>
@@ -237,7 +250,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-4">
+                                            <div class="col-6">
                                                 <div class="mb-3">
                                                     <label for="material"
                                                         class="form-label col-form-label-sm">Material</label>
@@ -259,17 +272,31 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-2">
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="line_code" class="form-label col-form-label-sm">Line
+                                                        Code</label>
+                                                    <input required type="text" class="form-control form-control-sm"
+                                                        id="lineCodeEdit" name="line_code">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
                                                 <div class="mb-3">
                                                     <label for="category"
                                                         class="form-label col-form-label-sm">Category</label>
                                                     <select required class="form-select form-select-sm"
                                                         id="categoryEdit" name="category"
                                                         aria-label="Default select example">
-                                                        <option value="K">K</option>
-                                                        <option value="M">M</option>
-                                                        <option value="C">C</option>
-                                                        <option value="X">X</option>
+                                                        <option value="KM">KM</option>
+                                                        <option value="KS">KS</option>
+                                                        <option value="MA">MA</option>
+                                                        <option value="MB">MB</option>
+                                                        <option value="MR">MR</option>
+                                                        <option value="MH">MH</option>
+                                                        <option value="CD">CD</option>
+                                                        <option value="CL">CL</option>
+                                                        <option value="XY">XY</option>
                                                     </select>
                                                 </div>
                                             </div>

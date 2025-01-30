@@ -109,6 +109,7 @@ class Master_model
                     line_code = :lineCode,
                     cost_center = :costCenter,
                     material = :material,
+                    category = :category,
                     change_by = :user
                     WHERE id = :id';
 
@@ -118,6 +119,7 @@ class Master_model
         $this->db->bind('lineCode', $data['line_code']);
         $this->db->bind('costCenter', $data['cost_center']);
         $this->db->bind('material', $data['material']);
+        $this->db->bind('category', $data['category']);
         $this->db->bind('user', $data['userName']);
         $this->db->bind('id', $data['id']);
 

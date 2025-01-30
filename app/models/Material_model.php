@@ -115,7 +115,7 @@ class Material_model
     public function addReport($data)
     {
         // query 2 untuk table report
-        $category = $data['category'];
+        $category =  substr($data['category'], 0, 1); // ambil 1 digit dari category
         switch ($category) {
             case 'K':
                 $tableValid = 'report_k';
@@ -210,20 +210,29 @@ class Material_model
 
     public function updateStatus($selectedData)
     {
-        $query = "UPDATE $this->table SET status_lsr = :statusVal, approved_by = :user WHERE no_lsr = :noLsr";
+        // Modifikasi query untuk menyertakan kolom rejectionRemarks
+        $query = "UPDATE $this->table 
+                  SET status_lsr = :statusVal, 
+                      approved_by = :user,
+                      rejected_by = :userRejected, 
+                      rejection_remarks = :rejectionRemarks 
+                  WHERE no_lsr = :noLsr";
         $this->db->query($query);
-
+    
         try {
             foreach ($selectedData as $index) {
+                // Bind parameter untuk setiap data yang dipilih
                 $this->db->bind(':noLsr', $index['noLsr']);
                 $this->db->bind(':statusVal', $index['statusVal']);
                 $this->db->bind(':user', $index['user']);
+                $this->db->bind(':userRejected', $index['userRejected']); // Tambahkan binding untuk userRejected
+                $this->db->bind(':rejectionRemarks', $index['remarks']); // Tambahkan binding untuk rejectionRemarks
                 $this->db->execute(); // Eksekusi query untuk setiap data yang dipilih
             }
-
-            return $this->db->rowCount();
+    
+            return $this->db->rowCount(); // Kembalikan jumlah baris yang terpengaruh
         } catch (Exception $e) {
-            // Handle and log error
+            // Handle dan log error
             error_log($e->getMessage());
             return 0;
         }
@@ -504,11 +513,13 @@ class Material_model
         // Tentukan kolom yang ingin ditampilkan
         $query = 'SELECT no_lsr, MAX(tanggal) as tanggal, MAX(department) as department, MAX(line_lsr) as line_lsr, MAX(cost_center) as cost_center, 
                   MAX(shift) as shift, MAX(user_lsr) as user_lsr, MAX(waktu) as waktu, MAX(approved_by) as approved_by,
-                  MAX(received_by) as received_by, MAX(status_lsr) as status_lsr 
+                  MAX(received_by) as received_by, MAX(rejected_by) as rejected_by, MAX(rejection_remarks) as rejection_remarks, MAX(status_lsr) as status_lsr 
                   FROM ' . $this->table;
 
         $params = [];
         $conditions = [];
+
+        $firstLsrCode = substr($lsrCode, 0, 1);
 
         // Tambahkan kondisi jika nilai bukan "All"
         if ($department !== 'All') {
@@ -526,9 +537,9 @@ class Material_model
             $params[':shift'] = $shift;
         }
 
-        if ($lsrCode !== 'All') {
+        if ($firstLsrCode !== 'All') {
             $conditions[] = 'no_lsr LIKE :lsrCode';
-            $params[':lsrCode'] = $lsrCode . '%';
+            $params[':lsrCode'] = $firstLsrCode . '%';
         }
 
         if ($status !== 'All') {
@@ -576,10 +587,12 @@ class Material_model
         $this->db->bind(':line', $line);
         $lineCountResult = $this->db->single();
 
+        $firstLsrCode = substr($lsrCode, 0, 1);
+
         // Tentukan kolom yang ingin ditampilkan
         $query = 'SELECT no_lsr, MAX(tanggal) as tanggal, MAX(department) as department, MAX(line_lsr) as line_lsr, MAX(cost_center) as cost_center, 
                   MAX(shift) as shift, MAX(user_lsr) as user_lsr, MAX(waktu) as waktu, MAX(approved_by) as approved_by,
-                  MAX(received_by) as received_by, MAX(status_lsr) as status_lsr 
+                  MAX(received_by) as received_by, MAX(rejected_by) as rejected_by, MAX(rejection_remarks) as rejection_remarks, MAX(status_lsr) as status_lsr 
                   FROM ' . $this->table . ' WHERE 1=1 ';
 
         // Tambahkan kondisi berdasarkan parameter
@@ -593,9 +606,9 @@ class Material_model
             $query .= ' AND shift = :shift';
             $bindParams[':shift'] = $shift;
         }
-        if (!empty($lsrCode)) {
+        if (!empty($firstLsrCode)) {
             $query .= ' AND no_lsr LIKE :lsrCode';
-            $bindParams[':lsrCode'] = $lsrCode . '%';
+            $bindParams[':lsrCode'] = $firstLsrCode . '%';
         }
         if (!empty($status)) {
             $query .= ' AND status_lsr = :status';

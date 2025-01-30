@@ -192,10 +192,15 @@
                                                         aria-label="Default select example">
                                                         <option value=""></option>
                                                         <option value="All">All</option>
-                                                        <option value="K">K</option>
-                                                        <option value="M">M</option>
-                                                        <option value="C">C</option>
-                                                        <option value="X">X</option>
+                                                        <option value="KM">KM</option>
+                                                        <option value="KS">KS</option>
+                                                        <option value="MA">MA</option>
+                                                        <option value="MB">MB</option>
+                                                        <option value="MR">MR</option>
+                                                        <option value="MH">MH</option>
+                                                        <option value="CD">CD</option>
+                                                        <option value="CL">CL</option>
+                                                        <option value="XY">XY</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -375,10 +380,15 @@
                                                         id="categoryUserEdit" name="category"
                                                         aria-label="Default select example">
                                                         <option value="All">All</option>
-                                                        <option value="K">K</option>
-                                                        <option value="M">M</option>
-                                                        <option value="C">C</option>
-                                                        <option value="X">X</option>
+                                                        <option value="KM">KM</option>
+                                                        <option value="KS">KS</option>
+                                                        <option value="MA">MA</option>
+                                                        <option value="MB">MB</option>
+                                                        <option value="MR">MR</option>
+                                                        <option value="MH">MH</option>
+                                                        <option value="CD">CD</option>
+                                                        <option value="CL">CL</option>
+                                                        <option value="XY">XY</option>
                                                     </select>
                                                 </div>
                                             </div>

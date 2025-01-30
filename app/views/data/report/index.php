@@ -88,10 +88,15 @@
                                         <select class="form-select form-select-sm" id="lsrCode" name="lsrCode"
                                             aria-label="Default select example">
                                             <option data-id="0" value="All">All</option>
-                                            <option value="K">K</option>
-                                            <option value="M">M</option>
-                                            <option value="C">C</option>
-                                            <option value="X">X</option>
+                                                        <option value="KM">KM</option>
+                                                        <option value="KS">KS</option>
+                                                        <option value="MA">MA</option>
+                                                        <option value="MB">MB</option>
+                                                        <option value="MR">MR</option>
+                                                        <option value="MH">MH</option>
+                                                        <option value="CD">CD</option>
+                                                        <option value="CL">CL</option>
+                                                        <option value="XY">XY</option>
                                         </select>
                                     </div>
 
@@ -164,26 +169,27 @@
                     </div>
 
                     <!-- Modal Bootstrap untuk konfirmasi Reject-->
-                    <div class="modal fade" id="confirmRejectReport" tabindex="-1"
-                        aria-labelledby="confirmationModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="confirmationModalLabel">Konfirmasi Reject</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body" id="modalContent">
-                                    Apakah Anda yakin ingin reject baris yang dipilih?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Batal</button>
-                                    <button type="button" class="btn btn-primary" id="RejectReportbtn">Reject</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="modal fade" id="confirmRejectReport" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">Konfirmasi Reject</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalContent">
+                <p>Apakah Anda yakin ingin reject baris yang dipilih?</p>
+                <div class="form-group mt-3">
+                    <label for="remarks" class="form-label">Remarks <span class="text-danger">*</span></label>
+                    <textarea class="form-control" id="remarks" rows="3" required></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary" id="RejectReportbtn">Reject</button>
+            </div>
+        </div>
+    </div>
+</div>
 
                     <div class="row">
                         <div class="col">
