@@ -537,7 +537,7 @@ class Material_model
             $params[':shift'] = $shift;
         }
 
-        if ($firstLsrCode !== 'All') {
+        if ($lsrCode!== 'All') {
             $conditions[] = 'no_lsr LIKE :lsrCode';
             $params[':lsrCode'] = $firstLsrCode . '%';
         }
