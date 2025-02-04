@@ -79,7 +79,7 @@ class Material_model
             ' VALUES (null, :no_lsr, :part_number, :part_name, :uniqe_no, :qty, 
             :reason, :condition, :repair, :source_type, :remarks, :material, :tanggal, 
             :waktu, :department, :line_lsr, :shift, :user_lsr, :line_code, :cost_center, :status_lsr,
-            "", "", 
+            "", "", "", "",
             :price, :total_price, CURRENT_TIMESTAMP, :user_lsr)';
 
         $this->db->query($query);
