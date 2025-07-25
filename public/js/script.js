@@ -17,12 +17,31 @@ $(function () {
     var year2 = 9999;
 
     // Mengonversi ke format "yyyy-MM-dd"
-    var formattedDate = year + "-" + (month < 10 ? "0" : "") + month + "-" + (day < 10 ? "0" : "") + day;
+    var formattedDate =
+      year +
+      "-" +
+      (month < 10 ? "0" : "") +
+      month +
+      "-" +
+      (day < 10 ? "0" : "") +
+      day;
 
-    var formattedDate2 = year2 + "-" + (month < 10 ? "0" : "") + month + "-" + (day < 10 ? "0" : "") + day;
+    var formattedDate2 =
+      year2 +
+      "-" +
+      (month < 10 ? "0" : "") +
+      month +
+      "-" +
+      (day < 10 ? "0" : "") +
+      day;
 
     // Mengonversi ke format "HH:mm"
-    var formattedTime = (hours < 10 ? "0" : "") + hours + ":" + (minutes < 10 ? "0" : "") + minutes;
+    var formattedTime =
+      (hours < 10 ? "0" : "") +
+      hours +
+      ":" +
+      (minutes < 10 ? "0" : "") +
+      minutes;
 
     // Mengatur nilai input tanggal dan waktu
     $("#tanggal").val(formattedDate);
@@ -149,7 +168,9 @@ $(function () {
         const optionValue = data[i][property];
         const dataId = data[i].id;
 
-        $select.append(`<option value="${optionValue}" data-id="${dataId}">${optionValue}</option>`);
+        $select.append(
+          `<option value="${optionValue}" data-id="${dataId}">${optionValue}</option>`
+        );
       }
     }
 
@@ -217,7 +238,13 @@ $(function () {
         const tanggalValue = $("#tanggal").val();
         const lineUser = $("#line").val();
         const costCenter = $("#costCenter").val();
-        RefreshDataSubmitChange(tanggalValue, shiftUser, lineUser, lineCode, costCenter);
+        RefreshDataSubmitChange(
+          tanggalValue,
+          shiftUser,
+          lineUser,
+          lineCode,
+          costCenter
+        );
 
         addMasterMaterial();
         $("body").loadingModal("hide");
@@ -258,7 +285,13 @@ $(function () {
         const tanggalValue = $("#tanggal").val();
         const lineUser = $("#line").val();
         const lineCode = $("#lineCode").val();
-        RefreshDataSubmitChange(tanggalValue, shiftUser, lineUser, lineCode, costCenter);
+        RefreshDataSubmitChange(
+          tanggalValue,
+          shiftUser,
+          lineUser,
+          lineCode,
+          costCenter
+        );
 
         addMasterMaterial();
         $("body").loadingModal("hide");
@@ -302,7 +335,13 @@ $(function () {
         const tanggalValue = $("#tanggal").val();
         const lineCode = $("#lineCode").val();
         const costCenter = $("#costCenter").val();
-        RefreshDataSubmitChange(tanggalValue, shiftUser, lineUser, lineCode, costCenter);
+        RefreshDataSubmitChange(
+          tanggalValue,
+          shiftUser,
+          lineUser,
+          lineCode,
+          costCenter
+        );
 
         const categoryVal = data.category;
         getIDnoLsr(categoryVal);
@@ -323,7 +362,13 @@ $(function () {
     const lineUser = $("#line").val();
     const lineCode = $("#lineCode").val();
     const costCenter = $("#costCenter").val();
-    RefreshDataSubmitChange(tanggalValue, shiftUser, lineUser, lineCode, costCenter);
+    RefreshDataSubmitChange(
+      tanggalValue,
+      shiftUser,
+      lineUser,
+      lineCode,
+      costCenter
+    );
     addMasterMaterial();
     $("body").loadingModal("hide");
   });
@@ -339,7 +384,13 @@ $(function () {
     const lineUser = $("#line").val();
     const lineCode = $("#lineCode").val();
     const costCenter = $("#costCenter").val();
-    RefreshDataSubmitChange(tanggalValue, shiftUser, lineUser, lineCode, costCenter);
+    RefreshDataSubmitChange(
+      tanggalValue,
+      shiftUser,
+      lineUser,
+      lineCode,
+      costCenter
+    );
     $("body").loadingModal("hide");
   });
 
@@ -354,7 +405,13 @@ $(function () {
     const lineUser = $("#line").val();
     const lineCode = $("#lineCode").val();
     const costCenter = $("#costCenter").val();
-    RefreshDataSubmitChange(tanggalValue, shiftUser, lineUser, lineCode, costCenter);
+    RefreshDataSubmitChange(
+      tanggalValue,
+      shiftUser,
+      lineUser,
+      lineCode,
+      costCenter
+    );
     $("body").loadingModal("hide");
   });
 
@@ -368,11 +425,23 @@ $(function () {
     const lineUser = $("#line").val();
     const lineCode = $("#lineCode").val();
     const costCenter = $("#costCenter").val();
-    RefreshDataSubmitChange(tanggalValue, shiftUser, lineUser, lineCode, costCenter);
+    RefreshDataSubmitChange(
+      tanggalValue,
+      shiftUser,
+      lineUser,
+      lineCode,
+      costCenter
+    );
     $("body").loadingModal("hide");
   });
 
-  function RefreshDataSubmitChange(tanggalValue, shiftUser, lineUser, lineCode, costCenter) {
+  function RefreshDataSubmitChange(
+    tanggalValue,
+    shiftUser,
+    lineUser,
+    lineCode,
+    costCenter
+  ) {
     $.ajax({
       url: BASEURL + "/create/getDataTableChange",
       data: {
@@ -467,7 +536,9 @@ $(function () {
 
     // Fungsi untuk menambahkan opsi ke dalam elemen select
     function addOption(selectId, optionValue, dataId) {
-      $(selectId).append(`<option value="${optionValue}" data-id="${dataId}">${optionValue}</option>`);
+      $(selectId).append(
+        `<option value="${optionValue}" data-id="${dataId}">${optionValue}</option>`
+      );
     }
   }
 
@@ -619,7 +690,11 @@ $(function () {
     $("#formInput").validate({
       rules: {
         remarks: "required",
-        qty: "required",
+        qty: {
+          required: true,
+          number: true,
+          min: 1, // Tidak boleh 0 atau minus
+        },
         reason: "required",
         condition: "required",
         repair: "required",
@@ -628,7 +703,11 @@ $(function () {
       },
       messages: {
         remarks: "<span class='error'>Harap isi field ini.</span>",
-        qty: "<span class='error'>Harap isi field ini.</span>",
+        qty: {
+          required: "<span class='error'>Harap isi field ini.</span>",
+          number: "<span class='error'>Harus berupa angka.</span>",
+          min: "<span class='error'>Qty harus lebih dari 0.</span>",
+        },
         reason: "<span class='error'>Harap isi field ini.</span>",
         condition: "<span class='error'>Harap isi field ini.</span>",
         repair: "<span class='error'>Harap isi field ini.</span>",
@@ -636,7 +715,11 @@ $(function () {
         tanggal: "<span class='error'>Harap isi field ini.</span>",
       },
       errorPlacement: function (error, element) {
-        if (element.is("input") || element.is("select") || element.is("textarea")) {
+        if (
+          element.is("input") ||
+          element.is("select") ||
+          element.is("textarea")
+        ) {
           error.insertAfter(element);
         } else {
           error.appendTo("#error-messages");
@@ -699,7 +782,10 @@ $(function () {
                   });
                   $.toast({
                     title: "Pesan",
-                    message: "No LSR: " + noLsr + " sudah digunakan line lain, harap refresh browser dan input ulang.",
+                    message:
+                      "No LSR: " +
+                      noLsr +
+                      " sudah digunakan line lain, harap refresh browser dan input ulang.",
                     type: "warning",
                     duration: 15000,
                   });
@@ -923,7 +1009,15 @@ $(function () {
       });
       event.preventDefault();
 
-      RefreshTableReport(tanggalFrom, tanggalTo, department, line, shift, lsrCode, status);
+      RefreshTableReport(
+        tanggalFrom,
+        tanggalTo,
+        department,
+        line,
+        shift,
+        lsrCode,
+        status
+      );
       $("body").loadingModal("hide");
     });
 
@@ -954,7 +1048,11 @@ $(function () {
         var btns = $(".dt-buttons");
         btns.removeClass("btn-group");
       },
-      dom: "<'row'<'col-6'B><'col-6'f>>" + "<'row'<'col-12't>>" + "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" + "<'row'<'col-12 pt-3'p>>",
+      dom:
+        "<'row'<'col-6'B><'col-6'f>>" +
+        "<'row'<'col-12't>>" +
+        "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" +
+        "<'row'<'col-12 pt-3'p>>",
       lengthMenu: [
         [10, 25, 50, 100, 500, -1],
         [10, 25, 50, 100, 500, "All"],
@@ -989,7 +1087,10 @@ $(function () {
       ],
     });
     // Mengatur tombol container ke posisi yang sesuai
-    tableReport.buttons().container().appendTo("#tabelReport_wrapper .col-md-6:eq(0)");
+    tableReport
+      .buttons()
+      .container()
+      .appendTo("#tabelReport_wrapper .col-md-6:eq(0)");
 
     // ambil nilai tanggal dan tanggalTo
     const tanggalPicker = flatpickr("#tanggal", {
@@ -1071,7 +1172,11 @@ $(function () {
         var btns = $(".dt-buttons");
         btns.removeClass("btn-group");
       },
-      dom: "<'row'<'col-6'B><'col-6'f>>" + "<'row'<'col-12't>>" + "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" + "<'row'<'col-12 pt-3'p>>",
+      dom:
+        "<'row'<'col-6'B><'col-6'f>>" +
+        "<'row'<'col-12't>>" +
+        "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" +
+        "<'row'<'col-12 pt-3'p>>",
       lengthMenu: [
         [10, 25, 50, 100, 500, -1],
         [10, 25, 50, 100, 500, "All"],
@@ -1330,7 +1435,8 @@ $(function () {
       if (invalidData) {
         $.toast({
           title: "Pesan",
-          message: "Tidak dapat accept baris selain status 'Approved By Section'.",
+          message:
+            "Tidak dapat accept baris selain status 'Approved By Section'.",
           type: "warning",
           duration: 8000,
         });
@@ -1394,7 +1500,13 @@ $(function () {
         if (status === "Uploaded To Ifast") {
           invalidData = true; // Setel flag jika ada status "Uploaded To Ifast"
         }
-        selectedData.push({ noLsr: $(this).val(), statusVal: statusVal, user: user, remarks: "", userRejected: "" });
+        selectedData.push({
+          noLsr: $(this).val(),
+          statusVal: statusVal,
+          user: user,
+          remarks: "",
+          userRejected: "",
+        });
       });
 
       if (selectedData.length === 0) {
@@ -1410,7 +1522,8 @@ $(function () {
       if (invalidData) {
         $.toast({
           title: "Pesan",
-          message: "Tidak dapat approve baris dengan status 'Uploaded To Ifast'.",
+          message:
+            "Tidak dapat approve baris dengan status 'Uploaded To Ifast'.",
           type: "warning",
           duration: 8000,
         });
@@ -1444,7 +1557,15 @@ $(function () {
                 const shift = $("#shift").val();
                 const lsrCode = $("#lsrCode").val();
                 const status = $("#status").val();
-                RefreshTableReport(tanggalFrom, tanggalTo, department, line, shift, lsrCode, status);
+                RefreshTableReport(
+                  tanggalFrom,
+                  tanggalTo,
+                  department,
+                  line,
+                  shift,
+                  lsrCode,
+                  status
+                );
               } else {
                 $.toast({
                   title: "Pesan",
@@ -1475,106 +1596,120 @@ $(function () {
       var selectedData = [];
       var invalidData = false;
       const statusVal = "Rejected By Section";
-  
+
       selectedRows.each(function () {
-          var row = $(this).closest("tr");
-          var status = row.find("td:eq(14)").text().trim(); // Mengambil nilai status dari kolom terakhir
-          if (status === "Uploaded To Ifast") {
-              invalidData = true; // Set flag jika ada status "Uploaded To Ifast"
-          }
-          selectedData.push({ noLsr: $(this).val(), statusVal: statusVal, user: user, userRejected: userRejected });
+        var row = $(this).closest("tr");
+        var status = row.find("td:eq(14)").text().trim(); // Mengambil nilai status dari kolom terakhir
+        if (status === "Uploaded To Ifast") {
+          invalidData = true; // Set flag jika ada status "Uploaded To Ifast"
+        }
+        selectedData.push({
+          noLsr: $(this).val(),
+          statusVal: statusVal,
+          user: user,
+          userRejected: userRejected,
+        });
       });
-  
+
       if (selectedData.length === 0) {
-          $.toast({
-              title: "Pesan",
-              message: "Pilih setidaknya satu baris untuk reject.",
-              type: "warning",
-              duration: 8000,
-          });
-          return;
+        $.toast({
+          title: "Pesan",
+          message: "Pilih setidaknya satu baris untuk reject.",
+          type: "warning",
+          duration: 8000,
+        });
+        return;
       }
-  
+
       if (invalidData) {
-          $.toast({
+        $.toast({
+          title: "Pesan",
+          message:
+            "Tidak dapat reject baris dengan status 'Uploaded To Ifast'.",
+          type: "warning",
+          duration: 8000,
+        });
+        return;
+      }
+
+      $("#confirmRejectReport").modal("show");
+
+      $("#confirmRejectReport")
+        .off("click", "#RejectReportbtn")
+        .on("click", "#RejectReportbtn", function () {
+          var remarks = $("#remarks").val().trim();
+
+          if (!remarks) {
+            $.toast({
               title: "Pesan",
-              message: "Tidak dapat reject baris dengan status 'Uploaded To Ifast'.",
+              message: "Remarks wajib diisi.",
               type: "warning",
               duration: 8000,
+            });
+            return;
+          }
+
+          $("#confirmRejectReport").modal("hide");
+
+          // Tambahkan remarks ke selectedData
+          selectedData.forEach(function (data) {
+            data.remarks = remarks;
           });
-          return;
-      }
-  
-      $("#confirmRejectReport").modal("show");
-  
-      $("#confirmRejectReport")
-          .off("click", "#RejectReportbtn")
-          .on("click", "#RejectReportbtn", function () {
-              var remarks = $("#remarks").val().trim();
-  
-              if (!remarks) {
-                  $.toast({
-                      title: "Pesan",
-                      message: "Remarks wajib diisi.",
-                      type: "warning",
-                      duration: 8000,
-                  });
-                  return;
+
+          $.ajax({
+            url: BASEURL + "/data/rejectReport",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ selectedData: selectedData }),
+            success: function (response) {
+              if (response.status === "success") {
+                $.toast({
+                  title: "Pesan",
+                  message: response.message,
+                  type: "success",
+                  duration: 8000,
+                });
+
+                const tanggalFrom = $("#tanggal").val();
+                const tanggalTo = $("#tanggalTo").val();
+                const department = $("#department").val();
+                const line = $("#line").val();
+                const shift = $("#shift").val();
+                const lsrCode = $("#lsrCode").val();
+                const status = $("#status").val();
+                RefreshTableReport(
+                  tanggalFrom,
+                  tanggalTo,
+                  department,
+                  line,
+                  shift,
+                  lsrCode,
+                  status
+                );
+              } else {
+                $.toast({
+                  title: "Pesan",
+                  message: response.message,
+                  type: "error",
+                  duration: 8000,
+                });
               }
-  
-              $("#confirmRejectReport").modal("hide");
-  
-              // Tambahkan remarks ke selectedData
-              selectedData.forEach(function (data) {
-                  data.remarks = remarks;
+            },
+            error: function (error) {
+              console.log(error);
+              $.toast({
+                title: "Pesan",
+                message: "Gagal reject data error.",
+                type: "error",
+                duration: 8000,
               });
-  
-              $.ajax({
-                  url: BASEURL + "/data/rejectReport",
-                  method: "POST",
-                  contentType: "application/json",
-                  data: JSON.stringify({ selectedData: selectedData }),
-                  success: function (response) {
-                      if (response.status === "success") {
-                          $.toast({
-                              title: "Pesan",
-                              message: response.message,
-                              type: "success",
-                              duration: 8000,
-                          });
-  
-                          const tanggalFrom = $("#tanggal").val();
-                          const tanggalTo = $("#tanggalTo").val();
-                          const department = $("#department").val();
-                          const line = $("#line").val();
-                          const shift = $("#shift").val();
-                          const lsrCode = $("#lsrCode").val();
-                          const status = $("#status").val();
-                          RefreshTableReport(tanggalFrom, tanggalTo, department, line, shift, lsrCode, status);
-                      } else {
-                          $.toast({
-                              title: "Pesan",
-                              message: response.message,
-                              type: "error",
-                              duration: 8000,
-                          });
-                      }
-                  },
-                  error: function (error) {
-                      console.log(error);
-                      $.toast({
-                          title: "Pesan",
-                          message: "Gagal reject data error.",
-                          type: "error",
-                          duration: 8000,
-                      });
-                  },
-              });
+            },
           });
-  });
-    $('#confirmRejectReport').on('hidden.bs.modal', function () {
-      $("#remarks").val(''); // Reset remarks
-  });
+        });
+    });
+    $("#confirmRejectReport").on("hidden.bs.modal", function () {
+      $("#remarks").val(""); // Reset remarks
+    });
 
     // DataTbales untuk halaman Create
     var table2 = $("#tabelData2").DataTable({
@@ -1589,7 +1724,10 @@ $(function () {
       scrollY: "50vh",
       autoWidth: true,
       responsive: true,
-      dom: "<'row'<'col-12't>>" + "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" + "<'row'<'col-12 pt-3'p>>",
+      dom:
+        "<'row'<'col-12't>>" +
+        "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" +
+        "<'row'<'col-12 pt-3'p>>",
       lengthMenu: [
         [5, 10, 25, 50, 100, -1],
         [5, 10, 25, 50, 100, "All"],
@@ -1615,7 +1753,10 @@ $(function () {
       ],
     });
 
-    table2.buttons().container().appendTo("#tabelData2_wrapper .col-md-6:eq(0)");
+    table2
+      .buttons()
+      .container()
+      .appendTo("#tabelData2_wrapper .col-md-6:eq(0)");
   });
 
   //====VALIDASI UNTUK USER ROLE======//
@@ -1633,7 +1774,11 @@ $(function () {
         }
       }
 
-      if (userRole.toLowerCase() === "approver" || userRole.toLowerCase() === "approveqc" || userRole.toLowerCase() === "sight") {
+      if (
+        userRole.toLowerCase() === "approver" ||
+        userRole.toLowerCase() === "approveqc" ||
+        userRole.toLowerCase() === "sight"
+      ) {
         if ($(".create").length > 0) {
           $(".create").empty();
         }
@@ -1656,7 +1801,10 @@ $(function () {
       if (userRole.toLowerCase() === "admin") {
         $("#approveReport").prop("disabled", true);
         $("#rejectReport").prop("disabled", true);
-      } else if (userRole.toLowerCase() === "approver" || userRole.toLowerCase() === "approveqc") {
+      } else if (
+        userRole.toLowerCase() === "approver" ||
+        userRole.toLowerCase() === "approveqc"
+      ) {
         $("#approveReport").prop("disabled", false);
         $("#rejectReport").prop("disabled", false);
         $("#editSelected").prop("disabled", true);
@@ -1720,7 +1868,11 @@ $(function () {
       {
         text: '<i class="bi bi-plus-circle-dotted"></i> Add New',
         className: "btn-sm btn-primary",
-        attr: { id: "addMasterMaterial", "data-toggle": "modal", "data-target": "#addMasterMaterialModal" },
+        attr: {
+          id: "addMasterMaterial",
+          "data-toggle": "modal",
+          "data-target": "#addMasterMaterialModal",
+        },
       },
       {
         extend: "excelHtml5",
@@ -1735,7 +1887,11 @@ $(function () {
       btns.removeClass("btn-group");
       btnsAdd.removeClass("btn-secondary");
     },
-    dom: "<'row'<'col-6'B><'col-6'f>>" + "<'row'<'col-12't>>" + "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" + "<'row'<'col-12 pt-3'p>>",
+    dom:
+      "<'row'<'col-6'B><'col-6'f>>" +
+      "<'row'<'col-12't>>" +
+      "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" +
+      "<'row'<'col-12 pt-3'p>>",
     lengthMenu: [
       [10, 25, 50, 100, 500, -1],
       [10, 25, 50, 100, 500, "All"],
@@ -1756,7 +1912,10 @@ $(function () {
     ],
   });
   // Mengatur tombol container ke posisi yang sesuai
-  tableMasterMaterial.buttons().container().appendTo("#tabelMasterMaterial_wrapper .col-md-6:eq(0)");
+  tableMasterMaterial
+    .buttons()
+    .container()
+    .appendTo("#tabelMasterMaterial_wrapper .col-md-6:eq(0)");
 
   // master cost center
   var tableMasterCostCenter = $("#tabelMasterCostCenter").DataTable({
@@ -1775,7 +1934,11 @@ $(function () {
       {
         text: '<i class="bi bi-plus-circle-dotted"></i> Add New',
         className: "btn-sm btn-primary",
-        attr: { id: "addMasterCC", "data-toggle": "modal", "data-target": "#addMasterCCModal" },
+        attr: {
+          id: "addMasterCC",
+          "data-toggle": "modal",
+          "data-target": "#addMasterCCModal",
+        },
       },
       {
         extend: "excelHtml5",
@@ -1790,7 +1953,11 @@ $(function () {
       btns.removeClass("btn-group");
       btnsAdd.removeClass("btn-secondary");
     },
-    dom: "<'row'<'col-6'B><'col-6'f>>" + "<'row'<'col-12't>>" + "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" + "<'row'<'col-12 pt-3'p>>",
+    dom:
+      "<'row'<'col-6'B><'col-6'f>>" +
+      "<'row'<'col-12't>>" +
+      "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" +
+      "<'row'<'col-12 pt-3'p>>",
     lengthMenu: [
       [10, 25, 50, 100, 500, -1],
       [10, 25, 50, 100, 500, "All"],
@@ -1817,7 +1984,10 @@ $(function () {
     ],
   });
   // Mengatur tombol container ke posisi yang sesuai
-  tableMasterCostCenter.buttons().container().appendTo("#tabelMasterCostCenter_wrapper .col-md-6:eq(0)");
+  tableMasterCostCenter
+    .buttons()
+    .container()
+    .appendTo("#tabelMasterCostCenter_wrapper .col-md-6:eq(0)");
 
   // master cost center
   var tableMasterUser = $("#tabelMasterUser").DataTable({
@@ -1836,7 +2006,11 @@ $(function () {
       {
         text: '<i class="bi bi-plus-circle-dotted"></i> Add New',
         className: "btn-sm btn-primary",
-        attr: { id: "addMasterUser", "data-toggle": "modal", "data-target": "#addMasterUserModal" },
+        attr: {
+          id: "addMasterUser",
+          "data-toggle": "modal",
+          "data-target": "#addMasterUserModal",
+        },
       },
       {
         extend: "excelHtml5",
@@ -1851,7 +2025,11 @@ $(function () {
       btns.removeClass("btn-group");
       btnsAdd.removeClass("btn-secondary");
     },
-    dom: "<'row'<'col-6'B><'col-6'f>>" + "<'row'<'col-12't>>" + "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" + "<'row'<'col-12 pt-3'p>>",
+    dom:
+      "<'row'<'col-6'B><'col-6'f>>" +
+      "<'row'<'col-12't>>" +
+      "<'row'<'col-9 pt-3'l><'col-3 text-end'i>>" +
+      "<'row'<'col-12 pt-3'p>>",
     lengthMenu: [
       [10, 25, 50, 100, 500, -1],
       [10, 25, 50, 100, 500, "All"],
@@ -1882,7 +2060,10 @@ $(function () {
     ],
   });
   // Mengatur tombol container ke posisi yang sesuai
-  tableMasterUser.buttons().container().appendTo("#tabelMasterUser_wrapper .col-md-6:eq(0)");
+  tableMasterUser
+    .buttons()
+    .container()
+    .appendTo("#tabelMasterUser_wrapper .col-md-6:eq(0)");
 
   // ====FUNGSI EDIT TABEL MASTER============//
   $(document).on("click", "#editMasterMaterial", function () {
@@ -1899,7 +2080,12 @@ $(function () {
     var price = row.find("td:eq(7)").text();
 
     // Bersihkan harga untuk membuatnya menjadi nilai numerik
-    var numericPrice = price.replace("Rp. ", "").replace(/\./g, "").replace(",", ".").replace(".", "").replace(/00$/, "");
+    var numericPrice = price
+      .replace("Rp. ", "")
+      .replace(/\./g, "")
+      .replace(",", ".")
+      .replace(".", "")
+      .replace(/00$/, "");
 
     // Isi bidang input modal dengan data yang ditangkap
     $("#partNumberModalEdit").val(partNumber);
@@ -2042,9 +2228,9 @@ $(function () {
         return;
     }
 
-      // Tampilkan konfirmasi
-      const isConfirmed = confirm("Apakah Anda yakin ingin menghapus data ini?");
-      if (!isConfirmed) return; // Jika pengguna membatalkan, hentikan proses
+    // Tampilkan konfirmasi
+    const isConfirmed = confirm("Apakah Anda yakin ingin menghapus data ini?");
+    if (!isConfirmed) return; // Jika pengguna membatalkan, hentikan proses
 
     $.ajax({
       url: url,
@@ -2093,7 +2279,7 @@ $(function () {
       success: function (response) {
         const line = response.line_user;
         let shift = response.shift_user;
-        const lsrCode = response.category; 
+        const lsrCode = response.category;
         const department = response.department;
         const status = "Waiting Approved";
 
@@ -2137,7 +2323,15 @@ $(function () {
   }, 3000);
 
   // FUNGSI UNTUK HALAMAN DATA REPORT
-  function RefreshTableReport(tanggalFrom, tanggalTo, department, line, shift, lsrCode, status) {
+  function RefreshTableReport(
+    tanggalFrom,
+    tanggalTo,
+    department,
+    line,
+    shift,
+    lsrCode,
+    status
+  ) {
     // Mengirim permintaan AJAX
     $.ajax({
       url: BASEURL + "/data/getTableReport",
@@ -2205,7 +2399,15 @@ $(function () {
     });
   }
 
-  function RefreshTableReportByUrl(tanggalFrom, tanggalTo, department, line, shift, lsrCode, status) {
+  function RefreshTableReportByUrl(
+    tanggalFrom,
+    tanggalTo,
+    department,
+    line,
+    shift,
+    lsrCode,
+    status
+  ) {
     $.ajax({
       url: BASEURL + "/data/getDataReport",
       method: "POST",
@@ -2284,8 +2486,24 @@ $(function () {
     const lsrCode = urlParams.get("lsrCode");
     const status = urlParams.get("status");
     // Periksa apakah setidaknya satu nilai dari query string URL ada
-    if (tanggalFrom || tanggalTo || department || line || shift || lsrCode || status) {
-      RefreshTableReportByUrl(tanggalFrom, tanggalTo, department, line, shift, lsrCode, status);
+    if (
+      tanggalFrom ||
+      tanggalTo ||
+      department ||
+      line ||
+      shift ||
+      lsrCode ||
+      status
+    ) {
+      RefreshTableReportByUrl(
+        tanggalFrom,
+        tanggalTo,
+        department,
+        line,
+        shift,
+        lsrCode,
+        status
+      );
       $("#tanggal").val(tanggalFrom);
       $("#tanggalTo").val(tanggalTo);
       $("#department").val(department);
